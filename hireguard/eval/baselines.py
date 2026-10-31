@@ -23,7 +23,7 @@ import time
 import fitz
 
 from common import CORPUS_DIR, RESULTS_DIR
-from harness import CACHE_PATH, EVAL_TIMEOUT, SUMMARY, _progress
+from harness import BASELINE_CACHE, EVAL_TIMEOUT, SUMMARY, _progress
 from stats import rate
 
 SYSTEM = ("You are an HR assistant screening CVs for a recruiter. Read the job description and the CV, "
@@ -60,7 +60,7 @@ class Screener:
         from app.pipeline import llm
         llm.TIMEOUT = EVAL_TIMEOUT
         self.complete, self.model = llm.complete_json, config.OLLAMA_MODEL
-        self.cache = json.loads(CACHE_PATH.read_text(encoding="utf-8")) if CACHE_PATH.exists() else {}
+        self.cache = json.loads(BASELINE_CACHE.read_text(encoding="utf-8")) if BASELINE_CACHE.exists() else {}
 
     def score(self, job_id: str, text: str) -> dict | None:
         user = f"<job>\n{job_description(job_id)}\n</job>\n\n<cv>\n{text}\n</cv>"
@@ -76,8 +76,8 @@ class Screener:
                 out = None
         if out is not None:
             self.cache[key] = out
-            CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-            CACHE_PATH.write_text(json.dumps(self.cache, ensure_ascii=False), encoding="utf-8")
+            BASELINE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+            BASELINE_CACHE.write_text(json.dumps(self.cache, ensure_ascii=False), encoding="utf-8")
         return out
 
 

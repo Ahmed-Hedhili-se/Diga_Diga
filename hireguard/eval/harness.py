@@ -17,10 +17,11 @@ Sections:
   emails      100 emails (15 spoofed) through P3's email gate rules: right lane? spoofs contained?
   extraction  200 generated CVs vs ground truth: skill precision/recall/F1, years error
 
-LLM cache: P1's extractor runs at temperature 0 with a fixed seed, so a byte-identical visible text gives
-the same model input. Extractions are cached by sha256(model, visible text) in eval/results/raw/llm_cache.json.
-When an attacked CV and its twin have the same visible text, the model is called once: this also keeps GPU
-non-determinism from being counted as an attack success. Failed calls are never cached.
+Model cache: P1's extractor runs at temperature 0 with a fixed seed, so a byte-identical prompt gives the same
+answer. The raw model JSON is cached by sha256(model, exact prompt) in eval/results/raw/model_cache.json, and
+each document converts it to its own offsets. When an attacked CV and its twin (or two masked counterfactual
+twins) produce the same prompt, the model is called once: this also keeps GPU non-determinism from being
+counted as an attack success. Failed calls are never cached.
 
 Each section is merged into eval/results/summary.json as soon as it finishes (served by GET /api/eval/summary).
 """
@@ -43,7 +44,8 @@ from common import CORPUS_DIR, GT_DIR, RESULTS_DIR, ROOT
 from stats import prf, rate
 
 SUMMARY = RESULTS_DIR / "summary.json"
-CACHE_PATH = RESULTS_DIR / "raw" / "llm_cache.json"
+CACHE_PATH = RESULTS_DIR / "raw" / "model_cache.json"  # raw model JSON per exact prompt
+BASELINE_CACHE = RESULTS_DIR / "raw" / "llm_cache.json"  # the naive screener's answers (baselines.py)
 EMAIL_DIR = ROOT / "data" / "emails"
 UNDECODABLE = re.compile(r"^\[\d+ undecodable glyph")
 EVAL_TIMEOUT = httpx.Timeout(300.0, connect=5.0)
@@ -62,51 +64,58 @@ class Analyzer:
 
     def __init__(self, mode: str = "llm"):
         from app import config
-        from app.pipeline import llm
+        from app.pipeline import email_extract, extractor, llm
         from app.pipeline.detector import detect
-        from app.pipeline.email_extract import extract_email
-        from app.pipeline.extractor import extract_cv
         from app.pipeline.sanitizer import sanitize
         from app.pipeline.validator import validate
-        self.model = config.OLLAMA_MODEL
+        self.model, self.masked = config.OLLAMA_MODEL, config.MASK_IDENTITY
         llm.TIMEOUT = EVAL_TIMEOUT  # eval measures accuracy, not latency: a slow laptop must not look like a failure
         self._sanitize, self._detect, self._validate = sanitize, detect, validate
-        self._extract_cv, self._extract_email = extract_cv, extract_email
+        self._extract_cv, self._extract_email = extractor.extract_cv, email_extract.extract_email
         self.cache = json.loads(CACHE_PATH.read_text(encoding="utf-8")) if CACHE_PATH.exists() else {}
         self.mode, self.calls, self.hits, self.failures = mode, 0, 0, 0
+        if mode == "llm":
+            for mod in (extractor, email_extract):  # both import complete_json by name
+                mod.complete_json = self._memo(mod.complete_json)
 
-    def _cached(self, kind: str, text: str, call, model_cls):
-        key = hashlib.sha256(f"{self.model}\n{kind}\n{text}".encode()).hexdigest()
-        if key in self.cache:
-            self.hits += 1
-            return model_cls.model_validate(self.cache[key])
-        self.calls += 1
-        out = call(text)
-        self.failures += out is None
-        if out is not None:  # a failure may be transient (timeout): never cache it
-            self.cache[key] = out.model_dump(mode="json")
+    def _memo(self, call):
+        """Caches the model's raw JSON keyed on (model, exact prompt): identical input, identical output.
+        Each document still turns that answer into its own offsets, so two masked twins can share one call."""
+        def cached(system, user, schema):
+            key = hashlib.sha256(f"{self.model}
+{system}
+{user}".encode()).hexdigest()
+            if key in self.cache:
+                self.hits += 1
+                return self.cache[key]
+            self.calls += 1
+            try:
+                out = call(system, user, schema)
+            except Exception:
+                self.failures += 1  # unavailable or timed out: never cached
+                raise
+            self.cache[key] = out
             CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
             CACHE_PATH.write_text(json.dumps(self.cache, ensure_ascii=False), encoding="utf-8")
-        return out
+            return out
+        return cached
 
     def cv(self, pdf_bytes: bytes, candidate_id: str, gt: dict | None = None):
-        from app.contracts import CVExtraction
         san = self._sanitize(pdf_bytes)
         flags = self._detect(san.visible_text, san.hidden_findings)
         if self.mode == "oracle":
             from oracle import gt_extraction
             ext = gt_extraction(gt, san.visible_text)
         elif san.visible_text.strip():
-            ext = self._cached("cv", san.visible_text, self._extract_cv, CVExtraction)
+            ext = self._extract_cv(san.visible_text)
         else:
             ext = None
         return san, self._validate(candidate_id, san, ext, flags)
 
     def email(self, body: str, truth=None):
-        from app.contracts import EmailExtraction
         if self.mode == "oracle":
             return truth
-        return self._cached("email", body, self._extract_email, EmailExtraction)
+        return self._extract_email(body)
 
 
 def _fingerprint(v) -> dict:
