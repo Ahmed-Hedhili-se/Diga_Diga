@@ -6,8 +6,15 @@ DATA_DIR = ROOT / "data"
 DB_PATH = Path(os.getenv("HG_DB_PATH", ROOT / "backend" / "hireguard.db"))
 UPLOAD_DIR = Path(os.getenv("HG_UPLOAD_DIR", ROOT / "backend" / "uploads"))
 
-OLLAMA_URLS = [u.strip() for u in os.getenv("HG_OLLAMA_URLS", "http://localhost:11434").split(",") if u.strip()]
+# HG_OLLAMA_HOSTS (preferred) or the older HG_OLLAMA_URLS: one URL per GPU, local or remote (Modal), round-robin
+OLLAMA_URLS = [u.strip().rstrip("/") for u in
+               (os.getenv("HG_OLLAMA_HOSTS") or os.getenv("HG_OLLAMA_URLS") or "http://localhost:11434").split(",")
+               if u.strip()]
 OLLAMA_MODEL = os.getenv("HG_OLLAMA_MODEL", "qwen3:8b")
+# Modal proxy auth for a remote Ollama (sent as Modal-Key / Modal-Secret headers; never logged)
+OLLAMA_MODAL_KEY = os.getenv("HG_OLLAMA_MODAL_KEY", "")
+OLLAMA_MODAL_SECRET = os.getenv("HG_OLLAMA_MODAL_SECRET", "")
+LLM_TIMEOUT = float(os.getenv("HG_LLM_TIMEOUT", "120"))
 # Groq fallback: fictional data only, OFF by default
 GROQ_FALLBACK = os.getenv("HG_GROQ_FALLBACK", "0") == "1"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
