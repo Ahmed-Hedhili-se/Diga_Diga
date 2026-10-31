@@ -1,0 +1,17 @@
+,odds_ratio,ci_low,ci_high,p_value
+age,0.9849,0.9795,0.9903,0.0
+female,1.5396,1.3522,1.7529,0.0
+self_employed,1.0574,0.8378,1.3345,0.6386
+hours_week,1.0832,1.0296,1.1396,0.002
+extra_hour_days,1.2025,1.0951,1.3203,0.0001
+too_much_work,2.0622,1.548,2.7473,0.0
+must_work_fast,2.5145,1.911,3.3087,0.0
+understaffed,1.8159,1.4275,2.3099,0.0
+conflicting_demands,1.7132,1.3375,2.1944,0.0
+job_freedom,0.8652,0.6593,1.1354,0.2963
+schedule_control,1.1488,0.9724,1.3571,0.1029
+role_clarity,1.3548,0.9484,1.9353,0.0951
+treated_with_respect,0.4757,0.3339,0.6778,0.0
+coworker_support,0.7645,0.5746,1.017,0.0652
+supervisor_support,0.6839,0.5161,0.9063,0.0082
+work_family_interference,3.1386,2.5306,3.8927,0.0

@@ -1,0 +1,334 @@
+{
+  "corpus": {
+    "occupations": 914,
+    "train_tasks": 14425,
+    "test_tasks": 4359
+  },
+  "text_to_occupation": [
+    {
+      "artifacts": 1,
+      "n_queries": 4359,
+      "top1": 0.2007,
+      "top5": 0.421,
+      "top10": 0.5125,
+      "median_rank": 10.0,
+      "method": "TF-IDF",
+      "n_classes": 914
+    },
+    {
+      "artifacts": 3,
+      "n_queries": 2604,
+      "top1": 0.3621,
+      "top5": 0.677,
+      "top10": 0.7723,
+      "median_rank": 2.0,
+      "method": "TF-IDF",
+      "n_classes": 914
+    },
+    {
+      "artifacts": 5,
+      "n_queries": 1437,
+      "top1": 0.4836,
+      "top5": 0.778,
+      "top10": 0.8344,
+      "median_rank": 2.0,
+      "method": "TF-IDF",
+      "n_classes": 914
+    },
+    {
+      "artifacts": 1,
+      "n_queries": 4359,
+      "top1": 0.2379,
+      "top5": 0.5058,
+      "top10": 0.6139,
+      "median_rank": 5.0,
+      "method": "MiniLM sentence embeddings",
+      "n_classes": 914
+    },
+    {
+      "artifacts": 3,
+      "n_queries": 2604,
+      "top1": 0.4589,
+      "top5": 0.7727,
+      "top10": 0.856,
+      "median_rank": 2.0,
+      "method": "MiniLM sentence embeddings",
+      "n_classes": 914
+    },
+    {
+      "artifacts": 5,
+      "n_queries": 1437,
+      "top1": 0.5804,
+      "top5": 0.8413,
+      "top10": 0.8845,
+      "median_rank": 1.0,
+      "method": "MiniLM sentence embeddings",
+      "n_classes": 914
+    }
+  ],
+  "skill_profile_fidelity": {
+    "TF-IDF": {
+      "1_artifacts": {
+        "n": 4268,
+        "profile_pearson_mean": 0.8543043548278042,
+        "profile_mae_mean": 0.32407725264426296,
+        "top5_skill_jaccard_mean": 0.5376035762633701,
+        "baseline_random_occupation_mae": 0.6301557772124783,
+        "baseline_average_profile_mae": 0.46667269990686777,
+        "baseline_random_occupation_pearson": 0.6205159168318009
+      },
+      "3_artifacts": {
+        "n": 2555,
+        "profile_pearson_mean": 0.9112859984752308,
+        "profile_mae_mean": 0.22333005311713724,
+        "top5_skill_jaccard_mean": 0.6557761003944957,
+        "baseline_random_occupation_mae": 0.6278807939614202,
+        "baseline_average_profile_mae": 0.46711240999425513,
+        "baseline_random_occupation_pearson": 0.6251971031708125
+      },
+      "5_artifacts": {
+        "n": 1419,
+        "profile_pearson_mean": 0.9404366545827084,
+        "profile_mae_mean": 0.16632860163092722,
+        "top5_skill_jaccard_mean": 0.7309501437408414,
+        "baseline_random_occupation_mae": 0.6220535588442565,
+        "baseline_average_profile_mae": 0.4642336248469139,
+        "baseline_random_occupation_pearson": 0.621298942255286
+      }
+    },
+    "MiniLM sentence embeddings": {
+      "1_artifacts": {
+        "n": 4262,
+        "profile_pearson_mean": 0.8622280340470175,
+        "profile_mae_mean": 0.31008493664946035,
+        "top5_skill_jaccard_mean": 0.5546654450924747,
+        "baseline_random_occupation_mae": 0.6243195682778039,
+        "baseline_average_profile_mae": 0.466300958343125,
+        "baseline_random_occupation_pearson": 0.6251803669495734
+      },
+      "3_artifacts": {
+        "n": 2552,
+        "profile_pearson_mean": 0.9310704674892856,
+        "profile_mae_mean": 0.18215058217644425,
+        "top5_skill_jaccard_mean": 0.7138565457530975,
+        "baseline_random_occupation_mae": 0.6237403716972683,
+        "baseline_average_profile_mae": 0.4668624198461637,
+        "baseline_random_occupation_pearson": 0.6198570538098181
+      },
+      "5_artifacts": {
+        "n": 1414,
+        "profile_pearson_mean": 0.9524194408056984,
+        "profile_mae_mean": 0.1291355829460497,
+        "top5_skill_jaccard_mean": 0.7851193282593565,
+        "baseline_random_occupation_mae": 0.6318613861386139,
+        "baseline_average_profile_mae": 0.46367348937181224,
+        "baseline_random_occupation_pearson": 0.6254141096983777
+      }
+    }
+  },
+  "departure_scenarios": [
+    {
+      "scenario": "current team",
+      "gaps": 1,
+      "single_holder": 3,
+      "new_gaps": NaN
+    },
+    {
+      "scenario": "one Software Developers leaves",
+      "gaps": 1,
+      "single_holder": 3,
+      "new_gaps": ""
+    },
+    {
+      "scenario": "one Software Quality Assurance Analysts and Testers leaves",
+      "gaps": 1,
+      "single_holder": 3,
+      "new_gaps": ""
+    },
+    {
+      "scenario": "one Data Scientists leaves",
+      "gaps": 1,
+      "single_holder": 3,
+      "new_gaps": ""
+    },
+    {
+      "scenario": "one Web and Digital Interface Designers leaves",
+      "gaps": 1,
+      "single_holder": 4,
+      "new_gaps": ""
+    },
+    {
+      "scenario": "one Information Security Analysts leaves",
+      "gaps": 1,
+      "single_holder": 4,
+      "new_gaps": ""
+    },
+    {
+      "scenario": "one Project Management Specialists leaves",
+      "gaps": 2,
+      "single_holder": 2,
+      "new_gaps": "K: Administrative"
+    },
+    {
+      "scenario": "one Database Administrators leaves",
+      "gaps": 1,
+      "single_holder": 3,
+      "new_gaps": ""
+    }
+  ],
+  "team_capability": {
+    "team_size": 12,
+    "skills_required": 22,
+    "gaps": [
+      "Mathematics"
+    ],
+    "single_holder_skills": [
+      "K: Mathematics",
+      "K: Administrative",
+      "K: Customer and Personal Service"
+    ],
+    "development_pool_for_flagged": {
+      "K: Mathematics": 7,
+      "K: Administrative": 1,
+      "Mathematics": 3,
+      "K: Customer and Personal Service": 5
+    },
+    "note": "member skill levels are synthetic; requirements are real O*NET 31.0 ratings"
+  },
+  "ai_usage": {
+    "ei_tasks_matched_to_onet31": 0.834092202618099,
+    "by_role": [
+      {
+        "role": "Software Developers",
+        "tasks": 17,
+        "tasks_seen_in_ai_usage": 5,
+        "share_of_tasks_seen": 0.29412,
+        "pct_of_all_conversations": 0.72794
+      },
+      {
+        "role": "Software Quality Assurance Analysts and Testers",
+        "tasks": 30,
+        "tasks_seen_in_ai_usage": 14,
+        "share_of_tasks_seen": 0.46667,
+        "pct_of_all_conversations": 5.5353
+      },
+      {
+        "role": "Data Scientists",
+        "tasks": 16,
+        "tasks_seen_in_ai_usage": 0,
+        "share_of_tasks_seen": 0.0,
+        "pct_of_all_conversations": 0.0
+      },
+      {
+        "role": "Web and Digital Interface Designers",
+        "tasks": 30,
+        "tasks_seen_in_ai_usage": 16,
+        "share_of_tasks_seen": 0.53333,
+        "pct_of_all_conversations": 2.19867
+      },
+      {
+        "role": "Information Security Analysts",
+        "tasks": 11,
+        "tasks_seen_in_ai_usage": 7,
+        "share_of_tasks_seen": 0.63636,
+        "pct_of_all_conversations": 0.18762
+      },
+      {
+        "role": "Project Management Specialists",
+        "tasks": 20,
+        "tasks_seen_in_ai_usage": 1,
+        "share_of_tasks_seen": 0.05,
+        "pct_of_all_conversations": 0.00248
+      },
+      {
+        "role": "Database Administrators",
+        "tasks": 18,
+        "tasks_seen_in_ai_usage": 7,
+        "share_of_tasks_seen": 0.38889,
+        "pct_of_all_conversations": 0.86136
+      }
+    ],
+    "top_tasks": [
+      {
+        "role": "Software Developers",
+        "task": "Analyze user needs and software requirements to determine feasibility of design within time and cost constraints.",
+        "pct_of_all_conversations": 0.30149
+      },
+      {
+        "role": "Software Developers",
+        "task": "Store, retrieve, and manipulate data for analysis of system capabilities and requirements.",
+        "pct_of_all_conversations": 0.28729
+      },
+      {
+        "role": "Software Developers",
+        "task": "Analyze information to determine, recommend, and plan installation of a new system or modification of an existing system.",
+        "pct_of_all_conversations": 0.05342
+      },
+      {
+        "role": "Software Quality Assurance Analysts and Testers",
+        "task": "Modify existing software to correct errors, allow it to adapt to new hardware, or to improve its performance.",
+        "pct_of_all_conversations": 2.51919
+      },
+      {
+        "role": "Software Quality Assurance Analysts and Testers",
+        "task": "Perform initial debugging procedures by reviewing configuration files, logs, or code pieces to determine breakdown source.",
+        "pct_of_all_conversations": 2.00975
+      },
+      {
+        "role": "Software Quality Assurance Analysts and Testers",
+        "task": "Review software documentation to ensure technical accuracy, compliance, or completeness, or to mitigate risks.",
+        "pct_of_all_conversations": 0.33693
+      },
+      {
+        "role": "Web and Digital Interface Designers",
+        "task": "Design, build, or maintain Web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",
+        "pct_of_all_conversations": 1.18565
+      },
+      {
+        "role": "Web and Digital Interface Designers",
+        "task": "Write supporting code for Web applications or Web sites.",
+        "pct_of_all_conversations": 0.6009
+      },
+      {
+        "role": "Web and Digital Interface Designers",
+        "task": "Maintain understanding of current Web technologies or programming practices through continuing education, reading, or participation in professional conferences, workshops, or groups.",
+        "pct_of_all_conversations": 0.09355
+      },
+      {
+        "role": "Information Security Analysts",
+        "task": "Coordinate implementation of computer system plan with establishment personnel and outside vendors.",
+        "pct_of_all_conversations": 0.05316
+      },
+      {
+        "role": "Information Security Analysts",
+        "task": "Perform risk assessments and execute tests of data processing system to ensure functioning of data processing activities and security measures.",
+        "pct_of_all_conversations": 0.04769
+      },
+      {
+        "role": "Information Security Analysts",
+        "task": "Document computer security and emergency measures policies, procedures, and tests.",
+        "pct_of_all_conversations": 0.03818
+      },
+      {
+        "role": "Project Management Specialists",
+        "task": "Identify, review, or select vendors or consultants to meet project needs.",
+        "pct_of_all_conversations": 0.00248
+      },
+      {
+        "role": "Database Administrators",
+        "task": "Modify existing databases and database management systems or direct programmers and analysts to make changes.",
+        "pct_of_all_conversations": 0.55022
+      },
+      {
+        "role": "Database Administrators",
+        "task": "Test programs or databases, correct errors, and make necessary modifications.",
+        "pct_of_all_conversations": 0.24312
+      },
+      {
+        "role": "Database Administrators",
+        "task": "Identify, evaluate and recommend hardware or software technologies to achieve desired database performance.",
+        "pct_of_all_conversations": 0.03062
+      }
+    ]
+  }
+}

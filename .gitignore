@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+
+# downloaded datasets and caches are reproducible via scripts/download_data.py
+data/raw/*
+!data/raw/MANIFEST.json
+data/cache/
+
+results/*_log.txt

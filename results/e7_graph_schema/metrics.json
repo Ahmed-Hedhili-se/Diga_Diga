@@ -1,0 +1,20 @@
+{
+  "node_counts": {
+    "Task": 24,
+    "Employee": 24,
+    "Skill": 8,
+    "KnowledgeResource": 5,
+    "Team": 4,
+    "Project": 3
+  },
+  "edge_counts": {
+    "COLLABORATES_WITH": 39,
+    "HAS_SKILL": 34,
+    "ASSIGNED_TO": 27,
+    "REQUIRES": 27,
+    "MEMBER_OF": 24,
+    "PART_OF": 24,
+    "USES": 16,
+    "DEPENDS_ON": 14
+  }
+}

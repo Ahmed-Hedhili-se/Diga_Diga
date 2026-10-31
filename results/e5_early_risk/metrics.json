@@ -1,0 +1,349 @@
+{
+  "weeks": 75,
+  "split_week": 45,
+  "inferred_units": 33,
+  "load_forecast": [
+    {
+      "horizon_weeks": 1,
+      "model": "persistence (last week)",
+      "mae_log": 0.724,
+      "skill_vs_persistence": 0.0,
+      "n_test": 957
+    },
+    {
+      "horizon_weeks": 1,
+      "model": "4-week mean",
+      "mae_log": 0.7625,
+      "skill_vs_persistence": -0.0531,
+      "n_test": 957
+    },
+    {
+      "horizon_weeks": 1,
+      "model": "ridge on lags",
+      "mae_log": 0.7491,
+      "skill_vs_persistence": -0.0347,
+      "n_test": 957
+    },
+    {
+      "horizon_weeks": 1,
+      "model": "gradient boosting",
+      "mae_log": 0.8744,
+      "skill_vs_persistence": -0.2077,
+      "n_test": 957
+    },
+    {
+      "horizon_weeks": 2,
+      "model": "persistence (last week)",
+      "mae_log": 0.8669,
+      "skill_vs_persistence": 0.0,
+      "n_test": 924
+    },
+    {
+      "horizon_weeks": 2,
+      "model": "4-week mean",
+      "mae_log": 0.8284,
+      "skill_vs_persistence": 0.0444,
+      "n_test": 924
+    },
+    {
+      "horizon_weeks": 2,
+      "model": "ridge on lags",
+      "mae_log": 0.8701,
+      "skill_vs_persistence": -0.0037,
+      "n_test": 924
+    },
+    {
+      "horizon_weeks": 2,
+      "model": "gradient boosting",
+      "mae_log": 0.7163,
+      "skill_vs_persistence": 0.1737,
+      "n_test": 924
+    },
+    {
+      "horizon_weeks": 4,
+      "model": "persistence (last week)",
+      "mae_log": 0.9832,
+      "skill_vs_persistence": 0.0,
+      "n_test": 858
+    },
+    {
+      "horizon_weeks": 4,
+      "model": "4-week mean",
+      "mae_log": 0.995,
+      "skill_vs_persistence": -0.012,
+      "n_test": 858
+    },
+    {
+      "horizon_weeks": 4,
+      "model": "ridge on lags",
+      "mae_log": 0.8952,
+      "skill_vs_persistence": 0.0895,
+      "n_test": 858
+    },
+    {
+      "horizon_weeks": 4,
+      "model": "gradient boosting",
+      "mae_log": 0.8176,
+      "skill_vs_persistence": 0.1685,
+      "n_test": 858
+    },
+    {
+      "horizon_weeks": 8,
+      "model": "persistence (last week)",
+      "mae_log": 1.2619,
+      "skill_vs_persistence": 0.0,
+      "n_test": 726
+    },
+    {
+      "horizon_weeks": 8,
+      "model": "4-week mean",
+      "mae_log": 1.2132,
+      "skill_vs_persistence": 0.0386,
+      "n_test": 726
+    },
+    {
+      "horizon_weeks": 8,
+      "model": "ridge on lags",
+      "mae_log": 1.0417,
+      "skill_vs_persistence": 0.1745,
+      "n_test": 726
+    },
+    {
+      "horizon_weeks": 8,
+      "model": "gradient boosting",
+      "mae_log": 0.8479,
+      "skill_vs_persistence": 0.3281,
+      "n_test": 726
+    }
+  ],
+  "spike_prediction": [
+    {
+      "horizon_weeks": 1,
+      "model": "gradient boosting",
+      "auc": 0.6495,
+      "pr_auc": 0.4326,
+      "base_rate": 0.3009
+    },
+    {
+      "horizon_weeks": 1,
+      "model": "current ratio to 8-week median",
+      "auc": 0.6776,
+      "pr_auc": 0.5561,
+      "base_rate": 0.3009
+    },
+    {
+      "horizon_weeks": 2,
+      "model": "gradient boosting",
+      "auc": 0.7137,
+      "pr_auc": 0.5805,
+      "base_rate": 0.3268
+    },
+    {
+      "horizon_weeks": 2,
+      "model": "current ratio to 8-week median",
+      "auc": 0.6593,
+      "pr_auc": 0.5856,
+      "base_rate": 0.3268
+    },
+    {
+      "horizon_weeks": 4,
+      "model": "gradient boosting",
+      "auc": 0.7401,
+      "pr_auc": 0.6412,
+      "base_rate": 0.3555
+    },
+    {
+      "horizon_weeks": 4,
+      "model": "current ratio to 8-week median",
+      "auc": 0.6611,
+      "pr_auc": 0.612,
+      "base_rate": 0.3555
+    },
+    {
+      "horizon_weeks": 8,
+      "model": "gradient boosting",
+      "auc": 0.6364,
+      "pr_auc": 0.5178,
+      "base_rate": 0.3994
+    },
+    {
+      "horizon_weeks": 8,
+      "model": "current ratio to 8-week median",
+      "auc": 0.6014,
+      "pr_auc": 0.5961,
+      "base_rate": 0.3994
+    }
+  ],
+  "channel_collapse": [
+    {
+      "horizon_months": 1,
+      "features": "volume only",
+      "learner": "logistic",
+      "auc": 0.6473,
+      "pr_auc": 0.084,
+      "base_rate": 0.0593,
+      "n_test": 809
+    },
+    {
+      "horizon_months": 1,
+      "features": "volume + trend",
+      "learner": "logistic",
+      "auc": 0.6195,
+      "pr_auc": 0.0917,
+      "base_rate": 0.0593,
+      "n_test": 809
+    },
+    {
+      "horizon_months": 1,
+      "features": "full structure",
+      "learner": "logistic",
+      "auc": 0.7019,
+      "pr_auc": 0.1001,
+      "base_rate": 0.0593,
+      "n_test": 809
+    },
+    {
+      "horizon_months": 1,
+      "features": "full structure",
+      "learner": "gradient boosting",
+      "auc": 0.6555,
+      "pr_auc": 0.096,
+      "base_rate": 0.0593,
+      "n_test": 809
+    },
+    {
+      "horizon_months": 2,
+      "features": "volume only",
+      "learner": "logistic",
+      "auc": 0.656,
+      "pr_auc": 0.1282,
+      "base_rate": 0.0886,
+      "n_test": 666
+    },
+    {
+      "horizon_months": 2,
+      "features": "volume + trend",
+      "learner": "logistic",
+      "auc": 0.6587,
+      "pr_auc": 0.143,
+      "base_rate": 0.0886,
+      "n_test": 666
+    },
+    {
+      "horizon_months": 2,
+      "features": "full structure",
+      "learner": "logistic",
+      "auc": 0.7501,
+      "pr_auc": 0.1982,
+      "base_rate": 0.0886,
+      "n_test": 666
+    },
+    {
+      "horizon_months": 2,
+      "features": "full structure",
+      "learner": "gradient boosting",
+      "auc": 0.679,
+      "pr_auc": 0.1523,
+      "base_rate": 0.0886,
+      "n_test": 666
+    },
+    {
+      "horizon_months": 3,
+      "features": "volume only",
+      "learner": "logistic",
+      "auc": 0.6546,
+      "pr_auc": 0.1425,
+      "base_rate": 0.0952,
+      "n_test": 599
+    },
+    {
+      "horizon_months": 3,
+      "features": "volume + trend",
+      "learner": "logistic",
+      "auc": 0.6498,
+      "pr_auc": 0.1548,
+      "base_rate": 0.0952,
+      "n_test": 599
+    },
+    {
+      "horizon_months": 3,
+      "features": "full structure",
+      "learner": "logistic",
+      "auc": 0.7592,
+      "pr_auc": 0.2544,
+      "base_rate": 0.0952,
+      "n_test": 599
+    },
+    {
+      "horizon_months": 3,
+      "features": "full structure",
+      "learner": "gradient boosting",
+      "auc": 0.6956,
+      "pr_auc": 0.1659,
+      "base_rate": 0.0952,
+      "n_test": 599
+    }
+  ],
+  "channel_panel": {
+    "unit_pairs": 507,
+    "windows": 18,
+    "split_window": 10,
+    "active_channel_windows": 2601
+  },
+  "channel_survival": {
+    "channels": 321,
+    "events": 176,
+    "by_bridges": {
+      "1-2 people": {
+        "n": 38,
+        "event_rate": 0.816,
+        "median_log_volume": 2.565
+      },
+      "3-5 people": {
+        "n": 151,
+        "event_rate": 0.636,
+        "median_log_volume": 2.639
+      },
+      "6+ people": {
+        "n": 132,
+        "event_rate": 0.371,
+        "median_log_volume": 3.135
+      }
+    },
+    "cox_hazard_ratios": {
+      "log_volume": {
+        "exp(coef)": 0.9868,
+        "exp(coef) lower 95%": 0.6915,
+        "exp(coef) upper 95%": 1.4082,
+        "p": 0.9416
+      },
+      "reciprocity": {
+        "exp(coef)": 1.3871,
+        "exp(coef) lower 95%": 0.6887,
+        "exp(coef) upper 95%": 2.794,
+        "p": 0.3597
+      },
+      "log_bridges": {
+        "exp(coef)": 0.3055,
+        "exp(coef) lower 95%": 0.1835,
+        "exp(coef) upper 95%": 0.5085,
+        "p": 0.0
+      },
+      "top_bridge_share": {
+        "exp(coef)": 0.7195,
+        "exp(coef) lower 95%": 0.1543,
+        "exp(coef) upper 95%": 3.3549,
+        "p": 0.6751
+      },
+      "log_size": {
+        "exp(coef)": 1.0281,
+        "exp(coef) lower 95%": 0.8467,
+        "exp(coef) upper 95%": 1.2483,
+        "p": 0.7798
+      }
+    },
+    "cox_concordance": 0.6951540548526607,
+    "logrank_p": 2.6338999002120927e-11,
+    "ph_assumption_note": "check with cph.check_assumptions; reported as indicative"
+  }
+}

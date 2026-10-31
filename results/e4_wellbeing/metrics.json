@@ -1,0 +1,826 @@
+{
+  "sample": {
+    "respondents_working_with_stress_item": 10640,
+    "by_year": {
+      "2002": 1774,
+      "2006": 2700,
+      "2010": 1162,
+      "2014": 1243,
+      "2018": 1413,
+      "2022": 2348
+    },
+    "weighted_prevalence_high_stress": 0.3077961955373787
+  },
+  "trend": [
+    {
+      "year": 2002,
+      "outcome": "high_stress",
+      "p": 0.2998,
+      "lo": 0.2747,
+      "hi": 0.3248,
+      "n": 1774
+    },
+    {
+      "year": 2002,
+      "outcome": "exhausted",
+      "p": 0.4123,
+      "lo": 0.3854,
+      "hi": 0.4391,
+      "n": 1772
+    },
+    {
+      "year": 2006,
+      "outcome": "high_stress",
+      "p": 0.3379,
+      "lo": 0.3166,
+      "hi": 0.3592,
+      "n": 2700
+    },
+    {
+      "year": 2006,
+      "outcome": "exhausted",
+      "p": 0.4096,
+      "lo": 0.3817,
+      "hi": 0.4374,
+      "n": 1720
+    },
+    {
+      "year": 2010,
+      "outcome": "high_stress",
+      "p": 0.33,
+      "lo": 0.2963,
+      "hi": 0.3638,
+      "n": 1162
+    },
+    {
+      "year": 2010,
+      "outcome": "exhausted",
+      "p": 0.4103,
+      "lo": 0.3749,
+      "hi": 0.4457,
+      "n": 1160
+    },
+    {
+      "year": 2014,
+      "outcome": "high_stress",
+      "p": 0.2881,
+      "lo": 0.2589,
+      "hi": 0.3173,
+      "n": 1243
+    },
+    {
+      "year": 2014,
+      "outcome": "exhausted",
+      "p": 0.3978,
+      "lo": 0.3663,
+      "hi": 0.4294,
+      "n": 1240
+    },
+    {
+      "year": 2018,
+      "outcome": "high_stress",
+      "p": 0.2833,
+      "lo": 0.2527,
+      "hi": 0.3139,
+      "n": 1413
+    },
+    {
+      "year": 2018,
+      "outcome": "exhausted",
+      "p": 0.354,
+      "lo": 0.3215,
+      "hi": 0.3865,
+      "n": 1412
+    },
+    {
+      "year": 2022,
+      "outcome": "high_stress",
+      "p": 0.2934,
+      "lo": 0.2631,
+      "hi": 0.3236,
+      "n": 2348
+    },
+    {
+      "year": 2022,
+      "outcome": "exhausted",
+      "p": 0.388,
+      "lo": 0.3556,
+      "hi": 0.4205,
+      "n": 2337
+    }
+  ],
+  "prediction_ladder": [
+    {
+      "outcome": "high_stress",
+      "model_set": "demographics",
+      "learner": "logistic",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.5469,
+      "auc_sd": 0.0146,
+      "brier": 0.2094,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "demographics",
+      "learner": "gradient boosting",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.5508,
+      "auc_sd": 0.014,
+      "brier": 0.2098,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ observable hours",
+      "learner": "logistic",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.643,
+      "auc_sd": 0.0094,
+      "brier": 0.1988,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ observable hours",
+      "learner": "gradient boosting",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.6408,
+      "auc_sd": 0.0119,
+      "brier": 0.1996,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ reported demands",
+      "learner": "logistic",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.7657,
+      "auc_sd": 0.0102,
+      "brier": 0.1692,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ reported demands",
+      "learner": "gradient boosting",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.7633,
+      "auc_sd": 0.0107,
+      "brier": 0.1703,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ resources & work-family",
+      "learner": "logistic",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.7909,
+      "auc_sd": 0.0114,
+      "brier": 0.1611,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ resources & work-family",
+      "learner": "gradient boosting",
+      "n": 8463,
+      "prevalence": 0.3015,
+      "auc_mean": 0.7924,
+      "auc_sd": 0.0105,
+      "brier": 0.1614,
+      "brier_null": 0.2106
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "demographics",
+      "learner": "logistic",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.5783,
+      "auc_sd": 0.0095,
+      "brier": 0.2357,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "demographics",
+      "learner": "gradient boosting",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.567,
+      "auc_sd": 0.0091,
+      "brier": 0.237,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "+ observable hours",
+      "learner": "logistic",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.626,
+      "auc_sd": 0.0105,
+      "brier": 0.2281,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "+ observable hours",
+      "learner": "gradient boosting",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.622,
+      "auc_sd": 0.0089,
+      "brier": 0.2295,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "+ reported demands",
+      "learner": "logistic",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.7134,
+      "auc_sd": 0.0101,
+      "brier": 0.2072,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "+ reported demands",
+      "learner": "gradient boosting",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.7122,
+      "auc_sd": 0.0096,
+      "brier": 0.2076,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "+ resources & work-family",
+      "learner": "logistic",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.7349,
+      "auc_sd": 0.0073,
+      "brier": 0.2001,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "exhausted",
+      "model_set": "+ resources & work-family",
+      "learner": "gradient boosting",
+      "n": 8456,
+      "prevalence": 0.4008,
+      "auc_mean": 0.7355,
+      "auc_sd": 0.0091,
+      "brier": 0.1998,
+      "brier_null": 0.2402
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "demographics",
+      "learner": "logistic",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.6173,
+      "auc_sd": 0.0205,
+      "brier": 0.092,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "demographics",
+      "learner": "gradient boosting",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.6031,
+      "auc_sd": 0.018,
+      "brier": 0.0926,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "+ observable hours",
+      "learner": "logistic",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.6233,
+      "auc_sd": 0.0209,
+      "brier": 0.0918,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "+ observable hours",
+      "learner": "gradient boosting",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.621,
+      "auc_sd": 0.0238,
+      "brier": 0.0923,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "+ reported demands",
+      "learner": "logistic",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.735,
+      "auc_sd": 0.0126,
+      "brier": 0.0855,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "+ reported demands",
+      "learner": "gradient boosting",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.7324,
+      "auc_sd": 0.0139,
+      "brier": 0.0865,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "+ resources & work-family",
+      "learner": "logistic",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.8358,
+      "auc_sd": 0.0147,
+      "brier": 0.0728,
+      "brier_null": 0.0935
+    },
+    {
+      "outcome": "dissatisfied",
+      "model_set": "+ resources & work-family",
+      "learner": "gradient boosting",
+      "n": 8453,
+      "prevalence": 0.1043,
+      "auc_mean": 0.8341,
+      "auc_sd": 0.0176,
+      "brier": 0.0736,
+      "brier_null": 0.0935
+    }
+  ],
+  "prediction_ladder_email": [
+    {
+      "outcome": "high_stress",
+      "model_set": "demographics",
+      "learner": "logistic",
+      "n": 4716,
+      "prevalence": 0.3075,
+      "auc_mean": 0.5377,
+      "auc_sd": 0.0141,
+      "brier": 0.2122,
+      "brier_null": 0.2129
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "demographics",
+      "learner": "gradient boosting",
+      "n": 4716,
+      "prevalence": 0.3075,
+      "auc_mean": 0.5237,
+      "auc_sd": 0.0124,
+      "brier": 0.2148,
+      "brier_null": 0.2129
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ hours + email hours",
+      "learner": "logistic",
+      "n": 4716,
+      "prevalence": 0.3075,
+      "auc_mean": 0.6431,
+      "auc_sd": 0.0188,
+      "brier": 0.2013,
+      "brier_null": 0.2129
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ hours + email hours",
+      "learner": "gradient boosting",
+      "n": 4716,
+      "prevalence": 0.3075,
+      "auc_mean": 0.6216,
+      "auc_sd": 0.0162,
+      "brier": 0.205,
+      "brier_null": 0.2129
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ everything reported",
+      "learner": "logistic",
+      "n": 4716,
+      "prevalence": 0.3075,
+      "auc_mean": 0.7974,
+      "auc_sd": 0.0112,
+      "brier": 0.16,
+      "brier_null": 0.2129
+    },
+    {
+      "outcome": "high_stress",
+      "model_set": "+ everything reported",
+      "learner": "gradient boosting",
+      "n": 4716,
+      "prevalence": 0.3075,
+      "auc_mean": 0.7952,
+      "auc_sd": 0.0117,
+      "brier": 0.1614,
+      "brier_null": 0.2129
+    }
+  ],
+  "temporal_generalization": [
+    {
+      "model_set": "+ observable hours",
+      "test_year": 2018,
+      "auc": 0.6465,
+      "n_test": 1277
+    },
+    {
+      "model_set": "+ observable hours",
+      "test_year": 2022,
+      "auc": 0.6484,
+      "n_test": 1925
+    },
+    {
+      "model_set": "+ resources & work-family",
+      "test_year": 2018,
+      "auc": 0.8093,
+      "n_test": 1277
+    },
+    {
+      "model_set": "+ resources & work-family",
+      "test_year": 2022,
+      "auc": 0.8033,
+      "n_test": 1925
+    }
+  ],
+  "weighted_logit_high_stress": {
+    "hours_week": {
+      "odds_ratio": 1.0816,
+      "ci_low": 1.023,
+      "ci_high": 1.1435,
+      "p_value": 0.0058
+    },
+    "extra_hour_days": {
+      "odds_ratio": 1.3347,
+      "ci_low": 1.211,
+      "ci_high": 1.471,
+      "p_value": 0.0
+    },
+    "too_much_work": {
+      "odds_ratio": 2.7278,
+      "ci_low": 1.9932,
+      "ci_high": 3.733,
+      "p_value": 0.0
+    },
+    "must_work_fast": {
+      "odds_ratio": 3.4311,
+      "ci_low": 2.5468,
+      "ci_high": 4.6224,
+      "p_value": 0.0
+    },
+    "understaffed": {
+      "odds_ratio": 2.3559,
+      "ci_low": 1.7631,
+      "ci_high": 3.1482,
+      "p_value": 0.0
+    },
+    "conflicting_demands": {
+      "odds_ratio": 2.2553,
+      "ci_low": 1.7155,
+      "ci_high": 2.9649,
+      "p_value": 0.0
+    },
+    "job_freedom": {
+      "odds_ratio": 0.8729,
+      "ci_low": 0.6432,
+      "ci_high": 1.1848,
+      "p_value": 0.3833
+    },
+    "schedule_control": {
+      "odds_ratio": 1.0391,
+      "ci_low": 0.8578,
+      "ci_high": 1.2588,
+      "p_value": 0.6948
+    },
+    "role_clarity": {
+      "odds_ratio": 0.7305,
+      "ci_low": 0.4939,
+      "ci_high": 1.0806,
+      "p_value": 0.1159
+    },
+    "treated_with_respect": {
+      "odds_ratio": 0.4626,
+      "ci_low": 0.3096,
+      "ci_high": 0.6912,
+      "p_value": 0.0002
+    },
+    "coworker_support": {
+      "odds_ratio": 0.8711,
+      "ci_low": 0.6402,
+      "ci_high": 1.1853,
+      "p_value": 0.3798
+    },
+    "supervisor_support": {
+      "odds_ratio": 0.5557,
+      "ci_low": 0.403,
+      "ci_high": 0.7662,
+      "p_value": 0.0003
+    },
+    "work_family_interference": {
+      "odds_ratio": 5.0083,
+      "ci_low": 3.9303,
+      "ci_high": 6.382,
+      "p_value": 0.0
+    }
+  },
+  "weighted_logit_n": 8463,
+  "weighted_logit_exhausted": {
+    "hours_week": {
+      "odds_ratio": 1.0832,
+      "ci_low": 1.0296,
+      "ci_high": 1.1396,
+      "p_value": 0.002
+    },
+    "extra_hour_days": {
+      "odds_ratio": 1.2025,
+      "ci_low": 1.0951,
+      "ci_high": 1.3203,
+      "p_value": 0.0001
+    },
+    "too_much_work": {
+      "odds_ratio": 2.0622,
+      "ci_low": 1.548,
+      "ci_high": 2.7473,
+      "p_value": 0.0
+    },
+    "must_work_fast": {
+      "odds_ratio": 2.5145,
+      "ci_low": 1.911,
+      "ci_high": 3.3087,
+      "p_value": 0.0
+    },
+    "understaffed": {
+      "odds_ratio": 1.8159,
+      "ci_low": 1.4275,
+      "ci_high": 2.3099,
+      "p_value": 0.0
+    },
+    "conflicting_demands": {
+      "odds_ratio": 1.7132,
+      "ci_low": 1.3375,
+      "ci_high": 2.1944,
+      "p_value": 0.0
+    },
+    "job_freedom": {
+      "odds_ratio": 0.8652,
+      "ci_low": 0.6593,
+      "ci_high": 1.1354,
+      "p_value": 0.2963
+    },
+    "schedule_control": {
+      "odds_ratio": 1.1488,
+      "ci_low": 0.9724,
+      "ci_high": 1.3571,
+      "p_value": 0.1029
+    },
+    "role_clarity": {
+      "odds_ratio": 1.3548,
+      "ci_low": 0.9484,
+      "ci_high": 1.9353,
+      "p_value": 0.0951
+    },
+    "treated_with_respect": {
+      "odds_ratio": 0.4757,
+      "ci_low": 0.3339,
+      "ci_high": 0.6778,
+      "p_value": 0.0
+    },
+    "coworker_support": {
+      "odds_ratio": 0.7645,
+      "ci_low": 0.5746,
+      "ci_high": 1.017,
+      "p_value": 0.0652
+    },
+    "supervisor_support": {
+      "odds_ratio": 0.6839,
+      "ci_low": 0.5161,
+      "ci_high": 0.9063,
+      "p_value": 0.0082
+    },
+    "work_family_interference": {
+      "odds_ratio": 3.1386,
+      "ci_low": 2.5306,
+      "ci_high": 3.8927,
+      "p_value": 0.0
+    }
+  },
+  "jdcs_interactions": {
+    "too_much_work x job_freedom": {
+      "odds_ratio": 1.4732,
+      "ci_low": 0.5058,
+      "ci_high": 4.2908,
+      "p_value": 0.4775
+    },
+    "too_much_work x coworker_support": {
+      "odds_ratio": 0.8621,
+      "ci_low": 0.2695,
+      "ci_high": 2.7572,
+      "p_value": 0.8024
+    },
+    "too_much_work x supervisor_support": {
+      "odds_ratio": 2.4362,
+      "ci_low": 0.8039,
+      "ci_high": 7.3824,
+      "p_value": 0.1155
+    }
+  },
+  "gradients": {
+    "by_hours": [
+      [
+        "<30",
+        0.19064120144540356,
+        0.16439481831079467,
+        0.21688758458001245,
+        1497
+      ],
+      [
+        "30-39",
+        0.26035935761672524,
+        0.23000144841627634,
+        0.29071726681717414,
+        1392
+      ],
+      [
+        "40",
+        0.2598618993457238,
+        0.239932275151872,
+        0.2797915235395756,
+        3405
+      ],
+      [
+        "41-49",
+        0.3375544131007465,
+        0.3049925427041817,
+        0.37011628349731135,
+        1321
+      ],
+      [
+        "50-59",
+        0.41889505075956546,
+        0.3866244475559517,
+        0.4511656539631792,
+        1426
+      ],
+      [
+        "60+",
+        0.4459180722392808,
+        0.40923491308424126,
+        0.4826012313943204,
+        1218
+      ]
+    ],
+    "by_too_much_work": [
+      [
+        "strongly\nagree",
+        0.6192244856707714,
+        0.5707663207395844,
+        0.6676826506019583,
+        758
+      ],
+      [
+        "agree",
+        0.4371429447405876,
+        0.4098282346593511,
+        0.46445765482182416,
+        2268
+      ],
+      [
+        "disagree",
+        0.2187681314711194,
+        0.2045580147253133,
+        0.2329782482169255,
+        5607
+      ],
+      [
+        "strongly\ndisagree",
+        0.1987851876351571,
+        0.16438390805708364,
+        0.23318646721323055,
+        967
+      ]
+    ],
+    "karasek_quadrants": [
+      [
+        "low demand high control",
+        0.18822548452810858,
+        0.17191909784213932,
+        0.20453187121407784,
+        3769
+      ],
+      [
+        "low demand low control",
+        0.2528535114441582,
+        0.2312276721719238,
+        0.27447935071639257,
+        2783
+      ],
+      [
+        "high demand high control",
+        0.4386643065348654,
+        0.40380835889190664,
+        0.4735202541778241,
+        1448
+      ],
+      [
+        "high demand low control",
+        0.5250592119561618,
+        0.49187866001962155,
+        0.558239763892702,
+        1563
+      ]
+    ]
+  },
+  "gbm_importance": {
+    "method": "mean |SHAP| (log-odds)",
+    "importance": {
+      "job_freedom": 0.0172,
+      "role_clarity": 0.0315,
+      "schedule_control": 0.0538,
+      "coworker_support": 0.0555,
+      "hours_week": 0.0975,
+      "treated_with_respect": 0.1043,
+      "age": 0.105,
+      "female": 0.1136,
+      "supervisor_support": 0.1169,
+      "extra_hour_days": 0.1817,
+      "conflicting_demands": 0.2504,
+      "must_work_fast": 0.2701,
+      "too_much_work": 0.2723,
+      "understaffed": 0.2732,
+      "work_family_interference": 0.4321
+    }
+  },
+  "observable_correlations": {
+    "spearman_hours_vs_stress_item": 0.20972189095871024,
+    "spearman_too_much_work_vs_stress_item": 0.3042516924115832,
+    "spearman_work_family_vs_stress_item": 0.3801878553715975
+  },
+  "power_table": [
+    {
+      "true_correlation": 0.1,
+      "n_units_for_80pct_power": 783
+    },
+    {
+      "true_correlation": 0.2,
+      "n_units_for_80pct_power": 194
+    },
+    {
+      "true_correlation": 0.3,
+      "n_units_for_80pct_power": 85
+    },
+    {
+      "true_correlation": 0.5,
+      "n_units_for_80pct_power": 30
+    }
+  ],
+  "ibm_fictional_audit": {
+    "rows": 1470,
+    "performance_rating_values": {
+      "3": 1244,
+      "4": 226
+    },
+    "max_abs_spearman_between_satisfaction_items": 0.03785729689995369,
+    "spearman_performance_vs_satisfaction_items": {
+      "JobSatisfaction": 0.006978501891054847,
+      "EnvironmentSatisfaction": -0.029159816859593818,
+      "RelationshipSatisfaction": -0.03298877887236286,
+      "WorkLifeBalance": 0.006808391339126777,
+      "JobInvolvement": -0.0247327116591982
+    },
+    "spearman_overtime_vs_worklifebalance": -0.03017057378218188,
+    "spearman_overtime_vs_jobsatisfaction": 0.028522103830342743,
+    "spearman_overtime_vs_attrition": 0.24611799424580436,
+    "share_by_jobsatisfaction_level": {
+      "1": 0.197,
+      "2": 0.19,
+      "3": 0.301,
+      "4": 0.312
+    }
+  }
+}
