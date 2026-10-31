@@ -1,0 +1,61 @@
+{
+ "ground_truth": {
+  "id": "CV-0077",
+  "job_id": "JOB-HR-03",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Youssef Trabelsi",
+  "town": "Kasserine",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2017-12",
+    "end": null,
+    "skills": [
+     "etl",
+     "git",
+     "payroll",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "youssef.trabelsi77@example.tn",
+  "skills": [
+   "etl",
+   "git",
+   "payroll",
+   "recruitment"
+  ],
+  "skill_years": {
+   "etl": 8.8,
+   "git": 8.8,
+   "payroll": 8.8,
+   "recruitment": 8.8
+  },
+  "years_experience": 8.8
+ },
+ "text": "Youssef Trabelsi\nمساعد موارد بشرية\nyoussef.trabelsi77@example.tn | Kasserine\n\nالخبرة المهنية\n12/2017 – حاليا : Carthage Analytics\n  الأدوات: خطوط ETL, Git, الأجور, التوظيف\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2017\n\nالمهارات\nخطوط ETL, Git, الأجور, التوظيف\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C1\nEnglish : C2"
+}

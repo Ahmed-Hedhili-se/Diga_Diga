@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0122",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Yasmine Mansouri",
+  "town": "Gabès",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2024
+  },
+  "experiences": [],
+  "extra_skills": [
+   "microsoft-excel",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "yasmine.mansouri122@example.tn",
+  "skills": [
+   "microsoft-excel",
+   "payroll"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Yasmine Mansouri\nHR assistant\nyasmine.mansouri122@example.tn | Gabès\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2024\n\nSKILLS\nMicrosoft Excel, payroll\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C2"
+}

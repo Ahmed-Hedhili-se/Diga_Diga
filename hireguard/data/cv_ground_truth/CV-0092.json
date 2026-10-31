@@ -1,0 +1,90 @@
+{
+ "ground_truth": {
+  "id": "CV-0092",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Rania Hammami",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2018-12",
+    "end": "2021-06",
+    "skills": [
+     "docker",
+     "microsoft-excel",
+     "rest-api",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2021-08",
+    "end": "2022-04",
+    "skills": [
+     "docker",
+     "git",
+     "node-js",
+     "postgresql",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2022-06",
+    "end": null,
+    "skills": [
+     "node-js",
+     "rest-api",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "rania.hammami92@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "microsoft-excel",
+   "node-js",
+   "postgresql",
+   "react",
+   "rest-api",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 3.2,
+   "microsoft-excel": 2.5,
+   "rest-api": 6.8,
+   "tunisian-labour-law": 7.5,
+   "git": 0.7,
+   "node-js": 5.0,
+   "postgresql": 0.7
+  },
+  "years_experience": 7.5
+ },
+ "text": "Rania Hammami\nDéveloppeuse full-stack\nrania.hammami92@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n12/2018 – 06/2021 : Carthage Analytics\n  outils: Docker, Microsoft Excel, API REST, droit du travail tunisien\n08/2021 – 04/2022 : Olive Systems\n  outils: Docker, Git, Node.js, PostgreSQL, droit du travail tunisien\n06/2022 – aujourd'hui : Atlas Telecom (fictional)\n  outils: Node.js, API REST, droit du travail tunisien\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2018\n\nCOMPÉTENCES\nDocker, Git, Microsoft Excel, Node.js, PostgreSQL, React, API REST, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C1"
+}

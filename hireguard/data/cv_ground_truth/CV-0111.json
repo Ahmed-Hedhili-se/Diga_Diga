@@ -1,0 +1,78 @@
+{
+ "ground_truth": {
+  "id": "CV-0111",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Salma Bouzid",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2021-07",
+    "end": "2023-11",
+    "skills": [
+     "docker",
+     "javascript",
+     "microsoft-excel",
+     "postgresql",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2024-03",
+    "end": "2025-04",
+    "skills": [
+     "docker",
+     "javascript",
+     "payroll",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "salma.bouzid111@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "javascript",
+   "microsoft-excel",
+   "payroll",
+   "postgresql",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 3.4,
+   "javascript": 3.4,
+   "microsoft-excel": 2.3,
+   "postgresql": 3.4,
+   "typescript": 2.3,
+   "payroll": 1.1
+  },
+  "years_experience": 3.4
+ },
+ "text": "Salma Bouzid\nDéveloppeuse full-stack\nsalma.bouzid111@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2021 – 11/2023 : Jasmin Digital\n  outils: Docker, JavaScript, Microsoft Excel, PostgreSQL, TypeScript\n03/2024 – 04/2025 : Fictiva Data SARL\n  outils: Docker, JavaScript, paie, PostgreSQL\n\nFORMATION\nLicence en informatique, SUP'COM, 2021\n\nCOMPÉTENCES\nDocker, Git, JavaScript, Microsoft Excel, paie, PostgreSQL, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C1"
+}

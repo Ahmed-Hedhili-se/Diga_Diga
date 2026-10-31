@@ -1,0 +1,21 @@
+{
+  "job_id": "JOB-FS-02",
+  "title": "Full-stack developer (React, Node, PostgreSQL)",
+  "skill_weights": {
+    "react": 5,
+    "node-js": 5,
+    "javascript": 4,
+    "postgresql": 4,
+    "typescript": 3,
+    "rest-api": 3,
+    "docker": 1,
+    "git": 1
+  },
+  "min_years": 1,
+  "required_degree": "licence",
+  "languages": [
+    {"iso": "fr", "min_cefr": "B2"},
+    {"iso": "en", "min_cefr": "B1"}
+  ],
+  "component_weights": {"skills": 60, "experience": 20, "degree": 10, "languages": 10}
+}

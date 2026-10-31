@@ -1,0 +1,112 @@
+{
+  "$defs": {
+    "HiddenChannel": {
+      "enum": [
+        "white_text",
+        "tiny_font",
+        "invisible_render",
+        "off_page",
+        "under_image",
+        "annotation_metadata",
+        "zero_width",
+        "homoglyph"
+      ],
+      "title": "HiddenChannel",
+      "type": "string"
+    },
+    "HiddenFinding": {
+      "properties": {
+        "channel": {
+          "$ref": "#/$defs/HiddenChannel"
+        },
+        "text": {
+          "maxLength": 2000,
+          "title": "Text",
+          "type": "string"
+        },
+        "page": {
+          "minimum": 0,
+          "title": "Page",
+          "type": "integer"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "maxItems": 4,
+              "minItems": 4,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        }
+      },
+      "required": [
+        "channel",
+        "text",
+        "page"
+      ],
+      "title": "HiddenFinding",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "doc_id": {
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "sha256": {
+      "title": "Sha256",
+      "type": "string"
+    },
+    "page_count": {
+      "title": "Page Count",
+      "type": "integer"
+    },
+    "visible_text": {
+      "title": "Visible Text",
+      "type": "string"
+    },
+    "page_offsets": {
+      "items": {
+        "type": "integer"
+      },
+      "title": "Page Offsets",
+      "type": "array"
+    },
+    "hidden_findings": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/HiddenFinding"
+      },
+      "title": "Hidden Findings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "doc_id",
+    "sha256",
+    "page_count",
+    "visible_text",
+    "page_offsets"
+  ],
+  "title": "SanitizeResult",
+  "type": "object"
+}

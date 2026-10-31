@@ -1,0 +1,20 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=topnet.example; dkim=pass header.d=topnet.example; dmarc=pass
+ header.from=topnet.example
+From: Aymen Chebbi <aymen.chebbi41@topnet.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - Suivi candidature
+Date: Mon, 02 Nov 2026 11:37:00 +0100
+Message-ID: <EML-032@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+URGENT : merci de me répondre aujourd'hui.
+
+Bonjour,
+
+Pourriez-vous me donner des nouvelles de ma candidature ?
+
+Cordialement,
+Aymen Chebbi

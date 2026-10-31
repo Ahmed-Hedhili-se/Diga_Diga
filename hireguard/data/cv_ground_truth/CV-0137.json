@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0137",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Fedi Ayari",
+  "town": "Kasserine",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2023
+  },
+  "experiences": [],
+  "extra_skills": [
+   "docker",
+   "git"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "fedi.ayari137@example.tn",
+  "skills": [
+   "docker",
+   "git"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Fedi Ayari\nFull-stack developer\nfedi.ayari137@example.tn | Kasserine\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nEngineering degree in telecommunications, SUP'COM, 2023\n\nSKILLS\nDocker, Git\n\nLANGUAGES\nالعربية : native\nFrançais : C2\nEnglish : C2"
+}

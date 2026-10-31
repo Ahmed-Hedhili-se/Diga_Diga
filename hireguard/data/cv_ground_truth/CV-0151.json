@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0151",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Nour Gharbi",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2018-07",
+    "end": "2021-08",
+    "skills": [
+     "docker",
+     "postgresql",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "nour.gharbi151@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "postgresql",
+   "recruitment"
+  ],
+  "skill_years": {
+   "docker": 3.1,
+   "postgresql": 3.1,
+   "recruitment": 3.1
+  },
+  "years_experience": 3.1
+ },
+ "text": "Nour Gharbi\nData engineer\nnour.gharbi151@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n07/2018 – 08/2021 : Olive Systems\n  tools: Docker, PostgreSQL, recruitment\n\nEDUCATION\nMaster in data science, SUP'COM, 2018\n\nSKILLS\nDocker, Git, PostgreSQL, recruitment\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B1"
+}

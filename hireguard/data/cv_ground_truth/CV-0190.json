@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0190",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Salma Sassi",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2015-11",
+    "end": "2017-04",
+    "skills": [
+     "docker",
+     "git",
+     "node-js",
+     "rest-api",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2017-07",
+    "end": null,
+    "skills": [
+     "git",
+     "node-js",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "react",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "salma.sassi190@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "node-js",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 1.4,
+   "git": 10.7,
+   "node-js": 10.7,
+   "rest-api": 1.4,
+   "typescript": 10.7
+  },
+  "years_experience": 10.7
+ },
+ "text": "Salma Sassi\nDéveloppeuse full-stack\nsalma.sassi190@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2015 – 04/2017 : Medina Soft\n  outils: Docker, Git, Node.js, API REST, TypeScript\n07/2017 – aujourd'hui : Medina Soft\n  outils: Git, Node.js, TypeScript\n\nFORMATION\nLicence en informatique, SUP'COM, 2015\n\nCOMPÉTENCES\nDocker, Git, Node.js, React, API REST, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : C2"
+}

@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0196",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Youssef Sassi",
+  "town": "Kasserine",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2019-11",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "youssef.sassi196@example.tn",
+  "skills": [
+   "data-modelling",
+   "postgresql",
+   "python",
+   "rest-api"
+  ],
+  "skill_years": {
+   "data-modelling": 6.9,
+   "python": 6.9
+  },
+  "years_experience": 6.9
+ },
+ "text": "Youssef Sassi\nData engineer\nyoussef.sassi196@example.tn | Kasserine\n\nPROFESSIONAL EXPERIENCE\n11/2019 – present : Carthage Analytics\n  tools: data modelling, Python\n\nEDUCATION\nMaster in data science, SUP'COM, 2019\n\nSKILLS\ndata modelling, PostgreSQL, Python, REST APIs\n\nLANGUAGES\nالعربية : native\nFrançais : C2\nEnglish : B2"
+}

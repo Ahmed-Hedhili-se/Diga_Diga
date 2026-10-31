@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Ines Gharbi <ines.gharbi@gmail.example>
+To: recrutement@hireguard.demo
+Subject: Report d'entretien
+Date: Mon, 02 Nov 2026 08:28:00 +0100
+Message-ID: <EML-005@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour,
+
+Je ne pourrai pas =C3=AAtre pr=C3=A9sent =C3=A0 l'entretien pr=C3=A9vu jeudi.=
+ Serait-il possible de le d=C3=A9caler ?
+
+Ines Gharbi

@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "EmailIntent": {
+      "enum": [
+        "application",
+        "interview_availability",
+        "reschedule",
+        "withdraw",
+        "status_question",
+        "document_request",
+        "leave_request",
+        "other"
+      ],
+      "title": "EmailIntent",
+      "type": "string"
+    },
+    "Lang": {
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "de",
+        "es",
+        "it"
+      ],
+      "title": "Lang",
+      "type": "string"
+    },
+    "Urgency": {
+      "enum": [
+        "low",
+        "normal",
+        "high"
+      ],
+      "title": "Urgency",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "language": {
+      "$ref": "#/$defs/Lang"
+    },
+    "intent": {
+      "$ref": "#/$defs/EmailIntent"
+    },
+    "urgency": {
+      "$ref": "#/$defs/Urgency"
+    }
+  },
+  "required": [
+    "language",
+    "intent",
+    "urgency"
+  ],
+  "title": "EmailExtraction",
+  "type": "object"
+}

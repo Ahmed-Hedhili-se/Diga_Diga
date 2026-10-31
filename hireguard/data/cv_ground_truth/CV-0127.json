@@ -1,0 +1,78 @@
+{
+ "ground_truth": {
+  "id": "CV-0127",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Ines Mansouri",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2023-10",
+    "end": "2025-07",
+    "skills": [
+     "apache-spark",
+     "data-modelling"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2025-07",
+    "end": null,
+    "skills": [
+     "docker",
+     "etl",
+     "git",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "ines.mansouri127@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "git",
+   "postgresql",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 1.8,
+   "data-modelling": 1.8,
+   "docker": 1.2,
+   "etl": 1.2,
+   "git": 1.2,
+   "postgresql": 1.2,
+   "python": 1.2
+  },
+  "years_experience": 3.0
+ },
+ "text": "Ines Mansouri\nData engineer\nines.mansouri127@example.tn | Kasserine\n\nPROFESSIONAL EXPERIENCE\n10/2023 – 07/2025 : Jasmin Digital\n  tools: Apache Spark, data modelling\n07/2025 – present : Medina Soft\n  tools: Docker, ETL pipelines, Git, PostgreSQL, Python\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2023\n\nSKILLS\nApache Spark, data modelling, Docker, ETL pipelines, Git, PostgreSQL, Python, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : B1"
+}

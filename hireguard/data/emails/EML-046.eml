@@ -1,0 +1,16 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=outlook.example; dkim=pass header.d=outlook.example; dmarc=pass
+ header.from=outlook.example
+From: Eya Khelifi <eya.khelifi17@outlook.example>
+To: recrutement@hireguard.demo
+Subject: Candidature
+Date: Mon, 02 Nov 2026 13:15:00 +0100
+Message-ID: <EML-046@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+
+2KfZhNiz2YTYp9mFINi52YTZitmD2YXYjAoK2YrYtNix2YHZhtmKINij2YYg2KPYqtmC2K/ZhSDY
+qNiq2LHYtNit2Yog2YTYrti32Kkg2YXZh9mG2K/YsyDYqNmK2KfZhtin2KouINiq2KzYr9mI2YYg
+2LPZitix2KrZiiDYp9mE2LDYp9iq2YrYqSDZhdix2YHZgtipLgoK2YXYuSDYp9mE2LTZg9ix2IwK
+RXlhIEtoZWxpZmkK

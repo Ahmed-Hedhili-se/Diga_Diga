@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0103",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Malek Ben Salah",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2020-12",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "git",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "malek.ben.salah103@example.tn",
+  "skills": [
+   "data-modelling",
+   "git",
+   "postgresql",
+   "python",
+   "typescript"
+  ],
+  "skill_years": {
+   "data-modelling": 5.8,
+   "git": 5.8,
+   "typescript": 5.8
+  },
+  "years_experience": 5.8
+ },
+ "text": "Malek Ben Salah\nمهندسة بيانات\nmalek.ben.salah103@example.tn | Sfax\n\nالخبرة المهنية\n12/2020 – حاليا : Olive Systems\n  الأدوات: نمذجة البيانات, Git, TypeScript\n\nالتكوين\nإجازة في الإعلامية, المدرسة الخاصة للمهندسين بتونس, 2020\n\nالمهارات\nنمذجة البيانات, Git, PostgreSQL, بايثون, TypeScript\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C1\nEnglish : C2"
+}

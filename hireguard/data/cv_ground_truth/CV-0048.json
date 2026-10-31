@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0048",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Skander Bouzid",
+  "town": "Sousse",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2016-10",
+    "end": "2018-08",
+    "skills": [
+     "hr-administration",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "docker"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "skander.bouzid48@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "hr-administration",
+   "python"
+  ],
+  "skill_years": {
+   "hr-administration": 1.8,
+   "python": 1.8
+  },
+  "years_experience": 1.8
+ },
+ "text": "Skander Bouzid\nIngénieur données\nskander.bouzid48@example.tn | Sousse\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2016 – 08/2018 : Fictiva Data SARL\n  outils: administration du personnel, Python\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2016\n\nCOMPÉTENCES\nmodélisation des données, Docker, administration du personnel, Python\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : C1"
+}

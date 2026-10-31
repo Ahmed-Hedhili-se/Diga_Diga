@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0069",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Hamza Hammami",
+  "town": "La Marsa",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2023-12",
+    "end": "2025-01",
+    "skills": [
+     "etl",
+     "git"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2025-01",
+    "end": "2026-08",
+    "skills": [
+     "apache-spark",
+     "docker",
+     "javascript",
+     "python",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "hamza.hammami69@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "etl",
+   "git",
+   "javascript",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "etl": 1.1,
+   "git": 1.1,
+   "apache-spark": 1.6,
+   "docker": 1.6,
+   "javascript": 1.6,
+   "python": 1.6,
+   "sql": 1.6
+  },
+  "years_experience": 2.7
+ },
+ "text": "Hamza Hammami\nمهندس بيانات\nhamza.hammami69@example.tn | La Marsa\n\nالخبرة المهنية\n12/2023 – 01/2025 : Medina Soft\n  الأدوات: خطوط ETL, Git\n01/2025 – 08/2026 : Fictiva Data SARL\n  الأدوات: Apache Spark, Docker, جافاسكريبت, بايثون, SQL\n\nالتكوين\nشهادة مهندس في الاتصالات, المعهد العالي للدراسات التكنولوجية برادس, 2023\n\nالمهارات\nApache Spark, Docker, خطوط ETL, Git, جافاسكريبت, بايثون, SQL\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C1\nEnglish : C1"
+}

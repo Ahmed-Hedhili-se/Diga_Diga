@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "ScoreComponent": {
+      "properties": {
+        "name": {
+          "enum": [
+            "skills",
+            "experience",
+            "degree",
+            "languages"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "points": {
+          "title": "Points",
+          "type": "number"
+        },
+        "max_points": {
+          "title": "Max Points",
+          "type": "number"
+        },
+        "justifications": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Justifications",
+          "type": "array"
+        },
+        "evidence": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Span"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "points",
+        "max_points",
+        "justifications"
+      ],
+      "title": "ScoreComponent",
+      "type": "object"
+    },
+    "Span": {
+      "description": "Character offsets into SanitizeResult.visible_text (end exclusive).",
+      "properties": {
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "minimum": 0,
+          "title": "End",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Span",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "candidate_id": {
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "job_id": {
+      "title": "Job Id",
+      "type": "string"
+    },
+    "total": {
+      "maximum": 100.0,
+      "minimum": 0.0,
+      "title": "Total",
+      "type": "number"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/ScoreComponent"
+      },
+      "title": "Components",
+      "type": "array"
+    },
+    "status": {
+      "default": "proposed",
+      "enum": [
+        "proposed",
+        "committed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "needs_human": {
+      "default": false,
+      "title": "Needs Human",
+      "type": "boolean"
+    },
+    "injection_flag_count": {
+      "default": 0,
+      "title": "Injection Flag Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "job_id",
+    "total",
+    "components"
+  ],
+  "title": "ScoreOutput",
+  "type": "object"
+}

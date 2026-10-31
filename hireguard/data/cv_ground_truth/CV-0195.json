@@ -1,0 +1,63 @@
+{
+ "ground_truth": {
+  "id": "CV-0195",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Amira Gharbi",
+  "town": "Sousse",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2021-12",
+    "end": "2023-05",
+    "skills": [
+     "apache-spark",
+     "etl",
+     "git",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "amira.gharbi195@example.tn",
+  "skills": [
+   "apache-spark",
+   "etl",
+   "git",
+   "postgresql",
+   "python",
+   "react"
+  ],
+  "skill_years": {
+   "apache-spark": 1.4,
+   "etl": 1.4,
+   "git": 1.4,
+   "react": 1.4
+  },
+  "years_experience": 1.4
+ },
+ "text": "Amira Gharbi\nمهندس بيانات\namira.gharbi195@example.tn | Sousse\n\nالخبرة المهنية\n12/2021 – 05/2023 : Jasmin Digital\n  الأدوات: Apache Spark, خطوط ETL, Git, React\n\nالتكوين\nشهادة مهندس في الاتصالات, المدرسة العليا للمواصلات بتونس, 2021\n\nالمهارات\nApache Spark, خطوط ETL, Git, PostgreSQL, بايثون, React\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : B1"
+}

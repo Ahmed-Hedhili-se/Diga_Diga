@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=outlook.example; dkim=pass header.d=outlook.example; dmarc=pass
+ header.from=outlook.example
+From: Skander Mejri <skander.mejri28@outlook.example>
+To: recrutement@hireguard.demo
+Subject: Retrait de candidature
+Date: Mon, 02 Nov 2026 11:44:00 +0100
+Message-ID: <EML-033@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour,
+
+Je souhaite retirer ma candidature, j'ai accept=C3=A9 une autre offre. Merci =
+pour votre temps.
+
+Skander Mejri

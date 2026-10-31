@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0066",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Aziz Ayari",
+  "town": "Sousse",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2021-08",
+    "end": null,
+    "skills": [
+     "javascript",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "node-js"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "aziz.ayari66@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "node-js",
+   "rest-api"
+  ],
+  "skill_years": {
+   "javascript": 5.2,
+   "rest-api": 5.2
+  },
+  "years_experience": 5.2
+ },
+ "text": "Aziz Ayari\nمطورة ويب\naziz.ayari66@example.tn | Sousse\n\nالخبرة المهنية\n08/2021 – حاليا : Jasmin Digital\n  الأدوات: جافاسكريبت, واجهات REST\n\nالتكوين\nشهادة مهندس في الاتصالات, المعهد العالي للدراسات التكنولوجية برادس, 2021\n\nالمهارات\nDocker, جافاسكريبت, Node.js, واجهات REST\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : C2"
+}

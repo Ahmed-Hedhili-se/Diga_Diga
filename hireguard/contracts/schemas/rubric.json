@@ -1,0 +1,112 @@
+{
+  "$defs": {
+    "CEFR": {
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2",
+        "native"
+      ],
+      "title": "CEFR",
+      "type": "string"
+    },
+    "DegreeLevel": {
+      "enum": [
+        "none",
+        "bac",
+        "bts",
+        "licence",
+        "master",
+        "ingenieur",
+        "phd"
+      ],
+      "title": "DegreeLevel",
+      "type": "string"
+    },
+    "Lang": {
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "de",
+        "es",
+        "it"
+      ],
+      "title": "Lang",
+      "type": "string"
+    },
+    "LanguageReq": {
+      "properties": {
+        "iso": {
+          "$ref": "#/$defs/Lang"
+        },
+        "min_cefr": {
+          "$ref": "#/$defs/CEFR"
+        }
+      },
+      "required": [
+        "iso",
+        "min_cefr"
+      ],
+      "title": "LanguageReq",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "job_id": {
+      "title": "Job Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "skill_weights": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Skill Weights",
+      "type": "object"
+    },
+    "min_years": {
+      "default": 0,
+      "title": "Min Years",
+      "type": "number"
+    },
+    "required_degree": {
+      "$ref": "#/$defs/DegreeLevel",
+      "default": "none"
+    },
+    "languages": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/LanguageReq"
+      },
+      "title": "Languages",
+      "type": "array"
+    },
+    "component_weights": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "default": {
+        "skills": 60,
+        "experience": 20,
+        "degree": 10,
+        "languages": 10
+      },
+      "title": "Component Weights",
+      "type": "object"
+    }
+  },
+  "required": [
+    "job_id",
+    "title",
+    "skill_weights"
+  ],
+  "title": "Rubric",
+  "type": "object"
+}

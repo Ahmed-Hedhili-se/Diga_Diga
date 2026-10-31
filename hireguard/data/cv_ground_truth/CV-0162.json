@@ -1,0 +1,69 @@
+{
+ "ground_truth": {
+  "id": "CV-0162",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Eya Dridi",
+  "town": "Gabès",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2022-11",
+    "end": "2025-09",
+    "skills": [
+     "microsoft-excel",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2026-01",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "node-js"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "eya.dridi162@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "node-js",
+   "recruitment",
+   "sql"
+  ],
+  "skill_years": {
+   "microsoft-excel": 2.8,
+   "sql": 2.8,
+   "hr-administration": 0.8,
+   "node-js": 0.8
+  },
+  "years_experience": 3.6
+ },
+ "text": "Eya Dridi\nAssistante RH\neya.dridi162@example.tn | Gabès\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2022 – 09/2025 : Medina Soft\n  outils: Microsoft Excel, SQL\n01/2026 – aujourd'hui : Carthage Analytics\n  outils: administration du personnel, Node.js\n\nFORMATION\nLicence en informatique, SUP'COM, 2022\n\nCOMPÉTENCES\nadministration du personnel, Microsoft Excel, Node.js, recrutement, SQL\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C2"
+}

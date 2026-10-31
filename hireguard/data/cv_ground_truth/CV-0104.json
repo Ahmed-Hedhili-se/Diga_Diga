@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0104",
+  "job_id": "JOB-HR-03",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Fedi Sassi",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2019
+  },
+  "experiences": [],
+  "extra_skills": [
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "fedi.sassi104@example.tn",
+  "skills": [
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Fedi Sassi\nمساعدة موارد بشرية\nfedi.sassi104@example.tn | Bizerte\n\nالخبرة المهنية\n\nالتكوين\nإجازة في الإعلامية, المدرسة الخاصة للمهندسين بتونس, 2019\n\nالمهارات\nالتوظيف, قانون الشغل التونسي\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C1\nEnglish : B1"
+}

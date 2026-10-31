@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0057",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Malek Gharbi",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2018-08",
+    "end": "2020-06",
+    "skills": [
+     "apache-spark",
+     "git",
+     "node-js"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2020-10",
+    "end": "2021-12",
+    "skills": [
+     "apache-spark",
+     "docker"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "hr-administration"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "malek.gharbi57@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "git",
+   "hr-administration",
+   "node-js"
+  ],
+  "skill_years": {
+   "apache-spark": 3.0,
+   "git": 1.8,
+   "node-js": 1.8,
+   "docker": 1.2
+  },
+  "years_experience": 3.0
+ },
+ "text": "Malek Gharbi\nمطور ويب\nmalek.gharbi57@example.tn | Ariana\n\nالخبرة المهنية\n08/2018 – 06/2020 : Atlas Telecom (fictional)\n  الأدوات: Apache Spark, Git, Node.js\n10/2020 – 12/2021 : Carthage Analytics\n  الأدوات: Apache Spark, Docker\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2018\n\nالمهارات\nApache Spark, Docker, Git, إدارة شؤون الموظفين, Node.js\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : B1"
+}

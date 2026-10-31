@@ -1,0 +1,74 @@
+{
+ "ground_truth": {
+  "id": "CV-0097",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Nour Ayari",
+  "town": "Sfax",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2020-07",
+    "end": "2021-06",
+    "skills": [
+     "apache-spark",
+     "hr-administration",
+     "microsoft-excel",
+     "payroll",
+     "recruitment"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2021-07",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "payroll"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "hr-administration"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "nour.ayari97@example.tn",
+  "skills": [
+   "apache-spark",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment"
+  ],
+  "skill_years": {
+   "apache-spark": 0.9,
+   "hr-administration": 6.2,
+   "microsoft-excel": 6.2,
+   "payroll": 6.2,
+   "recruitment": 0.9
+  },
+  "years_experience": 6.2
+ },
+ "text": "Nour Ayari\nAssistante RH\nnour.ayari97@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2020 – 06/2021 : Medina Soft\n  outils: Apache Spark, administration du personnel, Microsoft Excel, paie, recrutement\n07/2021 – aujourd'hui : Medina Soft\n  outils: administration du personnel, Microsoft Excel, paie\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2020\n\nCOMPÉTENCES\nApache Spark, administration du personnel, Microsoft Excel, paie, recrutement\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : C2"
+}

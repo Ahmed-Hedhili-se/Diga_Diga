@@ -1,0 +1,62 @@
+{
+ "ground_truth": {
+  "id": "CV-0076",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Mariem Mansouri",
+  "town": "Sousse",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2016-10",
+    "end": null,
+    "skills": [
+     "docker",
+     "git",
+     "react",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "mariem.mansouri76@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "git",
+   "react",
+   "sql"
+  ],
+  "skill_years": {
+   "docker": 10.0,
+   "git": 10.0,
+   "react": 10.0,
+   "sql": 10.0
+  },
+  "years_experience": 10.0
+ },
+ "text": "Mariem Mansouri\nData engineer\nmariem.mansouri76@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n10/2016 – present : Fictiva Data SARL\n  tools: Docker, Git, React, SQL\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2016\n\nSKILLS\ndata modelling, Docker, Git, React, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : C2\nEnglish : B1"
+}

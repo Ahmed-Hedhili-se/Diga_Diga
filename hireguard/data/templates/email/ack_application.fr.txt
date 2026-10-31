@@ -1,0 +1,8 @@
+Subject: Votre candidature : $job_title
+Bonjour $candidate_name,
+
+Nous avons bien reçu votre candidature pour le poste de $job_title. Notre équipe l'étudie et reviendra vers vous sous dix jours ouvrés.
+
+Cordialement,
+$recruiter_name
+$company_name

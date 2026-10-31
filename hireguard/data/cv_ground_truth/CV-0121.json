@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0121",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Salma Chaabane",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2016-07",
+    "end": null,
+    "skills": [
+     "microsoft-excel",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "node-js"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "salma.chaabane121@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "node-js",
+   "sql"
+  ],
+  "skill_years": {
+   "microsoft-excel": 10.2,
+   "sql": 10.2
+  },
+  "years_experience": 10.2
+ },
+ "text": "Salma Chaabane\nAssistante RH\nsalma.chaabane121@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2016 – aujourd'hui : Olive Systems\n  outils: Microsoft Excel, SQL\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2016\n\nCOMPÉTENCES\nadministration du personnel, Microsoft Excel, Node.js, SQL\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : B2"
+}

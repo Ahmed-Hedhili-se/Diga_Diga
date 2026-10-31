@@ -1,0 +1,20 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=topnet.example; dkim=pass header.d=topnet.example; dmarc=pass
+ header.from=topnet.example
+From: Mohamed Ali Jlassi <medali.jlassi@topnet.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - =?utf-8?q?Disponibilit=C3=A9s?= entretien
+Date: Mon, 02 Nov 2026 12:47:00 +0100
+Message-ID: <EML-042@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+URGENT : merci de me r=C3=A9pondre aujourd'hui.
+
+Bonjour,
+
+Merci pour votre retour. Je suis disponible pour un entretien lundi, mardi ou=
+ mercredi prochain.
+
+Mohamed Ali Jlassi

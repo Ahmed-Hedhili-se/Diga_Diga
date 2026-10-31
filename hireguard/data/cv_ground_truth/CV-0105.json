@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0105",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Omar Bouzid",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2022-12",
+    "end": "2025-12",
+    "skills": [
+     "docker",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2026-04",
+    "end": null,
+    "skills": [
+     "payroll",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "omar.bouzid105@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "payroll",
+   "postgresql",
+   "react",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 3.0,
+   "typescript": 3.0,
+   "payroll": 0.5,
+   "postgresql": 0.5
+  },
+  "years_experience": 3.5
+ },
+ "text": "Omar Bouzid\nمطورة ويب\nomar.bouzid105@example.tn | Ariana\n\nالخبرة المهنية\n12/2022 – 12/2025 : Jasmin Digital\n  الأدوات: Docker, TypeScript\n04/2026 – حاليا : Medina Soft\n  الأدوات: الأجور, PostgreSQL\n\nالتكوين\nماجستير في علوم البيانات, المدرسة العليا للمواصلات بتونس, 2022\n\nالمهارات\nDocker, جافاسكريبت, الأجور, PostgreSQL, React, TypeScript\n\nاللغات\nالعربية : اللغة الأم\nFrançais : B2\nEnglish : B2"
+}

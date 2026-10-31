@@ -1,0 +1,78 @@
+{
+ "ground_truth": {
+  "id": "CV-0136",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Rania Chaabane",
+  "town": "Sfax",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2023-09",
+    "end": "2024-07",
+    "skills": [
+     "data-modelling",
+     "hr-administration",
+     "microsoft-excel",
+     "payroll",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2024-10",
+    "end": null,
+    "skills": [
+     "etl",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "hr-administration"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "rania.chaabane136@example.tn",
+  "skills": [
+   "data-modelling",
+   "etl",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "data-modelling": 0.8,
+   "hr-administration": 0.8,
+   "microsoft-excel": 0.8,
+   "payroll": 0.8,
+   "tunisian-labour-law": 2.8,
+   "etl": 2.0,
+   "recruitment": 2.0
+  },
+  "years_experience": 2.8
+ },
+ "text": "Rania Chaabane\nHR assistant\nrania.chaabane136@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n09/2023 – 07/2024 : Olive Systems\n  tools: data modelling, HR administration, Microsoft Excel, payroll, Tunisian labour law\n10/2024 – present : Atlas Telecom (fictional)\n  tools: ETL pipelines, recruitment, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2023\n\nSKILLS\ndata modelling, ETL pipelines, HR administration, Microsoft Excel, payroll, recruitment, Tunisian labour law\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : B1"
+}

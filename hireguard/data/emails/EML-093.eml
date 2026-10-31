@@ -1,0 +1,17 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Skander Mejri <skander.mejri85@gmail.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - Candidature
+Date: Mon, 02 Nov 2026 18:44:00 +0100
+Message-ID: <EML-093@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+
+2LnYp9is2YQ6INin2YTYsdis2KfYoSDYp9mE2LHYryDYp9mE2YrZiNmFLgoK2KfZhNiz2YTYp9mF
+INi52YTZitmD2YXYjAoK2YrYtNix2YHZhtmKINij2YYg2KPYqtmC2K/ZhSDYqNiq2LHYtNit2Yog
+2YTYrti32Kkg2YXZh9mG2K/YsyDYqNmK2KfZhtin2KouINiq2KzYr9mI2YYg2LPZitix2KrZiiDY
+p9mE2LDYp9iq2YrYqSDZhdix2YHZgtipLgoK2YXYuSDYp9mE2LTZg9ix2IwKU2thbmRlciBNZWpy
+aQo=

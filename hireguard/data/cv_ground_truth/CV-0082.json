@@ -1,0 +1,79 @@
+{
+ "ground_truth": {
+  "id": "CV-0082",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Amira Hammami",
+  "town": "Gabès",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2015-11",
+    "end": "2019-02",
+    "skills": [
+     "data-modelling",
+     "etl",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2019-06",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "docker",
+     "etl",
+     "javascript",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "amira.hammami82@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "javascript",
+   "postgresql",
+   "python",
+   "typescript"
+  ],
+  "skill_years": {
+   "data-modelling": 3.2,
+   "etl": 10.6,
+   "typescript": 3.2,
+   "apache-spark": 7.3,
+   "docker": 7.3,
+   "javascript": 7.3,
+   "python": 7.3
+  },
+  "years_experience": 10.6
+ },
+ "text": "Amira Hammami\nIngénieure données\namira.hammami82@example.tn | Gabès\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2015 – 02/2019 : Carthage Analytics\n  outils: modélisation des données, pipelines ETL, TypeScript\n06/2019 – aujourd'hui : Fictiva Data SARL\n  outils: Apache Spark, Docker, pipelines ETL, JavaScript, Python\n\nFORMATION\nLicence en informatique, SUP'COM, 2015\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, pipelines ETL, JavaScript, PostgreSQL, Python, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C2\nEnglish : B1"
+}

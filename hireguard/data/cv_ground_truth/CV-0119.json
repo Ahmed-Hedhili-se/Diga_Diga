@@ -1,0 +1,89 @@
+{
+ "ground_truth": {
+  "id": "CV-0119",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "f",
+  "name": "Nour Sassi",
+  "town": "Sousse",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2019-07",
+    "end": "2021-12",
+    "skills": [
+     "git",
+     "node-js",
+     "payroll",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2022-01",
+    "end": "2024-07",
+    "skills": [
+     "git",
+     "react",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-10",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "javascript",
+     "node-js"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "node-js",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "nour.sassi119@example.tn",
+  "skills": [
+   "git",
+   "hr-administration",
+   "javascript",
+   "node-js",
+   "payroll",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 4.9,
+   "node-js": 4.4,
+   "payroll": 2.4,
+   "rest-api": 2.4,
+   "react": 2.5,
+   "typescript": 2.5,
+   "hr-administration": 2.0,
+   "javascript": 2.0
+  },
+  "years_experience": 6.9
+ },
+ "text": "Nour Sassi\nFull-stack developer\nnour.sassi119@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n07/2019 – 12/2021 : Olive Systems\n  tools: Git, Node.js, payroll, REST APIs\n01/2022 – 07/2024 : Medina Soft\n  tools: Git, React, TypeScript\n10/2024 – present : Carthage Analytics\n  tools: HR administration, JavaScript, Node.js\n\nEDUCATION\nMaster in data science, SUP'COM, 2019\n\nSKILLS\nGit, HR administration, JavaScript, Node.js, payroll, React, REST APIs, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C1"
+}

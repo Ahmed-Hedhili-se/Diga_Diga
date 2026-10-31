@@ -1,0 +1,68 @@
+{
+ "ground_truth": {
+  "id": "CV-0049",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Wassim Gharbi",
+  "town": "Kasserine",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2016-08",
+    "end": "2017-04",
+    "skills": [
+     "data-modelling",
+     "hr-administration",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2017-05",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "payroll"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "wassim.gharbi49@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "hr-administration",
+   "payroll"
+  ],
+  "skill_years": {
+   "data-modelling": 10.1,
+   "hr-administration": 0.7,
+   "payroll": 10.1
+  },
+  "years_experience": 10.1
+ },
+ "text": "Wassim Gharbi\nAssistante RH\nwassim.gharbi49@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2016 – 04/2017 : Medina Soft\n  outils: modélisation des données, administration du personnel, paie\n05/2017 – aujourd'hui : Carthage Analytics\n  outils: modélisation des données, paie\n\nFORMATION\nLicence en informatique, SUP'COM, 2016\n\nCOMPÉTENCES\nApache Spark, modélisation des données, administration du personnel, paie\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : C2"
+}

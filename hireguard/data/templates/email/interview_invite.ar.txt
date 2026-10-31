@@ -1,0 +1,11 @@
+Subject: مقابلة: $job_title
+مرحبا $candidate_name،
+
+يسعدنا لقاؤكم بخصوص خطة $job_title. تم تحديد موعد المقابلة كالتالي:
+$slot_label
+
+المدة: 45 دقيقة. يرجى تأكيد حضوركم.
+
+مع أطيب التحيات،
+$recruiter_name
+$company_name

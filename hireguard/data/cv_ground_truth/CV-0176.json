@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0176",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Malek Sassi",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2014-10",
+    "end": "2016-10",
+    "skills": [
+     "etl",
+     "recruitment"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2016-11",
+    "end": null,
+    "skills": [
+     "etl",
+     "microsoft-excel",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "malek.sassi176@example.tn",
+  "skills": [
+   "etl",
+   "microsoft-excel",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "etl": 11.9,
+   "recruitment": 11.9,
+   "microsoft-excel": 9.9,
+   "tunisian-labour-law": 9.9
+  },
+  "years_experience": 11.9
+ },
+ "text": "Malek Sassi\nAssistante RH\nmalek.sassi176@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2014 – 10/2016 : Olive Systems\n  outils: pipelines ETL, recrutement\n11/2016 – aujourd'hui : Fictiva Data SARL\n  outils: pipelines ETL, Microsoft Excel, recrutement, droit du travail tunisien\n\nFORMATION\nLicence en informatique, ISET Radès, 2014\n\nCOMPÉTENCES\npipelines ETL, Microsoft Excel, recrutement, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : B2"
+}

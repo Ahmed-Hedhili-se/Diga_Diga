@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0006",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Amira Trabelsi",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2020-10",
+    "end": "2021-12",
+    "skills": [
+     "data-modelling",
+     "git",
+     "microsoft-excel",
+     "python",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-01",
+    "end": null,
+    "skills": [
+     "etl",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "etl"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "amira.trabelsi6@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "etl",
+   "git",
+   "microsoft-excel",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "data-modelling": 1.2,
+   "git": 1.2,
+   "microsoft-excel": 1.2,
+   "python": 5.9,
+   "sql": 1.2,
+   "etl": 4.8
+  },
+  "years_experience": 5.9
+ },
+ "text": "Amira Trabelsi\nمهندسة بيانات\namira.trabelsi6@example.tn | Tataouine\n\nالخبرة المهنية\n10/2020 – 12/2021 : Atlas Telecom (fictional)\n  الأدوات: نمذجة البيانات, Git, مايكروسوفت إكسل, بايثون, SQL\n01/2022 – حاليا : Fictiva Data SARL\n  الأدوات: خطوط ETL, بايثون\n\nالتكوين\nماجستير في علوم البيانات, المدرسة الخاصة للمهندسين بتونس, 2020\n\nالمهارات\nنمذجة البيانات, Docker, خطوط ETL, Git, مايكروسوفت إكسل, بايثون, SQL\n\nاللغات\nالعربية : اللغة الأم\nFrançais : B1\nEnglish : C1"
+}

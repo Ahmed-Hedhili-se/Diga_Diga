@@ -1,0 +1,8 @@
+Subject: ترشحكم لخطة $job_title
+مرحبا $candidate_name،
+
+لقد تلقينا ترشحكم لخطة $job_title. يقوم فريقنا بدراسته وسنعود إليكم في غضون عشرة أيام عمل.
+
+مع أطيب التحيات،
+$recruiter_name
+$company_name

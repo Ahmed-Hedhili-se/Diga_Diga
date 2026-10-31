@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0028",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Eya Hammami",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2019-08",
+    "end": null,
+    "skills": [
+     "postgresql",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "eya.hammami28@example.tn",
+  "skills": [
+   "javascript",
+   "postgresql",
+   "react",
+   "typescript"
+  ],
+  "skill_years": {
+   "postgresql": 7.2,
+   "typescript": 7.2
+  },
+  "years_experience": 7.2
+ },
+ "text": "Eya Hammami\nDéveloppeur full-stack\neya.hammami28@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2019 – aujourd'hui : Medina Soft\n  outils: PostgreSQL, TypeScript\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2019\n\nCOMPÉTENCES\nJavaScript, PostgreSQL, React, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C2\nEnglish : C2"
+}

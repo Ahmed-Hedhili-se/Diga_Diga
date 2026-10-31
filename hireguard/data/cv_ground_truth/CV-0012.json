@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0012",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Eya Bouzid",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-11",
+    "end": "2026-01",
+    "skills": [
+     "python",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "eya.bouzid12@example.tn",
+  "skills": [
+   "git",
+   "python",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "python": 3.2,
+   "typescript": 3.2
+  },
+  "years_experience": 3.2
+ },
+ "text": "Eya Bouzid\nمطورة ويب\neya.bouzid12@example.tn | La Marsa\n\nالخبرة المهنية\n11/2022 – 01/2026 : Fictiva Data SARL\n  الأدوات: بايثون, TypeScript\n\nالتكوين\nشهادة مهندس في الاتصالات, المدرسة العليا للمواصلات بتونس, 2022\n\nالمهارات\nGit, بايثون, واجهات REST, TypeScript\n\nاللغات\nالعربية : اللغة الأم\nFrançais : B1\nEnglish : B1"
+}

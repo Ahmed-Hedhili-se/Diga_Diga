@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0116",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Mariem Jaziri",
+  "town": "Bizerte",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2015-09",
+    "end": "2017-04",
+    "skills": [
+     "docker",
+     "etl",
+     "git",
+     "postgresql"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2017-06",
+    "end": null,
+    "skills": [
+     "git",
+     "node-js",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "git"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "mariem.jaziri116@example.tn",
+  "skills": [
+   "docker",
+   "etl",
+   "git",
+   "node-js",
+   "postgresql",
+   "react"
+  ],
+  "skill_years": {
+   "docker": 1.6,
+   "etl": 1.6,
+   "git": 10.9,
+   "postgresql": 1.6,
+   "node-js": 9.3,
+   "react": 9.3
+  },
+  "years_experience": 10.9
+ },
+ "text": "Mariem Jaziri\nمهندس بيانات\nmariem.jaziri116@example.tn | Bizerte\n\nالخبرة المهنية\n09/2015 – 04/2017 : Medina Soft\n  الأدوات: Docker, خطوط ETL, Git, PostgreSQL\n06/2017 – حاليا : Carthage Analytics\n  الأدوات: Git, Node.js, React\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2015\n\nالمهارات\nDocker, خطوط ETL, Git, Node.js, PostgreSQL, React\n\nاللغات\nالعربية : اللغة الأم\nFrançais : B1\nEnglish : B1"
+}

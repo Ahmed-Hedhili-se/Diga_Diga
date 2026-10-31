@@ -1,0 +1,68 @@
+{
+ "ground_truth": {
+  "id": "CV-0009",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Yasmine Sassi",
+  "town": "Tataouine",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2019-09",
+    "end": "2020-10",
+    "skills": [
+     "git",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2020-11",
+    "end": null,
+    "skills": [
+     "git",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "javascript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "yasmine.sassi9@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "javascript",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 7.0,
+   "typescript": 1.1,
+   "rest-api": 5.9
+  },
+  "years_experience": 7.0
+ },
+ "text": "Yasmine Sassi\nDéveloppeuse full-stack\nyasmine.sassi9@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2019 – 10/2020 : Medina Soft\n  outils: Git, TypeScript\n11/2020 – aujourd'hui : Jasmin Digital\n  outils: Git, API REST\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, ISET Radès, 2019\n\nCOMPÉTENCES\nDocker, Git, JavaScript, API REST, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : B1"
+}

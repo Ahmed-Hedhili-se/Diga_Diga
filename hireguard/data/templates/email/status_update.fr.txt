@@ -1,0 +1,8 @@
+Subject: Suivi de votre candidature : $job_title
+Bonjour $candidate_name,
+
+Statut actuel de votre candidature pour le poste de $job_title : $status_label.
+
+Cordialement,
+$recruiter_name
+$company_name

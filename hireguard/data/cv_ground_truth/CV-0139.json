@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0139",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Mariem Chaabane",
+  "town": "Bizerte",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-08",
+    "end": null,
+    "skills": [
+     "etl",
+     "python",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "mariem.chaabane139@example.tn",
+  "skills": [
+   "etl",
+   "postgresql",
+   "python",
+   "recruitment"
+  ],
+  "skill_years": {
+   "etl": 2.2,
+   "python": 2.2,
+   "recruitment": 2.2
+  },
+  "years_experience": 2.2
+ },
+ "text": "Mariem Chaabane\nمهندس بيانات\nmariem.chaabane139@example.tn | Bizerte\n\nالخبرة المهنية\n08/2024 – حاليا : Carthage Analytics\n  الأدوات: خطوط ETL, بايثون, التوظيف\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2024\n\nالمهارات\nخطوط ETL, PostgreSQL, بايثون, التوظيف\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C1\nEnglish : C1"
+}

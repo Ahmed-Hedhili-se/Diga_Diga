@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0100",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Rania Jaziri",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2022-08",
+    "end": "2024-06",
+    "skills": [
+     "apache-spark",
+     "git",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "recruitment",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "rania.jaziri100@example.tn",
+  "skills": [
+   "apache-spark",
+   "git",
+   "postgresql",
+   "recruitment",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 1.8,
+   "git": 1.8,
+   "postgresql": 1.8
+  },
+  "years_experience": 1.8
+ },
+ "text": "Rania Jaziri\nData engineer\nrania.jaziri100@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n08/2022 – 06/2024 : Olive Systems\n  tools: Apache Spark, Git, PostgreSQL\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2022\n\nSKILLS\nApache Spark, Git, PostgreSQL, recruitment, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : C2"
+}

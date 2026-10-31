@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0094",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Salma Bouzid",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [],
+  "extra_skills": [
+   "etl",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "salma.bouzid94@example.tn",
+  "skills": [
+   "etl",
+   "payroll"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Salma Bouzid\nIngénieur données\nsalma.bouzid94@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2022\n\nCOMPÉTENCES\npipelines ETL, paie\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : C1"
+}

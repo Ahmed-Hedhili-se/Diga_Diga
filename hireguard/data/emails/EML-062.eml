@@ -1,0 +1,20 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=outlook.example; dkim=pass header.d=outlook.example; dmarc=pass
+ header.from=outlook.example
+From: Mariem Hammami <mariem.hammami90@outlook.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - Retrait de candidature
+Date: Mon, 02 Nov 2026 15:07:00 +0100
+Message-ID: <EML-062@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+URGENT : merci de me r=C3=A9pondre aujourd'hui.
+
+Bonjour,
+
+Je souhaite retirer ma candidature, j'ai accept=C3=A9 une autre offre. Merci =
+pour votre temps.
+
+Mariem Hammami

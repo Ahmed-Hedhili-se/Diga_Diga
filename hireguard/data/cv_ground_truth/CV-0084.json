@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0084",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Skander Chaabane",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2022-07",
+    "end": null,
+    "skills": [
+     "git",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "skander.chaabane84@example.tn",
+  "skills": [
+   "etl",
+   "git",
+   "postgresql",
+   "python"
+  ],
+  "skill_years": {
+   "git": 4.2,
+   "postgresql": 4.2,
+   "python": 4.2
+  },
+  "years_experience": 4.2
+ },
+ "text": "Skander Chaabane\nمهندسة بيانات\nskander.chaabane84@example.tn | Sfax\n\nالخبرة المهنية\n07/2022 – حاليا : Olive Systems\n  الأدوات: Git, PostgreSQL, بايثون\n\nالتكوين\nماجستير في علوم البيانات, المدرسة الخاصة للمهندسين بتونس, 2022\n\nالمهارات\nخطوط ETL, Git, PostgreSQL, بايثون\n\nاللغات\nالعربية : اللغة الأم\nFrançais : B2\nEnglish : C2"
+}

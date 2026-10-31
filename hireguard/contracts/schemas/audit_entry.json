@@ -1,0 +1,54 @@
+{
+  "properties": {
+    "seq": {
+      "title": "Seq",
+      "type": "integer"
+    },
+    "ts": {
+      "format": "date-time",
+      "title": "Ts",
+      "type": "string"
+    },
+    "actor": {
+      "title": "Actor",
+      "type": "string"
+    },
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "object_type": {
+      "title": "Object Type",
+      "type": "string"
+    },
+    "object_id": {
+      "title": "Object Id",
+      "type": "string"
+    },
+    "details": {
+      "title": "Details",
+      "type": "object"
+    },
+    "prev_hash": {
+      "title": "Prev Hash",
+      "type": "string"
+    },
+    "hash": {
+      "title": "Hash",
+      "type": "string"
+    }
+  },
+  "required": [
+    "seq",
+    "ts",
+    "actor",
+    "action",
+    "object_type",
+    "object_id",
+    "details",
+    "prev_hash",
+    "hash"
+  ],
+  "title": "AuditEntry",
+  "type": "object"
+}

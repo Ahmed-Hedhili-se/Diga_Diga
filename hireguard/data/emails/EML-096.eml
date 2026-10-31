@@ -1,0 +1,17 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=topnet.example; dkim=pass header.d=topnet.example; dmarc=pass
+ header.from=topnet.example
+From: Mariem Dridi <mariem.dridi27@topnet.example>
+To: recrutement@hireguard.demo
+Subject: Retrait de candidature
+Date: Mon, 02 Nov 2026 19:05:00 +0100
+Message-ID: <EML-096@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Hello,
+
+I would like to withdraw my application as I have accepted another offer.
+
+Mariem Dridi

@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0109",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Eya Ayari",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2023-12",
+    "end": null,
+    "skills": [
+     "docker",
+     "etl",
+     "git"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "eya.ayari109@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "etl",
+   "git",
+   "python"
+  ],
+  "skill_years": {
+   "docker": 2.8,
+   "etl": 2.8,
+   "git": 2.8
+  },
+  "years_experience": 2.8
+ },
+ "text": "Eya Ayari\nData engineer\neya.ayari109@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n12/2023 – present : Medina Soft\n  tools: Docker, ETL pipelines, Git\n\nEDUCATION\nEngineering degree in telecommunications, SUP'COM, 2023\n\nSKILLS\nApache Spark, Docker, ETL pipelines, Git, Python\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B1"
+}

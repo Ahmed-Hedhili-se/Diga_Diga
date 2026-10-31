@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0113",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "f",
+  "name": "Skander Ayari",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2023-12",
+    "end": "2025-03",
+    "skills": [
+     "docker",
+     "node-js"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "skander.ayari113@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "node-js",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 1.2,
+   "node-js": 1.2
+  },
+  "years_experience": 1.2
+ },
+ "text": "Skander Ayari\nFull-stack developer\nskander.ayari113@example.tn | Bizerte\n\nPROFESSIONAL EXPERIENCE\n12/2023 – 03/2025 : Jasmin Digital\n  tools: Docker, Node.js\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2023\n\nSKILLS\nDocker, JavaScript, Node.js, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : B1"
+}

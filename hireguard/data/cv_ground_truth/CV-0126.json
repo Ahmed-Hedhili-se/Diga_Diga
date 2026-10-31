@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0126",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Nour Jaziri",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2020-08",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "git",
+     "node-js",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "node-js",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "nour.jaziri126@example.tn",
+  "skills": [
+   "apache-spark",
+   "git",
+   "node-js",
+   "postgresql",
+   "python",
+   "rest-api"
+  ],
+  "skill_years": {
+   "apache-spark": 6.2,
+   "git": 6.2,
+   "node-js": 6.2,
+   "postgresql": 6.2,
+   "python": 6.2
+  },
+  "years_experience": 6.2
+ },
+ "text": "Nour Jaziri\nDéveloppeuse full-stack\nnour.jaziri126@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2020 – aujourd'hui : Carthage Analytics\n  outils: Apache Spark, Git, Node.js, PostgreSQL, Python\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, ISET Radès, 2020\n\nCOMPÉTENCES\nApache Spark, Git, Node.js, PostgreSQL, Python, API REST\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C2"
+}

@@ -1,0 +1,88 @@
+{
+ "ground_truth": {
+  "id": "CV-0067",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Yasmine Chaabane",
+  "town": "Ariana",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2019-07",
+    "end": "2022-11",
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "etl",
+     "git",
+     "python"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-12",
+    "end": "2025-05",
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "etl",
+     "git"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2025-08",
+    "end": null,
+    "skills": [
+     "postgresql",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "yasmine.chaabane67@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "etl",
+   "git",
+   "postgresql",
+   "python",
+   "recruitment"
+  ],
+  "skill_years": {
+   "apache-spark": 5.8,
+   "data-modelling": 5.8,
+   "etl": 5.8,
+   "git": 5.8,
+   "python": 3.3,
+   "postgresql": 1.2,
+   "recruitment": 1.2
+  },
+  "years_experience": 6.9
+ },
+ "text": "Yasmine Chaabane\nData engineer\nyasmine.chaabane67@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n07/2019 – 11/2022 : Atlas Telecom (fictional)\n  tools: Apache Spark, data modelling, ETL pipelines, Git, Python\n12/2022 – 05/2025 : Fictiva Data SARL\n  tools: Apache Spark, data modelling, ETL pipelines, Git\n08/2025 – present : Jasmin Digital\n  tools: PostgreSQL, recruitment\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2019\n\nSKILLS\nApache Spark, data modelling, ETL pipelines, Git, PostgreSQL, Python, recruitment\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C2"
+}

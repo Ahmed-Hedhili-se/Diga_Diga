@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0165",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Amira Ben Salah",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2017-09",
+    "end": "2019-09",
+    "skills": [
+     "postgresql",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2020-01",
+    "end": "2022-12",
+    "skills": [
+     "apache-spark",
+     "docker",
+     "javascript",
+     "node-js",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "react",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "amira.ben.salah165@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "javascript",
+   "node-js",
+   "postgresql",
+   "react",
+   "typescript"
+  ],
+  "skill_years": {
+   "postgresql": 2.0,
+   "typescript": 2.0,
+   "apache-spark": 2.9,
+   "docker": 2.9,
+   "javascript": 2.9,
+   "node-js": 2.9,
+   "react": 2.9
+  },
+  "years_experience": 4.9
+ },
+ "text": "Amira Ben Salah\nDéveloppeuse full-stack\namira.ben.salah165@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2017 – 09/2019 : Olive Systems\n  outils: PostgreSQL, TypeScript\n01/2020 – 12/2022 : Olive Systems\n  outils: Apache Spark, Docker, JavaScript, Node.js, React\n\nFORMATION\nMastère professionnel en science des données, ISET Radès, 2017\n\nCOMPÉTENCES\nApache Spark, Docker, JavaScript, Node.js, PostgreSQL, React, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C2"
+}

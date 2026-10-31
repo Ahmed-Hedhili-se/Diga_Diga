@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0010",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Fedi Gharbi",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2020-12",
+    "end": "2022-01",
+    "skills": [
+     "payroll",
+     "tunisian-labour-law",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2022-02",
+    "end": "2025-03",
+    "skills": [
+     "microsoft-excel",
+     "payroll",
+     "recruitment",
+     "rest-api",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "fedi.gharbi10@example.tn",
+  "skills": [
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "rest-api",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "payroll": 4.2,
+   "tunisian-labour-law": 4.2,
+   "typescript": 1.1,
+   "microsoft-excel": 3.1,
+   "recruitment": 3.1,
+   "rest-api": 3.1
+  },
+  "years_experience": 4.2
+ },
+ "text": "Fedi Gharbi\nHR assistant\nfedi.gharbi10@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n12/2020 – 01/2022 : Olive Systems\n  tools: payroll, Tunisian labour law, TypeScript\n02/2022 – 03/2025 : Medina Soft\n  tools: Microsoft Excel, payroll, recruitment, REST APIs, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2020\n\nSKILLS\nMicrosoft Excel, payroll, recruitment, REST APIs, Tunisian labour law, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B2"
+}

@@ -1,0 +1,209 @@
+{
+  "$defs": {
+    "CEFR": {
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2",
+        "native"
+      ],
+      "title": "CEFR",
+      "type": "string"
+    },
+    "DegreeLevel": {
+      "enum": [
+        "none",
+        "bac",
+        "bts",
+        "licence",
+        "master",
+        "ingenieur",
+        "phd"
+      ],
+      "title": "DegreeLevel",
+      "type": "string"
+    },
+    "ExtractedDegree": {
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/DegreeLevel"
+        },
+        "year": {
+          "anyOf": [
+            {
+              "maximum": 2035,
+              "minimum": 1960,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Year"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Span"
+        }
+      },
+      "required": [
+        "level",
+        "evidence"
+      ],
+      "title": "ExtractedDegree",
+      "type": "object"
+    },
+    "ExtractedExperience": {
+      "properties": {
+        "start": {
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+          "title": "Start",
+          "type": "string"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "skills": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Span"
+        }
+      },
+      "required": [
+        "start",
+        "evidence"
+      ],
+      "title": "ExtractedExperience",
+      "type": "object"
+    },
+    "ExtractedLanguage": {
+      "properties": {
+        "iso": {
+          "$ref": "#/$defs/Lang"
+        },
+        "cefr": {
+          "$ref": "#/$defs/CEFR"
+        }
+      },
+      "required": [
+        "iso",
+        "cefr"
+      ],
+      "title": "ExtractedLanguage",
+      "type": "object"
+    },
+    "ExtractedSkill": {
+      "properties": {
+        "esco_id": {
+          "pattern": "^[a-z0-9\\-]{3,64}$",
+          "title": "Esco Id",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Span"
+        }
+      },
+      "required": [
+        "esco_id",
+        "evidence"
+      ],
+      "title": "ExtractedSkill",
+      "type": "object"
+    },
+    "Lang": {
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "de",
+        "es",
+        "it"
+      ],
+      "title": "Lang",
+      "type": "string"
+    },
+    "Span": {
+      "description": "Character offsets into SanitizeResult.visible_text (end exclusive).",
+      "properties": {
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "minimum": 0,
+          "title": "End",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Span",
+      "type": "object"
+    }
+  },
+  "description": "Exactly what Qwen3 may return. No free-text field exists here, on purpose.",
+  "properties": {
+    "doc_language": {
+      "$ref": "#/$defs/Lang"
+    },
+    "skills": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExtractedSkill"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "experiences": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExtractedExperience"
+      },
+      "title": "Experiences",
+      "type": "array"
+    },
+    "degrees": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExtractedDegree"
+      },
+      "title": "Degrees",
+      "type": "array"
+    },
+    "languages": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExtractedLanguage"
+      },
+      "title": "Languages",
+      "type": "array"
+    }
+  },
+  "required": [
+    "doc_language"
+  ],
+  "title": "CVExtraction",
+  "type": "object"
+}

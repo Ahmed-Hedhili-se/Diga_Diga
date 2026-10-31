@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0073",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Nour Mansouri",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2018-11",
+    "end": "2021-10",
+    "skills": [
+     "docker",
+     "git",
+     "python",
+     "recruitment",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "python",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "nour.mansouri73@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "python",
+   "react",
+   "recruitment",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 2.9,
+   "git": 2.9,
+   "python": 2.9,
+   "recruitment": 2.9,
+   "typescript": 2.9
+  },
+  "years_experience": 2.9
+ },
+ "text": "Nour Mansouri\nDéveloppeur full-stack\nnour.mansouri73@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2018 – 10/2021 : Medina Soft\n  outils: Docker, Git, Python, recrutement, TypeScript\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2018\n\nCOMPÉTENCES\nDocker, Git, Python, React, recrutement, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : C1"
+}

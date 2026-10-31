@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=yahoo.example; dkim=pass header.d=yahoo.example; dmarc=pass
+ header.from=yahoo.example
+From: Karim Mansour <karim.mansour@yahoo.example>
+To: recrutement@hireguard.demo
+Subject: Retrait de candidature
+Date: Mon, 02 Nov 2026 16:38:00 +0100
+Message-ID: <EML-075@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour,
+
+Je souhaite retirer ma candidature, j'ai accept=C3=A9 une autre offre. Merci =
+pour votre temps.
+
+Karim Mansour

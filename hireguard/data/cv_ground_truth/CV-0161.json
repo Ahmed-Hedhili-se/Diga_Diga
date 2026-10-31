@@ -1,0 +1,78 @@
+{
+ "ground_truth": {
+  "id": "CV-0161",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Hamza Ben Salah",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-11",
+    "end": "2022-09",
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "etl",
+     "git",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2022-11",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "microsoft-excel",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "hamza.ben.salah161@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "etl",
+   "git",
+   "microsoft-excel",
+   "postgresql",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 0.8,
+   "data-modelling": 4.8,
+   "etl": 0.8,
+   "git": 0.8,
+   "sql": 0.8,
+   "microsoft-excel": 3.9,
+   "postgresql": 3.9
+  },
+  "years_experience": 4.8
+ },
+ "text": "Hamza Ben Salah\nData engineer\nhamza.ben.salah161@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n11/2021 – 09/2022 : Fictiva Data SARL\n  tools: Apache Spark, data modelling, ETL pipelines, Git, SQL\n11/2022 – present : Medina Soft\n  tools: data modelling, Microsoft Excel, PostgreSQL\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2021\n\nSKILLS\nApache Spark, data modelling, ETL pipelines, Git, Microsoft Excel, PostgreSQL, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B2"
+}

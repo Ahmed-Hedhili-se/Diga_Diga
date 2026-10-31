@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0146",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Youssef Ben Salah",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [],
+  "extra_skills": [
+   "docker",
+   "etl"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "youssef.ben.salah146@example.tn",
+  "skills": [
+   "docker",
+   "etl"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Youssef Ben Salah\nمهندس بيانات\nyoussef.ben.salah146@example.tn | Sfax\n\nالخبرة المهنية\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2023\n\nالمهارات\nDocker, خطوط ETL\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : B1"
+}

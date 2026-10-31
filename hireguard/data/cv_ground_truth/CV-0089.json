@@ -1,0 +1,63 @@
+{
+ "ground_truth": {
+  "id": "CV-0089",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Aziz Khelifi",
+  "town": "Gabès",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2023-09",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "docker",
+     "git",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "aziz.khelifi89@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "git",
+   "postgresql",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "data-modelling": 3.1,
+   "docker": 3.1,
+   "git": 3.1,
+   "sql": 3.1
+  },
+  "years_experience": 3.1
+ },
+ "text": "Aziz Khelifi\nData engineer\naziz.khelifi89@example.tn | Gabès\n\nPROFESSIONAL EXPERIENCE\n09/2023 – present : Fictiva Data SARL\n  tools: data modelling, Docker, Git, SQL\n\nEDUCATION\nMaster in data science, ISET Radès, 2023\n\nSKILLS\ndata modelling, Docker, Git, PostgreSQL, Python, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C2"
+}
