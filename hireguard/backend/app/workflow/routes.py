@@ -114,6 +114,8 @@ def question_reply(question_id: str, body: employee_questions.ReplyIn, user: Use
 
 @router.get("/calendar/slots")
 def calendar_slots(recruiter_id: str = Query("recruiter", max_length=64), user: UserOut = Depends(require_roles(R, M))):
+    if not mock_calendar.is_known_recruiter(recruiter_id):
+        raise HTTPException(404, "recruiter not found")
     return mock_calendar.free_slots(recruiter_id, 3)
 
 # ---------------------------------------------------------------- audit

@@ -53,6 +53,9 @@ Owner: P3. The internal pentest of the web app (H12–14) adds its findings to t
 | `display_name_spoof`: `"cand@gmail" <x@relay>` | display name contains a different address → suspicious | held |
 | `reply_to_hijack`: replies would go to another domain | Reply-To domain ≠ From domain → suspicious | held |
 | `lookalike_domain`: `gmai1.example` passes DMARC for itself | not an exact verified-candidate address → needs_human | no candidate data |
+| IDN homograph (dotless i, Cyrillic a, punycode, suffix) | exact address comparison, no Unicode folding | needs_human, no candidate data |
+| Encoded-word display name that contains another address | the decoded display name is checked | held |
+| Two `Authentication-Results` headers with **our** authserv-id (forged copy first or last) | more than one → `duplicate_trusted_auth_results` | held |
 
 Production note: the receiving MTA must strip inbound `Authentication-Results` headers that carry our authserv-id (RFC 8601 §5) before it adds its own. Live checking is available with `HG_EMAIL_LIVE_AUTH=1` (`authheaders`: DKIM, DMARC, and SPF when the client IP is known).
 
@@ -113,4 +116,9 @@ Every 20th approval item (`HG_CANARY_EVERY`) gets a twin with a planted defect (
 
 | # | Finding | Severity | Status |
 |---|---|---|---|
-| | *to be filled during the internal pentest* | | |
+| F1 | Forged `Authentication-Results` with our own authserv-id placed first was trusted | Medium | Fixed: duplicates are held |
+| F2 | Unlimited calendar rows via made-up `recruiter_id` | Low | Fixed: unknown recruiter is 404 |
+| F3 | Control characters and bidi overrides passed through template slots | Low | Fixed: `one_line` cleans them |
+| F5 | Login answers differ for locked and unknown accounts (user enumeration) | Low | Hand-off to P4 |
+
+Details, method and everything that held: `docs/pentest_report.md`.
