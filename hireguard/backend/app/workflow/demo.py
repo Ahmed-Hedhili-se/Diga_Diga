@@ -213,8 +213,10 @@ def seed_employees():
 
 
 def seed_followup_demo(days_ago: int = 5) -> str | None:
-    """DEMO HISTORY ONLY: backdates one acknowledgement email, as if it had been approved and sent `days_ago` days
-    ago, to the first candidate who never wrote to us. Lets `POST /api/followups/run` show a silent candidate.
+    """DEMO HISTORY ONLY. Picks the first candidate we never emailed and tells this story: they wrote
+    `days_ago + 1` days ago, we replied `days_ago` days ago, silence since. Their inbox timestamps are moved back
+    (the demo ingests everything "now") and one acknowledgement is added to the outbox as if approved and sent.
+    Lets `POST /api/followups/run` show a silent candidate. Logged in the audit trail.
     Returns the candidate id (or None). Run: python -m app.workflow.demo --followups"""
     from ..contracts import ApprovalKind
     from . import approvals, audit, drafting, templates
@@ -224,10 +226,9 @@ def seed_followup_demo(days_ago: int = 5) -> str | None:
         if not table_exists(conn, "candidates"):
             return None
         for c in conn.execute("SELECT * FROM candidates ORDER BY candidate_id").fetchall():
-            heard = conn.execute("SELECT 1 FROM inbox_items WHERE candidate_id = ?", (c["candidate_id"],)).fetchone()
             sent = conn.execute("SELECT 1 FROM approval_items WHERE kind='email_send' AND "
                                 "json_extract(payload, '$.candidate_id') = ?", (c["candidate_id"],)).fetchone()
-            if not heard and not sent:
+            if not sent:
                 break
         else:
             return None
@@ -240,6 +241,8 @@ def seed_followup_demo(days_ago: int = 5) -> str | None:
             {"candidate_id": cand["candidate_id"], "to": cand["email"], "recipient_verified": True,
              "subject": subject, "body": body, "lang": lang}, "system", conn=conn)
         sent_at = (now() - timedelta(days=days_ago)).isoformat()
+        wrote_at = (now() - timedelta(days=days_ago + 1)).isoformat()
+        conn.execute("UPDATE inbox_items SET received_at = ? WHERE candidate_id = ?", (wrote_at, cand["candidate_id"]))
         conn.execute("UPDATE approval_items SET status = 'executed' WHERE id = ?", (item.id,))
         conn.execute("INSERT INTO email_outbox VALUES (?,?,?,?,?,?,?)",
                      (f"OUT-demo-{cand['candidate_id']}", item.id, cand["email"], subject, body, lang, sent_at))

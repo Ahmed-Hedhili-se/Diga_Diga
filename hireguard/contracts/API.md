@@ -62,7 +62,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/approvals/{id}/decision` | R M (offer: M, 2 distinct approvers) | `{decision:"approve"\|"reject"}` → `ApprovalItem` |
 | POST | `/approvals/batches/{batch_id}/decision` | R M | `{decision, item_ids}` → `ApprovalItem[]` |
 | POST | `/executor/run/{item_id}` | R M | → `{executed}`; **403 if the item is not approved** |
-| GET | `/calendar/slots?recruiter_id=` | R M | → 3 free slots |
+| GET | `/calendar/slots?recruiter_id=` | R M | → 3 free slots; unknown `recruiter_id` → 404 (default `recruiter`, or a recruiter / HR manager account id) |
 | GET | `/audit?limit=` | M A | → `AuditEntry[]` |
 | GET | `/audit/verify` | M A | → `{ok, length, broken_at, last_anchor}` |
 | POST | `/documents/request` | E | `{type: "work_certificate"\|"salary_certificate"\|"leave_confirmation", params}` → `ApprovalItem` |

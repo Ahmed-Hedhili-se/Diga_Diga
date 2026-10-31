@@ -4,7 +4,7 @@
 > P3 owns the code with authority: email gate, drafting, approvals, executor, audit log, documents, interviews, follow-ups.
 > This file is kept up to date after every P3 task. **Section 1 is what I need from you.**
 
-Last update: 2026-10-31 · branch `p3/audit-anchor` (includes T1-T4) · backend tests: 129 passed
+Last update: 2026-10-31 · branch `p3/pentest` (includes T1-T5) · backend tests: 187 passed + 1 expected failure (P4 finding F5)
 
 ---
 
@@ -19,6 +19,9 @@ Last update: 2026-10-31 · branch `p3/audit-anchor` (includes T1-T4) · backend 
 | H5 | **P4** | Follow-ups UI: a "Silent candidates" card on `GET /api/followups/preview` and a "Draft reminders" button on `POST /api/followups/run` (roles R, M). The reminders then appear in the normal approval queue, with `payload.template = "followup_reminder"` | New spec-book axis "Candidate Follow-ups" | open |
 | H7 | **P4** | Approval queue: an interview-slot item can turn `rejected` after another slot is booked (audit action `approval.withdraw`, `details.reason = "sibling_booked"`). Show it as "withdrawn: another slot was booked" instead of a plain rejection | Reviewers shouldn't think a colleague rejected it | open |
 | H8 | **P4** | Security Center: show `GET /api/audit/verify` (ok / broken_at / last_anchor) and an admin "Anchor now" button (`POST /api/audit/anchor`). Step-by-step in `hireguard/docs/demo_p3.md` | Demo moment 4 | open |
+| H9 | **P4** | Fix **F5**: a locked account answers `423` but an unknown one answers `401`, so anyone can learn which emails have accounts. Return the same status and message for both. Then remove the `xfail` mark on `test_login_does_not_reveal_whether_an_account_exists` in `tests/test_pentest_p3.py` | Pentest finding F5 (low) | open |
+| H10 | **P4** | Before deploying: disable `/api/docs` (it has a relaxed CSP) and decide how the rate limiter sees client IPs behind a proxy (today it uses the socket peer, so everyone behind one proxy shares 10 logins a minute). Details in `hireguard/docs/pentest_report.md`, O1 and O2 | Pentest observations | open |
+| H11 | **P1** | Demo step 2 needs the email extractor. Without Ollama running, every email gets `extraction_failed` and stays in `needs_human` with no draft (safe, but the demo shows nothing). Either have Ollama up on demo day, or add an offline fallback in `pipeline/email_extract.py`, like the CV `ground_truth` mode | Demo robustness | open |
 | H6 | **everyone** | Run `pip install -r hireguard/backend/requirements.txt` before testing. PyMuPDF was missing on my laptop, so 3 test files couldn't load | So tests don't fail at import | info |
 
 Reply by editing the **Status** column (or tell me directly).
@@ -61,7 +64,7 @@ from app.workflow.employee_questions import create_employee_question  # P1: crea
 | T3 | `employee_question` queue for personal Answer Desk questions | **done** (unblocks H2) |
 | T4 | Risk score ignores low-severity hidden findings | **done** on my side (H1 still wanted from P1) |
 | T5 | Audit anchoring docs + offline/online check | **done** |
-| T6 | Internal pentest (IDOR, CSRF, executor, email spoofs, template injection, rate limits) → `docs/pentest_report.md` | todo, **P4: app ready for pentest at H12** |
+| T6 | Internal pentest (IDOR, CSRF, executor, email spoofs, template injection, rate limits) → `docs/pentest_report.md` | **done**: 3 P3 findings fixed, 1 finding + 2 observations handed to P4, 1 to P1 |
 | T7 | Docs consistency + threat model update | todo |
 
 ## 4. Changelog
@@ -71,3 +74,4 @@ from app.workflow.employee_questions import create_employee_question  # P1: crea
 - **2026-10-31 · T3**: `workflow/employee_questions.py` + 4 endpoints + `question_reply.{fr,en,ar}.txt`. Personal Answer Desk questions go to HR: typed `topic` enum, risk computed from topic only, text stored for HR to read and never logged, never copied to a reply. HR picks a reply template (`received`, `contact_hr`, `use_documents`); it becomes an `email_send` approval item to the employee's own account (from `auth_users`), needs a second HR manager, and marks the question `answered` when the executor sends it. Another employee's ticket id gives 404. 7 tests in `tests/test_employee_questions.py`. **P1: for `/api/answer-desk/ask`, return `{kind: "routed", ticket_id: <id>}` using the id from `create_employee_question`.**
 - **2026-10-31 · T4**: `approvals.compute_risk` adds +10 only for high-severity hidden findings (`count_high_findings`). Low = `severity: "low"`, or a `zero_width` finding that is only undecodable glyphs. Missing field or unknown shape = high (fail closed). Explicit `hidden_findings_high` int wins. 13 tests in `tests/test_risk.py`.
 - **2026-10-31 · T5**: `anchor_now` now reads the head and does the `ots`/`git` work **before** its write transaction (a slow push no longer blocks approvals) and only runs git when `data/anchors` is its own repo (before, `git commit` could have acted on the HireGuard repo). 12 tests in `tests/test_anchor.py` (offline = no external call, network flag, tamper / delete / full-rewrite / truncation all caught). New docs: `docs/anchoring.md` (what we claim, Windows setup), `docs/demo_p3.md` (5-step demo script), Postgres `REVOKE`/`GRANT` in the threat model. `python -m app.workflow.demo --followups` adds a backdated email so the follow-up demo works. `data/anchors/` is git-ignored.
+- **2026-10-31 · T6**: `tests/test_pentest_p3.py` (59 cases) + a live run of the server with `curl` (demo steps 3, 4, 5 and the 429 check verified). Fixed in P3 code: **F1** duplicate `Authentication-Results` with our authserv-id (email gate), **F2** unlimited calendar rows (`/api/calendar/slots` now 404s for unknown recruiters), **F3** control and bidi characters in template slots. Also fixed the demo helper `python -m app.workflow.demo --followups` (it found nobody to remind because the seeded emails are timestamped "now"; it now backdates that candidate's mail, and logs it). Full write-up: `hireguard/docs/pentest_report.md`.

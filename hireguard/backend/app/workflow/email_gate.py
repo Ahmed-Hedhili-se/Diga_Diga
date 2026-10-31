@@ -74,6 +74,17 @@ def parse_auth_results(msg) -> dict[str, str] | None:
     return None
 
 
+def trusted_header_count(msg) -> int:
+    """How many Authentication-Results headers carry OUR authserv-id. Our MTA stamps exactly one."""
+    n = 0
+    for header in msg.get_all("Authentication-Results", []) or []:
+        value = str(header)
+        parts = value.split(";", 1)[0].strip().split()
+        if parts and parts[0].lower() == AUTHSERV_ID.lower():
+            n += 1
+    return n
+
+
 def authenticate(raw: bytes, msg, client_ip: str | None = None) -> dict[str, str] | None:
     if LIVE_AUTH:
         from authheaders import authenticate_message  # network: DNS lookups for DKIM keys / DMARC policy
@@ -131,6 +142,9 @@ def classify(msg, auth: dict | None, extraction: EmailExtraction | None, candida
         suspicious.append("no_trusted_auth_results")
     elif auth["dmarc"] != "pass":
         suspicious.append(f"dmarc_{auth['dmarc']}")
+    if trusted_header_count(msg) > 1:
+        # a sender cannot tell us which copy is real: if two claim our authserv-id, trust neither
+        suspicious.append("duplicate_trusted_auth_results")
     name, addr = parseaddr(str(msg.get("From", "")))
     if "@" in name and parseaddr(name)[1].lower() != addr.lower():
         suspicious.append("display_name_contains_other_address")

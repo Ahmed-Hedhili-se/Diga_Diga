@@ -141,11 +141,14 @@ def test_followup_endpoints(db, monkeypatch):
 
 
 def test_demo_seed_creates_a_silent_candidate(db):
+    """The demo ingests every email "now", so the helper must also move the candidate's own mail back in time."""
     from app.workflow import demo
     add_candidate("CAND-001", "amira@gmail.example", "Amira Ben Salah")
     add_candidate("CAND-002", "youssef@outlook.example", "Youssef")
-    _inbound("CAND-001", "amira@gmail.example", when=now() - timedelta(days=9))  # CAND-001 already wrote to us
-    assert demo.seed_followup_demo() == "CAND-002"
+    _inbound("CAND-001", "amira@gmail.example", when=now())          # she wrote today, like the seeded demo emails
+    assert followups.draft_reminders(days=3) == []                   # so nobody is silent yet
+    assert demo.seed_followup_demo() == "CAND-001"
     [item_id] = followups.draft_reminders(days=3)
     r = approvals.get_item(item_id)
-    assert r.payload["candidate_id"] == "CAND-002" and r.status == "pending"
+    assert r.payload["candidate_id"] == "CAND-001" and r.status == "pending"
+    assert any(e.action == "demo.seed_followup" for e in audit.list_entries(50))   # the backdating is on record
