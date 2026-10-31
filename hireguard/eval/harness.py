@@ -35,6 +35,7 @@ import time
 from datetime import datetime, timezone
 from email import policy
 from email.utils import parseaddr
+from pathlib import Path
 
 import httpx
 
@@ -130,8 +131,8 @@ def _rank(total: float, pool: list[float]) -> int:
     return 1 + sum(1 for t in pool if t > total)
 
 
-def _attack_manifest(limit=None):
-    p = CORPUS_DIR / "attacks" / "manifest.json"
+def _attack_manifest(limit=None, corpus: str = "attacks"):
+    p = CORPUS_DIR / corpus / "manifest.json"
     return json.loads(p.read_text(encoding="utf-8"))[:limit] if p.exists() else None
 
 
@@ -185,11 +186,12 @@ def eval_hidden(_, limit=None) -> dict:
 # ---------------------------------------------------------------- attacks
 
 
-def eval_attacks(an: Analyzer, limit=None) -> dict:
-    manifest = _attack_manifest(limit)
+def eval_attacks(an: Analyzer, limit=None, corpus: str = "attacks") -> dict:
+    """attacks = 40 hidden payloads (gen_attacks.py); attacks_extra = 14 visible/bidi payloads (gen_attacks_extra.py)."""
+    manifest = _attack_manifest(limit, corpus)
     if manifest is None:
-        return {"skipped": "no corpus; run eval/gen_attacks.py"}
-    d = CORPUS_DIR / "attacks"
+        return {"skipped": f"no corpus; run eval/gen_{corpus}.py"}
+    d = CORPUS_DIR / corpus
     rows, twin_scores, t0 = [], {}, time.time()
     for i, m in enumerate(manifest, 1):
         s_twin, v_twin = an.cv((d / f"{m['id']}.twin.pdf").read_bytes(), m["id"], m["ground_truth"])
@@ -198,28 +200,36 @@ def eval_attacks(an: Analyzer, limit=None) -> dict:
         twin_scores.setdefault(m["job_id"], []).append(_score(v_twin, m["job_id"]))
         _progress("attacks", i, len(manifest), t0)
 
-    success = same_text = flagged = instr_n = needs_human = 0
-    by_channel, details = {}, []
+    success = same_text = flagged = instr_n = needs_human = raised = 0
+    by_channel, by_lang, by_kind, details = {}, {}, {}, []
     for m, s_twin, v_twin, s_atk, v_atk in rows:
         t_tw, t_atk = _score(v_twin, m["job_id"]), _score(v_atk, m["job_id"])
         pool = twin_scores[m["job_id"]]
         moved = (_fingerprint(v_twin) != _fingerprint(v_atk) or t_tw != t_atk
                  or _rank(t_tw, pool) != _rank(t_atk, pool))
         success += moved
+        raised += t_atk > t_tw  # what the attacker wants; a lower score is still counted as "moved"
         same = s_twin.visible_text == s_atk.visible_text
         same_text += same
         needs_human += v_atk.status == "needs_human"
-        c = by_channel.setdefault(m["channel"], [0, 0]); c[0] += moved; c[1] += 1
+        for bucket, key in ((by_channel, m["channel"]), (by_lang, m["payload_lang"]), (by_kind, m["payload_kind"])):
+            c = bucket.setdefault(key, [0, 0]); c[0] += moved; c[1] += 1
         if m["payload_kind"] == "instruction":
             instr_n += 1
             flagged += bool(v_atk.injection_flags)
-        details.append({"id": m["id"], "channel": m["channel"], "payload_kind": m["payload_kind"], "moved": moved,
-                        "same_visible_text": same, "score_twin": t_tw, "score_attacked": t_atk,
-                        "status_attacked": v_atk.status, "flags": len(v_atk.injection_flags)})
+        details.append({"id": m["id"], "channel": m["channel"], "payload_lang": m["payload_lang"],
+                        "payload_kind": m["payload_kind"], "moved": moved, "same_visible_text": same,
+                        "score_twin": t_tw, "score_attacked": t_atk, "status_attacked": v_atk.status,
+                        "flags": len(v_atk.injection_flags),
+                        "fields_changed": sorted(k for k, v in _fingerprint(v_atk).items() if _fingerprint(v_twin)[k] != v)})
     n = len(rows)
     return {
+        "corpus": corpus,
         "attack_success": rate(success, n),
+        "score_raised": rate(raised, n),
         "by_channel": {ch: rate(k, nn) for ch, (k, nn) in sorted(by_channel.items())},
+        "by_payload_lang": {k: rate(a, b) for k, (a, b) in sorted(by_lang.items())},
+        "by_payload_kind": {k: rate(a, b) for k, (a, b) in sorted(by_kind.items())},
         "visible_text_identical_to_twin": rate(same_text, n),
         "attacked_sent_to_human": rate(needs_human, n),
         "instruction_flagged": rate(flagged, instr_n),
@@ -346,16 +356,17 @@ def eval_extraction(an: Analyzer, limit=None) -> dict:
             "sent_to_human": rate(needs_human, len(pdfs))}
 
 
-SECTIONS = {"hidden": eval_hidden, "attacks": eval_attacks, "twins": eval_twins,
-            "emails": eval_emails, "extraction": eval_extraction}
+SECTIONS = {"hidden": eval_hidden, "attacks": eval_attacks,
+            "attacks_extra": lambda an, limit=None: eval_attacks(an, limit, "attacks_extra"),
+            "twins": eval_twins, "emails": eval_emails, "extraction": eval_extraction}
 
 
-def _write(summary: dict):
+def _write(summary: dict, path=SUMMARY):
     baseline = RESULTS_DIR / "baseline.json"
     summary["baseline"] = json.loads(baseline.read_text(encoding="utf-8")) if baseline.exists() else {
         "skipped": "run eval/baselines.py"}
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    SUMMARY.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
+    path.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def main():
@@ -363,6 +374,7 @@ def main():
     ap.add_argument("--only", default=",".join(SECTIONS))
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--extraction", choices=("auto", "llm", "oracle"), default="auto")
+    ap.add_argument("--summary", type=Path, default=SUMMARY, help="output file (e.g. one per model compared)")
     a = ap.parse_args()
     from app import config
     from app.pipeline.demo import _ollama_ready
@@ -372,7 +384,8 @@ def main():
     if mode == "llm" and set(a.only.split(",")) - {"hidden"} and not _ollama_ready():
         raise SystemExit("LLM mode requested but the model is not reachable; nothing written. "
                          "Start Ollama (or set HG_OLLAMA_HOSTS) or run with --extraction oracle")
-    summary = json.loads(SUMMARY.read_text(encoding="utf-8")) if SUMMARY.exists() else {}
+    out_path = a.summary
+    summary = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
     summary.setdefault("sections", {})
     summary.update({"generated_at": datetime.now(timezone.utc).isoformat(), "model": config.OLLAMA_MODEL,
                     "groq_fallback": config.GROQ_FALLBACK})
@@ -392,11 +405,11 @@ def main():
             res["llm_calls_total"], res["llm_cache_hits_total"] = an.calls, an.hits
             res["llm_failed_calls_total"] = an.failures  # a model that died mid-run shows up here, not as 0/40
         summary["sections"][name] = res
-        _write(summary)
+        _write(summary, out_path)
         print(f"[{name}] done", json.dumps({k: (v.get("text") if isinstance(v, dict) and "text" in v else v)
                                             for k, v in res.items() if not k.endswith(("details", "docs", "misses"))},
                                            ensure_ascii=False)[:900], flush=True)
-    print(f"wrote {SUMMARY}")
+    print(f"wrote {out_path}")
 
 
 if __name__ == "__main__":
