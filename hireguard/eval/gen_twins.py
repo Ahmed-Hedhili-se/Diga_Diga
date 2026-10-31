@@ -38,7 +38,11 @@ def variants(base: dict) -> list[tuple[str, dict]]:
     for lang in ("en", "ar"):
         v = copy.deepcopy(ref); v["lang"] = lang; out.append((f"lang_{lang}", v))
     v = copy.deepcopy(ref); v["gender"] = "f"; out.append(("gender_f", v))
-    if len(ref["experiences"]) >= 2:  # move earlier jobs back 12 months: same years, one gap
+    exps = ref["experiences"]
+    # CV dates are inclusive: a job ending 10/2020 and the next starting 10/2020 share a month. Shifting the
+    # earlier job back would un-share it and add a month of experience, so such bases get no gap twin.
+    contiguous = any(e["end"] is None or e["end"] >= n["start"] for e, n in zip(exps, exps[1:]))
+    if len(exps) >= 2 and not contiguous:  # move earlier jobs back 12 months: same years, one gap
         v = copy.deepcopy(ref)
         for e in v["experiences"][:-1]:
             e["start"], e["end"] = _shift(e["start"], -12), _shift(e["end"], -12)

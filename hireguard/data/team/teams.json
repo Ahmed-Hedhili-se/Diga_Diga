@@ -1,0 +1,38 @@
+{
+  "_note": "Fictional teams that each open role will join. Only per-skill holder counts leave this file through the API. In production: consented, employee-editable skills profiles.",
+  "teams": [
+    {
+      "job_id": "JOB-DATA-01",
+      "name": "Data platform team",
+      "work_requires": ["python", "sql", "etl", "data-modelling", "postgresql", "apache-spark", "apache-airflow", "docker", "git"],
+      "members": [
+        {"id": "T-DATA-1", "skills": ["python", "sql", "etl", "postgresql", "git"], "verified": ["python", "sql"]},
+        {"id": "T-DATA-2", "skills": ["python", "sql", "data-modelling", "git"], "verified": ["sql"]},
+        {"id": "T-DATA-3", "skills": ["sql", "power-bi", "microsoft-excel"], "verified": []},
+        {"id": "T-DATA-4", "skills": ["python", "docker", "git", "linux"], "verified": ["docker"]}
+      ]
+    },
+    {
+      "job_id": "JOB-FS-02",
+      "name": "Product web team",
+      "work_requires": ["react", "node-js", "javascript", "typescript", "postgresql", "rest-api", "docker", "unit-testing"],
+      "members": [
+        {"id": "T-WEB-1", "skills": ["react", "javascript", "typescript", "css", "html"], "verified": ["react"]},
+        {"id": "T-WEB-2", "skills": ["react", "javascript", "rest-api", "git"], "verified": []},
+        {"id": "T-WEB-3", "skills": ["node-js", "javascript", "rest-api", "postgresql", "docker"], "verified": ["node-js"]},
+        {"id": "T-WEB-4", "skills": ["ui-ux-design", "html", "css"], "verified": []},
+        {"id": "T-WEB-5", "skills": ["javascript", "typescript", "react", "rest-api"], "verified": ["typescript"]}
+      ]
+    },
+    {
+      "job_id": "JOB-HR-03",
+      "name": "HR operations team",
+      "work_requires": ["payroll", "tunisian-labour-law", "microsoft-excel", "hr-administration", "recruitment", "social-security-declarations"],
+      "members": [
+        {"id": "T-HR-1", "skills": ["payroll", "microsoft-excel", "social-security-declarations", "hr-administration"], "verified": ["payroll"]},
+        {"id": "T-HR-2", "skills": ["recruitment", "onboarding", "microsoft-excel", "communication"], "verified": []},
+        {"id": "T-HR-3", "skills": ["recruitment", "hr-administration", "employee-relations", "microsoft-office"], "verified": []}
+      ]
+    }
+  ]
+}

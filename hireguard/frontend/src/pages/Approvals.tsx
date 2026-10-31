@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { api, ApiError, errMsg } from "../api";
 import { useAuth } from "../auth";
 import { Badge, Empty, ErrorBox, fmtDate, Loading, PageHeader, plain, useLoad } from "../components/ui";
-import type { ApprovalItem, ApprovalsView } from "../types";
+import type { ApprovalItem, ApprovalsView, AttentionStats } from "../types";
 
 const KIND_LABEL: Record<string, string> = {
   email_send: "Emails to send",
@@ -17,12 +17,15 @@ const KIND_LABEL: Record<string, string> = {
 
 export default function Approvals() {
   const view = useLoad(() => api<ApprovalsView>("/approvals"));
+  const attention = useLoad(() => api<AttentionStats>("/approvals/attention"));
   const [msg, setMsg] = useState<{ tone: "ok" | "danger"; text: string } | null>(null);
 
   const report = (tone: "ok" | "danger", text: string) => {
     setMsg({ tone, text });
     view.reload();
+    attention.reload();
   };
+  const att = attention.data;
 
   const batches = view.data?.batches.filter((b) => b.items.length) ?? [];
   const high = view.data?.high_risk ?? [];
@@ -37,6 +40,15 @@ export default function Approvals() {
       <ErrorBox error={view.error} />
       {msg && <div className={`alert ${msg.tone}`}>{msg.text}</div>}
       <Loading show={view.loading} />
+      {att && (
+        <div className={`alert ${att.max_batch_size < att.default_max_batch_size ? "warn" : "info"}`}>
+          {att.max_batch_size < att.default_max_batch_size
+            ? `Attention guard: ${att.recent.missed} of the last ${att.recent.canaries} planted test items were approved. `
+              + `Routine batches are capped at ${att.max_batch_size} item(s) until reviews are careful again.`
+            : `Attention guard: routine batches hold at most ${att.max_batch_size} items. Planted test items `
+              + `check that each batch is really read (${att.recent.missed}/${att.recent.canaries} recent misses).`}
+        </div>
+      )}
 
       <h2 className="section-title">
         High-risk items <Badge tone="danger">{high.length}</Badge>
@@ -49,7 +61,7 @@ export default function Approvals() {
       {!batches.length && <Empty>No routine items waiting.</Empty>}
       <div className="stack">
         {batches.map((b) => (
-          <BatchCard key={b.batch_id} batchId={b.batch_id} kind={b.kind} items={b.items} report={report} />
+          <BatchCard key={`${b.batch_id}-${b.chunk ?? 0}`} batchId={b.batch_id} kind={b.kind} items={b.items} report={report} />
         ))}
       </div>
     </>

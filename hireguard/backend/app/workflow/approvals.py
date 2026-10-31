@@ -15,7 +15,7 @@ from fastapi import HTTPException
 from ..config import CANARY_EVERY
 from ..contracts import ApprovalItem, ApprovalKind, ApprovalStatus, Decision, Role, UserOut
 from ..db import connect, register_schema, tx
-from . import audit
+from . import attention, audit
 from .common import canonical_json, new_id, now, now_iso
 
 HIGH_RISK_THRESHOLD = 50
@@ -196,10 +196,11 @@ def can_decide(user: UserOut, kind: ApprovalKind | str) -> bool:
     return user.role in DECIDERS.get(ApprovalKind(kind), DEFAULT_DECIDERS)
 
 
-def decide(item_id: str, user: UserOut, decision: str, conn: sqlite3.Connection | None = None) -> ApprovalItem:
+def decide(item_id: str, user: UserOut, decision: str, conn: sqlite3.Connection | None = None,
+           batch_size: int = 1) -> ApprovalItem:
     if conn is None:
         with tx() as c:
-            return decide(item_id, user, decision, conn=c)
+            return decide(item_id, user, decision, conn=c, batch_size=batch_size)
     if decision not in ("approve", "reject"):
         raise HTTPException(422, "decision must be approve or reject")
     r = _load(conn, item_id)
@@ -215,6 +216,7 @@ def decide(item_id: str, user: UserOut, decision: str, conn: sqlite3.Connection 
 
     at = now_iso()
     conn.execute("INSERT INTO approval_decisions VALUES (?,?,?,?,?)", (item_id, user.id, user.role.value, decision, at))
+    attention.record(conn, item_id, user.id, batch_size, at)
 
     if r["is_canary"]:
         outcome = "miss" if decision == "approve" else "hit"
@@ -235,12 +237,17 @@ def decide(item_id: str, user: UserOut, decision: str, conn: sqlite3.Connection 
 
 def decide_batch(batch_id: str, item_ids: list[str], user: UserOut, decision: str) -> list[ApprovalItem]:
     with tx() as conn:
+        cap = attention.max_batch_size(conn)
+        if decision == "approve" and len(item_ids) > cap:
+            # rejecting in bulk is always allowed; approving in bulk is limited by the attention guard
+            raise HTTPException(422, f"attention guard: approve at most {cap} items per batch right now "
+                                     f"(recent canaries were missed)")
         out = []
         for item_id in item_ids:
             r = _load(conn, item_id)
             if r["batch_id"] != batch_id:
                 raise HTTPException(400, f"{item_id} is not in batch {batch_id}")
-            out.append(decide(item_id, user, decision, conn=conn))
+            out.append(decide(item_id, user, decision, conn=conn, batch_size=len(item_ids)))
         return out
 
 
@@ -263,7 +270,12 @@ def queue(user: UserOut) -> dict:
             else:
                 b = batches.setdefault(r["batch_id"], {"batch_id": r["batch_id"], "kind": r["kind"], "items": []})
                 b["items"].append(item)
-        return {"batches": list(batches.values()), "high_risk": high}
+        cap = attention.max_batch_size(conn)
+        chunks = []  # the attention guard splits each day's batch into reviewable chunks
+        for b in batches.values():
+            for i in range(0, len(b["items"]), cap):
+                chunks.append(b | {"items": b["items"][i:i + cap], "chunk": i // cap})
+        return {"batches": chunks, "high_risk": high, "max_batch_size": cap}
     finally:
         conn.close()
 

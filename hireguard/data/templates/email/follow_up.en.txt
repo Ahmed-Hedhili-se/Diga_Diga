@@ -1,0 +1,10 @@
+Subject: Following up: your $job_title application
+Hello $candidate_name,
+
+We wrote to you on $sent_date about your application for the $job_title position and have not heard back yet.
+
+Are you still interested? A short reply to this email is all we need.
+
+Best regards,
+$recruiter_name
+$company_name

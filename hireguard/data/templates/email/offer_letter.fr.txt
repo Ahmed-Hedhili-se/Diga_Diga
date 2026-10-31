@@ -1,0 +1,16 @@
+Subject: Proposition d'embauche : $job_title
+Bonjour $candidate_name,
+
+Nous avons le plaisir de vous proposer le poste de $job_title.
+
+Conditions proposées :
+- Contrat : $contract
+- Salaire brut mensuel : $monthly_salary_tnd TND
+- Date de début : $start_date
+- Mode de travail : $work_mode, $location
+
+Cette proposition a été validée par deux responsables RH. Merci de nous répondre par retour de courriel.
+
+Cordialement,
+$recruiter_name
+$company_name

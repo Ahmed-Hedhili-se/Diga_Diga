@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, errMsg } from "../api";
+import { hasRole, useAuth } from "../auth";
 import EvidenceText, { pageOfOffset } from "../components/EvidenceText";
 import PdfViewer from "../components/PdfViewer";
 import { Badge, Empty, ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
-import type { ApprovalItem, CandidateDetail, CandidateRow, Job, Span } from "../types";
+import type { ApprovalItem, CandidateDetail, CandidateRow, Job, Span, StabilityView, TeamGapsView } from "../types";
 
 interface TextView {
   visible_text: string;
   page_offsets: number[];
 }
 
+const SHORTLIST_FRAC = 0.2; // same default as the fairness audit (eval/fairness.py --k-frac)
+
 export default function Candidates() {
+  const { user } = useAuth();
   const jobs = useLoad(() => api<Job[]>("/jobs"));
   const [jobId, setJobId] = useState<string>("");
+  const [k, setK] = useState<number | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [shortlist, setShortlist] = useState<Set<string>>(new Set());
   const [notice, setNotice] = useState<string | null>(null);
@@ -27,6 +32,33 @@ export default function Candidates() {
     () => (jobId ? api<CandidateRow[]>(`/candidates?job_id=${encodeURIComponent(jobId)}`) : Promise.resolve([])),
     [jobId],
   );
+  const n = rows.data?.length ?? 0;
+  const shortK = k ?? Math.max(1, Math.ceil(SHORTLIST_FRAC * n));
+  const stab = useLoad(
+    () => (jobId && n ? api<StabilityView>(`/jobs/${encodeURIComponent(jobId)}/stability?k=${shortK}`) : Promise.resolve(null)),
+    [jobId, shortK, n],
+  );
+  const gaps = useLoad(
+    () => (jobId ? api<TeamGapsView>(`/jobs/${encodeURIComponent(jobId)}/team-gaps`).catch(() => null) : Promise.resolve(null)),
+    [jobId],
+  );
+  const stabBy = new Map((stab.data?.candidates ?? []).map((s) => [s.candidate_id, s]));
+  const fills = gaps.data?.candidates_filling_gaps ?? {};
+
+  async function applyTeamWeights() {
+    if (!gaps.data) return;
+    setActionErr(null);
+    try {
+      await api(`/jobs/${encodeURIComponent(jobId)}/rubric`, { method: "PUT", body: gaps.data.proposed_rubric });
+      await api(`/jobs/${encodeURIComponent(jobId)}/rescore`, { method: "POST" });
+      setNotice(`Rubric updated from ${gaps.data.team} gaps (audited) and candidates rescored.`);
+      rows.reload();
+      stab.reload();
+      gaps.reload();
+    } catch (e) {
+      setActionErr(errMsg(e));
+    }
+  }
 
   function toggle(id: string) {
     const next = new Set(shortlist);
@@ -53,7 +85,7 @@ export default function Candidates() {
         title="Candidates"
         subtitle="Ranked by code from validated fields only. Scores are proposals until HR commits the shortlist."
         actions={
-          <select value={jobId} onChange={(e) => { setJobId(e.target.value); setSelected(null); }}>
+          <select value={jobId} onChange={(e) => { setJobId(e.target.value); setSelected(null); setK(null); }}>
             {(jobs.data ?? []).map((j) => (
               <option key={j.job_id} value={j.job_id}>
                 {j.job_id} · {j.title}
@@ -64,11 +96,49 @@ export default function Candidates() {
       />
       <ErrorBox error={jobs.error || rows.error || actionErr} />
       {notice && <div className="alert ok">{notice}</div>}
+      {gaps.data && gaps.data.diff.length > 0 && (
+        <div className="card">
+          <div className="row between">
+            <div>
+              <h3>Team-aware rubric: {gaps.data.team}</h3>
+              <div className="muted small">
+                Skills this role's team needs but nobody (gap) or only one person (single holder) holds. A proposal
+                only: nothing changes until an HR manager applies it, and the change is audited.
+              </div>
+            </div>
+            {hasRole(user, "hr_manager") && (
+              <button className="btn primary small" onClick={applyTeamWeights}>
+                Apply suggested weights
+              </button>
+            )}
+          </div>
+          <ul className="small">
+            {gaps.data.diff.map((d) => (
+              <li key={d.esco_id}>
+                <Badge tone={d.status === "gap" ? "danger" : "warn"}>{d.status === "gap" ? "gap" : "single holder"}</Badge>{" "}
+                <strong>{d.label}</strong>: weight {d.before ?? "not in rubric"} → {d.after}{" "}
+                <span className="muted">({d.reason})</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="split">
         <section className="card list-pane">
           <div className="row between">
             <h2>Ranking</h2>
+            <label className="small muted" title="Candidates you plan to shortlist; borderline badges are computed for this cut-off">
+              Shortlist size{" "}
+              <input
+                type="number"
+                min={1}
+                max={Math.max(1, n)}
+                value={shortK}
+                style={{ width: 52 }}
+                onChange={(e) => setK(Math.max(1, Math.min(Math.max(1, n), Number(e.target.value) || 1)))}
+              />
+            </label>
             <button className="btn primary small" disabled={!shortlist.size} onClick={proposeShortlist}>
               Propose shortlist ({shortlist.size})
             </button>
@@ -112,6 +182,18 @@ export default function Candidates() {
                       {r.score?.needs_human && <Badge tone="warn">needs human</Badge>}
                       {r.hidden > 0 && <Badge tone="danger">{r.hidden} hidden</Badge>}
                       {r.flags > 0 && <Badge tone="danger">{r.flags} injection flags</Badge>}
+                      {stabBy.get(r.candidate_id)?.label === "borderline" && (
+                        <span
+                          title={`In ${Math.round(100 * stabBy.get(r.candidate_id)!.p_top_k)}% of ${stab.data!.draws} rubric variations (weights ±${Math.round(100 * stab.data!.jitter)}%) this candidate is in the top ${stab.data!.k}; rank ranges ${stabBy.get(r.candidate_id)!.rank_p05}–${stabBy.get(r.candidate_id)!.rank_p95}. Review this decision one by one.`}
+                        >
+                          <Badge tone="warn">borderline · {Math.round(100 * stabBy.get(r.candidate_id)!.p_top_k)}% top {stab.data!.k}</Badge>
+                        </span>
+                      )}
+                      {fills[r.candidate_id] && (
+                        <span title="Evidenced skills the team lacks or holds in one person only">
+                          <Badge tone="info">fills gap: {fills[r.candidate_id].join(", ")}</Badge>
+                        </span>
+                      )}
                     </div>
                   </td>
                 </tr>

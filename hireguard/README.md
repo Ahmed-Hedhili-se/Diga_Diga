@@ -41,6 +41,15 @@ Contracts: [contracts/API.md](contracts/API.md) and [backend/app/contracts.py](b
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)
 - Frontend and web security: [docs/frontend.md](docs/frontend.md) (P4)
 
+## Trust analytics
+
+Code that checks the system *and* the humans around it. Nothing here makes a decision.
+
+- **Group fairness audit** (`eval/fairness.py`, Security Center → Fairness audit): selection-rate ratios by region, school, gender and CV language, with permutation tests, a proxy test on the scored fields, and a planted-bias positive control.
+- **Shortlist stability** (`GET /jobs/{id}/stability`): a candidate whose top-k place flips when rubric weights move ±15%, or who is exactly tied at the cut-off, gets a *borderline* badge and should be reviewed one by one.
+- **Team-aware rubric** (`GET /jobs/{id}/team-gaps`): skills the role's team lacks or holds in one person become a *proposed* rubric. An HR manager applies it through the normal, audited rubric edit.
+- **Attention guard** (`GET /approvals/attention`): canary misses by batch size. After missed canaries, routine batches shrink and bulk approval is capped (EU AI Act Art. 14(4)(b), automation bias).
+
 ## Known limits
 
 - Candidate portal (magic link) is on the roadmap; the demo uses pre-verified candidate addresses.

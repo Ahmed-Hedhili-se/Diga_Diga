@@ -1,0 +1,10 @@
+Subject: Un nouveau poste qui pourrait vous intéresser : $job_title
+Bonjour $candidate_name,
+
+Vous avez accepté que nous gardions votre candidature dans notre vivier. Un nouveau poste vient d'ouvrir : $job_title ($location).
+
+Si vous souhaitez postuler, répondez simplement à ce courriel. Vous pouvez aussi nous demander de retirer vos données du vivier à tout moment.
+
+Cordialement,
+$recruiter_name
+$company_name

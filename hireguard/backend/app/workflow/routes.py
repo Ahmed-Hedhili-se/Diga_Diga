@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from ..contracts import ApprovalItem, ApprovalKind, AuditEntry, Role, UserOut
 from ..auth.core import require_roles
-from . import anchor, approvals, audit, documents, email_gate, executor, interviews, mock_calendar
+from . import anchor, approvals, attention, audit, documents, email_gate, executor, interviews, mock_calendar
 
 router = APIRouter()
 router.add_event_handler("startup", anchor.start_loop)
@@ -73,6 +73,12 @@ def executor_run(item_id: str, user: UserOut = Depends(require_roles(R, M))):
 @router.get("/reviewer/stats")
 def reviewer_stats(user: UserOut = Depends(require_roles(M, A))):
     return approvals.reviewer_stats()
+
+
+@router.get("/approvals/attention")
+def approval_attention(user: UserOut = Depends(require_roles(R, M, A))):
+    """Canary miss rate by batch size and the current batch cap (process-level, not per reviewer)."""
+    return attention.stats()
 
 # ---------------------------------------------------------------- calendar
 
