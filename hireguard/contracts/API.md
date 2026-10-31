@@ -35,7 +35,7 @@ Roles: `R` recruiter · `M` hr_manager · `E` employee · `A` admin.
 | GET | `/candidates/{id}/text` | R M | → `{visible_text, page_offsets}` (for evidence highlight) |
 | GET | `/candidates/{id}/pdf` | R M | → original PDF (`Content-Disposition: attachment`, `X-Content-Type-Options: nosniff`) |
 | GET | `/security/findings` | M A | → `[{candidate_id, name, job_id, hidden_findings[], injection_flags[], blocked: bool}]` |
-| POST | `/answer-desk/ask` | E M | `{question}` → `{kind:"answer", extracts:[{text, section, page}]}` or `{kind:"routed", ticket_id}` |
+| POST | `/answer-desk/ask` | E M | `{question}` (3 to 1000 chars) → one of `{kind:"extract", extracts:[{text, section, section_id, page}]}` (exact handbook paragraphs, best first) · `{kind:"routed", ticket_id, topic}` (personal question, now in the HR queue) · `{kind:"ask_hr", message}` (nothing relevant in the handbook; offer to send it to HR) |
 
 ```
 CandidateRow    = {candidate_id, name, email, job_id, status, score: ScoreOutput|null, flags: int, hidden: int}

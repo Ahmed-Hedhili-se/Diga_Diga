@@ -1,0 +1,142 @@
+[
+ {
+  "id": "Q01",
+  "lang": "fr",
+  "kind": "policy",
+  "question": "Quelles sont les horaires de travail pendant le Ramadan ?",
+  "expect_section": "1"
+ },
+ {
+  "id": "Q02",
+  "lang": "en",
+  "kind": "policy",
+  "question": "How many days of annual leave do employees get per year?",
+  "expect_section": "2"
+ },
+ {
+  "id": "Q03",
+  "lang": "fr",
+  "kind": "policy",
+  "question": "Combien de jours de congé peut-on reporter à l'année suivante ?",
+  "expect_section": "2"
+ },
+ {
+  "id": "Q04",
+  "lang": "en",
+  "kind": "policy",
+  "question": "Who must be informed when an employee is sick, and by what time?",
+  "expect_section": "4"
+ },
+ {
+  "id": "Q05",
+  "lang": "en",
+  "kind": "policy",
+  "question": "How long is maternity leave?",
+  "expect_section": "5"
+ },
+ {
+  "id": "Q06",
+  "lang": "fr",
+  "kind": "policy",
+  "question": "Combien de jours de télétravail par semaine sont autorisés ?",
+  "expect_section": "6"
+ },
+ {
+  "id": "Q07",
+  "lang": "en",
+  "kind": "policy",
+  "question": "How soon are business expenses reimbursed?",
+  "expect_section": "7"
+ },
+ {
+  "id": "Q08",
+  "lang": "fr",
+  "kind": "policy",
+  "question": "Quel est le budget de formation annuel par employé ?",
+  "expect_section": "8"
+ },
+ {
+  "id": "Q09",
+  "lang": "en",
+  "kind": "policy",
+  "question": "How long does it take to get a work certificate?",
+  "expect_section": "9"
+ },
+ {
+  "id": "Q10",
+  "lang": "fr",
+  "kind": "policy",
+  "question": "Pendant combien de temps les CV des candidats refusés sont-ils conservés ?",
+  "expect_section": "11"
+ },
+ {
+  "id": "Q11",
+  "lang": "derja",
+  "kind": "policy",
+  "question": "9addech men nhar conge fel 3am ?",
+  "expect_section": "2"
+ },
+ {
+  "id": "Q12",
+  "lang": "derja",
+  "kind": "policy",
+  "question": "el teletravail kifech yemchi, 9addech men nhar fel jem3a ?",
+  "expect_section": "6"
+ },
+ {
+  "id": "Q13",
+  "lang": "fr",
+  "kind": "personal",
+  "question": "Quel est mon solde de congés ?",
+  "expect_topic": "leave"
+ },
+ {
+  "id": "Q14",
+  "lang": "en",
+  "kind": "personal",
+  "question": "What is my remaining leave balance?",
+  "expect_topic": "leave"
+ },
+ {
+  "id": "Q15",
+  "lang": "fr",
+  "kind": "personal",
+  "question": "Je veux voir ma fiche de paie de mars",
+  "expect_topic": "salary"
+ },
+ {
+  "id": "Q16",
+  "lang": "en",
+  "kind": "personal",
+  "question": "When will my salary be increased?",
+  "expect_topic": "salary"
+ },
+ {
+  "id": "Q17",
+  "lang": "fr",
+  "kind": "personal",
+  "question": "Mon contrat est-il un CDI ?",
+  "expect_topic": "contract"
+ },
+ {
+  "id": "Q18",
+  "lang": "en",
+  "kind": "personal",
+  "question": "Where is my payslip for this month?",
+  "expect_topic": "salary"
+ },
+ {
+  "id": "Q19",
+  "lang": "derja",
+  "kind": "personal",
+  "question": "3andi 3otla w nheb na3raf el solde mta3i",
+  "expect_topic": "leave"
+ },
+ {
+  "id": "Q20",
+  "lang": "fr",
+  "kind": "personal",
+  "question": "J'ai demandé une attestation de salaire, où en est ma demande ?",
+  "expect_topic": "certificate"
+ }
+]

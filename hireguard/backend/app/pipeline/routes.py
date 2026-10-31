@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 from ..config import MAX_UPLOAD_BYTES, UPLOAD_DIR
 from ..contracts import Role, UserOut
 from ..auth.core import require_roles
-from . import service
+from . import answer_desk, service
 
 router = APIRouter()
 
@@ -83,9 +83,11 @@ def security_findings(user: UserOut = Depends(MA)):
 
 
 class AskIn(BaseModel):
-    question: str = Field(min_length=3, max_length=500)
+    question: str = Field(min_length=3, max_length=answer_desk.MAX_QUESTION_CHARS)
 
 
 @router.post("/answer-desk/ask")
-def answer_desk(body: AskIn, user: UserOut = Depends(EM)):
-    raise HTTPException(501, "Answer Desk retrieval is scheduled after H9")
+def ask_answer_desk(body: AskIn, user: UserOut = Depends(EM)):
+    """{kind:"extract", extracts:[{text, section, section_id, page}]} | {kind:"routed", ticket_id, topic}
+    | {kind:"ask_hr", message}. Handbook text word for word; nothing is generated."""
+    return answer_desk.answer(user, body.question)

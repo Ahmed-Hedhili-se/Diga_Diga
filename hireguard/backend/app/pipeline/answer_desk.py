@@ -5,6 +5,7 @@ the stored paragraph, word for word. Questions are only ever turned into search 
 The handbook is English; French and Arabic questions are bridged by a small synonym map.
 """
 import json
+import logging
 import math
 import re
 import unicodedata
@@ -16,7 +17,7 @@ import fitz  # PyMuPDF
 from ..config import DATA_DIR
 
 HANDBOOK = DATA_DIR / "handbook"
-MIN_SCORE = 3.0  # below this the best paragraph is not a real match: the route answers "ask HR"
+MIN_SCORE = 4.0  # below this the best paragraph is not a real match: the route answers "ask HR"
 K1, B = 1.5, 0.75
 
 _HEADING = re.compile(r"^(\d{1,2})\. (.+)$")
@@ -73,6 +74,11 @@ for _words, _english in [
     ("conduite deontologie cadeau cadeaux", "conduct gifts"),
     ("report reporter", "carried over"),
     ("demander demande demandes طلب", "request"),
+    ("refuse refuses refusee refusees rejete rejetes مرفوض", "rejected"),
+    ("candidat candidats candidate مترشح", "candidate"),
+    ("conserve conserves conservation garde gardes supprime supprimes effaces archive", "retention deleted"),
+    ("3am annee ans sana سنه عام", "year"),
+    ("jem3a", "week"),
 ]:
     for _w in _words.split():
         SYNONYMS[normalize(_w)] = [_stem(t) for t in _english.split()]
@@ -179,3 +185,36 @@ def route_personal(user, question: str) -> dict | None:
     from ..workflow.employee_questions import create_employee_question  # P3's queue; lazy: workflow imports us too
     ticket = create_employee_question(user, topic, question)
     return {"kind": "routed", "ticket_id": ticket["id"], "topic": topic}
+
+
+# ---------------------------------------------------------------- the answer
+
+log = logging.getLogger("hireguard.answer_desk")
+
+MAX_QUESTION_CHARS = 1000
+ASK_HR_MESSAGE = "Je n'ai pas trouvé cette information dans le règlement. Voulez-vous envoyer la question aux RH ?"
+_BIDI = {chr(c) for c in (0x202A, 0x202B, 0x202C, 0x202D, 0x202E, 0x2066, 0x2067, 0x2068, 0x2069)}
+
+
+def clean_question(text: str) -> str:
+    """Control characters, line/paragraph separators and bidi overrides become spaces; joiners (Arabic) stay."""
+    spaced = "".join(" " if unicodedata.category(c) in ("Cc", "Zl", "Zp") or c in _BIDI else c for c in text)
+    return " ".join(spaced.split())
+
+
+def answer(user, question: str) -> dict:
+    """Personal -> routed to HR. Otherwise the best handbook paragraphs, word for word, or "ask HR".
+    Only the length, the topic and the kind are logged, never the text."""
+    q = clean_question(question)
+    routed = route_personal(user, q)
+    if routed is not None:
+        log.info("answer_desk kind=routed topic=%s len=%d", routed["topic"], len(q))
+        return routed
+    hits = search(q, k=3)
+    if not hits or hits[0]["score"] < MIN_SCORE:
+        log.info("answer_desk kind=ask_hr len=%d", len(q))
+        return {"kind": "ask_hr", "message": ASK_HR_MESSAGE}
+    keep = [h for h in hits if h["score"] >= max(MIN_SCORE, 0.6 * hits[0]["score"])]
+    log.info("answer_desk kind=extract len=%d n=%d", len(q), len(keep))
+    return {"kind": "extract", "extracts": [{"text": h["text"], "section": h["title"], "section_id": h["section_id"],
+                                             "page": h["page"]} for h in keep]}
