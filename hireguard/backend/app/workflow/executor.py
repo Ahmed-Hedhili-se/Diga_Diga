@@ -123,7 +123,25 @@ def _book_interview(payload: dict, conn: sqlite3.Connection) -> dict:
                                                slot, payload.get("recruiter_id", "recruiter"))
     sent = _send_email(payload["email"] | {"approval_item_id": payload["approval_item_id"]}, conn) \
         if payload.get("email") else None
-    return {"slot_id": slot["id"], "interview_id": interview_id, "invite": sent}
+    withdrawn = _withdraw_sibling_bookings(payload, conn)
+    return {"slot_id": slot["id"], "interview_id": interview_id, "invite": sent, "withdrawn": withdrawn}
+
+
+def _withdraw_sibling_bookings(payload: dict, conn: sqlite3.Connection) -> list[str]:
+    """One interview per request: the other slot proposals from the same inbox message are withdrawn
+    (status rejected, reason sibling_booked) in the same transaction, whatever their approval state."""
+    if not payload.get("inbox_id"):
+        return []
+    rows = conn.execute(
+        "SELECT id FROM approval_items WHERE kind = 'interview_booking' AND status IN ('pending','approved') "
+        "AND id != ? AND json_extract(payload, '$.inbox_id') = ? AND json_extract(payload, '$.candidate_id') = ? "
+        "AND COALESCE(json_extract(payload, '$.job_id'), '') = ?",
+        (payload["approval_item_id"], payload["inbox_id"], payload["candidate_id"], payload.get("job_id", ""))).fetchall()
+    for r in rows:
+        conn.execute("UPDATE approval_items SET status = 'rejected' WHERE id = ?", (r["id"],))
+        audit.append("system", "approval.withdraw", "approval_item", r["id"],
+                     {"reason": "sibling_booked", "booked_item": payload["approval_item_id"]}, conn=conn)
+    return [r["id"] for r in rows]
 
 
 def _release_document(payload: dict, conn: sqlite3.Connection) -> dict:
