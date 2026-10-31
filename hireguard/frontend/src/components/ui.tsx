@@ -85,6 +85,8 @@ export function ConfirmButton({ label, title, message, confirmLabel = "Confirm",
     setBusy(true);
     try {
       await onConfirm();
+    } catch {
+      /* callers show their own error message */
     } finally {
       setBusy(false);
       setOpen(false);

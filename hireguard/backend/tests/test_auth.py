@@ -326,3 +326,24 @@ def test_client_ip_trusts_forwarded_for_only_from_listed_proxies(monkeypatch):
     assert security.client_ip("10.0.0.2", "6.6.6.6, 1.2.3.4, 10.0.0.7") == "1.2.3.4"  # spoofed left-most hop ignored
     assert security.client_ip("10.0.0.2", "not-an-ip") == "10.0.0.2"                 # garbage: fall back to peer
     assert security.client_ip("10.0.0.2", None) == "10.0.0.2"
+
+
+def test_session_from_before_the_upgrade_starts_its_idle_clock(client):
+    login(client, "rec@t.demo")
+    conn = connect()
+    conn.execute("UPDATE auth_sessions SET last_seen = NULL")  # what the migration leaves behind
+    conn.close()
+    assert client.get("/api/auth/me").status_code == 200
+    conn = connect()
+    assert conn.execute("SELECT last_seen FROM auth_sessions").fetchone()[0] is not None
+    conn.close()
+    shift_sessions("last_seen", -timedelta(minutes=31))
+    assert client.get("/api/auth/me").status_code == 401
+
+
+def test_relative_paths_resolve_against_the_project_root(monkeypatch):
+    from app import config
+    monkeypatch.setenv("HG_X_PATH", "backend/hireguard.db")
+    assert config._path("HG_X_PATH", config.ROOT / "d") == config.ROOT / "backend" / "hireguard.db"
+    monkeypatch.setenv("HG_X_PATH", str(config.ROOT / "abs.db"))
+    assert config._path("HG_X_PATH", config.ROOT / "d") == config.ROOT / "abs.db"

@@ -11,7 +11,7 @@ from pathlib import Path
 
 from starlette.responses import FileResponse
 
-from .config import MAX_UPLOAD_BYTES, ROOT, TRUSTED_PROXIES
+from .config import LOGIN_RATE_PER_MIN, MAX_UPLOAD_BYTES, ROOT, TRUSTED_PROXIES
 
 DIST = (ROOT / "frontend" / "dist").resolve()
 
@@ -39,7 +39,7 @@ HEADERS = [
 
 # (bucket, max requests, window seconds)
 LIMITS = {
-    "login": (10, 60),
+    "login": (LOGIN_RATE_PER_MIN, 60),
     "upload": (30, 60),
     "ask": (30, 60),
     "general": (300, 60),

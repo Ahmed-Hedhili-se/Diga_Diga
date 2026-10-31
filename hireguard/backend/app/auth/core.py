@@ -146,7 +146,7 @@ def current_user(request: Request) -> UserOut:
         if request.method not in ("GET", "HEAD", "OPTIONS"):
             if not hmac.compare_digest(request.headers.get("X-CSRF-Token", ""), row["csrf"]):
                 raise HTTPException(403, "csrf check failed")
-        if now - last_seen >= TOUCH_EVERY:
+        if row["last_seen"] is None or now - last_seen >= TOUCH_EVERY:  # NULL = session from before the upgrade
             conn.execute("UPDATE auth_sessions SET last_seen = ? WHERE token_hash = ?", (now.isoformat(), th))
     finally:
         conn.close()

@@ -3,8 +3,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]          # hireguard/
 DATA_DIR = ROOT / "data"
-DB_PATH = Path(os.getenv("HG_DB_PATH", ROOT / "backend" / "hireguard.db"))
-UPLOAD_DIR = Path(os.getenv("HG_UPLOAD_DIR", ROOT / "backend" / "uploads"))
+
+
+def _path(env: str, default: Path) -> Path:
+    """A relative path in .env is relative to hireguard/, whatever directory the process starts in."""
+    p = Path(os.getenv(env, default))
+    return p if p.is_absolute() else ROOT / p
+
+
+DB_PATH = _path("HG_DB_PATH", ROOT / "backend" / "hireguard.db")
+UPLOAD_DIR = _path("HG_UPLOAD_DIR", ROOT / "backend" / "uploads")
 
 OLLAMA_URLS = [u.strip() for u in os.getenv("HG_OLLAMA_URLS", "http://localhost:11434").split(",") if u.strip()]
 OLLAMA_MODEL = os.getenv("HG_OLLAMA_MODEL", "qwen3:8b")
@@ -19,6 +27,7 @@ SESSION_TTL_MIN = int(os.getenv("HG_SESSION_TTL_MIN", "480"))          # absolut
 SESSION_IDLE_MIN = int(os.getenv("HG_SESSION_IDLE_MIN", "30"))         # signed out after this much inactivity
 LOGIN_IP_MAX_FAILED = int(os.getenv("HG_LOGIN_IP_MAX_FAILED", "20"))   # per IP per 15 min (call centers share NAT)
 API_DOCS = os.getenv("HG_API_DOCS", "1") == "1"                        # Swagger UI: set 0 in production
+LOGIN_RATE_PER_MIN = int(os.getenv("HG_LOGIN_RATE_PER_MIN", "10"))     # login attempts per IP per minute (raise behind NAT)
 # Reverse proxies allowed to set X-Forwarded-For (IPs or CIDRs, comma-separated). Empty = trust no header.
 TRUSTED_PROXIES = [x.strip() for x in os.getenv("HG_TRUSTED_PROXIES", "").split(",") if x.strip()]
 COOKIE_SECURE = os.getenv("HG_COOKIE_SECURE", "0") == "1"

@@ -116,7 +116,11 @@ export default function Users() {
                           className="btn small"
                           label="Reset password"
                           title={`Reset the password of ${u.display_name}?`}
-                          message="A temporary password is generated and shown once. All their sessions are closed."
+                          message={
+                            self
+                              ? "A temporary password is generated and shown once. All your sessions close, so you will need it to sign in again."
+                              : "A temporary password is generated and shown once. All their sessions are closed."
+                          }
                           confirmLabel="Reset password"
                           disabled={!u.active}
                           onConfirm={() => resetPassword(u)}
