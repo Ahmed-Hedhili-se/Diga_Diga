@@ -316,3 +316,13 @@ def test_login_rate_limited(client):
 def test_body_size_cap(client):
     r = client.post("/api/auth/login", content=b"x" * (300 * 1024), headers={"content-type": "application/json"})
     assert r.status_code == 413
+
+
+def test_client_ip_trusts_forwarded_for_only_from_listed_proxies(monkeypatch):
+    import ipaddress
+    monkeypatch.setattr(security, "_PROXIES", [ipaddress.ip_network("10.0.0.0/8")])
+    assert security.client_ip("203.0.113.9", "1.2.3.4") == "203.0.113.9"           # not a proxy: header ignored
+    assert security.client_ip("10.0.0.2", "1.2.3.4") == "1.2.3.4"                    # proxy: real client
+    assert security.client_ip("10.0.0.2", "6.6.6.6, 1.2.3.4, 10.0.0.7") == "1.2.3.4"  # spoofed left-most hop ignored
+    assert security.client_ip("10.0.0.2", "not-an-ip") == "10.0.0.2"                 # garbage: fall back to peer
+    assert security.client_ip("10.0.0.2", None) == "10.0.0.2"

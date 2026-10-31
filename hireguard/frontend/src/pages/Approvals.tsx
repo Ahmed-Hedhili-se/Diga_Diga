@@ -1,4 +1,4 @@
-import { Fragment, KeyboardEvent, useState } from "react";
+import { Fragment, KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, ApiError, errMsg } from "../api";
 import { useAuth, usePermission } from "../auth";
@@ -16,10 +16,63 @@ const KIND_LABEL: Record<string, string> = {
   offer: "Offers",
 };
 
+/** What we keep about an approved item between page loads: enough to run it, no payload (no personal data). */
+interface ReadyItem {
+  id: string;
+  kind: string;
+  title: string;
+}
+
+/**
+ * GET /approvals lists pending items only, so an approved routine item would vanish before anyone runs it.
+ * Decision responses carry the new status: approved items are kept here (per user, per browser session) until
+ * executed. P4_NOTES N8 asks P3 for a server-side list.
+ */
+function useReadyList(userId: string | undefined) {
+  const key = `hg.ready.${userId ?? "anon"}`;
+  const [items, setItems] = useState<ReadyItem[]>(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem(key) ?? "[]") as ReadyItem[];
+    } catch {
+      return [];
+    }
+  });
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(key, JSON.stringify(items));
+    } catch {
+      /* storage unavailable: the list just lasts for this page */
+    }
+  }, [key, items]);
+  const track = useCallback((updated: ApprovalItem[]) => {
+    setItems((cur) => {
+      const byId = new Map(cur.map((i) => [i.id, i]));
+      for (const u of updated) {
+        if (u.status === "approved") byId.set(u.id, { id: u.id, kind: u.kind, title: u.title });
+        else byId.delete(u.id);
+      }
+      return [...byId.values()];
+    });
+  }, []);
+  const drop = useCallback((ids: string[]) => setItems((cur) => cur.filter((i) => !ids.includes(i.id))), []);
+  return { items, track, drop };
+}
+
+/** A withdrawn interview slot answers 409 "item is rejected": say why, so nobody thinks a colleague rejected it. */
+function decisionError(e: unknown, kind: string): string {
+  if (kind === "interview_booking" && e instanceof ApiError && e.status === 409 && e.message.includes("rejected")) {
+    return "This slot was withdrawn: another slot was booked for the same candidate. Refresh the queue.";
+  }
+  return errMsg(e);
+}
+
 export default function Approvals() {
+  const { user } = useAuth();
   const view = useLoad(() => api<ApprovalsView>("/approvals"));
   const [msg, setMsg] = useState<{ tone: "ok" | "danger"; text: string } | null>(null);
   const canFollowups = usePermission("followups.manage");
+  const canExecute = usePermission("approvals.execute");
+  const ready = useReadyList(user?.id);
 
   const report = (tone: "ok" | "danger", text: string) => {
     setMsg({ tone, text });
@@ -45,10 +98,46 @@ export default function Approvals() {
       <Counters high={high.length} routine={batches.reduce((n, b) => n + b.items.length, 0)} loading={view.loading} />
       <Loading show={view.loading} />
 
+      {canExecute && ready.items.length > 0 && (
+        <>
+          <h2 className="section-title">
+            Approved, ready to execute <Badge tone="ok">{ready.items.length}</Badge>
+          </h2>
+          <section className="card">
+            <table className="table">
+              <tbody>
+                {ready.items.map((it) => (
+                  <tr key={it.id}>
+                    <td>
+                      <div>{it.title}</div>
+                      <div className="muted small">
+                        {KIND_LABEL[it.kind] ?? it.kind} · {it.id}
+                      </div>
+                    </td>
+                    <td className="num">
+                      <div className="row end">
+                        <button className="btn small ghost" onClick={() => ready.drop([it.id])}>
+                          Hide
+                        </button>
+                        <ExecuteButton item={{ id: it.id, status: "approved" }} report={report} onGone={ready.drop} />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        </>
+      )}
+
       <h2 className="section-title">
         High-risk items <Badge tone="danger">{high.length}</Badge>
       </h2>
-      {high.length ? <HighRiskReviewer items={high} report={report} /> : <Empty>No high-risk items waiting.</Empty>}
+      {high.length ? (
+        <HighRiskReviewer items={high} report={report} track={ready.track} onGone={ready.drop} />
+      ) : (
+        <Empty>No high-risk items waiting.</Empty>
+      )}
 
       <h2 className="section-title">
         Routine batches <Badge>{batches.reduce((n, b) => n + b.items.length, 0)}</Badge>
@@ -56,7 +145,7 @@ export default function Approvals() {
       {!batches.length && <Empty>No routine items waiting.</Empty>}
       <div className="stack">
         {batches.map((b) => (
-          <BatchCard key={b.batch_id} batchId={b.batch_id} kind={b.kind} items={b.items} report={report} />
+          <BatchCard key={b.batch_id} batchId={b.batch_id} kind={b.kind} items={b.items} report={report} track={ready.track} />
         ))}
       </div>
 
@@ -178,8 +267,11 @@ function Followups({ report }: { report: Report }) {
 }
 
 type Report = (tone: "ok" | "danger", text: string) => void;
+type Track = (items: ApprovalItem[]) => void;
 
-function BatchCard({ batchId, kind, items, report }: { batchId: string; kind: string; items: ApprovalItem[]; report: Report }) {
+function BatchCard({ batchId, kind, items, report, track }: {
+  batchId: string; kind: string; items: ApprovalItem[]; report: Report; track: Track;
+}) {
   const [checked, setChecked] = useState<Set<string>>(new Set(items.filter((i) => i.status === "pending").map((i) => i.id)));
   const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -187,12 +279,18 @@ function BatchCard({ batchId, kind, items, report }: { batchId: string; kind: st
   async function decide(decision: "approve" | "reject") {
     setBusy(true);
     try {
-      await api(`/approvals/batches/${encodeURIComponent(batchId)}/decision`, {
+      const out = await api<ApprovalItem[]>(`/approvals/batches/${encodeURIComponent(batchId)}/decision`, {
         body: { decision, item_ids: [...checked] },
       });
-      report("ok", `${checked.size} item(s) ${decision === "approve" ? "approved" : "rejected"} in batch ${batchId}.`);
+      track(out);
+      report(
+        "ok",
+        decision === "approve"
+          ? `${out.length} item(s) approved in batch ${batchId}. They are listed under "Approved, ready to execute".`
+          : `${out.length} item(s) rejected in batch ${batchId}.`,
+      );
     } catch (e) {
-      report("danger", errMsg(e));
+      report("danger", decisionError(e, kind));
     } finally {
       setBusy(false);
     }
@@ -273,7 +371,9 @@ function BatchCard({ batchId, kind, items, report }: { batchId: string; kind: st
   );
 }
 
-function HighRiskReviewer({ items, report }: { items: ApprovalItem[]; report: Report }) {
+function HighRiskReviewer({ items, report, track, onGone }: {
+  items: ApprovalItem[]; report: Report; track: Track; onGone: (ids: string[]) => void;
+}) {
   const { user } = useAuth();
   const [idx, setIdx] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -286,6 +386,7 @@ function HighRiskReviewer({ items, report }: { items: ApprovalItem[]; report: Re
     setBusy(true);
     try {
       const updated = await api<ApprovalItem>(`/approvals/${encodeURIComponent(item.id)}/decision`, { body: { decision } });
+      track([updated]);
       const left = updated.required_approvals - updated.decisions.filter((d) => d.decision === "approve").length;
       report(
         "ok",
@@ -296,7 +397,7 @@ function HighRiskReviewer({ items, report }: { items: ApprovalItem[]; report: Re
             : `${item.id} approved.`,
       );
     } catch (e) {
-      report("danger", errMsg(e));
+      report("danger", decisionError(e, item.kind));
     } finally {
       setBusy(false);
     }
@@ -352,7 +453,7 @@ function HighRiskReviewer({ items, report }: { items: ApprovalItem[]; report: Re
           </button>
         </div>
         <div className="row">
-          <ExecuteButton item={item} report={report} />
+          <ExecuteButton item={item} report={report} onGone={onGone} />
           <button className="btn ghost" disabled={busy || item.status !== "pending"} onClick={() => decide("reject")}>
             Reject
           </button>
@@ -366,16 +467,28 @@ function HighRiskReviewer({ items, report }: { items: ApprovalItem[]; report: Re
 }
 
 /** Demo moment: running an unapproved item returns HTTP 403 from the executor. */
-function ExecuteButton({ item, report }: { item: ApprovalItem; report: Report }) {
+function ExecuteButton({ item, report, onGone }: {
+  item: Pick<ApprovalItem, "id" | "status">; report: Report; onGone: (ids: string[]) => void;
+}) {
   const [busy, setBusy] = useState(false);
   async function run() {
     setBusy(true);
     try {
-      await api(`/executor/run/${encodeURIComponent(item.id)}`, { method: "POST" });
-      report("ok", `${item.id} executed.`);
+      const r = await api<{ result?: { withdrawn?: string[] } }>(`/executor/run/${encodeURIComponent(item.id)}`, { method: "POST" });
+      const withdrawn = r.result?.withdrawn ?? [];
+      onGone([item.id, ...withdrawn]);
+      report(
+        "ok",
+        withdrawn.length
+          ? `${item.id} executed. Withdrawn, because another slot was booked: ${withdrawn.join(", ")}.`
+          : `${item.id} executed.`,
+      );
     } catch (e) {
+      if (e instanceof ApiError && (e.status === 404 || e.status === 409 || (e.status === 403 && item.status === "approved"))) {
+        onGone([item.id]); // no longer runnable (already executed, withdrawn or gone): drop it from the ready list
+      }
       if (e instanceof ApiError && e.status === 403) {
-        report("danger", `403 Forbidden: the executor refused ${item.id} because it is not approved. ${e.message}`);
+        report("danger", `403 Forbidden: the executor refused ${item.id}. ${e.message}`);
       } else report("danger", errMsg(e));
     } finally {
       setBusy(false);

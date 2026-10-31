@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 from ..config import COOKIE_SECURE, SESSION_IDLE_MIN, SESSION_TTL_MIN
 from ..contracts import Role, UserOut
 from ..db import connect, tx
+from ..security import request_ip
 from ..workflow import audit  # also registers the audit_log schema for auth-only apps
 from . import lockout, passwords
 from .core import (
@@ -90,7 +91,7 @@ def _session_info(user: UserOut, csrf: str) -> dict:
 @router.post("/login")
 def login(body: LoginIn, request: Request, response: Response):
     email = body.email.strip().lower()
-    ip = request.client.host if request.client else "unknown"
+    ip = request_ip(request)  # same address the rate limiter uses (proxy-aware, pentest O2)
     akey, ikey = lockout.account_key(email), lockout.ip_key(ip)
     now = datetime.now(timezone.utc)
 

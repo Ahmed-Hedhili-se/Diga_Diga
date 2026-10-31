@@ -1,7 +1,8 @@
-"""Web hardening (P4): security headers, strict CSP, in-memory rate limits, body size caps.
+"""Web hardening (P4): security headers, strict CSP, in-memory rate limits, body size caps, client IP.
 
 Pure ASGI middleware so the body cap also covers chunked uploads.
 """
+import ipaddress
 import json
 import threading
 import time
@@ -10,7 +11,7 @@ from pathlib import Path
 
 from starlette.responses import FileResponse
 
-from .config import MAX_UPLOAD_BYTES, ROOT
+from .config import MAX_UPLOAD_BYTES, ROOT, TRUSTED_PROXIES
 
 DIST = (ROOT / "frontend" / "dist").resolve()
 
@@ -45,6 +46,41 @@ LIMITS = {
 }
 JSON_BODY_MAX = 256 * 1024
 UPLOAD_BODY_MAX = MAX_UPLOAD_BYTES + 64 * 1024  # multipart overhead
+
+
+_PROXIES = [ipaddress.ip_network(p, strict=False) for p in TRUSTED_PROXIES]
+
+
+def _is_proxy(ip: str) -> bool:
+    try:
+        addr = ipaddress.ip_address(ip)
+    except ValueError:
+        return False
+    return any(addr in net for net in _PROXIES)
+
+
+def client_ip(peer: str, forwarded_for: str | None) -> str:
+    """The address rate limits and lockouts key on (pentest O2).
+
+    X-Forwarded-For is believed only when the socket peer is a listed proxy (HG_TRUSTED_PROXIES); then the
+    right-most hop that is not a proxy is the client. Anything malformed falls back to the peer, so a client
+    can never pick its own bucket by sending the header.
+    """
+    if not forwarded_for or not _is_proxy(peer):
+        return peer
+    for hop in reversed([h.strip() for h in forwarded_for.split(",") if h.strip()]):
+        if _is_proxy(hop):
+            continue
+        try:
+            return str(ipaddress.ip_address(hop))
+        except ValueError:
+            return peer
+    return peer
+
+
+def request_ip(request) -> str:
+    peer = request.client.host if request.client else "unknown"
+    return client_ip(peer, request.headers.get("x-forwarded-for"))
 
 
 class RateLimiter:
@@ -103,7 +139,9 @@ class SecurityMiddleware:
             return await self.app(scope, receive, send)
 
         path, method = scope["path"], scope["method"]
-        client = (scope.get("client") or ("unknown", 0))[0]
+        peer = (scope.get("client") or ("unknown", 0))[0]
+        xff = b",".join(v for k, v in scope.get("headers") or [] if k == b"x-forwarded-for").decode("latin-1") or None
+        client = client_ip(peer, xff)
 
         bucket = _bucket(method, path)
         ok, retry = limiter.allow(client, bucket)

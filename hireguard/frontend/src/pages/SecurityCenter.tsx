@@ -74,7 +74,7 @@ function Attacks() {
               </div>
               <div className="badges">
                 {c.blocked && <Badge tone="ok">neutralized</Badge>}
-                <Badge tone="danger">{c.hidden_findings.length} hidden</Badge>
+                <Badge tone="danger">{c.hidden_findings.filter((h) => h.severity !== "low").length} hidden</Badge>
                 <Badge tone="warn">{c.injection_flags.length} flags</Badge>
               </div>
             </div>
@@ -86,7 +86,10 @@ function Attacks() {
               return (
                 <div key={i} className="finding">
                   <div className="row between">
-                    <strong>{CHANNEL_LABEL[h.channel] ?? h.channel}</strong>
+                    <strong>
+                      {CHANNEL_LABEL[h.channel] ?? h.channel}{" "}
+                      {h.severity === "low" && <Badge>low: undecodable glyph, no risk</Badge>}
+                    </strong>
                     <span className="muted small">
                       page {h.page + 1}
                       {h.bbox ? ` · bbox ${h.bbox.map((n) => Math.round(n)).join(", ")}` : ""}

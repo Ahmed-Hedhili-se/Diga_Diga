@@ -29,6 +29,8 @@ export interface HiddenFinding {
   text: string;
   page: number;
   bbox: [number, number, number, number] | null;
+  /** "low" = an undecodable glyph, not hidden content: shown, adds no risk. Missing = "high" (fail closed). */
+  severity?: "high" | "low";
 }
 
 export interface InjectionFlag {
@@ -47,6 +49,8 @@ export interface ValidSkill {
   evidence: Span;
   page: number;
   years: number;
+  /** "listed_only" = only in a list, no dated job block backs it (what keyword stuffing looks like). */
+  support?: "dated_experience" | "listed_only";
 }
 
 export interface ValidatedCV {
@@ -54,6 +58,7 @@ export interface ValidatedCV {
   doc_id: string;
   status: "ok" | "needs_human";
   skills: ValidSkill[];
+  skills_listed_only_ratio?: number;
   years_experience: number;
   highest_degree: string;
   degree_evidence: Span | null;
@@ -199,11 +204,10 @@ export interface InboxView {
   lanes: { routine: InboxGroup[]; needs_human: InboxGroup[]; suspicious: InboxGroup[] };
 }
 
-export interface AnswerResult {
-  kind: "answer" | "routed";
-  extracts?: { text: string; section: string; page: number }[];
-  ticket_id?: string;
-}
+export type AnswerResult =
+  | { kind: "extract"; extracts: { text: string; section: string; section_id: string; page: number }[] }
+  | { kind: "routed"; ticket_id: string; topic: string }
+  | { kind: "ask_hr"; message: string };
 
 export interface MoneyView {
   roles: { job_id: string; title: string; days_open: number; target_days: number; cost_of_vacancy_tnd: number }[];

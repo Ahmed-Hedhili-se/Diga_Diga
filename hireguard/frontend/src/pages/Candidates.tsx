@@ -602,6 +602,7 @@ function ErpPreview({ jobId }: { jobId: string }) {
 function CandidatePanel({ id }: { id: string }) {
   const canSlots = usePermission("calendar.read");
   const canSecurity = usePermission("security_center.read"); // a recruiter would only get a 403 page
+  const canStatus = usePermission("candidates.status_propose");
   const detail = useLoad(() => api<CandidateDetail>(`/candidates/${encodeURIComponent(id)}`), [id]);
   const text = useLoad(() => api<TextView>(`/candidates/${encodeURIComponent(id)}/text`), [id]);
   const [span, setSpan] = useState<Span | null>(null);
@@ -613,6 +614,10 @@ function CandidatePanel({ id }: { id: string }) {
   const t = text.data;
   const page = span && t ? pageOfOffset(t.page_offsets, span.start) : 0;
   const highlightStr = span && t ? t.visible_text.slice(span.start, span.end) : null;
+  const highFindings = d ? d.hidden_findings.filter((f) => f.severity !== "low").length : 0;
+  const lowFindings = d ? d.hidden_findings.length - highFindings : 0;
+  const skills = d?.validated.skills ?? [];
+  const listedOnly = skills.filter((k) => (k.support ?? "listed_only") === "listed_only").length;
 
   return (
     <div className="stack">
@@ -627,19 +632,55 @@ function CandidatePanel({ id }: { id: string }) {
                 {d.candidate_id} · {d.email} (verified) · {d.page_count} page(s)
               </div>
             </div>
-            <div className="score-big">
-              {d.score ? fmtNum(d.score.total, 1) : "—"}
-              <span className="muted small"> / 100</span>
+            <div className="score-col">
+              <div className="score-big">
+                {d.score ? fmtNum(d.score.total, 1) : "—"}
+                <span className="muted small"> / 100</span>
+              </div>
+              {skills.length > 0 && (
+                <div className={`small ${listedOnly / skills.length >= 0.5 ? "text-warn" : "muted"}`}>
+                  {listedOnly} of {skills.length} skills listed only
+                </div>
+              )}
             </div>
           </div>
 
-          {(d.hidden_findings.length > 0 || d.validated.injection_flags.length > 0) && (
+          {(highFindings > 0 || d.validated.injection_flags.length > 0) && (
             <div className="alert danger">
-              {d.hidden_findings.length} hidden item(s) and {d.validated.injection_flags.length} injection flag(s) were
-              detected. They were stripped before extraction and did not change the score.{" "}
+              {highFindings} hidden item(s) and {d.validated.injection_flags.length} injection flag(s) were detected.
+              They were stripped before extraction and did not change the score.{" "}
               {canSecurity && <Link to="/security">Open Security Center</Link>}
             </div>
           )}
+          {lowFindings > 0 && (
+            <div className="alert info">
+              {lowFindings} undecodable character(s) (usually Arabic glyphs in a French or English PDF): shown for
+              transparency, not treated as an attack.
+            </div>
+          )}
+
+          {skills.length > 0 && (
+            <div className="section-gap">
+              <strong>Validated skills</strong>
+              <div className="badges skills">
+                {skills.map((k) => (
+                  <span key={k.esco_id} className="skill">
+                    <button className="link" onClick={() => setSpan(k.evidence)} title="Show evidence">
+                      {k.label}
+                    </button>
+                    {k.years > 0 && <span className="muted small"> {fmtNum(k.years, 1)} y</span>}
+                    {(k.support ?? "listed_only") === "listed_only" ? (
+                      <Badge tone="warn">listed only</Badge>
+                    ) : (
+                      <Badge tone="ok">backed by a dated job</Badge>
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {canStatus && <StatusChange candidateId={d.candidate_id} jobId={d.job_id} />}
           {d.validated.status === "needs_human" && (
             <div className="alert warn">Extraction failed validation twice. A human must review this CV.</div>
           )}
@@ -739,6 +780,52 @@ function FreeSlots() {
         ))}
       </div>
       <p className="muted small">Interviews are proposed from a candidate's email and booked only after approval.</p>
+    </div>
+  );
+}
+
+const HIRING_STATUSES = ["shortlisted", "interview", "offer", "hired", "rejected", "withdrawn"] as const;
+
+/** POST /jobs/{job}/candidates/{id}/status: proposes the change; it happens only after approval (P3 H4). */
+function StatusChange({ candidateId, jobId }: { candidateId: string; jobId: string }) {
+  const [to, setTo] = useState<(typeof HIRING_STATUSES)[number]>("interview");
+  const [result, setResult] = useState<{ tone: "ok" | "danger"; text: string } | null>(null);
+
+  async function propose() {
+    try {
+      const item = await api<ApprovalItem>(
+        `/jobs/${encodeURIComponent(jobId)}/candidates/${encodeURIComponent(candidateId)}/status`,
+        { body: { status_to: to } },
+      );
+      setResult({ tone: "ok", text: `Proposed as approval item ${item.id}. Nothing changes until it is approved.` });
+    } catch (e) {
+      setResult({ tone: "danger", text: errMsg(e) });
+    }
+  }
+
+  return (
+    <div className="section-gap">
+      <div className="row">
+        <label className="inline">
+          Hiring status
+          <select value={to} onChange={(e) => setTo(e.target.value as typeof to)}>
+            {HIRING_STATUSES.map((x) => (
+              <option key={x} value={x}>
+                {x}
+              </option>
+            ))}
+          </select>
+        </label>
+        <ConfirmButton
+          className="btn small"
+          label="Propose status change"
+          title={`Move ${candidateId} to "${to}"?`}
+          message="This creates an approval item. The status changes only after a human approves and executes it."
+          confirmLabel="Propose"
+          onConfirm={propose}
+        />
+      </div>
+      {result && <div className={`alert ${result.tone}`}>{result.text}</div>}
     </div>
   );
 }

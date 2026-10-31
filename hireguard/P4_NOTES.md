@@ -1,6 +1,6 @@
 # P4 notes for the team (auth, RBAC, web security, UI)
 
-Branch `Rayen`. Backend: 271 tests pass (one pentest case needs no `frontend/dist`, see 4). Frontend: `tsc` and `vite build` pass.
+Branch `Rayen`, synced with `yasmina` (P1, P2, P3 work). Backend: 351 pass, 2 environment-dependent failures (section 4 and N9). Frontend: `tsc` and `vite build` pass.
 
 ## 1. Proposed changes in other layers (not applied: your code, your call)
 
@@ -19,13 +19,16 @@ When you add a route, add it to `ROUTE_PERMISSIONS` too: `test_route_table_and_m
 
 | # | For | Item |
 |---|---|---|
-| N1 | P1 | `POST /answer-desk/ask` returns 501. The UI says so and offers "Ask HR" (`/employee-questions`), which works today. |
+| N1 | P1 | Done: `POST /answer-desk/ask` is live and the page renders `extract`, `routed` and `ask_hr` (R2). A 501 is still handled in case the route is switched off. |
 | N2 | P2 | `eval/results/summary.json` in the repo has every section `skipped` (it was generated when `app.pipeline.service` was not importable). Re-run `python eval/harness.py` so the Evaluation tab shows real numbers. |
 | N3 | all | "A recruiter only acts on candidates of jobs they can access": there is no recruiter-to-job assignment yet, so every recruiter sees every job. Needs a `job_assignments` table owned by P2; the guard would then 404 on other jobs. |
 | N4 | P4 | TOTP second factor for HR managers and admins (stdlib `hmac` + base32, RFC 6238, hashed recovery codes): not done yet, next step. |
-| N5 | P4 / ops | Rate-limit and lockout counters are per process; behind a reverse proxy, add a trusted-proxy list before reading `X-Forwarded-For` (pentest O2). |
+| N5 | ops | Rate-limit and lockout counters are per process. Behind a reverse proxy set `HG_TRUSTED_PROXIES` (done: pentest O2). |
 | N6 | P3 | `GET /employee-questions/{id}` has no UI on purpose: the list already returns the full text. |
-| N7 | P3 | The approval queue returns only `pending` items, so a slot withdrawn after a sibling booking just leaves the queue (H7). The Approvals page explains this on interview batches. If you want it shown, return recently withdrawn items with `reason`. |
+| N7 | P3 | H7 done on the UI side: after a booking runs, the page lists the slots the executor withdrew (`result.withdrawn`) as "withdrawn, because another slot was booked", and a 409 on a withdrawn slot says the same instead of a plain error. |
+| N8 | **P3** | `GET /approvals` lists pending items only, so an approved **routine** item (email, interview slot) disappears before anyone executes it. The UI keeps approved items in a "ready to execute" list built from the decision responses (ids only, per browser session). Please add `GET /approvals?status=approved` (same role filter as the queue) so the list survives a new browser. |
+| N9 | P1 | `test_pipeline_service.py::test_clean_candidates_have_no_findings` fails on this Windows machine on pristine `yasmina` too: CAND-004 gets one `zero_width` finding with `severity: low` (undecodable Arabic glyph, font-dependent). The test could accept `low` findings. |
+| N10 | P1 | `CandidateRow.hidden` counts low-severity findings too, so the ranking badge can say "1 hidden" for a clean Arabic CV. A `hidden_high` count in `list_candidates` would let the list match the detail panel, which already separates them. |
 
 ## 3. Decisions to know
 

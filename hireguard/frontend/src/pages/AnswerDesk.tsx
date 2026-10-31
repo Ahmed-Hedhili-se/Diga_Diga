@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { api, ApiError, errMsg } from "../api";
 import { usePermission } from "../auth";
 import { Badge, Empty, ErrorBox, fmtDate, Loading, PageHeader, useLoad } from "../components/ui";
@@ -22,6 +22,8 @@ export default function AnswerDesk() {
   const [error, setError] = useState<string | null>(null);
   const [unavailable, setUnavailable] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [routedCount, setRoutedCount] = useState(0); // refreshes "My questions" after a routed ticket
+  const [handoff, setHandoff] = useState<{ text: string; n: number } | null>(null); // pre-fills "Ask the HR team"
 
   async function ask(e: FormEvent) {
     e.preventDefault();
@@ -29,7 +31,9 @@ export default function AnswerDesk() {
     setBusy(true);
     setError(null);
     try {
-      setRes(await api<AnswerResult>("/answer-desk/ask", { body: { question: q.trim() } }));
+      const r = await api<AnswerResult>("/answer-desk/ask", { body: { question: q.trim() } });
+      setRes(r);
+      if (r.kind === "routed") setRoutedCount((n) => n + 1);
       setAsked(q.trim());
     } catch (err) {
       if (err instanceof ApiError && err.status === 501) setUnavailable(true);
@@ -50,7 +54,7 @@ export default function AnswerDesk() {
           Your question about company policy
           <textarea
             rows={3}
-            maxLength={500}
+            maxLength={1000}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="e.g. How many days of annual leave do I get?"
@@ -72,37 +76,54 @@ export default function AnswerDesk() {
       {res && (
         <div className="card">
           <div className="muted small">Question: {asked}</div>
-          {res.kind === "routed" ? (
+          {res.kind === "routed" && (
             <div className="alert info">
               This looks like a personal question, so it was sent to the HR team instead of being answered
-              automatically. Ticket <strong>{res.ticket_id}</strong>.
+              automatically: ticket <strong>{res.ticket_id}</strong>. You can follow it under "My questions".
             </div>
-          ) : res.extracts?.length ? (
+          )}
+          {res.kind === "extract" && (
             <div className="stack">
-              {res.extracts.map((x, i) => (
-                <blockquote key={i} className="extract">
+              {res.extracts.map((x) => (
+                <blockquote key={x.section_id} className="extract">
+                  {/* exact handbook paragraph, rendered as text */}
                   <p>{x.text}</p>
                   <footer className="muted small">
-                    Handbook · {x.section} · page {x.page}
+                    Handbook, {x.section}, p.{x.page}
                   </footer>
                 </blockquote>
               ))}
             </div>
-          ) : (
-            <div className="alert warn">No matching handbook section. Try rephrasing, or ask HR directly.</div>
+          )}
+          {res.kind === "ask_hr" && (
+            <div className="alert warn">
+              <p>{res.message}</p>
+              {canAskHr && (
+                <button className="btn small" onClick={() => setHandoff({ text: asked, n: (handoff?.n ?? 0) + 1 })}>
+                  Send this question to HR
+                </button>
+              )}
+            </div>
           )}
         </div>
       )}
-      {canAskHr && <AskHr />}
+      {canAskHr && <AskHr prefill={handoff} refresh={routedCount} />}
     </>
   );
 }
 
 /** POST /employee-questions + GET /employee-questions (own questions only). */
-function AskHr() {
-  const mine = useLoad(() => api<EmployeeQuestion[]>("/employee-questions"));
+function AskHr({ prefill, refresh }: { prefill: { text: string; n: number } | null; refresh: number }) {
+  const mine = useLoad(() => api<EmployeeQuestion[]>("/employee-questions"), [refresh]);
   const [topic, setTopic] = useState<QuestionTopic>("leave");
   const [text, setText] = useState("");
+
+  useEffect(() => {
+    if (!prefill) return;
+    setText(prefill.text);
+    setTopic("other");
+    document.getElementById("ask-hr-text")?.focus();
+  }, [prefill]);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -140,7 +161,7 @@ function AskHr() {
         </label>
         <label>
           Your question
-          <textarea rows={4} maxLength={2000} value={text} onChange={(e) => setText(e.target.value)} required />
+          <textarea id="ask-hr-text" rows={4} maxLength={2000} value={text} onChange={(e) => setText(e.target.value)} required />
         </label>
         <ErrorBox error={error} />
         {notice && <div className="alert ok">{notice}</div>}

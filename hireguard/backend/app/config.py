@@ -19,6 +19,8 @@ SESSION_TTL_MIN = int(os.getenv("HG_SESSION_TTL_MIN", "480"))          # absolut
 SESSION_IDLE_MIN = int(os.getenv("HG_SESSION_IDLE_MIN", "30"))         # signed out after this much inactivity
 LOGIN_IP_MAX_FAILED = int(os.getenv("HG_LOGIN_IP_MAX_FAILED", "20"))   # per IP per 15 min (call centers share NAT)
 API_DOCS = os.getenv("HG_API_DOCS", "1") == "1"                        # Swagger UI: set 0 in production
+# Reverse proxies allowed to set X-Forwarded-For (IPs or CIDRs, comma-separated). Empty = trust no header.
+TRUSTED_PROXIES = [x.strip() for x in os.getenv("HG_TRUSTED_PROXIES", "").split(",") if x.strip()]
 COOKIE_SECURE = os.getenv("HG_COOKIE_SECURE", "0") == "1"
 CORS_ORIGINS = [o.strip() for o in os.getenv("HG_CORS_ORIGINS", "http://localhost:5173").split(",") if o.strip()]
 
