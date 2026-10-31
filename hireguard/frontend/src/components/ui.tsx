@@ -54,8 +54,9 @@ export function Empty({ children }: { children: ReactNode }) {
 }
 
 /** Native <dialog>: focus trap, Esc to close and inert background come from the browser. */
-export function Modal({ open, title, onClose, children, actions }: {
+export function Modal({ open, title, onClose, children, actions, className, titleClassName }: {
   open: boolean; title: string; onClose: () => void; children: ReactNode; actions?: ReactNode;
+  className?: string; titleClassName?: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -66,8 +67,8 @@ export function Modal({ open, title, onClose, children, actions }: {
     if (!open && d.open) d.close();
   }, [open]);
   return (
-    <dialog ref={ref} className="modal" aria-labelledby={titleId} onClose={onClose}>
-      <h2 id={titleId}>{title}</h2>
+    <dialog ref={ref} className={`modal ${className ?? ""}`} aria-labelledby={titleId} onClose={onClose}>
+      <h2 id={titleId} className={titleClassName}>{title}</h2>
       <div className="stack">{children}</div>
       {actions && <div className="row end modal-actions">{actions}</div>}
     </dialog>
@@ -119,7 +120,13 @@ export function ConfirmButton({ label, title, message, confirmLabel = "Confirm",
 }
 
 export function Badge({ tone = "neutral", children }: { tone?: "neutral" | "ok" | "warn" | "danger" | "info"; children: ReactNode }) {
-  return <span className={`badge ${tone}`}>{children}</span>;
+  const marker = tone === "ok" ? "✓" : tone === "warn" ? "◷" : tone === "danger" ? "!" : tone === "info" ? "✦" : "•";
+  return (
+    <span className={`badge ${tone}`}>
+      <span className="badge-icon" aria-hidden="true">{marker}</span>
+      {children}
+    </span>
+  );
 }
 
 export function fmtDate(s?: string | null) {
