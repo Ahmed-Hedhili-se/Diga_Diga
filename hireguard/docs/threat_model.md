@@ -61,7 +61,25 @@ All 15 spoofed fixtures are covered by `tests/test_workflow.py::test_every_spoof
 ## Audit log integrity
 
 - **Append-only**: SQLite triggers `RAISE(ABORT)` on any UPDATE or DELETE of `audit_log` and `audit_anchors` (`workflow/audit.py`).
-- **Production**: Postgres. The app connects with a role granted only `INSERT, SELECT` on `audit_log` (no UPDATE, DELETE or TRUNCATE; the table is owned by a separate migration role), with the same triggers as a second layer.
+- **Demo**: SQLite triggers. They stop the application, not someone with the database file; that is what the hash chain and the anchors are for.
+- **Production**: Postgres. The table is owned by a separate migration role, and the application role can only insert and read:
+
+  ```sql
+  -- run once, as the migration/owner role
+  REVOKE ALL ON audit_log, audit_anchors FROM PUBLIC;
+  REVOKE ALL ON audit_log, audit_anchors FROM hireguard_app;
+  GRANT SELECT, INSERT ON audit_log, audit_anchors TO hireguard_app;
+  GRANT USAGE, SELECT ON SEQUENCE audit_log_seq_seq, audit_anchors_id_seq TO hireguard_app;
+  -- UPDATE, DELETE and TRUNCATE are never granted. Keep the same trigger as a second layer:
+  CREATE FUNCTION audit_append_only() RETURNS trigger LANGUAGE plpgsql AS
+    $$ BEGIN RAISE EXCEPTION 'audit tables are append-only'; END $$;
+  CREATE TRIGGER audit_log_no_change BEFORE UPDATE OR DELETE ON audit_log
+    FOR EACH ROW EXECUTE FUNCTION audit_append_only();
+  CREATE TRIGGER audit_log_no_truncate BEFORE TRUNCATE ON audit_log
+    FOR EACH STATEMENT EXECUTE FUNCTION audit_append_only();
+  ```
+
+  A database superuser can still bypass this, which is why anchors are published outside the database (`docs/anchoring.md`). Not exercised in the demo: the demo runs on SQLite.
 - **Hash chain**: `hash = SHA-256(prev_hash ‖ canonical_json(entry))`. Editing any row (after dropping the trigger with raw DB access) breaks `GET /api/audit/verify` from that row on. Tested in `test_hash_chain_detects_tamper`.
 - **External anchor**: every 30 min the chain head is written to `data/anchors/`, stamped with OpenTimestamps and committed to a public git repo (`HG_ANCHOR_NETWORK=1`). A full rewrite of the chain no longer matches the public anchor. `verify()` also checks every stored anchor against the chain.
 - An action and its audit entry commit in the **same transaction**: there is no action without a log line. Refusals (403) are logged too.
