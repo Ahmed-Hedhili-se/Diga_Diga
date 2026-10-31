@@ -82,9 +82,7 @@ class Analyzer:
         """Caches the model's raw JSON keyed on (model, exact prompt): identical input, identical output.
         Each document still turns that answer into its own offsets, so two masked twins can share one call."""
         def cached(system, user, schema):
-            key = hashlib.sha256(f"{self.model}
-{system}
-{user}".encode()).hexdigest()
+            key = hashlib.sha256(f"{self.model}\n{system}\n{user}".encode()).hexdigest()
             if key in self.cache:
                 self.hits += 1
                 return self.cache[key]
