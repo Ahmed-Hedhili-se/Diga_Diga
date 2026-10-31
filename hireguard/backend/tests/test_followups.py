@@ -138,3 +138,14 @@ def test_followup_endpoints(db, monkeypatch):
     assert c.post("/api/followups/run").json()["item_ids"] == []
     assert any(e.action == "followups.run" and e.actor == "rec1" for e in audit.list_entries())
     assert c.get("/api/followups/preview").json() == []
+
+
+def test_demo_seed_creates_a_silent_candidate(db):
+    from app.workflow import demo
+    add_candidate("CAND-001", "amira@gmail.example", "Amira Ben Salah")
+    add_candidate("CAND-002", "youssef@outlook.example", "Youssef")
+    _inbound("CAND-001", "amira@gmail.example", when=now() - timedelta(days=9))  # CAND-001 already wrote to us
+    assert demo.seed_followup_demo() == "CAND-002"
+    [item_id] = followups.draft_reminders(days=3)
+    r = approvals.get_item(item_id)
+    assert r.payload["candidate_id"] == "CAND-002" and r.status == "pending"

@@ -212,5 +212,45 @@ def seed_employees():
                 (emp_id, user_id, name, pos, dept, hired, salary))
 
 
+def seed_followup_demo(days_ago: int = 5) -> str | None:
+    """DEMO HISTORY ONLY: backdates one acknowledgement email, as if it had been approved and sent `days_ago` days
+    ago, to the first candidate who never wrote to us. Lets `POST /api/followups/run` show a silent candidate.
+    Returns the candidate id (or None). Run: python -m app.workflow.demo --followups"""
+    from ..contracts import ApprovalKind
+    from . import approvals, audit, drafting, templates
+    from .common import now, now_iso
+
+    with tx() as conn:
+        if not table_exists(conn, "candidates"):
+            return None
+        for c in conn.execute("SELECT * FROM candidates ORDER BY candidate_id").fetchall():
+            heard = conn.execute("SELECT 1 FROM inbox_items WHERE candidate_id = ?", (c["candidate_id"],)).fetchone()
+            sent = conn.execute("SELECT 1 FROM approval_items WHERE kind='email_send' AND "
+                                "json_extract(payload, '$.candidate_id') = ?", (c["candidate_id"],)).fetchone()
+            if not heard and not sent:
+                break
+        else:
+            return None
+        cand, lang = dict(c), "fr"
+        subject, body = templates.render("email", "ack_application", lang, {
+            "candidate_name": cand["name"], "job_title": drafting.job_title(conn, cand["job_id"]),
+            "recruiter_name": drafting.RECRUITER["name"], "company_name": drafting.COMPANY})
+        item = approvals.create_item(
+            ApprovalKind.email_send, f"Reply to {cand['candidate_id']}: ack_application (demo history)",
+            {"candidate_id": cand["candidate_id"], "to": cand["email"], "recipient_verified": True,
+             "subject": subject, "body": body, "lang": lang}, "system", conn=conn)
+        sent_at = (now() - timedelta(days=days_ago)).isoformat()
+        conn.execute("UPDATE approval_items SET status = 'executed' WHERE id = ?", (item.id,))
+        conn.execute("INSERT INTO email_outbox VALUES (?,?,?,?,?,?,?)",
+                     (f"OUT-demo-{cand['candidate_id']}", item.id, cand["email"], subject, body, lang, sent_at))
+        audit.append("system", "demo.seed_followup", "candidate", cand["candidate_id"],
+                     {"backdated_days": days_ago, "item_id": item.id, "seeded_at": now_iso()}, conn=conn)
+        return cand["candidate_id"]
+
+
 if __name__ == "__main__":
-    print(f"wrote {write_fixtures()} emails to {EMAIL_DIR}")
+    import sys
+    if "--followups" in sys.argv:
+        print(f"backdated demo email for: {seed_followup_demo()}")
+    else:
+        print(f"wrote {write_fixtures()} emails to {EMAIL_DIR}")

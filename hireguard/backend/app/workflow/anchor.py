@@ -1,7 +1,7 @@
 """External anchoring of the audit chain head (every 30 min).
 
 Always writes data/anchors/anchor-<seq>.json. With HG_ANCHOR_NETWORK=1 it also runs `ots stamp`
-(OpenTimestamps) and, if data/anchors is inside a git repo with a remote, commits and pushes it.
+(OpenTimestamps) and, if data/anchors is its own git repo with a remote, commits and pushes it.
 No network calls otherwise. Without network the anchor is recorded with status "pending".
 """
 import json
@@ -12,7 +12,7 @@ import subprocess
 import threading
 
 from ..config import DATA_DIR
-from ..db import tx
+from ..db import connect, tx
 from . import audit
 from .common import now_iso
 
@@ -28,23 +28,41 @@ def _run(cmd: list[str]) -> bool:
         return False
 
 
+def _own_repo() -> bool:
+    """git runs only if data/anchors is itself a repository. Otherwise git would walk up to the HireGuard repo
+    and `git commit` would commit whatever happens to be staged there."""
+    return (ANCHOR_DIR / ".git").exists()
+
+
 def anchor_now() -> dict:
-    with tx() as conn:
+    """Pin the chain head outside the database.
+
+    The head is read and the network work is done BEFORE the write transaction, so a slow `ots`/`git push`
+    never holds the database lock. The anchor row and its audit entry then commit together.
+    """
+    conn = connect()
+    try:
         seq, head_hash = audit.head(conn)
-        ANCHOR_DIR.mkdir(parents=True, exist_ok=True)
-        path = ANCHOR_DIR / f"anchor-{seq:08d}.json"
-        path.write_text(json.dumps({"seq": seq, "head_hash": head_hash, "ts": now_iso()}, indent=2), encoding="utf-8")
+    finally:
+        conn.close()
+    ANCHOR_DIR.mkdir(parents=True, exist_ok=True)
+    path = ANCHOR_DIR / f"anchor-{seq:08d}.json"
+    path.write_text(json.dumps({"seq": seq, "head_hash": head_hash, "ts": now_iso()}, indent=2), encoding="utf-8")
 
-        method, status = "file", "pending"
-        if os.getenv("HG_ANCHOR_NETWORK", "0") == "1":
-            if shutil.which("ots") and _run(["ots", "stamp", path.name]):
-                method, status = "file+ots", "anchored"
-            if shutil.which("git") and _run(["git", "add", "."]) and _run(["git", "commit", "-m", f"audit anchor {seq}"]):
-                method += "+git"
-                status = "anchored" if _run(["git", "push"]) else status
-        if status == "pending":
-            log.info("anchor pending: seq=%s head=%s (no network anchoring)", seq, head_hash[:12])
+    method, status = "file", "pending"
+    if os.getenv("HG_ANCHOR_NETWORK", "0") == "1":
+        names = [path.name]
+        if shutil.which("ots") and _run(["ots", "stamp", path.name]):
+            method, status = "file+ots", "anchored"  # submitted to OpenTimestamps calendars; Bitcoin proof comes later
+            names.append(path.name + ".ots")
+        if shutil.which("git") and _own_repo() and _run(["git", "add", "--", *names])                 and _run(["git", "commit", "-m", f"audit anchor {seq}"]):
+            method += "+git"
+            if _run(["git", "push"]):
+                status = "anchored"
+    if status == "pending":
+        log.info("anchor pending: seq=%s head=%s (no external anchoring)", seq, head_hash[:12])
 
+    with tx() as conn:
         conn.execute("INSERT INTO audit_anchors (ts, seq, head_hash, method, status) VALUES (?,?,?,?,?)",
                      (now_iso(), seq, head_hash, method, status))
         audit.append("system", "audit.anchor", "audit_log", str(seq),
