@@ -27,7 +27,14 @@ RULES: list[tuple[str, str, str]] = [
      r"\b(you are now|from now on you are|act as|pretend (to be|you are)|you must now)\b"),
     ("en.best_candidate", "en",
      r"\b(this|the) (candidate|applicant) is (the )?(best|perfect|ideal|most qualified|top)\b|\bhire (this candidate|me|him|her) (immediately|now|right away)\b"),
-    ("en.new_instructions", "en", r"\b(new|updated|real|actual|hidden) instructions?\b\s*:?"),
+    ("en.new_instructions", "en", r"\b(new|updated|real|actual|hidden) (instructions?|task|role)\b\s*:?"),
+    ("en.authority_claim", "en",
+     r"(^|\n)\s*(system|assistant|admin|developer|hr|recruiter)\s*:|\b(pre-?approved|already (been )?approved|approved by the (hiring manager|recruiter|director))\b"),
+    ("en.output_score", "en",
+     rf"\b(output|return|give|assign|set)\b{_G}\b(maximum|max|highest|perfect|full|top)\s+(score|marks?|rating|grade)\b"),
+    ("en.add_skills", "en",
+     rf"\b(add|list|include|mark|treat)\b{_G}\b(skills?|years?|experience)\b{_G}\b(as present|to (his|her|their|the) (skills|profile|cv)|\d+ years each|each)\b"),
+    ("generic.delimiter_escape", "any", r"<\s*/?\s*(document|email|cv|data|system)\s*>"),
     ("generic.chat_markup", "any",
      r"(\[/?(system|inst)\]|<\|?/?(system|im_start|im_end|assistant|user|endoftext)\|?>|#{2,}\s*(system|instruction)|\bsystem prompt\b)"),
     # French (accents folded: consignes, regles, evaluateur)
@@ -40,6 +47,9 @@ RULES: list[tuple[str, str, str]] = [
     ("fr.best_candidate", "fr",
      r"\b(ce|cette) (candidat|candidate|profil) est (le|la|un|une) (meilleure?|parfaite?|ideale?|plus qualifiee?)\b|\b(recrutez|embauchez|engagez|retenez)[- ](le|la|moi)\b"),
     ("fr.role_play", "fr", r"\b(tu es (maintenant|desormais)|vous etes (maintenant|desormais)|agis comme|agissez comme)\b"),
+    ("fr.authority_claim", "fr",
+     r"\b(remarque|note|message)\s+(de l'|du |de la )?(evaluat\w+|recruteur|rh|direction)\s*:|\b(deja|pre)[- ]?(valide|approuve|retenu)e?s?\b"),
+    ("fr.add_skills", "fr", rf"\b(ajoute[rz]?|ajoutez|rajoute[rz]?|rajoutez)\b{_G}\b(competences?|experiences?|annees?)\b"),
     # Modern Standard Arabic (folded: alef unified, ة→ه, ى→ي, no harakat)
     ("ar.ignore_instructions", "ar",
      r"(تجاهل|اهمل|انس|لا تلتفت|لا تاخذ ب)\S*\s*.{0,30}(التعليمات|الاوامر|التوجيهات|القواعد|ما سبق|المعايير)"),
@@ -56,7 +66,8 @@ RULES: list[tuple[str, str, str]] = [
     ("tn.ignore_arabizi", "aeb-latn",
      rf"\b(insa|ensa|inse|nsa|ma t?(a)?3tich bel|matkhamemch|ma tkhamemch|ma t7sebch|mat7sebch)\b{_G}\b(t3limet|ta3limet|ta3limat|instructions?|9wa3ed|qwa3ed|consignes?|li fet|elli fet|eli fet)\b"),
     ("tn.score_arabizi", "aeb-latn",
-     rf"\b(a3tini|3tini|a3tih|3tih|a3tiha|3tiha|7otli|hotli|7ottli)\b{_G}(\b100\b|\bmya\b|\bmiya\b|\bmeya\b|ma(x|ks)imum|\bfull\b|20/20|\bnote\b)"),
+     rf"\b(a3ti|3ti|a3tini|3tini|a3tih|3tih|a3tiha|3tiha|7ot|7otli|hotli|7ottli)\b{_G}(\b100\b|\bmya\b|\bmiya\b|\bmeya\b|ma(x|ks)imum|\bfull\b|20/20|\bnote\b)"),
+    ("tn.note_arabizi", "aeb-latn", r"\b(note|message|remarque|kelma)\s+(lel|lil|l|li)\s*(ia|ai|modele|model|robot|systeme)\b"),
     ("tn.best_arabizi", "aeb-latn", r"\b(houa|howa|hia|hiya|hiyya)\s+(el|l)\s*(a7sen|ahsen|afdhel|afdel|afdhal)\b"),
 ]
 

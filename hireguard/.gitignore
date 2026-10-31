@@ -10,4 +10,5 @@ eval/results/raw/
 # generated corpora: rebuild with the eval/ generator scripts
 data/cv_ground_truth/pdf/
 eval/corpus/attacks/*.pdf
+eval/corpus/attacks_extra/*.pdf
 eval/corpus/twins/*.pdf
