@@ -1,6 +1,6 @@
 # P4 notes for the team (auth, RBAC, web security, UI)
 
-Branch `Rayen`, synced with `yasmina` (P1, P2, P3 work). Backend: 351 pass, 2 environment-dependent failures (section 4 and N9). Frontend: `tsc` and `vite build` pass.
+Branch `Rayen`, synced with `yasmina` (P1, P2, P3 work). Backend: 373 pass, 1 environment-dependent failure (section 4). Live end-to-end check (33 steps, every role): all pass. Frontend: `tsc` and `vite build` pass.
 
 ## 1. Proposed changes in other layers (not applied: your code, your call)
 
@@ -27,7 +27,7 @@ When you add a route, add it to `ROUTE_PERMISSIONS` too: `test_route_table_and_m
 | N6 | P3 | `GET /employee-questions/{id}` has no UI on purpose: the list already returns the full text. |
 | N7 | P3 | H7 done on the UI side: after a booking runs, the page lists the slots the executor withdrew (`result.withdrawn`) as "withdrawn, because another slot was booked", and a 409 on a withdrawn slot says the same instead of a plain error. |
 | N8 | **P3** | `GET /approvals` lists pending items only, so an approved **routine** item (email, interview slot) disappears before anyone executes it. The UI keeps approved items in a "ready to execute" list built from the decision responses (ids only, per browser session). Please add `GET /approvals?status=approved` (same role filter as the queue) so the list survives a new browser. |
-| N9 | P1 | `test_pipeline_service.py::test_clean_candidates_have_no_findings` fails on this Windows machine on pristine `yasmina` too: CAND-004 gets one `zero_width` finding with `severity: low` (undecodable Arabic glyph, font-dependent). The test could accept `low` findings. |
+| N9 | P1 | Done by P1 (`c52ed43`): the clean-candidate test counts only high-severity findings. |
 | N10 | P1 | `CandidateRow.hidden` counts low-severity findings too, so the ranking badge can say "1 hidden" for a clean Arabic CV. A `hidden_high` count in `list_candidates` would let the list match the detail panel, which already separates them. |
 
 ## 3. Decisions to know

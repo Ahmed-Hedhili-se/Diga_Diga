@@ -114,7 +114,7 @@ Every 20th approval item (`HG_CANARY_EVERY`) gets a twin with a planted defect (
 | A03 Injection | Parameterised SQL everywhere; template slots whitelisted; output escaped by React | all modules |
 | A04 Insecure design | Approval policy and executor 403 are server-side code, not UI | `workflow/executor.py` |
 | A05 Security misconfiguration | No default accounts (seed passwords are random and printed once); strict CSP, `nosniff`, `no-store` on documents | `seed.py`, `security.py`, `workflow/routes.py` |
-| A07 Identification and authentication failures | Login rate limit and lockout, session TTL | `auth/`, `security.py` (P4) |
+| A07 Identification and authentication failures | Login rate limit, invisible account + IP lockout, idle and absolute session expiry, token rotation, logout-all, password policy, permission matrix proven by `test_rbac.py` ([security_auth.md](security_auth.md)) | `auth/`, `security.py` (P4) |
 | A08 Software and data integrity failures | Hash-chained audit, external anchors | `workflow/audit.py`, `workflow/anchor.py` |
 | A09 Logging and monitoring failures | Every create, decide, execute, refuse, download and ingest is audited | `workflow/*` |
 
@@ -148,6 +148,6 @@ Every 20th approval item (`HG_CANARY_EVERY`) gets a twin with a planted defect (
 | F1 | Forged `Authentication-Results` with our own authserv-id placed first was trusted | Medium | Fixed: duplicates are held |
 | F2 | Unlimited calendar rows via made-up `recruiter_id` | Low | Fixed: unknown recruiter is 404 |
 | F3 | Control characters and bidi overrides passed through template slots | Low | Fixed: `one_line` cleans them |
-| F5 | Login answers differ for locked and unknown accounts (user enumeration) | Low | Hand-off to P4 |
+| F5 | Login answers differ for locked and unknown accounts (user enumeration) | Low | **Fixed (P4)**: one answer for every failure, lockout invisible |
 
 Details, method and everything that held: `docs/pentest_report.md`.
