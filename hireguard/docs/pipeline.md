@@ -52,6 +52,8 @@ Regex rules in French, English, Arabic, Derja and Arabizi ("ignore", "score me",
 
 The model never counts characters. The document is shown as numbered lines (at most 500 lines of 160 characters) and the model answers with line numbers; code turns them into `visible_text` offsets and narrows skill evidence to the ESCO label match. The schema has **no free-text field**: dates, ESCO ids (an enum), degree enum, ISO language plus CEFR. Temperature 0, seed 7, thinking off. A schema failure is retried once, then the CV is `needs_human`.
 
+Transport (`llm.py`): round-robin over `HG_OLLAMA_HOSTS`, a local GPU or the Modal endpoint. A 502/503/504 or a timeout is retried once (a Modal cold start takes 1–3 minutes); after that the caller gets `needs_human`. When `HG_OLLAMA_MODAL_KEY` and `HG_OLLAMA_MODAL_SECRET` are both set they go out as `Modal-Key` / `Modal-Secret` headers; they are scrubbed from every error message and never logged.
+
 ## Validator (`pipeline/validator.py`)
 
 A skill counts only if its evidence span is inside `visible_text` **and** contains an ESCO label for that skill. Years of experience are computed from valid dates (merged intervals), never from a model claim. Every dropped field is logged with a code-generated reason. Each skill also gets `support`: `dated_experience` when a valid dated job block writes it, else `listed_only` (what keyword stuffing looks like), plus `skills_listed_only_ratio` for the CV.
@@ -74,7 +76,9 @@ The question is capped at 1,000 characters, control and bidi characters are stri
 
 | Variable | Default | Effect |
 |---|---|---|
-| `HG_OLLAMA_URLS` | `http://localhost:11434` | comma-separated Ollama hosts, round-robin |
+| `HG_OLLAMA_HOSTS` | `http://localhost:11434` | comma-separated Ollama hosts, local or Modal, round-robin (`HG_OLLAMA_URLS` still read if unset) |
+| `HG_OLLAMA_MODAL_KEY`, `HG_OLLAMA_MODAL_SECRET` | empty | Modal proxy-auth token for a remote Ollama; env only, never committed or logged |
+| `HG_LLM_TIMEOUT` | `120` | seconds per model call; one retry on 502/503/504 or timeout |
 | `HG_OLLAMA_MODEL` | `qwen3:8b` | extraction model |
 | `HG_EXTRACT_MODE` | `model` | `ground_truth` = offline demo for emails (not a model run) |
 | `HG_PROMPT_GUARD` | `0` | `1` adds Prompt Guard 2 to the detector (needs `requirements-ml.txt`) |
@@ -89,9 +93,26 @@ The question is capped at 1,000 characters, control and bidi characters are stri
 | Clean twins with a high finding | **0/40** | same |
 | Personal questions routed to HR | **8/8** | `pytest tests/test_answer_desk.py` (`data/handbook/questions.json`) |
 | Policy questions, top-1 section correct | **12/12** | same |
-| Backend tests | 266 passed, 1 expected failure (a P4 finding) | `python -m pytest -q` in `hireguard/backend` |
+| Backend tests | 287 passed, 1 expected failure (a P4 finding) | `python -m pytest -q` in `hireguard/backend` |
 
 Extraction quality against the real model is measured by P2's harness; the Modal run is described in `hireguard/infra/README.md`.
+
+## Real model on Modal
+
+The laptop GPU (RTX 4050, 6 GB) holds only 63% of Qwen3-8B, so a CV takes about 30 s. For full runs we rent one L4 on Modal: `infra/modal_ollama.py` serves Ollama behind proxy auth, with the model kept in a volume (downloaded once). Fictional test data only: Modal runs in the US.
+
+| Budget fact | Value |
+|---|---|
+| L4 GPU (24 GB) | $0.000222/s ≈ **$0.80/hour**, per second, $0 when scaled to zero |
+| Credit | $10 ≈ 12 GPU-hours |
+| Full eval (50 CVs + 40 attacks + 40 twins + 100 emails) | under 1 hour ≈ $1 |
+| Guards | 1 container max, scale to zero after 5 idle minutes, proxy auth, `--max-requests` cap (default 400) |
+
+`scripts/run_model_eval.py` runs the real model and writes raw results to `eval/out/model_run_<date>.json` for P2: per item ok/failed, latency, requests, schema retries and typed fields; per attack pair `attack_success`; email intent against `labels.json`; total requests and the estimated cost. It refuses `HG_EXTRACT_MODE=ground_truth`. A local smoke run (2 emails, laptop GPU) read 2/2 intents correctly.
+
+### Real model results
+
+Pending: filled in after the Modal run (date, model, GPU, cost, extraction success, latency, attack success, email intent accuracy).
 
 ## Known limits
 
