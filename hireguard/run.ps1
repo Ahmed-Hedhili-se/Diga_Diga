@@ -1,5 +1,6 @@
-# HireGuard dev run script (Windows). Usage: .\run.ps1 [-Setup] [-Seed]
-param([switch]$Setup, [switch]$Seed)
+# HireGuard dev run script (Windows). Usage: .\run.ps1 [-Setup] [-Seed] [-Test]
+#   -Test: backend tests (throwaway DB) + frontend type check and build, then exit. Nothing is started.
+param([switch]$Setup, [switch]$Seed, [switch]$Test)
 $ErrorActionPreference = "Stop"
 $root = $PSScriptRoot
 
@@ -16,6 +17,13 @@ if (Test-Path "$root\.env") {
 }
 
 $py = "$root\backend\.venv\Scripts\python.exe"
+if ($Test) {
+    Push-Location "$root\backend"; & $py -m pytest -q; $backend = $LASTEXITCODE; Pop-Location
+    Push-Location "$root\frontend"; npx tsc --noEmit; $types = $LASTEXITCODE; npx vite build; $build = $LASTEXITCODE; Pop-Location
+    $status = { param($code) if ($code) { "FAIL" } else { "ok" } }
+    Write-Host "backend tests: $(& $status $backend) | types: $(& $status $types) | build: $(& $status $build)"
+    exit ($backend -bor $types -bor $build)
+}
 if ($Seed) { Push-Location "$root\backend"; & $py -m app.seed; Pop-Location }
 
 Start-Process -NoNewWindow -WorkingDirectory "$root\backend" $py "-m uvicorn app.main:app --port 8000 --reload"

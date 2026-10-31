@@ -55,12 +55,25 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|
 | GET | `/jobs` | R M | → `[{job_id, title, open_since, target_days, daily_vacancy_cost_tnd}]` |
-| GET/PUT | `/jobs/{job_id}/rubric` | R M (PUT: M) | `Rubric` |
-| POST | `/jobs/{job_id}/rescore` | R M | → `ScoreOutput[]` |
+| GET/PUT | `/jobs/{job_id}/rubric` | R M (PUT: M) | `Rubric`. PUT → 400 unless weights are finite and 0–1000, components ⊆ {skills, experience, degree, languages} and not all 0, 1–60 skills all in the ESCO subset, `min_years` ≤ 60, each language once; audited `rubric.update` |
+| POST | `/jobs/{job_id}/rescore` | R M | → `ScoreOutput[]` (all `proposed`); audited `scores.rescore` |
 | POST | `/jobs/{job_id}/shortlist` | R M | `{candidate_ids}` → `ApprovalItem` (kind `shortlist_commit`) |
+| POST | `/jobs/{job_id}/candidates/{candidate_id}/status` | R M | `{status_to: shortlisted\|interview\|offer\|hired\|rejected\|withdrawn}` → `ApprovalItem` (kind `status_change`); 404 for a candidate of another job, 409 if unchanged |
 | GET | `/money` | M A | → `{roles:[{job_id, title, days_open, target_days, cost_of_vacancy_tnd}], hours_saved:{cv_screening, emails, documents, answers, total}, hourly_cost_tnd, roi_tnd}` |
 | PUT | `/money/settings` | M | `{hourly_cost_tnd}` |
 | GET | `/eval/summary` | M A | → latest eval numbers with Clopper-Pearson CIs |
+
+### Platform
+| Method | Path | Roles | Body → Response |
+|---|---|---|---|
+| GET | `/health` | public | → `{ok: true}` |
+
+### Odoo connector (optional, `HG_ODOO_ENABLED=1`; see docs/erp_odoo.md)
+| Method | Path | Roles | Body → Response |
+|---|---|---|---|
+| GET | `/erp/status` | R M A | → `{enabled, connected, url, db, uid?, server_version?, error?}`; never fails |
+| GET | `/erp/jobs/{job_id}/applicants` | R M | → `[{applicant_id, candidate_id, name, email, stage, imported}]`; 404 unknown job, 409 disabled, 502 Odoo down |
+| POST | `/erp/jobs/{job_id}/import` | R M | screens new/changed CVs through the CV pipeline → `{job_id, imported[], skipped[]}`; writes nothing to Odoo |
 
 ### Workflow and security (P3)
 | Method | Path | Roles | Body → Response |
@@ -83,7 +96,8 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/inbox/{id}/release-request` | M | creates a `held_email_release` approval item |
 | POST | `/audit/anchor` | A | anchor the chain head now |
 | POST | `/employee-questions` | E | `{topic: leave\|salary\|certificate\|contract\|other, text ≤2000}` → ticket `{id, topic, risk, status}` (no text echoed) |
-| GET | `/employee-questions`, `/employee-questions/{id}` | E (own) M (all) | question rows; another employee's id → 404 |
+| GET | `/employee-questions` | E (own) M (all) | question rows |
+| GET | `/employee-questions/{id}` | E (own) M (all) | one question; another employee's id → 404 |
 | POST | `/employee-questions/{id}/reply` | M | `{template: received\|contact_hr\|use_documents, lang}` → `ApprovalItem` (`email_send` to the employee's own account) |
 | GET | `/followups/preview?days=3` | R M | → `[{candidate_id, job_id, lang, last_sent_at, days_silent}]`, creates nothing |
 | POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends |
