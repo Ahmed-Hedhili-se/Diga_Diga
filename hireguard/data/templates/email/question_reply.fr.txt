@@ -1,0 +1,8 @@
+Subject: Votre question RH ($topic_label)
+Bonjour $employee_name,
+
+Concernant votre question (sujet : $topic_label) : $reply_label
+
+Cordialement,
+$recruiter_name
+$company_name

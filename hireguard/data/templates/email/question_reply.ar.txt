@@ -1,0 +1,8 @@
+Subject: سؤالكم حول الموارد البشرية ($topic_label)
+مرحبا $employee_name،
+
+بخصوص سؤالكم (الموضوع: $topic_label): $reply_label
+
+مع أطيب التحيات،
+$recruiter_name
+$company_name

@@ -1,0 +1,8 @@
+Subject: Reminder: your application for $job_title
+Hello $candidate_name,
+
+We are following up on your application for the $job_title position. We have not yet received your reply to our last message. You can simply reply to this email.
+
+Best regards,
+$recruiter_name
+$company_name
