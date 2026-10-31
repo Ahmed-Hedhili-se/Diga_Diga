@@ -9,16 +9,24 @@ until the team has passed the pre-merge gate in [README.md](./README.md).
 
 ## Start here (31 Oct hand-off)
 
-Done on `mnasri`: [hireguard/docs/architecture.md](../hireguard/docs/architecture.md)
+Done: [hireguard/docs/architecture.md](../hireguard/docs/architecture.md)
 (system context, modules, data classes and boundaries, AI-vs-code table,
-workflows, permissions matrix, refuse-to-build list, risk register R1-R9,
-references). Open items you own:
+workflows, full permissions and audit matrix, refuse-to-build list, risk
+register R1-R14, interface change log, release readiness, references).
 
-- [ ] R5: revert commit `8f829d8` on `main` (node_modules, dist, generated PDFs).
-- [ ] R4: decide whether `GET /reviewer/stats` is removed or aggregated by batch size.
-- [ ] Keep the risk register current as owners close R1-R9; record retest evidence.
-- [ ] Final pitch: compliance and refuse-to-build slides are drafted in
-      `hireguard/docs/pitch.md`; fill business TBDs from HR interviews.
+- [x] R5: reverted `8f829d8` on `main` (`932747e`); tracked-file scan clean.
+- [x] R4 decided: aggregate `/reviewer/stats` by batch size and week (Rayen implements).
+- [x] Release gate: `backend/tests/test_release_gate.py` proves session, CSRF
+      and the role matrix on every route (mutation-checked).
+- [x] Pitch claims checked against `eval/results/*.json`; hook rewritten (R13).
+- [x] Final pitch draft: timed 5:00 script, demo runbook, Q&A sheet in
+      `hireguard/docs/pitch.md`.
+- [ ] Business TBDs: run 3+ calls with
+      [hireguard/docs/hr_interview_guide.md](../hireguard/docs/hr_interview_guide.md),
+      then fill the pitch and `MINUTES_PER_UNIT` in `scoring/money.py`.
+- [ ] Choose the ask (pilots, GPU credits or incubation).
+- [ ] Keep the risk register current as owners close R1-R14; record retest evidence.
+- [ ] Collect sign-offs on the interface change log (architecture §9).
 
 ## Work to execute
 

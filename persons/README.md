@@ -27,12 +27,13 @@ or risk scores. Its output is team-level and suppresses small groups (k >= 5).
 
 ## Status at hand-off (31 Oct, branch `mnasri`)
 
-Built and tested (104 backend tests, frontend build green): the trust core, the
+Built and tested (107 backend tests including the release gate, frontend build green): the trust core, the
 Recruit module with the fast-track (offer fit, offer letters, follow-ups, talent
 pool), and the Team module (skills map, HR process metrics, knowledge-gap radar).
 Architecture, data boundaries, permissions matrix and the **risk register (R1-R9)**
 are in [hireguard/docs/architecture.md](../hireguard/docs/architecture.md). Every
-open risk has an owner below.
+open risk has an owner below. The pitch script, demo runbook and Q&A sheet are in
+[hireguard/docs/pitch.md](../hireguard/docs/pitch.md).
 
 Code comments still say P1-P4 (the first plan). Map them to owners:
 
@@ -48,10 +49,10 @@ Code comments still say P1-P4 (the first plan). Map them to owners:
 
 | Person | P0 | P1 |
 |---|---|---|
-| Hedhili | R1: model-mode numbers on the GPU laptop (harness, fairness, load test with `--extraction llm`; baseline and paired McNemar) | R2: detector gaps (English "Evaluator note", Derja, Arabic) |
-| Rayen | R3: Answer Desk (retrieval-only, cited passages, "no match" goes to HR, calls `knowledge_gaps.record()`) | R4: `/reviewer/stats` is per-person; R6: rename `team_fit` |
-| Yasmina | Review and polish the new pages; rehearse the 4 demo beats inside 5:00 | Error, empty and permission states on the new pages; accessibility |
-| Ahmed | R5: clean `main` (revert `8f829d8`); decide R4; final pitch and compliance slides | Merge gate below |
+| Hedhili | R1: implement the baseline stub (`eval/baselines.py`, TODO 2), then model-mode numbers on the GPU laptop (harness, fairness, load test with `--extraction llm`) and the paired McNemar | R2: detector gaps (English "Evaluator note", Derja, Arabic) |
+| Rayen | R3: Answer Desk (retrieval-only, cited passages, "no match" goes to HR, calls `knowledge_gaps.record()`) | R10 audit sign-in and account creation; R4 aggregate `/reviewer/stats`; R14 offer approval count; R12; R6 |
+| Yasmina | Review and polish the new pages; rehearse the 5 demo beats with the runbook in `docs/pitch.md`; record the backup video | Error, empty and permission states on the new pages; accessibility |
+| Ahmed | HR interview calls (`docs/hr_interview_guide.md`) to fill the business TBDs; choose the ask | Risk register and sign-offs; merge gate below |
 
 ## Ownership at a glance
 
