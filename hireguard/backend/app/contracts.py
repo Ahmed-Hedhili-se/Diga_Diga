@@ -170,6 +170,9 @@ class ValidSkill(BaseModel):
     evidence: Span
     page: int
     years: float = 0.0
+    # "dated_experience": a valid dated job block that also writes the skill backs it.
+    # "listed_only": it only appears in a list (what keyword stuffing looks like). Additive field, default listed_only.
+    support: Literal["dated_experience", "listed_only"] = "listed_only"
 
 
 class ValidatedCV(BaseModel):
@@ -177,6 +180,7 @@ class ValidatedCV(BaseModel):
     doc_id: str
     status: Literal["ok", "needs_human"]
     skills: list[ValidSkill] = []
+    skills_listed_only_ratio: float = 0.0  # share of validated skills with support "listed_only" (0 when none)
     years_experience: float = 0.0  # computed from dates, never from the model
     highest_degree: DegreeLevel = DegreeLevel.none
     degree_evidence: Span | None = None
