@@ -113,6 +113,9 @@ def _send_email(payload: dict, conn: sqlite3.Connection) -> dict:
     conn.execute("INSERT INTO email_outbox VALUES (?,?,?,?,?,?,?)",
                  (out_id, payload.get("approval_item_id", ""), payload["to"], payload["subject"], payload["body"],
                   payload.get("lang", "fr"), now_iso()))
+    if payload.get("question_id"):  # HR's template reply to an employee question went out
+        from . import employee_questions
+        employee_questions.mark_answered(conn, payload["question_id"])
     return {"outbox_id": out_id, "to": payload["to"]}
 
 
