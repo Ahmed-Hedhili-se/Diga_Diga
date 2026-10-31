@@ -118,6 +118,16 @@ Every 20th approval item (`HG_CANARY_EVERY`) gets a twin with a planted defect (
 | A08 Software and data integrity failures | Hash-chained audit, external anchors | `workflow/audit.py`, `workflow/anchor.py` |
 | A09 Logging and monitoring failures | Every create, decide, execute, refuse, download and ingest is audited | `workflow/*` |
 
+## Remote model on Modal (evaluation only)
+
+| Concern | Control | Where |
+|---|---|---|
+| Someone else calls our GPU endpoint | `requires_proxy_auth=True`: Modal refuses any request without valid `Modal-Key` / `Modal-Secret` headers before it reaches Ollama. A test fails if the flag is removed | `infra/modal_ollama.py`, `tests/test_modal_app.py` |
+| The proxy token leaks | It lives only in environment variables (`.env` is git-ignored). `llm.py` sends it only when both values are set, scrubs it from every error message and never logs it; the eval runner records only `proxy_auth: true/false` | `pipeline/llm.py`, `scripts/run_model_eval.py`, `tests/test_llm_remote.py` |
+| Personal data leaves Tunisia | Modal runs in the US, so it is used **only with fictional test data**. In production Ollama runs on-prem in Tunisia: under Law 2004-63, personal data does not leave the country without INPDP authorization | `infra/README.md` |
+| The remote model gains authority | It is the same quarantined extractor: it reads text and returns typed JSON, with no tools, no database and no authority. Output still goes through the validator | `pipeline/extractor.py`, `pipeline/validator.py` |
+| Runaway spend (LLM10) | One container at most, scale to zero after 5 idle minutes, a hard `--max-requests` cap in the runner, and a workspace budget set in the Modal dashboard | `infra/modal_ollama.py`, `scripts/run_model_eval.py` |
+
 ## Known limits (stated honestly)
 
 - Demo uses pre-verified candidate addresses; the magic-link candidate portal is on the roadmap.
