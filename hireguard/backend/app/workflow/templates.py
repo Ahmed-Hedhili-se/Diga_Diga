@@ -17,6 +17,8 @@ ALLOWED_SLOTS = {
     "employee_name", "position", "department", "hire_date", "monthly_salary_tnd",
     "leave_start", "leave_end", "leave_days", "issue_date", "document_ref",
     "topic_label", "reply_label",
+    # fast-track: offer letter, follow-up, talent-pool invitation
+    "start_date", "work_mode", "location", "contract", "sent_date",
 }
 
 

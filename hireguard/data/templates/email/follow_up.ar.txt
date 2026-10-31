@@ -1,0 +1,10 @@
+Subject: تذكير: ترشحكم لخطة $job_title
+مرحبا $candidate_name،
+
+راسلناكم بتاريخ $sent_date بخصوص ترشحكم لخطة $job_title ولم نتلق ردكم بعد.
+
+هل ما زلتم مهتمين؟ يكفي الرد على هذا البريد.
+
+مع أطيب التحيات،
+$recruiter_name
+$company_name

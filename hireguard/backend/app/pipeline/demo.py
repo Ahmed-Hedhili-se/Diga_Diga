@@ -172,7 +172,8 @@ def ground_truth(cv: dict, visible_text: str) -> CVExtraction:
 
 def _ollama_ready() -> bool:
     try:
-        r = httpx.get(f"{config.OLLAMA_URLS[0]}/api/tags", timeout=3)
+        from .llm import _auth_headers  # a Modal endpoint answers 401 without its proxy token
+        r = httpx.get(f"{config.OLLAMA_URLS[0]}/api/tags", timeout=3, headers=_auth_headers())
         names = {m.get("name", "") for m in r.json().get("models", [])}
         return any(n.split(":")[0] == config.OLLAMA_MODEL.split(":")[0] and
                    (":" not in config.OLLAMA_MODEL or n == config.OLLAMA_MODEL or n == config.OLLAMA_MODEL + ":latest")

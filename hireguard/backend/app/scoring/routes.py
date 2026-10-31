@@ -2,18 +2,22 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
+from datetime import date
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field, conlist
 
 from ..config import ROOT
-from ..contracts import ApprovalKind, Role, Rubric, ScoreOutput, UserOut
+from ..contracts import ApprovalItem, ApprovalKind, Role, Rubric, ScoreOutput, UserOut
 from ..auth.core import require_roles
 from ..db import connect, register_schema
-from . import jobs, money
+from . import jobs, money, offer_fit, rediscover
 from .scorer import score
+from .stability import DEFAULT_DRAWS, stability
+from .team_gaps import team_gaps
 
 router = APIRouter()
 
@@ -22,6 +26,15 @@ M = require_roles(Role.hr_manager)
 MA = require_roles(Role.hr_manager, Role.admin)
 
 EVAL_SUMMARY = ROOT / "eval" / "results" / "summary.json"
+EVAL_FAIRNESS = ROOT / "eval" / "results" / "fairness.json"
+
+
+def _validated(job_id: str):
+    try:
+        from ..pipeline import service  # P1
+        return service.list_validated(job_id)
+    except (ImportError, AttributeError):
+        raise HTTPException(501, "pipeline.service.list_validated not available yet")
 
 
 @register_schema
@@ -84,16 +97,113 @@ def put_rubric(job_id: str, rubric: Rubric, user: UserOut = Depends(M)):
 @router.post("/jobs/{job_id}/rescore", response_model=list[ScoreOutput])
 def rescore(job_id: str, user: UserOut = Depends(RM)):
     _job_or_404(job_id)
-    try:
-        from ..pipeline import service  # P1
-        validated = service.list_validated(job_id)
-    except (ImportError, AttributeError):
-        raise HTTPException(501, "pipeline.service.list_validated not available yet")
+    validated = _validated(job_id)
     rubric = jobs.get_rubric(job_id)
     out = [score(v, rubric) for v in validated]
     for s in out:
         save_score(s)
     return sorted(out, key=lambda s: -s.total)
+
+
+@router.get("/jobs/{job_id}/stability")
+def get_stability(job_id: str, k: int = Query(5, ge=1, le=50), jitter: float = Query(0.15, ge=0.0, le=0.5),
+                  user: UserOut = Depends(RM)):
+    """Probability of staying in the top k when every rubric weight moves by up to +/- jitter."""
+    _job_or_404(job_id)
+    return {"job_id": job_id, "k": k, "jitter": jitter, "draws": DEFAULT_DRAWS,
+            "candidates": stability(_validated(job_id), jobs.get_rubric(job_id), k, jitter=jitter)}
+
+
+@router.get("/jobs/{job_id}/team-gaps")
+def get_team_gaps(job_id: str, user: UserOut = Depends(RM)):
+    """Proposed rubric from the team's skill gaps. Applying it is a normal, audited PUT /rubric by HR."""
+    _job_or_404(job_id)
+    out = team_gaps(job_id, jobs.get_rubric(job_id), _validated(job_id))
+    if out is None:
+        raise HTTPException(404, "no team roster for this job")
+    return out
+
+
+# ---------------------------------------------------------------- fast-track: offer fit, offers, talent pool
+
+CID_RX = re.compile(r"^CAND-[A-Z0-9-]{3,32}$")
+
+
+def _cid(candidate_id: str) -> str:
+    if not CID_RX.match(candidate_id):
+        raise HTTPException(404, "candidate not found")
+    return candidate_id
+
+
+def _ranked(job_id: str) -> list[str]:
+    rubric = jobs.get_rubric(job_id)
+    totals = {v.candidate_id: score(v, rubric).total for v in _validated(job_id)}
+    return sorted(totals, key=lambda c: (-totals[c], c))
+
+
+@router.get("/jobs/{job_id}/offer-fit")
+def get_offer_fit(job_id: str, k: int = Query(5, ge=1, le=50), user: UserOut = Depends(RM)):
+    """Declared conditions vs. the job's published terms. Shown beside the ranking, never inside it."""
+    _job_or_404(job_id)
+    out = offer_fit.job_view(job_id, _ranked(job_id), k, date.today())
+    if out is None:
+        raise HTTPException(404, "no published terms for this job")
+    return out
+
+
+@router.put("/candidates/{candidate_id}/conditions")
+def put_conditions(candidate_id: str, body: offer_fit.Conditions, user: UserOut = Depends(RM)):
+    """A recruiter records what the candidate said on a call. Typed fields only; audited."""
+    conn = connect()
+    try:
+        found = conn.execute("SELECT 1 FROM candidates WHERE candidate_id = ?", (_cid(candidate_id),)).fetchone()
+    finally:
+        conn.close()
+    if not found:
+        raise HTTPException(404, "candidate not found")
+    offer_fit.save_conditions(candidate_id, body, "recruiter_call", user.id)
+    return body
+
+
+class OfferIn(BaseModel, extra="forbid"):
+    monthly_salary_tnd: int = Field(ge=300, le=50000)
+    start_date: date
+    lang: Literal["fr", "en", "ar"] = "fr"
+
+
+@router.post("/candidates/{candidate_id}/offer", response_model=ApprovalItem)
+def post_offer(candidate_id: str, body: OfferIn, user: UserOut = Depends(M)):
+    try:
+        return offer_fit.draft_offer(_cid(candidate_id), body.monthly_salary_tnd, body.start_date, body.lang, user.id)
+    except LookupError:
+        raise HTTPException(404, "candidate not found")
+    except offer_fit.OfferError as e:
+        raise HTTPException(422, str(e))
+
+
+@router.get("/jobs/{job_id}/rediscover")
+def get_rediscover(job_id: str, user: UserOut = Depends(RM)):
+    """Consented, unexpired talent-pool members re-scored against this job's rubric."""
+    _job_or_404(job_id)
+    return {"job_id": job_id, "pool_days": rediscover.POOL_DAYS, "candidates": rediscover.rediscover(job_id)}
+
+
+class InviteIn(BaseModel):
+    candidate_ids: conlist(str, min_length=1, max_length=20)
+
+
+@router.post("/jobs/{job_id}/rediscover/invite", response_model=list[ApprovalItem])
+def post_invite(job_id: str, body: InviteIn, user: UserOut = Depends(RM)):
+    _job_or_404(job_id)
+    return rediscover.invite(job_id, body.candidate_ids, user.id)
+
+
+@router.delete("/talent-pool/{candidate_id}")
+def delete_from_pool(candidate_id: str, user: UserOut = Depends(RM)):
+    """The candidate asked to leave the pool. Audited; they are never rediscovered again."""
+    if not rediscover.withdraw(_cid(candidate_id), user.id):
+        raise HTTPException(404, "not in the talent pool")
+    return {"candidate_id": candidate_id, "withdrawn": True}
 
 
 class ShortlistIn(BaseModel):
@@ -196,6 +306,13 @@ def eval_summary(user: UserOut = Depends(MA)):
     if not EVAL_SUMMARY.exists():
         return {"status": "not_run"}
     return json.loads(EVAL_SUMMARY.read_text(encoding="utf-8"))
+
+
+@router.get("/eval/fairness")
+def eval_fairness(user: UserOut = Depends(MA)):
+    if not EVAL_FAIRNESS.exists():
+        return {"status": "not_run"}
+    return json.loads(EVAL_FAIRNESS.read_text(encoding="utf-8"))
 
 
 def _audit(actor, action, object_type, object_id, details):

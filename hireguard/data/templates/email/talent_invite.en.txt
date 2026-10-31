@@ -1,0 +1,10 @@
+Subject: A new role that may interest you: $job_title
+Hello $candidate_name,
+
+You agreed that we could keep your application in our talent pool. A new role has just opened: $job_title ($location).
+
+If you would like to apply, simply reply to this email. You can also ask us to remove your data from the pool at any time.
+
+Best regards,
+$recruiter_name
+$company_name

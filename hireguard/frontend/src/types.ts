@@ -143,8 +143,67 @@ export interface ApprovalItem {
 }
 
 export interface ApprovalsView {
-  batches: { batch_id: string; kind: ApprovalKind; items: ApprovalItem[] }[];
+  batches: { batch_id: string; kind: ApprovalKind; items: ApprovalItem[]; chunk?: number }[];
   high_risk: ApprovalItem[];
+  max_batch_size?: number;
+}
+
+export interface AttentionStats {
+  max_batch_size: number;
+  default_max_batch_size: number;
+  recent: { canaries: number; missed: number };
+  by_batch_size: { batch_size: string; canaries: number; missed: number; miss_rate: number | null; ci95: number[] | null }[];
+  rule: string;
+}
+
+export interface StabilityRow {
+  candidate_id: string;
+  base_rank: number;
+  p_top_k: number;
+  rank_p05: number;
+  rank_p95: number;
+  label: "stable_in" | "stable_out" | "borderline";
+}
+
+export interface StabilityView {
+  job_id: string;
+  k: number;
+  jitter: number;
+  draws: number;
+  candidates: StabilityRow[];
+}
+
+export interface TeamGapsView {
+  job_id: string;
+  team: string;
+  team_size: number;
+  coverage: { esco_id: string; label: string; holders: number; verified_holders: number; status: "gap" | "single_holder" | "covered" }[];
+  diff: { esco_id: string; label: string; before: number | null; after: number; status: string; reason: string }[];
+  proposed_rubric: unknown;
+  candidates_filling_gaps: Record<string, string[]>;
+}
+
+export interface FairnessAttr {
+  groups: Record<string, { n: number; selected: number; rate: number }>;
+  air?: number;
+  air_ci95?: number[];
+  p_value?: number;
+  lowest?: string;
+  highest?: string;
+  verdict: "ok" | "watch" | "flag" | "n/a";
+  gap_by_component?: Record<string, { points: number; share: number | null }>;
+  proxy: { auc: number | null; null_auc_95th?: number; proxy?: boolean };
+}
+
+export interface FairnessReport {
+  status?: "not_run";
+  generated_at?: string;
+  extraction_mode?: string;
+  scope?: string;
+  n_cvs?: number;
+  k_frac?: number;
+  observed?: Record<string, FairnessAttr>;
+  positive_control?: { design: string; school: FairnessAttr; detected: boolean };
 }
 
 export interface AuditEntry {

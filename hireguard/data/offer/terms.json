@@ -1,0 +1,11 @@
+{
+  "_note": "Fictional job terms, published in the job ad and in the first reply (EU Pay Transparency Directive 2023/970, Art. 5: pay range before the interview). Amounts are gross TND per month. Commitments: on_call, travel, shift_work.",
+  "jobs": {
+    "JOB-DATA-01": {"pay_band_tnd_month": [2800, 3800], "work_mode": "hybrid", "location": "Tunis, Les Berges du Lac",
+                    "start_by": "2027-01-04", "contract": "CDI", "commitments": ["on_call"]},
+    "JOB-FS-02": {"pay_band_tnd_month": [2500, 3500], "work_mode": "remote", "location": "Tunis (remote first)",
+                  "start_by": "2026-12-14", "contract": "CDI", "commitments": []},
+    "JOB-HR-03": {"pay_band_tnd_month": [1600, 2200], "work_mode": "onsite", "location": "Sfax",
+                  "start_by": "2027-02-01", "contract": "CDD", "commitments": ["travel"]}
+  }
+}

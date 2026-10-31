@@ -24,6 +24,11 @@ class Permission(str, Enum):
     shortlist_propose = "shortlist.propose"
     candidates_status_propose = "candidates.status_propose"  # hiring status change -> approval item
     rubric_edit = "rubric.edit"
+    # trust analytics (mnasri): offer fit, talent pool, reviewer attention
+    offer_conditions_edit = "offers.conditions"     # candidate's offer conditions, used by offer fit
+    offer_propose = "offers.propose"                # offer letter -> approval item (2 HR approvers)
+    talent_pool_manage = "talent_pool.manage"       # rediscovery invitations (approval items), pool removal
+    approvals_attention_read = "approvals.attention"  # canary miss rate by batch size (process-level)
     # approvals and execution (P3)
     approvals_decide = "approvals.decide"            # routine items
     approvals_decide_high_risk = "approvals.decide_high_risk"  # offers, documents, leave, held mail, 2nd approver
@@ -64,6 +69,7 @@ _RECRUITER = {
     P.candidates_read, P.candidates_upload, P.scores_read, P.scores_rescore, P.shortlist_propose,
     P.candidates_status_propose, P.approvals_decide, P.approvals_execute, P.inbox_read, P.followups_manage,
     P.calendar_read, P.interviews_scorecard, P.erp_status, P.erp_import,
+    P.offer_conditions_edit, P.talent_pool_manage, P.approvals_attention_read,
 }
 
 ROLE_PERMISSIONS: dict[Role, frozenset[Permission]] = {
@@ -71,14 +77,14 @@ ROLE_PERMISSIONS: dict[Role, frozenset[Permission]] = {
     Role.hr_manager: frozenset(_RECRUITER | {
         P.rubric_edit, P.approvals_decide_high_risk, P.inbox_release_request, P.interviews_reminders,
         P.documents_read, P.documents_release, P.questions_read, P.questions_reply, P.answer_desk_ask,
-        P.security_center_read, P.audit_read, P.money_read, P.money_edit,
+        P.security_center_read, P.audit_read, P.money_read, P.money_edit, P.offer_propose,
     }),
     Role.employee: frozenset({
         P.documents_request, P.documents_read, P.questions_ask, P.questions_read, P.answer_desk_ask,
     }),
     Role.admin: frozenset({
         P.security_center_read, P.audit_read, P.audit_anchor, P.money_read,
-        P.users_manage, P.inbox_ingest, P.erp_status, P.erp_configure,
+        P.users_manage, P.inbox_ingest, P.erp_status, P.erp_configure, P.approvals_attention_read,
     }),
 }
 
@@ -116,6 +122,17 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("GET", "/api/money"): P.money_read,
     ("PUT", "/api/money/settings"): P.money_edit,
     ("GET", "/api/eval/summary"): P.security_center_read,
+    # trust analytics (mnasri)
+    ("GET", "/api/jobs/{job_id}/stability"): P.scores_read,
+    ("GET", "/api/jobs/{job_id}/team-gaps"): P.scores_read,
+    ("GET", "/api/jobs/{job_id}/offer-fit"): P.scores_read,
+    ("PUT", "/api/candidates/{candidate_id}/conditions"): P.offer_conditions_edit,
+    ("POST", "/api/candidates/{candidate_id}/offer"): P.offer_propose,
+    ("GET", "/api/jobs/{job_id}/rediscover"): P.candidates_read,
+    ("POST", "/api/jobs/{job_id}/rediscover/invite"): P.talent_pool_manage,
+    ("DELETE", "/api/talent-pool/{candidate_id}"): P.talent_pool_manage,
+    ("GET", "/api/eval/fairness"): P.security_center_read,
+    ("GET", "/api/approvals/attention"): P.approvals_attention_read,
     # workflow (P3)
     ("POST", "/api/inbox/ingest"): P.inbox_ingest,
     ("GET", "/api/inbox"): P.inbox_read,

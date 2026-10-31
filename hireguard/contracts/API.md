@@ -58,9 +58,12 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET/PUT | `/jobs/{job_id}/rubric` | R M (PUT: M) | `Rubric` |
 | POST | `/jobs/{job_id}/rescore` | R M | → `ScoreOutput[]` |
 | POST | `/jobs/{job_id}/shortlist` | R M | `{candidate_ids}` → `ApprovalItem` (kind `shortlist_commit`) |
+| GET | `/jobs/{job_id}/stability?k=5&jitter=0.15` | R M | → `{k, jitter, draws, candidates: [{candidate_id, base_rank, p_top_k, rank_p05, rank_p95, label}]}`; label `stable_in` / `stable_out` / `borderline` |
+| GET | `/jobs/{job_id}/team-gaps` | R M | → `{team, coverage[], diff[], proposed_rubric, candidates_filling_gaps}`; a proposal only, applied by HR through PUT `/rubric` |
 | GET | `/money` | M A | → `{roles:[{job_id, title, days_open, target_days, cost_of_vacancy_tnd}], hours_saved:{cv_screening, emails, documents, answers, total}, hourly_cost_tnd, roi_tnd}` |
 | PUT | `/money/settings` | M | `{hourly_cost_tnd}` |
 | GET | `/eval/summary` | M A | → latest eval numbers with Clopper-Pearson CIs |
+| GET | `/eval/fairness` | M A | → group selection rates, adverse-impact ratios, proxy AUCs, positive control |
 
 ### Workflow and security (P3)
 | Method | Path | Roles | Body → Response |
@@ -78,6 +81,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET | `/documents/mine` | E | → own documents only |
 | GET | `/documents/{id}/download` | E (owner) M | → PDF, only after release |
 | GET | `/reviewer/stats` | M A | → canary hits/misses per reviewer |
+| GET | `/approvals/attention` | R M A | → `{max_batch_size, recent, by_batch_size[], rule}`: canary miss rate by batch size; bulk approvals above `max_batch_size` → 422 |
 | POST | `/interviews/{id}/scorecard` | R M | `{ratings:{technical, problem_solving, communication, team_fit: 1-4}, recommendation: strong_no\|no\|yes\|strong_yes}` |
 | GET | `/interviews/reminders` | M | manager reminder list |
 | POST | `/inbox/{id}/release-request` | M | creates a `held_email_release` approval item |

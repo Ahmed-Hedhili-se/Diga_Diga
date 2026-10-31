@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from ..contracts import ApprovalItem, ApprovalKind, AuditEntry, Role, UserOut
 from ..auth.core import require_roles
-from . import (anchor, approvals, audit, documents, email_gate, employee_questions, executor, followups,
+from . import (anchor, approvals, attention, audit, documents, email_gate, employee_questions, executor, followups,
                interviews, mock_calendar)
 
 router = APIRouter()
@@ -108,6 +108,14 @@ def question_get(question_id: str, user: UserOut = Depends(require_roles(E, M)))
 @router.post("/employee-questions/{question_id}/reply", response_model=ApprovalItem)
 def question_reply(question_id: str, body: employee_questions.ReplyIn, user: UserOut = Depends(require_roles(M))):
     return employee_questions.draft_reply(user, question_id, body.template, body.lang)
+
+# ---------------------------------------------------------------- reviewer attention (canary miss rate)
+
+
+@router.get("/approvals/attention")
+def approval_attention(user: UserOut = Depends(require_roles(R, M, A))):
+    """Canary miss rate by batch size and the current batch cap (process-level, not per reviewer)."""
+    return attention.stats()
 
 # ---------------------------------------------------------------- calendar
 

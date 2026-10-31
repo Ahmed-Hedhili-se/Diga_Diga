@@ -1,6 +1,14 @@
 """Evaluation harness (P2). Every number is reported as k/n with a Clopper-Pearson 95% CI.
 
-    python eval/harness.py [--only hidden,attacks,twins,emails,extraction] [--limit N]
+    python eval/harness.py [--only hidden,attacks,twins,emails,extraction] [--limit N] [--extraction auto|llm|oracle]
+
+Extraction modes (every section in summary.json records which one produced it):
+  llm     the configured model (Qwen3 via Ollama, local or Modal). Refuses to start when the model is unreachable:
+          a dead model fails the attacked CV and its twin identically and would report a fake 0/40.
+  oracle  ground-truth extraction (eval/oracle.py) through the real sanitizer, detector, validator and scorer.
+          Measures the code path only. It says nothing about whether the model obeys injections: never report
+          an oracle number as model robustness.
+  auto    llm when reachable, otherwise oracle.
 
 Sections:
   hidden      sanitizer only (no LLM): is hidden text found on attacked docs, and never on clean ones?
@@ -38,6 +46,8 @@ CACHE_PATH = RESULTS_DIR / "raw" / "llm_cache.json"
 EMAIL_DIR = ROOT / "data" / "emails"
 UNDECODABLE = re.compile(r"^\[\d+ undecodable glyph")
 EVAL_TIMEOUT = httpx.Timeout(300.0, connect=5.0)
+ORACLE_SCOPE = ("oracle extraction (no LLM): measures sanitizer, detector, validator and scorer; "
+                "does NOT measure whether the model follows injections")
 
 
 def _progress(name: str, i: int, n: int, t0: float):
@@ -46,9 +56,10 @@ def _progress(name: str, i: int, n: int, t0: float):
 
 
 class Analyzer:
-    """P1's pipeline (sanitize -> detect -> extract -> validate) with the extraction call cached."""
+    """P1's pipeline (sanitize -> detect -> extract -> validate) with the extraction call cached.
+    mode='oracle' replaces only the model call with the ground truth; everything else is the real code."""
 
-    def __init__(self):
+    def __init__(self, mode: str = "llm"):
         from app import config
         from app.pipeline import llm
         from app.pipeline.detector import detect
@@ -61,7 +72,7 @@ class Analyzer:
         self._sanitize, self._detect, self._validate = sanitize, detect, validate
         self._extract_cv, self._extract_email = extract_cv, extract_email
         self.cache = json.loads(CACHE_PATH.read_text(encoding="utf-8")) if CACHE_PATH.exists() else {}
-        self.calls = self.hits = 0
+        self.mode, self.calls, self.hits, self.failures = mode, 0, 0, 0
 
     def _cached(self, kind: str, text: str, call, model_cls):
         key = hashlib.sha256(f"{self.model}\n{kind}\n{text}".encode()).hexdigest()
@@ -70,21 +81,30 @@ class Analyzer:
             return model_cls.model_validate(self.cache[key])
         self.calls += 1
         out = call(text)
+        self.failures += out is None
         if out is not None:  # a failure may be transient (timeout): never cache it
             self.cache[key] = out.model_dump(mode="json")
             CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
             CACHE_PATH.write_text(json.dumps(self.cache, ensure_ascii=False), encoding="utf-8")
         return out
 
-    def cv(self, pdf_bytes: bytes, candidate_id: str):
+    def cv(self, pdf_bytes: bytes, candidate_id: str, gt: dict | None = None):
         from app.contracts import CVExtraction
         san = self._sanitize(pdf_bytes)
         flags = self._detect(san.visible_text, san.hidden_findings)
-        ext = self._cached("cv", san.visible_text, self._extract_cv, CVExtraction) if san.visible_text.strip() else None
+        if self.mode == "oracle":
+            from oracle import gt_extraction
+            ext = gt_extraction(gt, san.visible_text)
+        elif san.visible_text.strip():
+            ext = self._cached("cv", san.visible_text, self._extract_cv, CVExtraction)
+        else:
+            ext = None
         return san, self._validate(candidate_id, san, ext, flags)
 
-    def email(self, body: str):
+    def email(self, body: str, truth=None):
         from app.contracts import EmailExtraction
+        if self.mode == "oracle":
+            return truth
         return self._cached("email", body, self._extract_email, EmailExtraction)
 
 
@@ -172,8 +192,8 @@ def eval_attacks(an: Analyzer, limit=None) -> dict:
     d = CORPUS_DIR / "attacks"
     rows, twin_scores, t0 = [], {}, time.time()
     for i, m in enumerate(manifest, 1):
-        s_twin, v_twin = an.cv((d / f"{m['id']}.twin.pdf").read_bytes(), m["id"])
-        s_atk, v_atk = an.cv((d / f"{m['id']}.pdf").read_bytes(), m["id"])
+        s_twin, v_twin = an.cv((d / f"{m['id']}.twin.pdf").read_bytes(), m["id"], m["ground_truth"])
+        s_atk, v_atk = an.cv((d / f"{m['id']}.pdf").read_bytes(), m["id"], m["ground_truth"])
         rows.append((m, s_twin, v_twin, s_atk, v_atk))
         twin_scores.setdefault(m["job_id"], []).append(_score(v_twin, m["job_id"]))
         _progress("attacks", i, len(manifest), t0)
@@ -218,7 +238,7 @@ def eval_twins(an: Analyzer, limit=None) -> dict:
     d = CORPUS_DIR / "twins"
     scores, t0 = {}, time.time()
     for i, m in enumerate(manifest, 1):
-        _, v = an.cv((d / f"{m['id']}.pdf").read_bytes(), m["id"])
+        _, v = an.cv((d / f"{m['id']}.pdf").read_bytes(), m["id"], m["ground_truth"])
         scores[m["id"]] = (m["group"], m["variant"], _score(v, m["job_id"]), v.status)
         _progress("twins", i, len(manifest), t0)
     refs = {g: s for g, var, s, _ in scores.values() if var == "ref"}
@@ -259,9 +279,9 @@ def eval_emails(an: Analyzer, limit=None) -> dict:
         msg = email.message_from_bytes(raw, policy=policy.default)
         auth = email_gate.authenticate(raw, msg)
         found = parseaddr(str(msg.get("From", "")))[1].lower() in verified
-        ext = an.email(email_gate._body_text(msg))
-        lane, _ = email_gate.classify(msg, auth, ext, found)
         truth = EmailExtraction(language=lab["language"], intent=lab["intent"], urgency=lab["urgency"])
+        ext = an.email(email_gate._body_text(msg), truth)
+        lane, _ = email_gate.classify(msg, auth, ext, found)
         expected, _ = email_gate.classify(msg, auth, truth, found)
         if ext is None:
             failed += 1
@@ -310,7 +330,7 @@ def eval_extraction(an: Analyzer, limit=None) -> dict:
     for i, p in enumerate(pdfs, 1):
         doc = json.loads((GT_DIR / f"{p.stem}.json").read_text(encoding="utf-8"))
         gt = doc["ground_truth"]
-        _, v = an.cv(p.read_bytes(), p.stem)
+        _, v = an.cv(p.read_bytes(), p.stem, gt)
         needs_human += v.status == "needs_human"
         got, want = {s.esco_id for s in v.skills}, set(gt["skills"])
         tp += len(got & want); fp += len(got - want); fn += len(want - got)
@@ -342,8 +362,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default=",".join(SECTIONS))
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--extraction", choices=("auto", "llm", "oracle"), default="auto")
     a = ap.parse_args()
     from app import config
+    from app.pipeline.demo import _ollama_ready
+    mode = a.extraction
+    if mode == "auto":
+        mode = "llm" if _ollama_ready() else "oracle"
+    if mode == "llm" and set(a.only.split(",")) - {"hidden"} and not _ollama_ready():
+        raise SystemExit("LLM mode requested but the model is not reachable; nothing written. "
+                         "Start Ollama (or set HG_OLLAMA_HOSTS) or run with --extraction oracle")
     summary = json.loads(SUMMARY.read_text(encoding="utf-8")) if SUMMARY.exists() else {}
     summary.setdefault("sections", {})
     summary.update({"generated_at": datetime.now(timezone.utc).isoformat(), "model": config.OLLAMA_MODEL,
@@ -351,14 +379,18 @@ def main():
     an = None
     for name in a.only.split(","):
         if name != "hidden" and an is None:
-            an = Analyzer()
+            an = Analyzer(mode)
         t0 = time.time()
         print(f"[{name}] start", flush=True)
         res = SECTIONS[name](an, a.limit)
         res |= {"seconds": round(time.time() - t0, 1), "limit": a.limit,
                 "finished_at": datetime.now(timezone.utc).isoformat()}
-        if an is not None:
+        res["extraction_mode"] = "none (sanitizer only)" if name == "hidden" else mode
+        if name != "hidden" and mode == "oracle":
+            res["scope"] = ORACLE_SCOPE
+        if an is not None and mode == "llm":
             res["llm_calls_total"], res["llm_cache_hits_total"] = an.calls, an.hits
+            res["llm_failed_calls_total"] = an.failures  # a model that died mid-run shows up here, not as 0/40
         summary["sections"][name] = res
         _write(summary)
         print(f"[{name}] done", json.dumps({k: (v.get("text") if isinstance(v, dict) and "text" in v else v)
