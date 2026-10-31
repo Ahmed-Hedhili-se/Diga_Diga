@@ -1,0 +1,63 @@
+{
+ "ground_truth": {
+  "id": "CV-0134",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Wassim Sassi",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-11",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "docker",
+     "git",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "wassim.sassi134@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "etl",
+   "git",
+   "postgresql",
+   "python"
+  ],
+  "skill_years": {
+   "apache-spark": 3.9,
+   "docker": 3.9,
+   "git": 3.9,
+   "postgresql": 3.9
+  },
+  "years_experience": 3.9
+ },
+ "text": "Wassim Sassi\nIngénieur données\nwassim.sassi134@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2022 – aujourd'hui : Fictiva Data SARL\n  outils: Apache Spark, Docker, Git, PostgreSQL\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2022\n\nCOMPÉTENCES\nApache Spark, Docker, pipelines ETL, Git, PostgreSQL, Python\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : C2"
+}

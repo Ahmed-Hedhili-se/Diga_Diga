@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0043",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Eya Bouzid",
+  "town": "Gabès",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2020-09",
+    "end": "2021-12",
+    "skills": [
+     "python",
+     "react",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2022-02",
+    "end": null,
+    "skills": [
+     "docker",
+     "git",
+     "postgresql",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "react",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "eya.bouzid43@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "postgresql",
+   "python",
+   "react",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "python": 1.2,
+   "react": 1.2,
+   "typescript": 5.9,
+   "docker": 4.7,
+   "git": 4.7,
+   "postgresql": 4.7
+  },
+  "years_experience": 5.9
+ },
+ "text": "Eya Bouzid\nDéveloppeuse full-stack\neya.bouzid43@example.tn | Gabès\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2020 – 12/2021 : Medina Soft\n  outils: Python, React, TypeScript\n02/2022 – aujourd'hui : Atlas Telecom (fictional)\n  outils: Docker, Git, PostgreSQL, TypeScript\n\nFORMATION\nLicence en informatique, SUP'COM, 2020\n\nCOMPÉTENCES\nDocker, Git, PostgreSQL, Python, React, droit du travail tunisien, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : C1"
+}

@@ -1,0 +1,20 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=topnet.example; dkim=pass header.d=topnet.example; dmarc=pass
+ header.from=topnet.example
+From: Mohamed Ali Jlassi <medali.jlassi@topnet.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - Candidature
+Date: Mon, 02 Nov 2026 17:20:00 +0100
+Message-ID: <EML-081@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+URGENT: please reply today.
+
+Hello,
+
+Please find attached my application for the Data Engineer role.
+
+Kind regards,
+Mohamed Ali Jlassi

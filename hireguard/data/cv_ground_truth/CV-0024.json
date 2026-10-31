@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0024",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Rania Sassi",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2016-07",
+    "end": "2019-10",
+    "skills": [
+     "data-modelling",
+     "docker",
+     "etl",
+     "git",
+     "postgresql"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2020-01",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "rania.sassi24@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "git",
+   "postgresql",
+   "recruitment"
+  ],
+  "skill_years": {
+   "data-modelling": 3.2,
+   "docker": 3.2,
+   "etl": 3.2,
+   "git": 3.2,
+   "postgresql": 3.2,
+   "apache-spark": 6.8,
+   "recruitment": 6.8
+  },
+  "years_experience": 10.0
+ },
+ "text": "Rania Sassi\nData engineer\nrania.sassi24@example.tn | La Marsa\n\nPROFESSIONAL EXPERIENCE\n07/2016 – 10/2019 : Olive Systems\n  tools: data modelling, Docker, ETL pipelines, Git, PostgreSQL\n01/2020 – present : Carthage Analytics\n  tools: Apache Spark, recruitment\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2016\n\nSKILLS\nApache Spark, data modelling, Docker, ETL pipelines, Git, PostgreSQL, recruitment\n\nLANGUAGES\nArabic : native\nFrench : C2\nEnglish : B1"
+}

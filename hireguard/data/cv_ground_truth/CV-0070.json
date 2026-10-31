@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0070",
+  "job_id": "JOB-HR-03",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Ines Dridi",
+  "town": "La Marsa",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2015-10",
+    "end": "2018-07",
+    "skills": [
+     "git",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2018-10",
+    "end": null,
+    "skills": [
+     "git",
+     "payroll"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "node-js",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "ines.dridi70@example.tn",
+  "skills": [
+   "git",
+   "node-js",
+   "payroll"
+  ],
+  "skill_years": {
+   "git": 10.8,
+   "payroll": 10.8
+  },
+  "years_experience": 10.8
+ },
+ "text": "Ines Dridi\nمساعدة موارد بشرية\nines.dridi70@example.tn | La Marsa\n\nالخبرة المهنية\n10/2015 – 07/2018 : Atlas Telecom (fictional)\n  الأدوات: Git, الأجور\n10/2018 – حاليا : Atlas Telecom (fictional)\n  الأدوات: Git, الأجور\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2015\n\nالمهارات\nGit, Node.js, الأجور\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C2\nالإنجليزية : B2"
+}

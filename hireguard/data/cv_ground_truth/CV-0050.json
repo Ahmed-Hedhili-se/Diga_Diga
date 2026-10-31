@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0050",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Wassim Sassi",
+  "town": "La Marsa",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2015-07",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "microsoft-excel",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "hr-administration"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "wassim.sassi50@example.tn",
+  "skills": [
+   "data-modelling",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "data-modelling": 11.2,
+   "microsoft-excel": 11.2,
+   "payroll": 11.2,
+   "recruitment": 11.2,
+   "tunisian-labour-law": 11.2
+  },
+  "years_experience": 11.2
+ },
+ "text": "Wassim Sassi\nAssistant RH\nwassim.sassi50@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2015 – aujourd'hui : Medina Soft\n  outils: modélisation des données, Microsoft Excel, paie, recrutement, droit du travail tunisien\n\nFORMATION\nLicence en informatique, ISET Radès, 2015\n\nCOMPÉTENCES\nmodélisation des données, administration du personnel, Microsoft Excel, paie, recrutement, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : B1"
+}

@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0063",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Eya Mansouri",
+  "town": "Kasserine",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2015-08",
+    "end": "2017-11",
+    "skills": [
+     "data-modelling",
+     "docker",
+     "payroll",
+     "sql",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2017-12",
+    "end": "2019-04",
+    "skills": [
+     "data-modelling",
+     "git",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "eya.mansouri63@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "git",
+   "payroll",
+   "sql",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "data-modelling": 3.6,
+   "docker": 2.2,
+   "payroll": 2.2,
+   "sql": 2.2,
+   "tunisian-labour-law": 3.6,
+   "git": 1.3
+  },
+  "years_experience": 3.6
+ },
+ "text": "Eya Mansouri\nIngénieur données\neya.mansouri63@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2015 – 11/2017 : Olive Systems\n  outils: modélisation des données, Docker, paie, SQL, droit du travail tunisien\n12/2017 – 04/2019 : Fictiva Data SARL\n  outils: modélisation des données, Git, droit du travail tunisien\n\nFORMATION\nMastère professionnel en science des données, ISET Radès, 2015\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, Git, paie, SQL, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : C2"
+}

@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0180",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Malek Dridi",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2018-08",
+    "end": "2021-12",
+    "skills": [
+     "hr-administration",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2021-12",
+    "end": "2023-10",
+    "skills": [
+     "microsoft-excel",
+     "sql",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "payroll",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "malek.dridi180@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "sql",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "hr-administration": 3.3,
+   "sql": 5.2,
+   "microsoft-excel": 1.8,
+   "tunisian-labour-law": 1.8
+  },
+  "years_experience": 5.2
+ },
+ "text": "Malek Dridi\nHR assistant\nmalek.dridi180@example.tn | Kasserine\n\nPROFESSIONAL EXPERIENCE\n08/2018 – 12/2021 : Fictiva Data SARL\n  tools: HR administration, SQL\n12/2021 – 10/2023 : Olive Systems\n  tools: Microsoft Excel, SQL, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2018\n\nSKILLS\nHR administration, Microsoft Excel, payroll, SQL, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : C1\nEnglish : B1"
+}

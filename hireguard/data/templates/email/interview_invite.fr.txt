@@ -1,0 +1,11 @@
+Subject: Entretien : $job_title
+Bonjour $candidate_name,
+
+Nous souhaitons vous rencontrer pour le poste de $job_title. Votre entretien est fixé au créneau suivant :
+$slot_label
+
+Durée : 45 minutes. Merci de nous confirmer votre présence.
+
+Cordialement,
+$recruiter_name
+$company_name

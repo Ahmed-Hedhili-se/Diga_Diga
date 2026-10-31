@@ -1,0 +1,64 @@
+{
+ "ground_truth": {
+  "id": "CV-0102",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Skander Mansouri",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2024-12",
+    "end": null,
+    "skills": [
+     "docker",
+     "git",
+     "react",
+     "rest-api",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "skander.mansouri102@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 1.8,
+   "git": 1.8,
+   "react": 1.8,
+   "rest-api": 1.8,
+   "typescript": 1.8
+  },
+  "years_experience": 1.8
+ },
+ "text": "Skander Mansouri\nDéveloppeur full-stack\nskander.mansouri102@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n12/2024 – aujourd'hui : Fictiva Data SARL\n  outils: Docker, Git, React, API REST, TypeScript\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2024\n\nCOMPÉTENCES\nDocker, Git, React, API REST, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C1"
+}

@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0098",
+  "job_id": "JOB-HR-03",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Mariem Trabelsi",
+  "town": "Bizerte",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-07",
+    "end": "2023-06",
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-07",
+    "end": "2024-03",
+    "skills": [
+     "docker",
+     "hr-administration",
+     "microsoft-excel",
+     "payroll",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "mariem.trabelsi98@example.tn",
+  "skills": [
+   "docker",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "hr-administration": 2.6,
+   "microsoft-excel": 2.6,
+   "tunisian-labour-law": 1.9,
+   "docker": 0.7,
+   "payroll": 0.7,
+   "recruitment": 0.7
+  },
+  "years_experience": 2.6
+ },
+ "text": "Mariem Trabelsi\nمساعدة موارد بشرية\nmariem.trabelsi98@example.tn | Bizerte\n\nالخبرة المهنية\n07/2021 – 06/2023 : Fictiva Data SARL\n  الأدوات: إدارة شؤون الموظفين, مايكروسوفت إكسل, قانون الشغل التونسي\n07/2023 – 03/2024 : Carthage Analytics\n  الأدوات: Docker, إدارة شؤون الموظفين, مايكروسوفت إكسل, الأجور, التوظيف\n\nالتكوين\nماجستير في علوم البيانات, المعهد العالي للدراسات التكنولوجية برادس, 2021\n\nالمهارات\nDocker, إدارة شؤون الموظفين, مايكروسوفت إكسل, الأجور, التوظيف, قانون الشغل التونسي\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C1\nالإنجليزية : C2"
+}

@@ -1,0 +1,80 @@
+{
+ "ground_truth": {
+  "id": "CV-0101",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Ines Sassi",
+  "town": "Bizerte",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2016-09",
+    "end": "2017-05",
+    "skills": [
+     "python",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2017-06",
+    "end": "2019-10",
+    "skills": [
+     "payroll",
+     "recruitment"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2019-12",
+    "end": "2023-04",
+    "skills": [
+     "microsoft-excel",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "ines.sassi101@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "python",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "python": 4.0,
+   "tunisian-labour-law": 0.7,
+   "payroll": 2.3,
+   "recruitment": 2.3,
+   "microsoft-excel": 3.3
+  },
+  "years_experience": 6.3
+ },
+ "text": "Ines Sassi\nAssistant RH\nines.sassi101@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2016 – 05/2017 : Atlas Telecom (fictional)\n  outils: Python, droit du travail tunisien\n06/2017 – 10/2019 : Medina Soft\n  outils: paie, recrutement\n12/2019 – 04/2023 : Medina Soft\n  outils: Microsoft Excel, Python\n\nFORMATION\nMastère professionnel en science des données, ISET Radès, 2016\n\nCOMPÉTENCES\nadministration du personnel, Microsoft Excel, paie, Python, recrutement, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C1"
+}

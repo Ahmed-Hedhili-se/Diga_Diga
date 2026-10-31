@@ -1,0 +1,66 @@
+{
+ "ground_truth": {
+  "id": "CV-0125",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Malek Ben Salah",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2021-08",
+    "end": "2024-02",
+    "skills": [
+     "apache-spark",
+     "microsoft-excel",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "malek.ben.salah125@example.tn",
+  "skills": [
+   "apache-spark",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "apache-spark": 2.5,
+   "microsoft-excel": 2.5,
+   "payroll": 2.5,
+   "recruitment": 2.5,
+   "tunisian-labour-law": 2.5
+  },
+  "years_experience": 2.5
+ },
+ "text": "Malek Ben Salah\nAssistante RH\nmalek.ben.salah125@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2021 – 02/2024 : Atlas Telecom (fictional)\n  outils: Apache Spark, Microsoft Excel, paie, recrutement, droit du travail tunisien\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2021\n\nCOMPÉTENCES\nApache Spark, administration du personnel, Microsoft Excel, paie, recrutement, droit du travail tunisien, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : C2"
+}

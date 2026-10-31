@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0182",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Eya Mansouri",
+  "town": "Tataouine",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2021-09",
+    "end": "2025-01",
+    "skills": [
+     "apache-spark",
+     "git",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "eya.mansouri182@example.tn",
+  "skills": [
+   "apache-spark",
+   "git",
+   "hr-administration",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "apache-spark": 3.3,
+   "git": 3.3,
+   "payroll": 3.3,
+   "recruitment": 3.3,
+   "tunisian-labour-law": 3.3
+  },
+  "years_experience": 3.3
+ },
+ "text": "Eya Mansouri\nAssistante RH\neya.mansouri182@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2021 – 01/2025 : Olive Systems\n  outils: Apache Spark, Git, paie, recrutement, droit du travail tunisien\n\nFORMATION\nLicence en informatique, ISET Radès, 2021\n\nCOMPÉTENCES\nApache Spark, Git, administration du personnel, paie, recrutement, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C1"
+}

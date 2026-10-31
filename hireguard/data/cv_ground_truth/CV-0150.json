@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0150",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Rania Dridi",
+  "town": "La Marsa",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [],
+  "extra_skills": [
+   "git",
+   "hr-administration"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "rania.dridi150@example.tn",
+  "skills": [
+   "git",
+   "hr-administration"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Rania Dridi\nAssistante RH\nrania.dridi150@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nLicence en informatique, ISET Radès, 2022\n\nCOMPÉTENCES\nGit, administration du personnel\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B1"
+}

@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0030",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Rania Ayari",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2017-11",
+    "end": "2018-07",
+    "skills": [
+     "apache-spark",
+     "git",
+     "postgresql",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2018-08",
+    "end": null,
+    "skills": [
+     "docker",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "rania.ayari30@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "git",
+   "postgresql",
+   "python",
+   "typescript"
+  ],
+  "skill_years": {
+   "apache-spark": 0.7,
+   "git": 0.7,
+   "postgresql": 8.8,
+   "typescript": 0.7,
+   "docker": 8.2,
+   "python": 8.2
+  },
+  "years_experience": 8.8
+ },
+ "text": "Rania Ayari\nIngénieur données\nrania.ayari30@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2017 – 07/2018 : Fictiva Data SARL\n  outils: Apache Spark, Git, PostgreSQL, TypeScript\n08/2018 – aujourd'hui : Jasmin Digital\n  outils: Docker, PostgreSQL, Python\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2017\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, Git, PostgreSQL, Python, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B1"
+}

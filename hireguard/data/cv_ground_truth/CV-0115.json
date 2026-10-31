@@ -1,0 +1,62 @@
+{
+ "ground_truth": {
+  "id": "CV-0115",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Omar Mansouri",
+  "town": "Sousse",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2022-09",
+    "end": null,
+    "skills": [
+     "microsoft-excel",
+     "payroll",
+     "recruitment",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "omar.mansouri115@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "sql"
+  ],
+  "skill_years": {
+   "microsoft-excel": 4.1,
+   "payroll": 4.1,
+   "recruitment": 4.1,
+   "sql": 4.1
+  },
+  "years_experience": 4.1
+ },
+ "text": "Omar Mansouri\nAssistant RH\nomar.mansouri115@example.tn | Sousse\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2022 – aujourd'hui : Jasmin Digital\n  outils: Microsoft Excel, paie, recrutement, SQL\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2022\n\nCOMPÉTENCES\nadministration du personnel, Microsoft Excel, paie, recrutement, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B1"
+}

@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0044",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Salma Sassi",
+  "town": "Sfax",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2016-10",
+    "end": "2019-07",
+    "skills": [
+     "microsoft-excel",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2019-10",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "payroll"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "salma.sassi44@example.tn",
+  "skills": [
+   "data-modelling",
+   "git",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "microsoft-excel": 2.8,
+   "tunisian-labour-law": 2.8,
+   "data-modelling": 7.0,
+   "payroll": 7.0
+  },
+  "years_experience": 9.8
+ },
+ "text": "Salma Sassi\nHR assistant\nsalma.sassi44@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n10/2016 – 07/2019 : Fictiva Data SARL\n  tools: Microsoft Excel, Tunisian labour law\n10/2019 – present : Atlas Telecom (fictional)\n  tools: data modelling, payroll\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2016\n\nSKILLS\ndata modelling, Git, Microsoft Excel, payroll, recruitment, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B1"
+}

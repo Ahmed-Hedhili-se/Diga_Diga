@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0068",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Youssef Gharbi",
+  "town": "Gabès",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2018-08",
+    "end": "2019-09",
+    "skills": [
+     "apache-spark",
+     "hr-administration",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "youssef.gharbi68@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "hr-administration",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "apache-spark": 1.1,
+   "hr-administration": 1.1,
+   "payroll": 1.1,
+   "recruitment": 1.1,
+   "tunisian-labour-law": 1.1
+  },
+  "years_experience": 1.1
+ },
+ "text": "Youssef Gharbi\nHR assistant\nyoussef.gharbi68@example.tn | Gabès\n\nPROFESSIONAL EXPERIENCE\n08/2018 – 09/2019 : Fictiva Data SARL\n  tools: Apache Spark, HR administration, payroll, recruitment, Tunisian labour law\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2018\n\nSKILLS\nApache Spark, data modelling, HR administration, payroll, recruitment, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : B1\nEnglish : B1"
+}

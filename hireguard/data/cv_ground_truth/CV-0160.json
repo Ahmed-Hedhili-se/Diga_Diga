@@ -1,0 +1,62 @@
+{
+ "ground_truth": {
+  "id": "CV-0160",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Malek Ben Salah",
+  "town": "Sfax",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2020-11",
+    "end": "2022-12",
+    "skills": [
+     "data-modelling",
+     "etl",
+     "rest-api",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "malek.ben.salah160@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "etl",
+   "rest-api",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "data-modelling": 2.1,
+   "etl": 2.1,
+   "rest-api": 2.1,
+   "tunisian-labour-law": 2.1
+  },
+  "years_experience": 2.1
+ },
+ "text": "Malek Ben Salah\nIngénieure données\nmalek.ben.salah160@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2020 – 12/2022 : Jasmin Digital\n  outils: modélisation des données, pipelines ETL, API REST, droit du travail tunisien\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2020\n\nCOMPÉTENCES\nApache Spark, modélisation des données, pipelines ETL, API REST, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : B1"
+}

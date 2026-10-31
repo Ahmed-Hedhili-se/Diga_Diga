@@ -1,0 +1,83 @@
+{
+ "ground_truth": {
+  "id": "CV-0147",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Youssef Bouzid",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2016-09",
+    "end": "2018-03",
+    "skills": [
+     "microsoft-excel",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2018-06",
+    "end": "2020-09",
+    "skills": [
+     "apache-spark",
+     "payroll",
+     "tunisian-labour-law",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2020-10",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "microsoft-excel"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "youssef.bouzid147@example.tn",
+  "skills": [
+   "apache-spark",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "microsoft-excel": 7.5,
+   "payroll": 3.8,
+   "apache-spark": 2.2,
+   "tunisian-labour-law": 2.2,
+   "typescript": 2.2,
+   "hr-administration": 6.0
+  },
+  "years_experience": 9.8
+ },
+ "text": "Youssef Bouzid\nHR assistant\nyoussef.bouzid147@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n09/2016 – 03/2018 : Olive Systems\n  tools: Microsoft Excel, payroll\n06/2018 – 09/2020 : Medina Soft\n  tools: Apache Spark, payroll, Tunisian labour law, TypeScript\n10/2020 – present : Jasmin Digital\n  tools: HR administration, Microsoft Excel\n\nEDUCATION\nMaster in data science, ISET Radès, 2016\n\nSKILLS\nApache Spark, HR administration, Microsoft Excel, payroll, Tunisian labour law, TypeScript\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B2"
+}

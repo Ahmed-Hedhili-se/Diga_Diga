@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0021",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Amira Ben Salah",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2016-12",
+    "end": "2019-08",
+    "skills": [
+     "apache-spark",
+     "etl",
+     "node-js",
+     "postgresql",
+     "python"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2019-12",
+    "end": "2022-11",
+    "skills": [
+     "node-js",
+     "python",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "amira.ben.salah21@example.tn",
+  "skills": [
+   "apache-spark",
+   "etl",
+   "node-js",
+   "postgresql",
+   "python",
+   "sql",
+   "typescript"
+  ],
+  "skill_years": {
+   "apache-spark": 2.7,
+   "etl": 2.7,
+   "node-js": 5.6,
+   "postgresql": 2.7,
+   "python": 5.6,
+   "typescript": 2.9
+  },
+  "years_experience": 5.6
+ },
+ "text": "Amira Ben Salah\nIngénieur données\namira.ben.salah21@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n12/2016 – 08/2019 : Carthage Analytics\n  outils: Apache Spark, pipelines ETL, Node.js, PostgreSQL, Python\n12/2019 – 11/2022 : Jasmin Digital\n  outils: Node.js, Python, TypeScript\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2016\n\nCOMPÉTENCES\nApache Spark, pipelines ETL, Node.js, PostgreSQL, Python, SQL, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : B1"
+}

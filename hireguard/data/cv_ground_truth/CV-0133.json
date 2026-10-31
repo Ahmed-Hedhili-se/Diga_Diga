@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0133",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Salma Hammami",
+  "town": "Sousse",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2022-09",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "git",
+     "javascript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "node-js"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "salma.hammami133@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "git",
+   "javascript",
+   "node-js"
+  ],
+  "skill_years": {
+   "data-modelling": 4.1,
+   "git": 4.1,
+   "javascript": 4.1
+  },
+  "years_experience": 4.1
+ },
+ "text": "Salma Hammami\nFull-stack developer\nsalma.hammami133@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n09/2022 – present : Carthage Analytics\n  tools: data modelling, Git, JavaScript\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2022\n\nSKILLS\ndata modelling, Docker, Git, JavaScript, Node.js\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B1"
+}

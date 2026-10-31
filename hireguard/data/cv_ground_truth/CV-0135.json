@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0135",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Nour Gharbi",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2023-09",
+    "end": "2026-02",
+    "skills": [
+     "payroll",
+     "react",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2026-06",
+    "end": null,
+    "skills": [
+     "git",
+     "microsoft-excel",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "payroll",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "nour.gharbi135@example.tn",
+  "skills": [
+   "git",
+   "microsoft-excel",
+   "payroll",
+   "react",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "payroll": 2.4,
+   "react": 2.4,
+   "recruitment": 2.8,
+   "tunisian-labour-law": 2.4,
+   "git": 0.3,
+   "microsoft-excel": 0.3
+  },
+  "years_experience": 2.8
+ },
+ "text": "Nour Gharbi\nAssistant RH\nnour.gharbi135@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2023 – 02/2026 : Atlas Telecom (fictional)\n  outils: paie, React, recrutement, droit du travail tunisien\n06/2026 – aujourd'hui : Fictiva Data SARL\n  outils: Git, Microsoft Excel, recrutement\n\nFORMATION\nLicence en informatique, ISET Radès, 2023\n\nCOMPÉTENCES\nGit, Microsoft Excel, paie, React, recrutement, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : C1"
+}

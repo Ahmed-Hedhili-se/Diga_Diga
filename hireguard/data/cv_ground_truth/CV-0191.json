@@ -1,0 +1,79 @@
+{
+ "ground_truth": {
+  "id": "CV-0191",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Aziz Ben Salah",
+  "town": "Sousse",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2016-08",
+    "end": "2018-11",
+    "skills": [
+     "etl",
+     "microsoft-excel",
+     "python",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2019-02",
+    "end": "2021-07",
+    "skills": [
+     "apache-spark",
+     "docker",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "etl"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "aziz.ben.salah191@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "microsoft-excel",
+   "postgresql",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "etl": 2.2,
+   "microsoft-excel": 2.2,
+   "python": 4.7,
+   "sql": 2.2,
+   "apache-spark": 2.4,
+   "docker": 2.4,
+   "postgresql": 2.4
+  },
+  "years_experience": 4.7
+ },
+ "text": "Aziz Ben Salah\nمهندس بيانات\naziz.ben.salah191@example.tn | Sousse\n\nالخبرة المهنية\n08/2016 – 11/2018 : Olive Systems\n  الأدوات: خطوط ETL, مايكروسوفت إكسل, بايثون, SQL\n02/2019 – 07/2021 : Olive Systems\n  الأدوات: Apache Spark, Docker, PostgreSQL, بايثون\n\nالتكوين\nإجازة في الإعلامية, المدرسة الخاصة للمهندسين بتونس, 2016\n\nالمهارات\nApache Spark, نمذجة البيانات, Docker, خطوط ETL, مايكروسوفت إكسل, PostgreSQL, بايثون, SQL\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C1\nالإنجليزية : B1"
+}

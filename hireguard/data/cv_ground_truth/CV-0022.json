@@ -1,0 +1,91 @@
+{
+ "ground_truth": {
+  "id": "CV-0022",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "f",
+  "name": "Ines Chaabane",
+  "town": "Ariana",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2021-09",
+    "end": "2022-05",
+    "skills": [
+     "hr-administration",
+     "python"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2022-05",
+    "end": "2023-05",
+    "skills": [
+     "hr-administration",
+     "node-js",
+     "postgresql",
+     "python",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2023-06",
+    "end": "2025-04",
+    "skills": [
+     "docker",
+     "git",
+     "javascript",
+     "node-js",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "ines.chaabane22@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "hr-administration",
+   "javascript",
+   "node-js",
+   "postgresql",
+   "python",
+   "rest-api"
+  ],
+  "skill_years": {
+   "hr-administration": 1.7,
+   "python": 1.7,
+   "node-js": 2.8,
+   "postgresql": 1.0,
+   "rest-api": 2.8,
+   "docker": 1.8,
+   "git": 1.8,
+   "javascript": 1.8
+  },
+  "years_experience": 3.5
+ },
+ "text": "Ines Chaabane\nFull-stack developer\nines.chaabane22@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n09/2021 – 05/2022 : Atlas Telecom (fictional)\n  tools: HR administration, Python\n05/2022 – 05/2023 : Olive Systems\n  tools: HR administration, Node.js, PostgreSQL, Python, REST APIs\n06/2023 – 04/2025 : Atlas Telecom (fictional)\n  tools: Docker, Git, JavaScript, Node.js, REST APIs\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2021\n\nSKILLS\nDocker, Git, HR administration, JavaScript, Node.js, PostgreSQL, Python, REST APIs\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B1"
+}

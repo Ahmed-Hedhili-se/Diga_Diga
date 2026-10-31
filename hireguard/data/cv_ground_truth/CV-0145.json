@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0145",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Omar Chaabane",
+  "town": "Sousse",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2019
+  },
+  "experiences": [],
+  "extra_skills": [
+   "postgresql",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "omar.chaabane145@example.tn",
+  "skills": [
+   "postgresql",
+   "sql"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Omar Chaabane\nData engineer\nomar.chaabane145@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2019\n\nSKILLS\nPostgreSQL, SQL\n\nLANGUAGES\nArabic : native\nFrench : C2\nEnglish : C2"
+}

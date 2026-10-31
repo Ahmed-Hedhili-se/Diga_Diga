@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0128",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Fedi Sassi",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2024-12",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "node-js",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "python",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "fedi.sassi128@example.tn",
+  "skills": [
+   "data-modelling",
+   "node-js",
+   "python",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "data-modelling": 1.8,
+   "node-js": 1.8,
+   "python": 1.8
+  },
+  "years_experience": 1.8
+ },
+ "text": "Fedi Sassi\nData engineer\nfedi.sassi128@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n12/2024 – present : Fictiva Data SARL\n  tools: data modelling, Node.js, Python\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2024\n\nSKILLS\ndata modelling, Node.js, Python, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B2"
+}

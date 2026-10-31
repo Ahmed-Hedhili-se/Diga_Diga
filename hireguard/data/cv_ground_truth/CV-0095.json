@@ -1,0 +1,67 @@
+{
+ "ground_truth": {
+  "id": "CV-0095",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Rania Jaziri",
+  "town": "Gabès",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2014-12",
+    "end": "2016-02",
+    "skills": [
+     "docker",
+     "react"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2016-02",
+    "end": "2018-05",
+    "skills": [
+     "docker",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "rania.jaziri95@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "postgresql",
+   "react"
+  ],
+  "skill_years": {
+   "docker": 3.4,
+   "react": 1.2,
+   "postgresql": 2.2
+  },
+  "years_experience": 3.4
+ },
+ "text": "Rania Jaziri\nمطورة ويب\nrania.jaziri95@example.tn | Gabès\n\nالخبرة المهنية\n12/2014 – 02/2016 : Carthage Analytics\n  الأدوات: Docker, React\n02/2016 – 05/2018 : Jasmin Digital\n  الأدوات: Docker, PostgreSQL\n\nالتكوين\nإجازة في الإعلامية, المدرسة الخاصة للمهندسين بتونس, 2014\n\nالمهارات\nنمذجة البيانات, Docker, PostgreSQL, React\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : B1\nالإنجليزية : B1"
+}

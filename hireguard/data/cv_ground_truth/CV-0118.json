@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0118",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Aziz Gharbi",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2023-11",
+    "end": "2025-03",
+    "skills": [
+     "docker",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "node-js",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "aziz.gharbi118@example.tn",
+  "skills": [
+   "docker",
+   "node-js",
+   "postgresql",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 1.3,
+   "typescript": 1.3
+  },
+  "years_experience": 1.3
+ },
+ "text": "Aziz Gharbi\nFull-stack developer\naziz.gharbi118@example.tn | Kasserine\n\nPROFESSIONAL EXPERIENCE\n11/2023 – 03/2025 : Fictiva Data SARL\n  tools: Docker, TypeScript\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2023\n\nSKILLS\nDocker, Node.js, PostgreSQL, TypeScript\n\nLANGUAGES\nArabic : native\nFrench : B1\nEnglish : C1"
+}

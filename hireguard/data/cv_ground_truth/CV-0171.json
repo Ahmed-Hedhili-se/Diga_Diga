@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0171",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Ines Mansouri",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2017-12",
+    "end": "2019-01",
+    "skills": [
+     "docker",
+     "node-js"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2019-01",
+    "end": "2020-05",
+    "skills": [
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "ines.mansouri171@example.tn",
+  "skills": [
+   "docker",
+   "microsoft-excel",
+   "node-js",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 1.1,
+   "node-js": 1.1,
+   "recruitment": 1.3,
+   "tunisian-labour-law": 1.3
+  },
+  "years_experience": 2.4
+ },
+ "text": "Ines Mansouri\nHR assistant\nines.mansouri171@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n12/2017 – 01/2019 : Fictiva Data SARL\n  tools: Docker, Node.js\n01/2019 – 05/2020 : Atlas Telecom (fictional)\n  tools: recruitment, Tunisian labour law\n\nEDUCATION\nMaster in data science, ISET Radès, 2017\n\nSKILLS\nDocker, Microsoft Excel, Node.js, payroll, recruitment, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : C2\nEnglish : C1"
+}

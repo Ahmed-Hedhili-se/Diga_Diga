@@ -1,0 +1,64 @@
+{
+ "ground_truth": {
+  "id": "CV-0173",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Amira Trabelsi",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2018-10",
+    "end": "2020-01",
+    "skills": [
+     "docker",
+     "javascript",
+     "postgresql",
+     "recruitment",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "amira.trabelsi173@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "postgresql",
+   "recruitment",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 1.2,
+   "javascript": 1.2,
+   "postgresql": 1.2,
+   "recruitment": 1.2,
+   "typescript": 1.2
+  },
+  "years_experience": 1.2
+ },
+ "text": "Amira Trabelsi\nمطورة ويب\namira.trabelsi173@example.tn | Tataouine\n\nالخبرة المهنية\n10/2018 – 01/2020 : Medina Soft\n  الأدوات: Docker, جافاسكريبت, PostgreSQL, التوظيف, TypeScript\n\nالتكوين\nإجازة في الإعلامية, المدرسة الخاصة للمهندسين بتونس, 2018\n\nالمهارات\nDocker, جافاسكريبت, PostgreSQL, التوظيف, TypeScript\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C1\nالإنجليزية : C1"
+}

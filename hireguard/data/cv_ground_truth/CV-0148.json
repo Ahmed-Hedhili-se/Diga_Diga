@@ -1,0 +1,83 @@
+{
+ "ground_truth": {
+  "id": "CV-0148",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Omar Gharbi",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-08",
+    "end": "2023-10",
+    "skills": [
+     "git",
+     "react"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2024-02",
+    "end": "2025-11",
+    "skills": [
+     "etl",
+     "javascript",
+     "node-js"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2026-01",
+    "end": null,
+    "skills": [
+     "node-js",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "node-js",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "omar.gharbi148@example.tn",
+  "skills": [
+   "etl",
+   "git",
+   "javascript",
+   "node-js",
+   "postgresql",
+   "react",
+   "rest-api"
+  ],
+  "skill_years": {
+   "git": 1.2,
+   "react": 1.2,
+   "etl": 1.8,
+   "javascript": 1.8,
+   "node-js": 2.5,
+   "postgresql": 0.8
+  },
+  "years_experience": 3.7
+ },
+ "text": "Omar Gharbi\nمطورة ويب\nomar.gharbi148@example.tn | La Marsa\n\nالخبرة المهنية\n08/2022 – 10/2023 : Fictiva Data SARL\n  الأدوات: Git, React\n02/2024 – 11/2025 : Olive Systems\n  الأدوات: خطوط ETL, جافاسكريبت, Node.js\n01/2026 – حاليا : Jasmin Digital\n  الأدوات: Node.js, PostgreSQL\n\nالتكوين\nشهادة مهندس في الاتصالات, المدرسة العليا للمواصلات بتونس, 2022\n\nالمهارات\nخطوط ETL, Git, جافاسكريبت, Node.js, PostgreSQL, React, واجهات REST\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : B1\nالإنجليزية : B2"
+}

@@ -1,0 +1,11 @@
+Subject: Interview: $job_title
+Hello $candidate_name,
+
+We would like to meet you for the $job_title position. Your interview is scheduled for:
+$slot_label
+
+Duration: 45 minutes. Please confirm you can attend.
+
+Best regards,
+$recruiter_name
+$company_name

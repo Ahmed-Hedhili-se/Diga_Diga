@@ -1,0 +1,15 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Rania Ayari <rania.ayari77@gmail.example>
+To: recrutement@hireguard.demo
+Subject: =?utf-8?q?Disponibilit=C3=A9s?= entretien
+Date: Mon, 02 Nov 2026 15:28:00 +0100
+Message-ID: <EML-065@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+
+2YXYsdit2KjYp9iMCgrYo9mG2Kcg2YXYqtin2K0g2YTYpdis2LHYp9ihINin2YTZhdmC2KfYqNmE
+2Kkg2LfZitmE2Kkg2KfZhNij2LPYqNmI2Lkg2KfZhNmC2KfYr9mFINi12KjYp9it2KcuCgpSYW5p
+YSBBeWFyaQo=

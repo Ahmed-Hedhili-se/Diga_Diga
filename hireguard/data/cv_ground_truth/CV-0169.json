@@ -1,0 +1,56 @@
+{
+ "ground_truth": {
+  "id": "CV-0169",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Eya Gharbi",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2023-09",
+    "end": "2026-10",
+    "skills": [
+     "recruitment",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "python",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "eya.gharbi169@example.tn",
+  "skills": [
+   "python",
+   "recruitment",
+   "typescript"
+  ],
+  "skill_years": {
+   "recruitment": 3.1,
+   "typescript": 3.1
+  },
+  "years_experience": 3.1
+ },
+ "text": "Eya Gharbi\nAssistante RH\neya.gharbi169@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2023 – 10/2026 : Atlas Telecom (fictional)\n  outils: recrutement, TypeScript\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2023\n\nCOMPÉTENCES\nPython, recrutement, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B2"
+}

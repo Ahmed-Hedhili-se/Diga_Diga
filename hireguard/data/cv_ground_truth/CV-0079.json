@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0079",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Omar Ayari",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2015
+  },
+  "experiences": [],
+  "extra_skills": [
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "omar.ayari79@example.tn",
+  "skills": [
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Omar Ayari\nAssistant RH\nomar.ayari79@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2015\n\nCOMPÉTENCES\nMicrosoft Excel, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : C1"
+}

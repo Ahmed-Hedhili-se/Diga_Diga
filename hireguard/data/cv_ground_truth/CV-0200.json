@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0200",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Hamza Hammami",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2023-10",
+    "end": "2024-07",
+    "skills": [
+     "docker",
+     "etl",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2024-11",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "python",
+     "react",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "hamza.hammami200@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "python",
+   "react",
+   "sql"
+  ],
+  "skill_years": {
+   "docker": 0.8,
+   "etl": 0.8,
+   "sql": 2.7,
+   "data-modelling": 1.9,
+   "python": 1.9,
+   "react": 1.9
+  },
+  "years_experience": 2.7
+ },
+ "text": "Hamza Hammami\nData engineer\nhamza.hammami200@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n10/2023 – 07/2024 : Olive Systems\n  tools: Docker, ETL pipelines, SQL\n11/2024 – present : Olive Systems\n  tools: data modelling, Python, React, SQL\n\nEDUCATION\nEngineering degree in telecommunications, ISET Radès, 2023\n\nSKILLS\nApache Spark, data modelling, Docker, ETL pipelines, Python, React, SQL\n\nLANGUAGES\nArabic : native\nFrench : C1\nEnglish : C2"
+}

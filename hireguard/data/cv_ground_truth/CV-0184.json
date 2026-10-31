@@ -1,0 +1,78 @@
+{
+ "ground_truth": {
+  "id": "CV-0184",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Skander Ayari",
+  "town": "Tataouine",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2020-09",
+    "end": "2022-07",
+    "skills": [
+     "data-modelling",
+     "docker",
+     "python",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-07",
+    "end": "2023-04",
+    "skills": [
+     "docker",
+     "etl",
+     "node-js",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "javascript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "skander.ayari184@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "javascript",
+   "node-js",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "data-modelling": 1.8,
+   "docker": 2.6,
+   "python": 2.6,
+   "sql": 1.8,
+   "etl": 0.8,
+   "node-js": 0.8
+  },
+  "years_experience": 2.6
+ },
+ "text": "Skander Ayari\nIngénieur données\nskander.ayari184@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2020 – 07/2022 : Medina Soft\n  outils: modélisation des données, Docker, Python, SQL\n07/2022 – 04/2023 : Fictiva Data SARL\n  outils: Docker, pipelines ETL, Node.js, Python\n\nFORMATION\nMastère professionnel en science des données, ISET Radès, 2020\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, pipelines ETL, JavaScript, Node.js, Python, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : C1"
+}

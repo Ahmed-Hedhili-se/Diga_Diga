@@ -1,0 +1,74 @@
+{
+ "ground_truth": {
+  "id": "CV-0086",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Salma Hammami",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2019-12",
+    "end": "2022-11",
+    "skills": [
+     "docker",
+     "etl",
+     "payroll",
+     "python"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-03",
+    "end": "2024-08",
+    "skills": [
+     "apache-spark",
+     "docker",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "salma.hammami86@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "payroll",
+   "python"
+  ],
+  "skill_years": {
+   "docker": 4.3,
+   "etl": 2.9,
+   "payroll": 2.9,
+   "python": 4.3,
+   "apache-spark": 1.4
+  },
+  "years_experience": 4.3
+ },
+ "text": "Salma Hammami\nData engineer\nsalma.hammami86@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n12/2019 – 11/2022 : Jasmin Digital\n  tools: Docker, ETL pipelines, payroll, Python\n03/2023 – 08/2024 : Carthage Analytics\n  tools: Apache Spark, Docker, Python\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2019\n\nSKILLS\nApache Spark, data modelling, Docker, ETL pipelines, payroll, Python\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B1"
+}

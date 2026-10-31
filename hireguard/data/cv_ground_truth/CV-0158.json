@@ -1,0 +1,64 @@
+{
+ "ground_truth": {
+  "id": "CV-0158",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Salma Hammami",
+  "town": "Bizerte",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2015-11",
+    "end": "2017-01",
+    "skills": [
+     "apache-spark",
+     "etl",
+     "postgresql",
+     "recruitment",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "salma.hammami158@example.tn",
+  "skills": [
+   "apache-spark",
+   "etl",
+   "postgresql",
+   "recruitment",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 1.2,
+   "etl": 1.2,
+   "postgresql": 1.2,
+   "recruitment": 1.2,
+   "sql": 1.2
+  },
+  "years_experience": 1.2
+ },
+ "text": "Salma Hammami\nمهندس بيانات\nsalma.hammami158@example.tn | Bizerte\n\nالخبرة المهنية\n11/2015 – 01/2017 : Olive Systems\n  الأدوات: Apache Spark, خطوط ETL, PostgreSQL, التوظيف, SQL\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2015\n\nالمهارات\nApache Spark, خطوط ETL, PostgreSQL, التوظيف, SQL\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C2\nالإنجليزية : C2"
+}

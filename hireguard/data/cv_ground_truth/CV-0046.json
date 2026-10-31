@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0046",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Salma Hammami",
+  "town": "Kasserine",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [],
+  "extra_skills": [
+   "payroll",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "salma.hammami46@example.tn",
+  "skills": [
+   "payroll",
+   "recruitment"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Salma Hammami\nAssistante RH\nsalma.hammami46@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nLicence en informatique, ISET Radès, 2016\n\nCOMPÉTENCES\npaie, recrutement\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C1"
+}

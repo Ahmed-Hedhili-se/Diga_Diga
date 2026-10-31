@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0143",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Eya Jaziri",
+  "town": "Kasserine",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-08",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "etl",
+     "payroll",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "docker"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "eya.jaziri143@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "payroll",
+   "postgresql"
+  ],
+  "skill_years": {
+   "apache-spark": 2.2,
+   "data-modelling": 2.2,
+   "etl": 2.2,
+   "payroll": 2.2,
+   "postgresql": 2.2
+  },
+  "years_experience": 2.2
+ },
+ "text": "Eya Jaziri\nIngénieur données\neya.jaziri143@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2024 – aujourd'hui : Carthage Analytics\n  outils: Apache Spark, modélisation des données, pipelines ETL, paie, PostgreSQL\n\nFORMATION\nLicence en informatique, ISET Radès, 2024\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, pipelines ETL, paie, PostgreSQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B2"
+}

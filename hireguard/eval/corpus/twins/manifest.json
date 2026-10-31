@@ -1,0 +1,8289 @@
+[
+ {
+  "id": "TWIN-01__ref",
+  "group": "TWIN-01",
+  "variant": "ref",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__ref",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__town_Sfax",
+  "group": "TWIN-01",
+  "variant": "town_Sfax",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__town_Sfax",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__town_Kasserine",
+  "group": "TWIN-01",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__town_Kasserine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__town_Tataouine",
+  "group": "TWIN-01",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__town_Tataouine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__school_iset",
+  "group": "TWIN-01",
+  "variant": "school_iset",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__school_iset",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__school_private",
+  "group": "TWIN-01",
+  "variant": "school_private",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__school_private",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__lang_en",
+  "group": "TWIN-01",
+  "variant": "lang_en",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__lang_en",
+   "job_id": "JOB-FS-02",
+   "lang": "en",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__lang_ar",
+  "group": "TWIN-01",
+  "variant": "lang_ar",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__lang_ar",
+   "job_id": "JOB-FS-02",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__gender_f",
+  "group": "TWIN-01",
+  "variant": "gender_f",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__gender_f",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-12",
+     "end": "2025-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-01__gap_12m",
+  "group": "TWIN-01",
+  "variant": "gap_12m",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-01__gap_12m",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Aziz Ayari",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2021-12",
+     "end": "2023-10",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2023-12",
+     "end": "2024-10",
+     "skills": [
+      "git",
+      "javascript",
+      "node-js",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2026-01",
+     "end": null,
+     "skills": [
+      "docker",
+      "git",
+      "hr-administration",
+      "javascript",
+      "node-js"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "git",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "aziz.ayari12@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "javascript",
+    "node-js",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "git": 3.4,
+    "javascript": 3.4,
+    "rest-api": 2.7,
+    "typescript": 2.7,
+    "node-js": 1.6,
+    "docker": 0.8,
+    "hr-administration": 0.8
+   },
+   "years_experience": 3.4
+  }
+ },
+ {
+  "id": "TWIN-02__ref",
+  "group": "TWIN-02",
+  "variant": "ref",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__ref",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__town_Sfax",
+  "group": "TWIN-02",
+  "variant": "town_Sfax",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__town_Sfax",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__town_Kasserine",
+  "group": "TWIN-02",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__town_Kasserine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__town_Tataouine",
+  "group": "TWIN-02",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__town_Tataouine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__school_iset",
+  "group": "TWIN-02",
+  "variant": "school_iset",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__school_iset",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__school_private",
+  "group": "TWIN-02",
+  "variant": "school_private",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__school_private",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__lang_en",
+  "group": "TWIN-02",
+  "variant": "lang_en",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__lang_en",
+   "job_id": "JOB-FS-02",
+   "lang": "en",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__lang_ar",
+  "group": "TWIN-02",
+  "variant": "lang_ar",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__lang_ar",
+   "job_id": "JOB-FS-02",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Skander Hammami",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-02__gender_f",
+  "group": "TWIN-02",
+  "variant": "gender_f",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-02__gender_f",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Skander Hammami",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2021-08",
+     "end": "2023-02",
+     "skills": [
+      "node-js",
+      "react",
+      "rest-api"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-03",
+     "end": "2024-08",
+     "skills": [
+      "docker",
+      "git",
+      "payroll",
+      "react"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2024-08",
+     "end": "2026-02",
+     "skills": [
+      "git",
+      "javascript",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.hammami18@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "javascript",
+    "node-js",
+    "payroll",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "node-js": 1.5,
+    "react": 2.9,
+    "rest-api": 3.0,
+    "docker": 1.4,
+    "git": 2.9,
+    "payroll": 1.4,
+    "javascript": 1.5,
+    "typescript": 1.5
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "TWIN-03__ref",
+  "group": "TWIN-03",
+  "variant": "ref",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__ref",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__town_Sfax",
+  "group": "TWIN-03",
+  "variant": "town_Sfax",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__town_Sfax",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__town_Kasserine",
+  "group": "TWIN-03",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__town_Kasserine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__town_Tataouine",
+  "group": "TWIN-03",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__town_Tataouine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__school_iset",
+  "group": "TWIN-03",
+  "variant": "school_iset",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__school_iset",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__school_private",
+  "group": "TWIN-03",
+  "variant": "school_private",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__school_private",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__lang_en",
+  "group": "TWIN-03",
+  "variant": "lang_en",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__lang_en",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__lang_ar",
+  "group": "TWIN-03",
+  "variant": "lang_ar",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__lang_ar",
+   "job_id": "JOB-HR-03",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__gender_f",
+  "group": "TWIN-03",
+  "variant": "gender_f",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__gender_f",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2015-12",
+     "end": "2018-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-09",
+     "end": "2020-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-03__gap_12m",
+  "group": "TWIN-03",
+  "variant": "gap_12m",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-03__gap_12m",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Mariem Mansouri",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2014
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2014-12",
+     "end": "2017-05",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2017-09",
+     "end": "2019-10",
+     "skills": [
+      "apache-spark",
+      "microsoft-excel",
+      "python",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "apache-spark",
+      "hr-administration",
+      "payroll",
+      "recruitment"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "mariem.mansouri19@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "python",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 3.8,
+    "microsoft-excel": 4.5,
+    "tunisian-labour-law": 4.5,
+    "apache-spark": 3.5,
+    "python": 2.1,
+    "recruitment": 3.5,
+    "payroll": 1.4
+   },
+   "years_experience": 5.9
+  }
+ },
+ {
+  "id": "TWIN-04__ref",
+  "group": "TWIN-04",
+  "variant": "ref",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__ref",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__town_Sfax",
+  "group": "TWIN-04",
+  "variant": "town_Sfax",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__town_Sfax",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__town_Kasserine",
+  "group": "TWIN-04",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__town_Kasserine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__town_Tataouine",
+  "group": "TWIN-04",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__town_Tataouine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__school_iset",
+  "group": "TWIN-04",
+  "variant": "school_iset",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__school_iset",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__school_private",
+  "group": "TWIN-04",
+  "variant": "school_private",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__school_private",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__lang_en",
+  "group": "TWIN-04",
+  "variant": "lang_en",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__lang_en",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__lang_ar",
+  "group": "TWIN-04",
+  "variant": "lang_ar",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__lang_ar",
+   "job_id": "JOB-HR-03",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__gender_f",
+  "group": "TWIN-04",
+  "variant": "gender_f",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__gender_f",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2017-12",
+     "end": "2018-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-02",
+     "end": "2019-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-04__gap_12m",
+  "group": "TWIN-04",
+  "variant": "gap_12m",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-04__gap_12m",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Fedi Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2017-10",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-02",
+     "end": "2018-10",
+     "skills": [
+      "etl",
+      "hr-administration",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2020-02",
+     "end": null,
+     "skills": [
+      "react",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "microsoft-excel",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "fedi.trabelsi23@example.tn",
+   "skills": [
+    "etl",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 1.5,
+    "microsoft-excel": 0.8,
+    "payroll": 0.8,
+    "etl": 0.7,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 7.3,
+    "react": 6.7
+   },
+   "years_experience": 8.2
+  }
+ },
+ {
+  "id": "TWIN-05__ref",
+  "group": "TWIN-05",
+  "variant": "ref",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__ref",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__town_Sfax",
+  "group": "TWIN-05",
+  "variant": "town_Sfax",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__town_Sfax",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__town_Kasserine",
+  "group": "TWIN-05",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__town_Kasserine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__town_Tataouine",
+  "group": "TWIN-05",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__town_Tataouine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__school_iset",
+  "group": "TWIN-05",
+  "variant": "school_iset",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__school_iset",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__school_private",
+  "group": "TWIN-05",
+  "variant": "school_private",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__school_private",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__lang_en",
+  "group": "TWIN-05",
+  "variant": "lang_en",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__lang_en",
+   "job_id": "JOB-FS-02",
+   "lang": "en",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__lang_ar",
+  "group": "TWIN-05",
+  "variant": "lang_ar",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__lang_ar",
+   "job_id": "JOB-FS-02",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__gender_f",
+  "group": "TWIN-05",
+  "variant": "gender_f",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__gender_f",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2017-12",
+     "end": "2020-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2020-12",
+     "end": "2022-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-05__gap_12m",
+  "group": "TWIN-05",
+  "variant": "gap_12m",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-05__gap_12m",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2016-12",
+     "end": "2019-09",
+     "skills": [
+      "docker",
+      "node-js",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2019-12",
+     "end": "2021-05",
+     "skills": [
+      "docker",
+      "react",
+      "rest-api",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2023-09",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.dridi32@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "node-js",
+    "postgresql",
+    "react",
+    "rest-api",
+    "tunisian-labour-law",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 4.2,
+    "node-js": 2.8,
+    "react": 5.2,
+    "rest-api": 4.2,
+    "typescript": 2.8,
+    "tunisian-labour-law": 1.4,
+    "git": 1.0,
+    "postgresql": 1.0
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "TWIN-06__ref",
+  "group": "TWIN-06",
+  "variant": "ref",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__ref",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__town_Sfax",
+  "group": "TWIN-06",
+  "variant": "town_Sfax",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__town_Sfax",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__town_Kasserine",
+  "group": "TWIN-06",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__town_Kasserine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__town_Tataouine",
+  "group": "TWIN-06",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__town_Tataouine",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__school_iset",
+  "group": "TWIN-06",
+  "variant": "school_iset",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__school_iset",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__school_private",
+  "group": "TWIN-06",
+  "variant": "school_private",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__school_private",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__lang_en",
+  "group": "TWIN-06",
+  "variant": "lang_en",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__lang_en",
+   "job_id": "JOB-FS-02",
+   "lang": "en",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__lang_ar",
+  "group": "TWIN-06",
+  "variant": "lang_ar",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__lang_ar",
+   "job_id": "JOB-FS-02",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__gender_f",
+  "group": "TWIN-06",
+  "variant": "gender_f",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__gender_f",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2022-09",
+     "end": "2024-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-06__gap_12m",
+  "group": "TWIN-06",
+  "variant": "gap_12m",
+  "job_id": "JOB-FS-02",
+  "ground_truth": {
+   "id": "TWIN-06__gap_12m",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Ben Salah",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2021-09",
+     "end": "2023-01",
+     "skills": [
+      "git",
+      "postgresql",
+      "react"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2024-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "git"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.ben.salah1@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "git",
+    "postgresql",
+    "react",
+    "rest-api"
+   ],
+   "skill_years": {
+    "git": 4.0,
+    "postgresql": 1.3,
+    "react": 1.3,
+    "docker": 2.7
+   },
+   "years_experience": 4.0
+  }
+ },
+ {
+  "id": "TWIN-07__ref",
+  "group": "TWIN-07",
+  "variant": "ref",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__ref",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__town_Sfax",
+  "group": "TWIN-07",
+  "variant": "town_Sfax",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__town_Sfax",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__town_Kasserine",
+  "group": "TWIN-07",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__town_Kasserine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__town_Tataouine",
+  "group": "TWIN-07",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__town_Tataouine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__school_iset",
+  "group": "TWIN-07",
+  "variant": "school_iset",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__school_iset",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__school_private",
+  "group": "TWIN-07",
+  "variant": "school_private",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__school_private",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__lang_en",
+  "group": "TWIN-07",
+  "variant": "lang_en",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__lang_en",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__lang_ar",
+  "group": "TWIN-07",
+  "variant": "lang_ar",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__lang_ar",
+   "job_id": "JOB-HR-03",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__gender_f",
+  "group": "TWIN-07",
+  "variant": "gender_f",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__gender_f",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2023-09",
+     "end": "2026-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-07__gap_12m",
+  "group": "TWIN-07",
+  "variant": "gap_12m",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-07__gap_12m",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2022-09",
+     "end": "2025-01",
+     "skills": [
+      "apache-spark",
+      "hr-administration"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2026-02",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "skander.trabelsi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "hr-administration",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "apache-spark": 3.0,
+    "hr-administration": 2.3,
+    "recruitment": 0.7,
+    "tunisian-labour-law": 0.7
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-08__ref",
+  "group": "TWIN-08",
+  "variant": "ref",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__ref",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__town_Sfax",
+  "group": "TWIN-08",
+  "variant": "town_Sfax",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__town_Sfax",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__town_Kasserine",
+  "group": "TWIN-08",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__town_Kasserine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__town_Tataouine",
+  "group": "TWIN-08",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__town_Tataouine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__school_iset",
+  "group": "TWIN-08",
+  "variant": "school_iset",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__school_iset",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__school_private",
+  "group": "TWIN-08",
+  "variant": "school_private",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__school_private",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__lang_en",
+  "group": "TWIN-08",
+  "variant": "lang_en",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__lang_en",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__lang_ar",
+  "group": "TWIN-08",
+  "variant": "lang_ar",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__lang_ar",
+   "job_id": "JOB-HR-03",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__gender_f",
+  "group": "TWIN-08",
+  "variant": "gender_f",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__gender_f",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2016-12",
+     "end": "2018-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-08__gap_12m",
+  "group": "TWIN-08",
+  "variant": "gap_12m",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-08__gap_12m",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Rania Dridi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2015
+   },
+   "experiences": [
+    {
+     "employer": "Carthage Analytics",
+     "start": "2015-12",
+     "end": "2017-01",
+     "skills": [
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2018-04",
+     "end": "2021-04",
+     "skills": [
+      "hr-administration",
+      "microsoft-excel"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "react"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "rania.dridi7@example.tn",
+   "skills": [
+    "hr-administration",
+    "microsoft-excel",
+    "react",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "recruitment": 1.1,
+    "tunisian-labour-law": 1.1,
+    "hr-administration": 3.0,
+    "microsoft-excel": 3.0
+   },
+   "years_experience": 4.1
+  }
+ },
+ {
+  "id": "TWIN-09__ref",
+  "group": "TWIN-09",
+  "variant": "ref",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__ref",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__town_Sfax",
+  "group": "TWIN-09",
+  "variant": "town_Sfax",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__town_Sfax",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__town_Kasserine",
+  "group": "TWIN-09",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__town_Kasserine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__town_Tataouine",
+  "group": "TWIN-09",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__town_Tataouine",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__school_iset",
+  "group": "TWIN-09",
+  "variant": "school_iset",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__school_iset",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__school_private",
+  "group": "TWIN-09",
+  "variant": "school_private",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__school_private",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__lang_en",
+  "group": "TWIN-09",
+  "variant": "lang_en",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__lang_en",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__lang_ar",
+  "group": "TWIN-09",
+  "variant": "lang_ar",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__lang_ar",
+   "job_id": "JOB-HR-03",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__gender_f",
+  "group": "TWIN-09",
+  "variant": "gender_f",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__gender_f",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2023-08",
+     "end": "2024-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-09__gap_12m",
+  "group": "TWIN-09",
+  "variant": "gap_12m",
+  "job_id": "JOB-HR-03",
+  "ground_truth": {
+   "id": "TWIN-09__gap_12m",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2022
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2022-08",
+     "end": "2023-06",
+     "skills": [
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-07",
+     "end": "2026-09",
+     "skills": [
+      "node-js",
+      "payroll",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "hr-administration",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "malek.trabelsi11@example.tn",
+   "skills": [
+    "hr-administration",
+    "node-js",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "payroll": 3.0,
+    "recruitment": 3.0,
+    "tunisian-labour-law": 0.8,
+    "node-js": 2.2,
+    "sql": 2.2
+   },
+   "years_experience": 3.0
+  }
+ },
+ {
+  "id": "TWIN-10__ref",
+  "group": "TWIN-10",
+  "variant": "ref",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__ref",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__town_Sfax",
+  "group": "TWIN-10",
+  "variant": "town_Sfax",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__town_Sfax",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "Sfax",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__town_Kasserine",
+  "group": "TWIN-10",
+  "variant": "town_Kasserine",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__town_Kasserine",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "Kasserine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__town_Tataouine",
+  "group": "TWIN-10",
+  "variant": "town_Tataouine",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__town_Tataouine",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "Tataouine",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__school_iset",
+  "group": "TWIN-10",
+  "variant": "school_iset",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__school_iset",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "iset",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__school_private",
+  "group": "TWIN-10",
+  "variant": "school_private",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__school_private",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__lang_en",
+  "group": "TWIN-10",
+  "variant": "lang_en",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__lang_en",
+   "job_id": "JOB-DATA-01",
+   "lang": "en",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__lang_ar",
+  "group": "TWIN-10",
+  "variant": "lang_ar",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__lang_ar",
+   "job_id": "JOB-DATA-01",
+   "lang": "ar",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__gender_f",
+  "group": "TWIN-10",
+  "variant": "gender_f",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__gender_f",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-10",
+     "end": "2025-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ },
+ {
+  "id": "TWIN-10__gap_12m",
+  "group": "TWIN-10",
+  "variant": "gap_12m",
+  "job_id": "JOB-DATA-01",
+  "ground_truth": {
+   "id": "TWIN-10__gap_12m",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Skander Trabelsi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2023-10",
+     "end": "2024-10",
+     "skills": [
+      "docker",
+      "javascript"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2025-12",
+     "end": null,
+     "skills": [
+      "apache-spark",
+      "etl",
+      "postgresql",
+      "recruitment",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "etl",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "skander.trabelsi13@example.tn",
+   "skills": [
+    "apache-spark",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "recruitment",
+    "sql"
+   ],
+   "skill_years": {
+    "docker": 1.0,
+    "javascript": 1.0,
+    "apache-spark": 0.8,
+    "etl": 0.8,
+    "postgresql": 0.8,
+    "recruitment": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 1.8
+  }
+ }
+]

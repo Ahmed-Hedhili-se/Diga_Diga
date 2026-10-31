@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Aymen Dridi <aymen.dridi29@gmail.example>
+To: recrutement@hireguard.demo
+Subject: Suivi candidature
+Date: Mon, 02 Nov 2026 19:26:00 +0100
+Message-ID: <EML-099@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Bonjour,
+
+Pourriez-vous me donner des nouvelles de ma candidature ?
+
+Cordialement,
+Aymen Dridi

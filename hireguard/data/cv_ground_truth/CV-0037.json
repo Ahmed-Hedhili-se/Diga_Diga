@@ -1,0 +1,61 @@
+{
+ "ground_truth": {
+  "id": "CV-0037",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Omar Jaziri",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-07",
+    "end": "2026-09",
+    "skills": [
+     "apache-spark",
+     "etl",
+     "postgresql",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "omar.jaziri37@example.tn",
+  "skills": [
+   "apache-spark",
+   "etl",
+   "postgresql",
+   "typescript"
+  ],
+  "skill_years": {
+   "apache-spark": 2.2,
+   "etl": 2.2,
+   "postgresql": 2.2,
+   "typescript": 2.2
+  },
+  "years_experience": 2.2
+ },
+ "text": "Omar Jaziri\nIngénieur données\nomar.jaziri37@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2024 – 09/2026 : Carthage Analytics\n  outils: Apache Spark, pipelines ETL, PostgreSQL, TypeScript\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2024\n\nCOMPÉTENCES\nApache Spark, pipelines ETL, PostgreSQL, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C2"
+}

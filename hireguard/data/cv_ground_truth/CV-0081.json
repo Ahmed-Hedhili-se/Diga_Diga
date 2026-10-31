@@ -1,0 +1,74 @@
+{
+ "ground_truth": {
+  "id": "CV-0081",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Fedi Ben Salah",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2020-08",
+    "end": "2021-07",
+    "skills": [
+     "docker",
+     "git",
+     "javascript",
+     "react"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2021-11",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "fedi.ben.salah81@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "git",
+   "javascript",
+   "postgresql",
+   "react"
+  ],
+  "skill_years": {
+   "docker": 0.9,
+   "git": 0.9,
+   "javascript": 0.9,
+   "react": 0.9,
+   "data-modelling": 4.9,
+   "postgresql": 4.9
+  },
+  "years_experience": 5.8
+ },
+ "text": "Fedi Ben Salah\nDéveloppeuse full-stack\nfedi.ben.salah81@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2020 – 07/2021 : Olive Systems\n  outils: Docker, Git, JavaScript, React\n11/2021 – aujourd'hui : Atlas Telecom (fictional)\n  outils: modélisation des données, PostgreSQL\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2020\n\nCOMPÉTENCES\nmodélisation des données, Docker, Git, JavaScript, PostgreSQL, React\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C1"
+}

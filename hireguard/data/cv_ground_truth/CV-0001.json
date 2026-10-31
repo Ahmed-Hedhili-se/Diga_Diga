@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0001",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Youssef Gharbi",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2019-11",
+    "end": "2020-10",
+    "skills": [
+     "docker",
+     "node-js",
+     "react"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2021-01",
+    "end": null,
+    "skills": [
+     "docker",
+     "node-js",
+     "react",
+     "rest-api",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "youssef.gharbi1@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "node-js",
+   "postgresql",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 6.7,
+   "node-js": 6.7,
+   "react": 6.7,
+   "rest-api": 5.8,
+   "typescript": 5.8
+  },
+  "years_experience": 6.7
+ },
+ "text": "Youssef Gharbi\nDéveloppeur full-stack\nyoussef.gharbi1@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2019 – 10/2020 : Jasmin Digital\n  outils: Docker, Node.js, React\n01/2021 – aujourd'hui : Jasmin Digital\n  outils: Docker, Node.js, React, API REST, TypeScript\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2019\n\nCOMPÉTENCES\nDocker, JavaScript, Node.js, PostgreSQL, React, API REST, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : C2"
+}

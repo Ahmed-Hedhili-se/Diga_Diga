@@ -1,0 +1,79 @@
+{
+ "ground_truth": {
+  "id": "CV-0093",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Yasmine Ayari",
+  "town": "Sousse",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2020-11",
+    "end": "2023-10",
+    "skills": [
+     "microsoft-excel",
+     "payroll",
+     "postgresql",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2023-10",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "react",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "yasmine.ayari93@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "postgresql",
+   "react",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "microsoft-excel": 5.9,
+   "payroll": 5.9,
+   "postgresql": 2.9,
+   "recruitment": 5.9,
+   "tunisian-labour-law": 5.9,
+   "hr-administration": 3.0
+  },
+  "years_experience": 5.9
+ },
+ "text": "Yasmine Ayari\nHR assistant\nyasmine.ayari93@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n11/2020 – 10/2023 : Atlas Telecom (fictional)\n  tools: Microsoft Excel, payroll, PostgreSQL, recruitment, Tunisian labour law\n10/2023 – present : Fictiva Data SARL\n  tools: HR administration, Microsoft Excel, payroll, recruitment, Tunisian labour law\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2020\n\nSKILLS\nHR administration, Microsoft Excel, payroll, PostgreSQL, React, recruitment, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : C2\nEnglish : C2"
+}

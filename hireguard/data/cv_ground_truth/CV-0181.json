@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0181",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Salma Khelifi",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [],
+  "extra_skills": [
+   "hr-administration",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "salma.khelifi181@example.tn",
+  "skills": [
+   "hr-administration",
+   "payroll"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Salma Khelifi\nHR assistant\nsalma.khelifi181@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2021\n\nSKILLS\nHR administration, payroll\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : C1"
+}

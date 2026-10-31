@@ -1,0 +1,95 @@
+{
+ "ground_truth": {
+  "id": "CV-0106",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Aziz Ben Salah",
+  "town": "Sousse",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2016-08",
+    "end": "2019-11",
+    "skills": [
+     "data-modelling",
+     "postgresql",
+     "react",
+     "rest-api",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2020-02",
+    "end": "2021-06",
+    "skills": [
+     "data-modelling",
+     "javascript",
+     "postgresql",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-10",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "docker",
+     "git",
+     "javascript",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "react",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "aziz.ben.salah106@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "git",
+   "javascript",
+   "postgresql",
+   "react",
+   "rest-api",
+   "sql",
+   "typescript"
+  ],
+  "skill_years": {
+   "data-modelling": 9.6,
+   "postgresql": 4.6,
+   "react": 3.2,
+   "rest-api": 3.2,
+   "typescript": 8.2,
+   "javascript": 6.3,
+   "sql": 1.3,
+   "docker": 5.0,
+   "git": 5.0
+  },
+  "years_experience": 9.6
+ },
+ "text": "Aziz Ben Salah\nFull-stack developer\naziz.ben.salah106@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n08/2016 – 11/2019 : Olive Systems\n  tools: data modelling, PostgreSQL, React, REST APIs, TypeScript\n02/2020 – 06/2021 : Olive Systems\n  tools: data modelling, JavaScript, PostgreSQL, SQL\n10/2021 – present : Fictiva Data SARL\n  tools: data modelling, Docker, Git, JavaScript, TypeScript\n\nEDUCATION\nMaster in data science, ISET Radès, 2016\n\nSKILLS\ndata modelling, Docker, Git, JavaScript, PostgreSQL, React, REST APIs, SQL, TypeScript\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B1"
+}

@@ -1,0 +1,83 @@
+{
+ "ground_truth": {
+  "id": "CV-0083",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Amira Bouzid",
+  "town": "Kasserine",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-11",
+    "end": "2024-07",
+    "skills": [
+     "apache-spark",
+     "etl",
+     "javascript",
+     "react",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2024-08",
+    "end": null,
+    "skills": [
+     "docker",
+     "javascript",
+     "postgresql",
+     "python",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "amira.bouzid83@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "javascript",
+   "postgresql",
+   "python",
+   "react",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 0.7,
+   "etl": 0.7,
+   "javascript": 2.8,
+   "react": 2.8,
+   "sql": 0.7,
+   "docker": 2.2,
+   "postgresql": 2.2,
+   "python": 2.2
+  },
+  "years_experience": 2.8
+ },
+ "text": "Amira Bouzid\nمهندس بيانات\namira.bouzid83@example.tn | Kasserine\n\nالخبرة المهنية\n11/2023 – 07/2024 : Carthage Analytics\n  الأدوات: Apache Spark, خطوط ETL, جافاسكريبت, React, SQL\n08/2024 – حاليا : Olive Systems\n  الأدوات: Docker, جافاسكريبت, PostgreSQL, بايثون, React\n\nالتكوين\nماجستير في علوم البيانات, المدرسة العليا للمواصلات بتونس, 2023\n\nالمهارات\nApache Spark, نمذجة البيانات, Docker, خطوط ETL, جافاسكريبت, PostgreSQL, بايثون, React, SQL\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C2\nالإنجليزية : C2"
+}

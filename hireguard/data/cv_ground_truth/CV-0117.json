@@ -1,0 +1,73 @@
+{
+ "ground_truth": {
+  "id": "CV-0117",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Omar Ayari",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2018-08",
+    "end": "2019-06",
+    "skills": [
+     "git",
+     "recruitment",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2019-10",
+    "end": null,
+    "skills": [
+     "git",
+     "javascript",
+     "react",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "omar.ayari117@example.tn",
+  "skills": [
+   "git",
+   "javascript",
+   "react",
+   "recruitment",
+   "rest-api"
+  ],
+  "skill_years": {
+   "git": 7.8,
+   "recruitment": 0.8,
+   "rest-api": 7.8,
+   "javascript": 7.0,
+   "react": 7.0
+  },
+  "years_experience": 7.8
+ },
+ "text": "Omar Ayari\nDéveloppeuse full-stack\nomar.ayari117@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2018 – 06/2019 : Medina Soft\n  outils: Git, recrutement, API REST\n10/2019 – aujourd'hui : Carthage Analytics\n  outils: Git, JavaScript, React, API REST\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2018\n\nCOMPÉTENCES\nGit, JavaScript, React, recrutement, API REST\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : B1"
+}

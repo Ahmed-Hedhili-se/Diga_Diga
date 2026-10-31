@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0108",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Youssef Ben Salah",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2024-08",
+    "end": "2025-10",
+    "skills": [
+     "docker",
+     "etl",
+     "node-js",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2025-12",
+    "end": null,
+    "skills": [
+     "docker",
+     "javascript",
+     "payroll",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "youssef.ben.salah108@example.tn",
+  "skills": [
+   "docker",
+   "etl",
+   "javascript",
+   "node-js",
+   "payroll",
+   "react",
+   "rest-api"
+  ],
+  "skill_years": {
+   "docker": 2.0,
+   "etl": 1.2,
+   "node-js": 1.2,
+   "rest-api": 2.0,
+   "javascript": 0.8,
+   "payroll": 0.8
+  },
+  "years_experience": 2.0
+ },
+ "text": "Youssef Ben Salah\nDéveloppeur full-stack\nyoussef.ben.salah108@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2024 – 10/2025 : Olive Systems\n  outils: Docker, pipelines ETL, Node.js, API REST\n12/2025 – aujourd'hui : Medina Soft\n  outils: Docker, JavaScript, paie, API REST\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2024\n\nCOMPÉTENCES\nDocker, pipelines ETL, JavaScript, Node.js, paie, React, API REST\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : B2"
+}

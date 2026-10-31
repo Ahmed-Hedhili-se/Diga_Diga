@@ -1,0 +1,5 @@
+Subject: CONFIRMATION DE CONGÉ
+$company_name confirme que $employee_name ($position, département $department) bénéficie d'un congé du $leave_start au $leave_end inclus, soit $leave_days jour(s) calendaire(s).
+
+Fait à Tunis, le $issue_date.
+Référence : $document_ref

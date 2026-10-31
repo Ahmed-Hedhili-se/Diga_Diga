@@ -1,0 +1,82 @@
+{
+ "ground_truth": {
+  "id": "CV-0080",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Wassim Mansouri",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2021-08",
+    "end": "2023-09",
+    "skills": [
+     "etl",
+     "javascript",
+     "postgresql",
+     "react",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-11",
+    "end": "2026-04",
+    "skills": [
+     "git",
+     "node-js",
+     "react",
+     "rest-api",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "rest-api",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "wassim.mansouri80@example.tn",
+  "skills": [
+   "etl",
+   "git",
+   "javascript",
+   "node-js",
+   "postgresql",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "etl": 2.1,
+   "javascript": 2.1,
+   "postgresql": 2.1,
+   "react": 4.5,
+   "typescript": 4.5,
+   "git": 2.4,
+   "node-js": 2.4,
+   "rest-api": 2.4
+  },
+  "years_experience": 4.5
+ },
+ "text": "Wassim Mansouri\nDéveloppeuse full-stack\nwassim.mansouri80@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2021 – 09/2023 : Atlas Telecom (fictional)\n  outils: pipelines ETL, JavaScript, PostgreSQL, React, TypeScript\n11/2023 – 04/2026 : Carthage Analytics\n  outils: Git, Node.js, React, API REST, TypeScript\n\nFORMATION\nLicence en informatique, ISET Radès, 2021\n\nCOMPÉTENCES\npipelines ETL, Git, JavaScript, Node.js, PostgreSQL, React, API REST, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B2"
+}

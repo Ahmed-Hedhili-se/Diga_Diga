@@ -1,0 +1,80 @@
+{
+ "ground_truth": {
+  "id": "CV-0194",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Rania Sassi",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2016-08",
+    "end": "2018-03",
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "git",
+     "hr-administration",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2018-07",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "etl",
+     "git",
+     "hr-administration",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "git"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "rania.sassi194@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "etl",
+   "git",
+   "hr-administration",
+   "postgresql",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 1.6,
+   "data-modelling": 9.8,
+   "git": 9.8,
+   "hr-administration": 9.8,
+   "sql": 1.6,
+   "etl": 8.2,
+   "postgresql": 8.2
+  },
+  "years_experience": 9.8
+ },
+ "text": "Rania Sassi\nIngénieur données\nrania.sassi194@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2016 – 03/2018 : Atlas Telecom (fictional)\n  outils: Apache Spark, modélisation des données, Git, administration du personnel, SQL\n07/2018 – aujourd'hui : Olive Systems\n  outils: modélisation des données, pipelines ETL, Git, administration du personnel, PostgreSQL\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2016\n\nCOMPÉTENCES\nApache Spark, modélisation des données, pipelines ETL, Git, administration du personnel, PostgreSQL, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : C2"
+}

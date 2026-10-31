@@ -1,0 +1,79 @@
+{
+ "ground_truth": {
+  "id": "CV-0157",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "f",
+  "name": "Aziz Dridi",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2020-10",
+    "end": "2022-11",
+    "skills": [
+     "docker",
+     "git",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2022-12",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "docker",
+     "javascript",
+     "node-js",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "aziz.dridi157@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "git",
+   "javascript",
+   "node-js",
+   "payroll",
+   "react",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 5.9,
+   "git": 2.1,
+   "payroll": 2.1,
+   "apache-spark": 3.8,
+   "javascript": 3.8,
+   "node-js": 3.8,
+   "typescript": 3.8
+  },
+  "years_experience": 5.9
+ },
+ "text": "Aziz Dridi\nFull-stack developer\naziz.dridi157@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n10/2020 – 11/2022 : Fictiva Data SARL\n  tools: Docker, Git, payroll\n12/2022 – present : Carthage Analytics\n  tools: Apache Spark, Docker, JavaScript, Node.js, TypeScript\n\nEDUCATION\nMaster in data science, ISET Radès, 2020\n\nSKILLS\nApache Spark, Docker, Git, JavaScript, Node.js, payroll, React, TypeScript\n\nLANGUAGES\nArabic : native\nFrench : C1\nEnglish : C2"
+}

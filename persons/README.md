@@ -10,13 +10,48 @@ Build one responsible HR platform with two clearly separated modules:
 
 1. **HireGuard** supports candidate intake, evidence-backed extraction, rubric
    scoring, and human-approved hiring workflow.
-2. **HR Nexus** explores team-level coordination and organizational-health
-   analytics using privacy-preserving aggregates.
+2. **HR Nexus** (the Team module) supports HR's work with staff: team skills
+   coverage, HR process metrics from the audit log, the employee Answer Desk and
+   its knowledge-gap radar, and self-service documents. It measures processes,
+   declared skills and handbook coverage, never people. Stress, wellbeing and
+   performance analytics are out of scope; an anonymous pulse survey (k >= 5) is
+   a roadmap slide only.
 
 The modules may share platform-level identity, audit, security, and deployment
 standards. They must not silently combine candidate hiring records with employee
-analytics. HR Nexus must not expose individual employee stress, productivity,
+analytics. Only two cross-module flows exist, both aggregate and documented in
+[hireguard/docs/architecture.md](../hireguard/docs/architecture.md) §3: team skill
+holder counts become a *proposed* rubric, and per-stage hiring durations feed the
+HR process panel. HR Nexus must not expose individual employee stress, productivity,
 or risk scores. Its output is team-level and suppresses small groups (k >= 5).
+
+## Status at hand-off (31 Oct, branch `mnasri`)
+
+Built and tested (104 backend tests, frontend build green): the trust core, the
+Recruit module with the fast-track (offer fit, offer letters, follow-ups, talent
+pool), and the Team module (skills map, HR process metrics, knowledge-gap radar).
+Architecture, data boundaries, permissions matrix and the **risk register (R1-R9)**
+are in [hireguard/docs/architecture.md](../hireguard/docs/architecture.md). Every
+open risk has an owner below.
+
+Code comments still say P1-P4 (the first plan). Map them to owners:
+
+| Label in code | Area | Owner now |
+|---|---|---|
+| P1 | `backend/app/pipeline/` (sanitizer, detector, extractor, validator, Answer Desk) | Rayen (code), Hedhili (model and detector quality) |
+| P2 | `backend/app/scoring/`, `eval/` | Rayen (code), Hedhili (model-mode evaluation) |
+| P3 | `backend/app/workflow/` (approvals, executor, audit, email gate) | Rayen |
+| P4 | `frontend/`, `backend/app/auth/`, `security.py` | Yasmina (frontend), Rayen (auth backend) |
+| — | `backend/app/team/` (HR Nexus) | Rayen (code), Yasmina (Team insights page) |
+
+### Priorities before the pitch (P0 first)
+
+| Person | P0 | P1 |
+|---|---|---|
+| Hedhili | R1: model-mode numbers on the GPU laptop (harness, fairness, load test with `--extraction llm`; baseline and paired McNemar) | R2: detector gaps (English "Evaluator note", Derja, Arabic) |
+| Rayen | R3: Answer Desk (retrieval-only, cited passages, "no match" goes to HR, calls `knowledge_gaps.record()`) | R4: `/reviewer/stats` is per-person; R6: rename `team_fit` |
+| Yasmina | Review and polish the new pages; rehearse the 4 demo beats inside 5:00 | Error, empty and permission states on the new pages; accessibility |
+| Ahmed | R5: clean `main` (revert `8f829d8`); decide R4; final pitch and compliance slides | Merge gate below |
 
 ## Ownership at a glance
 
@@ -96,6 +131,8 @@ eventual merge only after the team reviews and approves it.
 - [ ] Freeze and validate API/schema contracts against implementation and UI.
 - [ ] Run backend and frontend tests, model evaluation, and security checks;
       attach results and identify any tests that could not be run.
+- [ ] `main` already breaks the next item: commit `8f829d8` added `node_modules`,
+      `frontend/dist` and about 380 generated PDFs. Revert it first (risk R5).
 - [ ] Confirm no secrets, local databases, virtual environments, `node_modules`,
       build output, temporary files, or unintended generated datasets are
       included in the merge.

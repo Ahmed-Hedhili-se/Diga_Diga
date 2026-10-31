@@ -1,0 +1,89 @@
+{
+ "ground_truth": {
+  "id": "CV-0017",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Fedi Dridi",
+  "town": "Gabès",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2015-08",
+    "end": "2017-08",
+    "skills": [
+     "postgresql",
+     "python",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2017-12",
+    "end": "2019-09",
+    "skills": [
+     "hr-administration",
+     "javascript",
+     "postgresql",
+     "python",
+     "react"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2019-11",
+    "end": null,
+    "skills": [
+     "git",
+     "python",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "fedi.dridi17@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "hr-administration",
+   "javascript",
+   "postgresql",
+   "python",
+   "react",
+   "typescript"
+  ],
+  "skill_years": {
+   "postgresql": 3.8,
+   "python": 10.7,
+   "typescript": 8.9,
+   "hr-administration": 1.8,
+   "javascript": 1.8,
+   "react": 1.8,
+   "git": 6.9
+  },
+  "years_experience": 10.7
+ },
+ "text": "Fedi Dridi\nDéveloppeuse full-stack\nfedi.dridi17@example.tn | Gabès\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2015 – 08/2017 : Fictiva Data SARL\n  outils: PostgreSQL, Python, TypeScript\n12/2017 – 09/2019 : Carthage Analytics\n  outils: administration du personnel, JavaScript, PostgreSQL, Python, React\n11/2019 – aujourd'hui : Olive Systems\n  outils: Git, Python, TypeScript\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2015\n\nCOMPÉTENCES\nDocker, Git, administration du personnel, JavaScript, PostgreSQL, Python, React, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : B1"
+}

@@ -1,0 +1,74 @@
+{
+ "ground_truth": {
+  "id": "CV-0026",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Wassim Bouzid",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2023-08",
+    "end": "2025-10",
+    "skills": [
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2025-11",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "python",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "python",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "wassim.bouzid26@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "python",
+   "recruitment",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "recruitment": 2.2,
+   "tunisian-labour-law": 2.2,
+   "hr-administration": 0.9,
+   "microsoft-excel": 0.9,
+   "python": 0.9,
+   "typescript": 0.9
+  },
+  "years_experience": 3.1
+ },
+ "text": "Wassim Bouzid\nAssistante RH\nwassim.bouzid26@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2023 – 10/2025 : Atlas Telecom (fictional)\n  outils: recrutement, droit du travail tunisien\n11/2025 – aujourd'hui : Carthage Analytics\n  outils: administration du personnel, Microsoft Excel, Python, TypeScript\n\nFORMATION\nLicence en informatique, SUP'COM, 2023\n\nCOMPÉTENCES\nadministration du personnel, Microsoft Excel, Python, recrutement, droit du travail tunisien, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : C1"
+}

@@ -6,6 +6,22 @@ Own the user-facing workflows for HireGuard and the HR Nexus research/demo
 surfaces. Make the interface clear about what is proposed, what is approved,
 what is measured, and what is only a team-level signal.
 
+## Start here (31 Oct hand-off)
+
+New UI to review against the backend contract (`hireguard/contracts/API.md`):
+
+- Candidates: offer-fit badge per row, band-coverage card, "Offer fit" panel with
+  the HR-manager "Draft offer letter" form, talent-pool table with invitations.
+- Inbox: "Awaiting reply" follow-ups panel.
+- Team insights (new page, HR manager and admin): Skills map, HR process (live vs.
+  **labelled simulation**), Knowledge gaps (cells under 5 hidden).
+- Navigation grouped into Recruit / Team / Oversight / Admin.
+
+- [ ] Check empty, loading, error and 403 states on each new panel.
+- [ ] Rehearse the 4 demo beats in `hireguard/docs/pitch.md` inside 5:00; the demo must
+      say out loud which data is fictional or simulated.
+- [ ] Wire the Answer Desk page once Rayen's endpoint lands (R3).
+
 ## Work to execute
 
 ### Product workflows and UI

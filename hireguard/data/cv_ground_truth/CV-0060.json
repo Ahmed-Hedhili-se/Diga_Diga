@@ -1,0 +1,79 @@
+{
+ "ground_truth": {
+  "id": "CV-0060",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Omar Dridi",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2014-10",
+    "end": "2017-09",
+    "skills": [
+     "git",
+     "postgresql",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2017-09",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "docker",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "git",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "omar.dridi60@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "git",
+   "postgresql",
+   "python",
+   "sql",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 2.9,
+   "postgresql": 12.0,
+   "typescript": 2.9,
+   "apache-spark": 9.1,
+   "data-modelling": 9.1,
+   "docker": 9.1,
+   "python": 9.1
+  },
+  "years_experience": 12.0
+ },
+ "text": "Omar Dridi\nIngénieur données\nomar.dridi60@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2014 – 09/2017 : Olive Systems\n  outils: Git, PostgreSQL, TypeScript\n09/2017 – aujourd'hui : Olive Systems\n  outils: Apache Spark, modélisation des données, Docker, PostgreSQL, Python\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2014\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, Git, PostgreSQL, Python, SQL, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : B2"
+}

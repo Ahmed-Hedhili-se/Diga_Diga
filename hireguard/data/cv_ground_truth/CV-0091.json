@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0091",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Amira Hammami",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2019-08",
+    "end": "2021-04",
+    "skills": [
+     "git",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "javascript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "amira.hammami91@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "javascript",
+   "postgresql"
+  ],
+  "skill_years": {
+   "git": 1.7,
+   "postgresql": 1.7
+  },
+  "years_experience": 1.7
+ },
+ "text": "Amira Hammami\nDéveloppeuse full-stack\namira.hammami91@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2019 – 04/2021 : Carthage Analytics\n  outils: Git, PostgreSQL\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, ISET Radès, 2019\n\nCOMPÉTENCES\nDocker, Git, JavaScript, PostgreSQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : B1"
+}

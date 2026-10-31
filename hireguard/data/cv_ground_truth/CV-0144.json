@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0144",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Omar Khelifi",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2022-07",
+    "end": "2024-09",
+    "skills": [
+     "git",
+     "node-js",
+     "python",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-12",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "etl"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "sql",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "omar.khelifi144@example.tn",
+  "skills": [
+   "data-modelling",
+   "etl",
+   "git",
+   "node-js",
+   "python",
+   "sql",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 2.2,
+   "node-js": 2.2,
+   "python": 2.2,
+   "sql": 2.2,
+   "data-modelling": 1.8,
+   "etl": 1.8
+  },
+  "years_experience": 4.0
+ },
+ "text": "Omar Khelifi\nIngénieur données\nomar.khelifi144@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2022 – 09/2024 : Atlas Telecom (fictional)\n  outils: Git, Node.js, Python, SQL\n12/2024 – aujourd'hui : Carthage Analytics\n  outils: modélisation des données, pipelines ETL\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2022\n\nCOMPÉTENCES\nmodélisation des données, pipelines ETL, Git, Node.js, Python, SQL, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : C1"
+}

@@ -1,0 +1,902 @@
+[
+ {
+  "id": "EML-001",
+  "intent": "application",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-001"
+ },
+ {
+  "id": "EML-002",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-003",
+  "intent": "interview_availability",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-004",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-005",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-006",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-006"
+ },
+ {
+  "id": "EML-007",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-008",
+  "intent": "interview_availability",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-008"
+ },
+ {
+  "id": "EML-009",
+  "intent": "status_question",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-010",
+  "intent": "status_question",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-011",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": true,
+  "variant": "dmarc_fail",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-012",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "dmarc_fail",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-013",
+  "intent": "status_question",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "dmarc_fail",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-014",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "dmarc_fail",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-015",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "dmarc_fail",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-016",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "dmarc_fail",
+  "claimed_candidate": "CAND-001"
+ },
+ {
+  "id": "EML-017",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "forged_ar_header",
+  "claimed_candidate": "CAND-001"
+ },
+ {
+  "id": "EML-018",
+  "intent": "status_question",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "forged_ar_header",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-019",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "no_auth_results",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-020",
+  "intent": "reschedule",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "no_auth_results",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-021",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "display_name_spoof",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-022",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "display_name_spoof",
+  "claimed_candidate": "CAND-006"
+ },
+ {
+  "id": "EML-023",
+  "intent": "document_request",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "reply_to_hijack",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-024",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "lookalike_domain",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-025",
+  "intent": "document_request",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": true,
+  "variant": "lookalike_domain",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-026",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-027",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-028",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-029",
+  "intent": "status_question",
+  "language": "en",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-030",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-031",
+  "intent": "interview_availability",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-032",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-033",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-034",
+  "intent": "other",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-035",
+  "intent": "reschedule",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-036",
+  "intent": "status_question",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-037",
+  "intent": "interview_availability",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-038",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-039",
+  "intent": "application",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-040",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-008"
+ },
+ {
+  "id": "EML-041",
+  "intent": "application",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-042",
+  "intent": "interview_availability",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-043",
+  "intent": "interview_availability",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-001"
+ },
+ {
+  "id": "EML-044",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-006"
+ },
+ {
+  "id": "EML-045",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-002"
+ },
+ {
+  "id": "EML-046",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-047",
+  "intent": "other",
+  "language": "en",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-048",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-049",
+  "intent": "status_question",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-050",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-051",
+  "intent": "application",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-052",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-053",
+  "intent": "other",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-054",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-055",
+  "intent": "application",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-056",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-057",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-058",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-059",
+  "intent": "application",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-060",
+  "intent": "interview_availability",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-061",
+  "intent": "application",
+  "language": "en",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-062",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-063",
+  "intent": "other",
+  "language": "en",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-001"
+ },
+ {
+  "id": "EML-064",
+  "intent": "application",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-008"
+ },
+ {
+  "id": "EML-065",
+  "intent": "interview_availability",
+  "language": "ar",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-066",
+  "intent": "reschedule",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-067",
+  "intent": "application",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-006"
+ },
+ {
+  "id": "EML-068",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-069",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-070",
+  "intent": "interview_availability",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-071",
+  "intent": "interview_availability",
+  "language": "en",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-072",
+  "intent": "other",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-073",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-074",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-003"
+ },
+ {
+  "id": "EML-075",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-006"
+ },
+ {
+  "id": "EML-076",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-077",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-078",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-007"
+ },
+ {
+  "id": "EML-079",
+  "intent": "application",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-080",
+  "intent": "interview_availability",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-006"
+ },
+ {
+  "id": "EML-081",
+  "intent": "application",
+  "language": "en",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-082",
+  "intent": "interview_availability",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-083",
+  "intent": "reschedule",
+  "language": "en",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-084",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-085",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-086",
+  "intent": "reschedule",
+  "language": "fr",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-005"
+ },
+ {
+  "id": "EML-087",
+  "intent": "reschedule",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-088",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-089",
+  "intent": "withdraw",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-090",
+  "intent": "document_request",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-091",
+  "intent": "status_question",
+  "language": "ar",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-001"
+ },
+ {
+  "id": "EML-092",
+  "intent": "document_request",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-093",
+  "intent": "application",
+  "language": "ar",
+  "urgency": "high",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-094",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-095",
+  "intent": "interview_availability",
+  "language": "en",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-096",
+  "intent": "withdraw",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-097",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-004"
+ },
+ {
+  "id": "EML-098",
+  "intent": "other",
+  "language": "en",
+  "urgency": "normal",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-099",
+  "intent": "status_question",
+  "language": "fr",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": null
+ },
+ {
+  "id": "EML-100",
+  "intent": "interview_availability",
+  "language": "en",
+  "urgency": "low",
+  "spoofed": false,
+  "variant": "clean",
+  "claimed_candidate": "CAND-008"
+ }
+]

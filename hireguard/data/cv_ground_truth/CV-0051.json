@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0051",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Amira Jaziri",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2017-07",
+    "end": "2019-07",
+    "skills": [
+     "microsoft-excel",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2019-09",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "javascript",
+     "microsoft-excel",
+     "recruitment",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "amira.jaziri51@example.tn",
+  "skills": [
+   "hr-administration",
+   "javascript",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "typescript"
+  ],
+  "skill_years": {
+   "microsoft-excel": 9.1,
+   "payroll": 2.0,
+   "hr-administration": 7.1,
+   "javascript": 7.1,
+   "recruitment": 7.1,
+   "typescript": 7.1
+  },
+  "years_experience": 9.1
+ },
+ "text": "Amira Jaziri\nHR assistant\namira.jaziri51@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n07/2017 – 07/2019 : Medina Soft\n  tools: Microsoft Excel, payroll\n09/2019 – present : Jasmin Digital\n  tools: HR administration, JavaScript, Microsoft Excel, recruitment, TypeScript\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2017\n\nSKILLS\nHR administration, JavaScript, Microsoft Excel, payroll, recruitment, TypeScript\n\nLANGUAGES\nArabic : native\nFrench : B2\nEnglish : B1"
+}

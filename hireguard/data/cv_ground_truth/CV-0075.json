@@ -1,0 +1,78 @@
+{
+ "ground_truth": {
+  "id": "CV-0075",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Wassim Khelifi",
+  "town": "Tataouine",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2016-08",
+    "end": "2017-06",
+    "skills": [
+     "apache-spark",
+     "docker",
+     "git",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2017-06",
+    "end": null,
+    "skills": [
+     "git",
+     "payroll",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "wassim.khelifi75@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "git",
+   "payroll",
+   "postgresql",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 0.8,
+   "docker": 0.8,
+   "git": 10.2,
+   "sql": 0.8,
+   "payroll": 9.3,
+   "postgresql": 9.3,
+   "python": 9.3
+  },
+  "years_experience": 10.2
+ },
+ "text": "Wassim Khelifi\nIngénieur données\nwassim.khelifi75@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2016 – 06/2017 : Atlas Telecom (fictional)\n  outils: Apache Spark, Docker, Git, SQL\n06/2017 – aujourd'hui : Fictiva Data SARL\n  outils: Git, paie, PostgreSQL, Python\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, ISET Radès, 2016\n\nCOMPÉTENCES\nApache Spark, Docker, Git, paie, PostgreSQL, Python, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B2"
+}

@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0072",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Yasmine Ayari",
+  "town": "Ariana",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2018-12",
+    "end": "2020-06",
+    "skills": [
+     "apache-spark",
+     "node-js"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2020-10",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "etl",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "yasmine.ayari72@example.tn",
+  "skills": [
+   "apache-spark",
+   "etl",
+   "node-js",
+   "postgresql",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 7.5,
+   "node-js": 1.5,
+   "etl": 6.0,
+   "sql": 6.0
+  },
+  "years_experience": 7.5
+ },
+ "text": "Yasmine Ayari\nIngénieure données\nyasmine.ayari72@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n12/2018 – 06/2020 : Atlas Telecom (fictional)\n  outils: Apache Spark, Node.js\n10/2020 – aujourd'hui : Medina Soft\n  outils: Apache Spark, pipelines ETL, SQL\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2018\n\nCOMPÉTENCES\nApache Spark, pipelines ETL, Node.js, PostgreSQL, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : C2"
+}

@@ -1,0 +1,62 @@
+{
+ "ground_truth": {
+  "id": "CV-0164",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Malek Ayari",
+  "town": "Gabès",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2018-07",
+    "end": "2019-05",
+    "skills": [
+     "hr-administration",
+     "javascript",
+     "node-js",
+     "payroll"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "malek.ayari164@example.tn",
+  "skills": [
+   "hr-administration",
+   "javascript",
+   "microsoft-excel",
+   "node-js",
+   "payroll"
+  ],
+  "skill_years": {
+   "hr-administration": 0.8,
+   "javascript": 0.8,
+   "node-js": 0.8,
+   "payroll": 0.8
+  },
+  "years_experience": 0.8
+ },
+ "text": "Malek Ayari\nHR assistant\nmalek.ayari164@example.tn | Gabès\n\nPROFESSIONAL EXPERIENCE\n07/2018 – 05/2019 : Olive Systems\n  tools: HR administration, JavaScript, Node.js, payroll\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2018\n\nSKILLS\nHR administration, JavaScript, Microsoft Excel, Node.js, payroll\n\nLANGUAGES\nArabic : native\nFrench : B1\nEnglish : B2"
+}

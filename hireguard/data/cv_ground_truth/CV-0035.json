@@ -1,0 +1,73 @@
+{
+ "ground_truth": {
+  "id": "CV-0035",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Skander Ayari",
+  "town": "Gabès",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-09",
+    "end": "2026-04",
+    "skills": [
+     "data-modelling",
+     "postgresql",
+     "react",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2026-06",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "node-js"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "skander.ayari35@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "node-js",
+   "postgresql",
+   "react",
+   "rest-api"
+  ],
+  "skill_years": {
+   "data-modelling": 2.9,
+   "postgresql": 2.6,
+   "react": 2.6,
+   "rest-api": 2.6,
+   "node-js": 0.3
+  },
+  "years_experience": 2.9
+ },
+ "text": "Skander Ayari\nDéveloppeuse full-stack\nskander.ayari35@example.tn | Gabès\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2023 – 04/2026 : Carthage Analytics\n  outils: modélisation des données, PostgreSQL, React, API REST\n06/2026 – aujourd'hui : Carthage Analytics\n  outils: modélisation des données, Node.js\n\nFORMATION\nLicence en informatique, ISET Radès, 2023\n\nCOMPÉTENCES\nmodélisation des données, Docker, Node.js, PostgreSQL, React, API REST\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B2"
+}

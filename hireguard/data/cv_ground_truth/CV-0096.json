@@ -1,0 +1,73 @@
+{
+ "ground_truth": {
+  "id": "CV-0096",
+  "job_id": "JOB-HR-03",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Omar Chaabane",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2015-08",
+    "end": "2017-02",
+    "skills": [
+     "data-modelling",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2017-02",
+    "end": "2018-08",
+    "skills": [
+     "data-modelling",
+     "hr-administration",
+     "microsoft-excel",
+     "payroll",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "omar.chaabane96@example.tn",
+  "skills": [
+   "data-modelling",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment"
+  ],
+  "skill_years": {
+   "data-modelling": 3.0,
+   "payroll": 3.0,
+   "hr-administration": 1.5,
+   "microsoft-excel": 1.5,
+   "recruitment": 1.5
+  },
+  "years_experience": 3.0
+ },
+ "text": "Omar Chaabane\nمساعدة موارد بشرية\nomar.chaabane96@example.tn | Ariana\n\nالخبرة المهنية\n08/2015 – 02/2017 : Jasmin Digital\n  الأدوات: نمذجة البيانات, الأجور\n02/2017 – 08/2018 : Atlas Telecom (fictional)\n  الأدوات: نمذجة البيانات, إدارة شؤون الموظفين, مايكروسوفت إكسل, الأجور, التوظيف\n\nالتكوين\nماجستير في علوم البيانات, المدرسة العليا للمواصلات بتونس, 2015\n\nالمهارات\nنمذجة البيانات, إدارة شؤون الموظفين, مايكروسوفت إكسل, الأجور, التوظيف\n\nاللغات\nالعربية : اللغة الأم\nالفرنسية : C1\nالإنجليزية : B2"
+}

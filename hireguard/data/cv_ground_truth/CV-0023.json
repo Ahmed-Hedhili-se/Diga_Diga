@@ -1,0 +1,90 @@
+{
+ "ground_truth": {
+  "id": "CV-0023",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Nour Chaabane",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2017-12",
+    "end": "2021-03",
+    "skills": [
+     "docker",
+     "git",
+     "microsoft-excel",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2021-03",
+    "end": "2022-11",
+    "skills": [
+     "git",
+     "python"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2023-01",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "docker",
+     "postgresql",
+     "python",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "nour.chaabane23@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "git",
+   "microsoft-excel",
+   "postgresql",
+   "python",
+   "rest-api",
+   "sql"
+  ],
+  "skill_years": {
+   "docker": 7.0,
+   "git": 4.9,
+   "microsoft-excel": 3.2,
+   "rest-api": 3.2,
+   "python": 5.4,
+   "data-modelling": 3.8,
+   "postgresql": 3.8,
+   "sql": 3.8
+  },
+  "years_experience": 8.7
+ },
+ "text": "Nour Chaabane\nData engineer\nnour.chaabane23@example.tn | Kasserine\n\nPROFESSIONAL EXPERIENCE\n12/2017 – 03/2021 : Carthage Analytics\n  tools: Docker, Git, Microsoft Excel, REST APIs\n03/2021 – 11/2022 : Carthage Analytics\n  tools: Git, Python\n01/2023 – present : Jasmin Digital\n  tools: data modelling, Docker, PostgreSQL, Python, SQL\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2017\n\nSKILLS\ndata modelling, Docker, Git, Microsoft Excel, PostgreSQL, Python, REST APIs, SQL\n\nLANGUAGES\nArabic : native\nFrench : B1\nEnglish : B2"
+}

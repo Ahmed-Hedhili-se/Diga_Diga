@@ -1,0 +1,64 @@
+{
+ "ground_truth": {
+  "id": "CV-0149",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Malek Jaziri",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2015-10",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "python",
+     "recruitment",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "malek.jaziri149@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "python",
+   "recruitment",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 11.0,
+   "data-modelling": 11.0,
+   "python": 11.0,
+   "recruitment": 11.0,
+   "sql": 11.0
+  },
+  "years_experience": 11.0
+ },
+ "text": "Malek Jaziri\nIngénieure données\nmalek.jaziri149@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2015 – aujourd'hui : Atlas Telecom (fictional)\n  outils: Apache Spark, modélisation des données, Python, recrutement, SQL\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2015\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Python, recrutement, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : B2"
+}

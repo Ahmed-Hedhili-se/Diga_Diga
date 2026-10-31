@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0027",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Fedi Hammami",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2021-09",
+    "end": "2024-09",
+    "skills": [
+     "data-modelling",
+     "hr-administration",
+     "microsoft-excel"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2024-09",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "docker",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "hr-administration"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "fedi.hammami27@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "hr-administration",
+   "microsoft-excel",
+   "postgresql"
+  ],
+  "skill_years": {
+   "data-modelling": 5.1,
+   "hr-administration": 3.0,
+   "microsoft-excel": 3.0,
+   "apache-spark": 2.1,
+   "docker": 2.1,
+   "postgresql": 2.1
+  },
+  "years_experience": 5.1
+ },
+ "text": "Fedi Hammami\nIngénieure données\nfedi.hammami27@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2021 – 09/2024 : Atlas Telecom (fictional)\n  outils: modélisation des données, administration du personnel, Microsoft Excel\n09/2024 – aujourd'hui : Fictiva Data SARL\n  outils: Apache Spark, modélisation des données, Docker, PostgreSQL\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2021\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, administration du personnel, Microsoft Excel, PostgreSQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : B1"
+}

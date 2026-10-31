@@ -1,0 +1,63 @@
+{
+ "ground_truth": {
+  "id": "CV-0042",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Hamza Dridi",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2015-10",
+    "end": "2019-01",
+    "skills": [
+     "etl",
+     "git",
+     "hr-administration",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "docker"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "hamza.dridi42@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "etl",
+   "git",
+   "hr-administration",
+   "python"
+  ],
+  "skill_years": {
+   "etl": 3.2,
+   "git": 3.2,
+   "hr-administration": 3.2,
+   "python": 3.2
+  },
+  "years_experience": 3.2
+ },
+ "text": "Hamza Dridi\nData engineer\nhamza.dridi42@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n10/2015 – 01/2019 : Medina Soft\n  tools: ETL pipelines, Git, HR administration, Python\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2015\n\nSKILLS\ndata modelling, Docker, ETL pipelines, Git, HR administration, Python\n\nLANGUAGES\nArabic : native\nFrench : C2\nEnglish : B1"
+}

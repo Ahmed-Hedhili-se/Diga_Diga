@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0078",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Rania Ben Salah",
+  "town": "Kasserine",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2018-10",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "etl",
+     "git"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "rania.ben.salah78@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "etl",
+   "git",
+   "sql"
+  ],
+  "skill_years": {
+   "data-modelling": 8.0,
+   "etl": 8.0,
+   "git": 8.0
+  },
+  "years_experience": 8.0
+ },
+ "text": "Rania Ben Salah\nIngénieur données\nrania.ben.salah78@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2018 – aujourd'hui : Atlas Telecom (fictional)\n  outils: modélisation des données, pipelines ETL, Git\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2018\n\nCOMPÉTENCES\nApache Spark, modélisation des données, pipelines ETL, Git, SQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : C2"
+}

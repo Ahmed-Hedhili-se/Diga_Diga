@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0099",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Eya Ayari",
+  "town": "Tataouine",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2014-09",
+    "end": null,
+    "skills": [
+     "javascript",
+     "node-js",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "payroll",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "eya.ayari99@example.tn",
+  "skills": [
+   "javascript",
+   "node-js",
+   "payroll",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "javascript": 12.1,
+   "node-js": 12.1,
+   "typescript": 12.1
+  },
+  "years_experience": 12.1
+ },
+ "text": "Eya Ayari\nDéveloppeur full-stack\neya.ayari99@example.tn | Tataouine\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2014 – aujourd'hui : Medina Soft\n  outils: JavaScript, Node.js, TypeScript\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2014\n\nCOMPÉTENCES\nJavaScript, Node.js, paie, API REST, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : B2"
+}

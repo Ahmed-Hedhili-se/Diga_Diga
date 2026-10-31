@@ -1,0 +1,72 @@
+{
+ "ground_truth": {
+  "id": "CV-0189",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Rania Khelifi",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-09",
+    "end": "2024-02",
+    "skills": [
+     "javascript",
+     "postgresql"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2024-04",
+    "end": null,
+    "skills": [
+     "javascript",
+     "payroll",
+     "postgresql",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "docker"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "rania.khelifi189@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "javascript",
+   "payroll",
+   "postgresql",
+   "rest-api"
+  ],
+  "skill_years": {
+   "javascript": 4.9,
+   "postgresql": 4.9,
+   "payroll": 2.5,
+   "rest-api": 2.5
+  },
+  "years_experience": 4.9
+ },
+ "text": "Rania Khelifi\nDéveloppeur full-stack\nrania.khelifi189@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2021 – 02/2024 : Fictiva Data SARL\n  outils: JavaScript, PostgreSQL\n04/2024 – aujourd'hui : Fictiva Data SARL\n  outils: JavaScript, paie, PostgreSQL, API REST\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2021\n\nCOMPÉTENCES\nApache Spark, Docker, JavaScript, paie, PostgreSQL, API REST\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : B2"
+}

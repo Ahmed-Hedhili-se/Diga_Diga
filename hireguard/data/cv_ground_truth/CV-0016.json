@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0016",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Nour Trabelsi",
+  "town": "Gabès",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2016-10",
+    "end": null,
+    "skills": [
+     "node-js",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "payroll",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "nour.trabelsi16@example.tn",
+  "skills": [
+   "node-js",
+   "payroll",
+   "postgresql",
+   "rest-api"
+  ],
+  "skill_years": {
+   "node-js": 10.0,
+   "postgresql": 10.0
+  },
+  "years_experience": 10.0
+ },
+ "text": "Nour Trabelsi\nDéveloppeur full-stack\nnour.trabelsi16@example.tn | Gabès\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2016 – aujourd'hui : Fictiva Data SARL\n  outils: Node.js, PostgreSQL\n\nFORMATION\nLicence en informatique, SUP'COM, 2016\n\nCOMPÉTENCES\nNode.js, paie, PostgreSQL, API REST\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : B1"
+}

@@ -1,0 +1,68 @@
+{
+ "ground_truth": {
+  "id": "CV-0167",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Eya Ben Salah",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2015-10",
+    "end": "2018-06",
+    "skills": [
+     "git",
+     "payroll",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2018-09",
+    "end": "2020-07",
+    "skills": [
+     "payroll",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "eya.ben.salah167@example.tn",
+  "skills": [
+   "git",
+   "payroll",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 2.7,
+   "payroll": 4.5,
+   "tunisian-labour-law": 4.5
+  },
+  "years_experience": 4.5
+ },
+ "text": "Eya Ben Salah\nAssistant RH\neya.ben.salah167@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2015 – 06/2018 : Fictiva Data SARL\n  outils: Git, paie, droit du travail tunisien\n09/2018 – 07/2020 : Olive Systems\n  outils: paie, droit du travail tunisien\n\nFORMATION\nLicence en informatique, SUP'COM, 2015\n\nCOMPÉTENCES\nGit, paie, droit du travail tunisien, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : B1\nAnglais : B1"
+}

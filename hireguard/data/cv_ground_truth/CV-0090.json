@@ -1,0 +1,79 @@
+{
+ "ground_truth": {
+  "id": "CV-0090",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Eya Dridi",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-10",
+    "end": "2024-06",
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2024-09",
+    "end": null,
+    "skills": [
+     "etl",
+     "hr-administration",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "git"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "eya.dridi90@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "git",
+   "hr-administration",
+   "postgresql",
+   "python",
+   "typescript"
+  ],
+  "skill_years": {
+   "apache-spark": 0.7,
+   "data-modelling": 0.7,
+   "typescript": 0.7,
+   "etl": 2.1,
+   "hr-administration": 2.1,
+   "postgresql": 2.1,
+   "python": 2.1
+  },
+  "years_experience": 2.8
+ },
+ "text": "Eya Dridi\nData engineer\neya.dridi90@example.tn | La Marsa\n\nPROFESSIONAL EXPERIENCE\n10/2023 – 06/2024 : Carthage Analytics\n  tools: Apache Spark, data modelling, TypeScript\n09/2024 – present : Medina Soft\n  tools: ETL pipelines, HR administration, PostgreSQL, Python\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2023\n\nSKILLS\nApache Spark, data modelling, Docker, ETL pipelines, Git, HR administration, PostgreSQL, Python, TypeScript\n\nLANGUAGES\nArabic : native\nFrench : B1\nEnglish : C1"
+}

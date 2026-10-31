@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0132",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Mariem Dridi",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2024
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-12",
+    "end": null,
+    "skills": [
+     "docker",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "mariem.dridi132@example.tn",
+  "skills": [
+   "docker",
+   "hr-administration",
+   "postgresql",
+   "recruitment"
+  ],
+  "skill_years": {
+   "docker": 1.8,
+   "recruitment": 1.8
+  },
+  "years_experience": 1.8
+ },
+ "text": "Mariem Dridi\nFull-stack developer\nmariem.dridi132@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n12/2024 – present : Carthage Analytics\n  tools: Docker, recruitment\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2024\n\nSKILLS\nDocker, HR administration, PostgreSQL, recruitment\n\nLANGUAGES\nArabic : native\nFrench : C1\nEnglish : C1"
+}

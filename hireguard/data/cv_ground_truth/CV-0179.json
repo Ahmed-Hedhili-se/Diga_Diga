@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0179",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Eya Dridi",
+  "town": "Sousse",
+  "school": "supcom",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2016
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2016-11",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "docker",
+     "git",
+     "hr-administration",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "eya.dridi179@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "git",
+   "hr-administration",
+   "postgresql"
+  ],
+  "skill_years": {
+   "apache-spark": 9.9,
+   "docker": 9.9,
+   "git": 9.9,
+   "hr-administration": 9.9,
+   "postgresql": 9.9
+  },
+  "years_experience": 9.9
+ },
+ "text": "Eya Dridi\nIngénieur données\neya.dridi179@example.tn | Sousse\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2016 – aujourd'hui : Fictiva Data SARL\n  outils: Apache Spark, Docker, Git, administration du personnel, PostgreSQL\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, SUP'COM, 2016\n\nCOMPÉTENCES\nApache Spark, modélisation des données, Docker, Git, administration du personnel, PostgreSQL\n\nLANGUES\nArabe : langue maternelle\nFrançais : B2\nAnglais : B1"
+}

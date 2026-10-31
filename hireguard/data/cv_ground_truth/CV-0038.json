@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0038",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Aziz Gharbi",
+  "town": "Sfax",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-11",
+    "end": "2024-09",
+    "skills": [
+     "docker",
+     "hr-administration",
+     "payroll",
+     "recruitment",
+     "sql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "aziz.gharbi38@example.tn",
+  "skills": [
+   "docker",
+   "hr-administration",
+   "payroll",
+   "recruitment",
+   "sql",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 1.8,
+   "hr-administration": 1.8,
+   "payroll": 1.8,
+   "recruitment": 1.8,
+   "sql": 1.8
+  },
+  "years_experience": 1.8
+ },
+ "text": "Aziz Gharbi\nAssistant RH\naziz.gharbi38@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2022 – 09/2024 : Fictiva Data SARL\n  outils: Docker, administration du personnel, paie, recrutement, SQL\n\nFORMATION\nLicence en informatique, SUP'COM, 2022\n\nCOMPÉTENCES\nDocker, administration du personnel, paie, recrutement, SQL, droit du travail tunisien\n\nLANGUES\nArabe : langue maternelle\nFrançais : C1\nAnglais : B1"
+}

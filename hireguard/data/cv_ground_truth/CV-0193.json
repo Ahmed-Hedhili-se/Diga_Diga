@@ -1,0 +1,84 @@
+{
+ "ground_truth": {
+  "id": "CV-0193",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Youssef Ben Salah",
+  "town": "Ariana",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2023-07",
+    "end": "2024-09",
+    "skills": [
+     "microsoft-excel",
+     "react"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2024-10",
+    "end": "2025-08",
+    "skills": [
+     "hr-administration",
+     "payroll",
+     "recruitment"
+    ]
+   },
+   {
+    "employer": "Olive Systems",
+    "start": "2025-08",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "youssef.ben.salah193@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "react",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "microsoft-excel": 1.2,
+   "react": 1.2,
+   "hr-administration": 2.0,
+   "payroll": 2.0,
+   "recruitment": 2.0,
+   "tunisian-labour-law": 1.2
+  },
+  "years_experience": 3.2
+ },
+ "text": "Youssef Ben Salah\nHR assistant\nyoussef.ben.salah193@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n07/2023 – 09/2024 : Atlas Telecom (fictional)\n  tools: Microsoft Excel, React\n10/2024 – 08/2025 : Jasmin Digital\n  tools: HR administration, payroll, recruitment\n08/2025 – present : Olive Systems\n  tools: HR administration, payroll, recruitment, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2023\n\nSKILLS\nHR administration, Microsoft Excel, payroll, React, recruitment, Tunisian labour law\n\nLANGUAGES\nArabic : native\nFrench : C2\nEnglish : B1"
+}

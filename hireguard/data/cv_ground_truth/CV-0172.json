@@ -1,0 +1,92 @@
+{
+ "ground_truth": {
+  "id": "CV-0172",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Rania Bouzid",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2021-11",
+    "end": "2024-03",
+    "skills": [
+     "docker",
+     "etl",
+     "react"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2024-05",
+    "end": "2026-03",
+    "skills": [
+     "javascript",
+     "react",
+     "rest-api",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2026-03",
+    "end": null,
+    "skills": [
+     "etl",
+     "node-js",
+     "postgresql",
+     "react",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "rania.bouzid172@example.tn",
+  "skills": [
+   "docker",
+   "etl",
+   "javascript",
+   "microsoft-excel",
+   "node-js",
+   "postgresql",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 2.3,
+   "etl": 2.9,
+   "react": 4.8,
+   "javascript": 1.8,
+   "rest-api": 2.4,
+   "typescript": 1.8,
+   "node-js": 0.6,
+   "postgresql": 0.6
+  },
+  "years_experience": 4.8
+ },
+ "text": "Rania Bouzid\nDéveloppeuse full-stack\nrania.bouzid172@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2021 – 03/2024 : Carthage Analytics\n  outils: Docker, pipelines ETL, React\n05/2024 – 03/2026 : Jasmin Digital\n  outils: JavaScript, React, API REST, TypeScript\n03/2026 – aujourd'hui : Carthage Analytics\n  outils: pipelines ETL, Node.js, PostgreSQL, React, API REST\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2021\n\nCOMPÉTENCES\nDocker, pipelines ETL, JavaScript, Microsoft Excel, Node.js, PostgreSQL, React, API REST, TypeScript\n\nLANGUES\nArabe : langue maternelle\nFrançais : C2\nAnglais : B2"
+}

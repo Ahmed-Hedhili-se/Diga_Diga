@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0005",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Amira Jaziri",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2022-09",
+    "end": "2024-01",
+    "skills": [
+     "docker",
+     "etl",
+     "node-js",
+     "rest-api"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2024-02",
+    "end": null,
+    "skills": [
+     "git",
+     "javascript",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "amira.jaziri5@example.tn",
+  "skills": [
+   "docker",
+   "etl",
+   "git",
+   "javascript",
+   "node-js",
+   "react",
+   "rest-api"
+  ],
+  "skill_years": {
+   "docker": 1.3,
+   "etl": 1.3,
+   "node-js": 1.3,
+   "rest-api": 1.3,
+   "git": 2.7,
+   "javascript": 2.7,
+   "react": 2.7
+  },
+  "years_experience": 4.0
+ },
+ "text": "Amira Jaziri\nFull-stack developer\namira.jaziri5@example.tn | Bizerte\n\nPROFESSIONAL EXPERIENCE\n09/2022 – 01/2024 : Atlas Telecom (fictional)\n  tools: Docker, ETL pipelines, Node.js, REST APIs\n02/2024 – present : Medina Soft\n  tools: Git, JavaScript, React\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2022\n\nSKILLS\nDocker, ETL pipelines, Git, JavaScript, Node.js, React, REST APIs\n\nLANGUAGES\nArabic : native\nFrench : C1\nEnglish : C1"
+}
