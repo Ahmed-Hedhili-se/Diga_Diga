@@ -7,6 +7,7 @@
 """
 import copy
 import json
+import re
 import sqlite3
 from typing import Any
 
@@ -83,6 +84,32 @@ def _schema(conn: sqlite3.Connection):
     )
 
 
+# The sanitizer reports an undecodable glyph (U+FFFD, common in Arabic words inside FR/EN CVs) as a zero_width
+# finding whose text is only "[N undecodable glyphs] near: ...". That is not hidden content.
+_UNDECODABLE_ONLY = re.compile(r"^\[\d+ undecodable glyphs?\]")
+
+
+def _is_high_finding(f: Any) -> bool:
+    """High unless the sanitizer marked it `severity: "low"`, or it is a zero_width finding that is only
+    undecodable glyphs. A missing field or an unknown shape means high (fail closed)."""
+    if not isinstance(f, dict):
+        return True
+    if f.get("severity") == "low":
+        return False
+    return not (f.get("channel") == "zero_width" and _UNDECODABLE_ONLY.match(str(f.get("text", ""))))
+
+
+def count_high_findings(payload: dict[str, Any]) -> int:
+    """`hidden_findings_high` (int) wins. Otherwise `hidden_findings` is a list of finding dicts, or a legacy int
+    count that can't be told apart and so counts as high."""
+    if "hidden_findings_high" in payload:
+        return int(payload["hidden_findings_high"] or 0)
+    findings = payload.get("hidden_findings", 0)
+    if isinstance(findings, (list, tuple)):
+        return sum(_is_high_finding(f) for f in findings)
+    return int(findings) if isinstance(findings, int) else 0
+
+
 def compute_risk(kind: ApprovalKind, payload: dict[str, Any]) -> int:
     """Code rules only. The model never judges whether its input is an attack."""
     r = BASE_RISK[kind]
@@ -94,7 +121,7 @@ def compute_risk(kind: ApprovalKind, payload: dict[str, Any]) -> int:
         r += 30
     if payload.get("injection_flags", 0):
         r += 20
-    if payload.get("hidden_findings", 0):
+    if count_high_findings(payload) > 0:  # low-severity findings (undecodable glyphs) add nothing
         r += 10
     return max(0, min(100, r))
 

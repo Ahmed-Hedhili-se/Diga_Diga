@@ -4,6 +4,7 @@
 - experience: valid dates, not in the future, start year written near the evidence; years = merged intervals
 - per-skill years: union of the valid experiences that list the (validated) skill
 - degree: evidence span valid and a diploma keyword of that level written there
+- support: a skill is `dated_experience` when a valid dated job block writes it, else `listed_only`
 """
 from __future__ import annotations
 
@@ -149,6 +150,11 @@ def validate(
         checked.append((start, end, kept))
     intervals = checked
 
+    backed = {sid for _s, _e, kept in intervals for sid in kept}  # skills written inside a valid dated job block
+    for sid, vs in skills.items():
+        vs.support = "dated_experience" if sid in backed else "listed_only"
+    listed_only_ratio = round(sum(vs.support == "listed_only" for vs in skills.values()) / len(skills), 3) if skills else 0.0
+
     years_total = round(_merged_months([(s, e) for s, e, _ in intervals]) / 12, 1)
     for sid, vs in skills.items():
         vs.years = round(_merged_months([(s, e) for s, e, sk in intervals if sid in sk]) / 12, 1)
@@ -182,6 +188,7 @@ def validate(
         doc_id=san.doc_id,
         status="ok",
         skills=list(skills.values()),
+        skills_listed_only_ratio=listed_only_ratio,
         years_experience=years_total,
         highest_degree=best,
         degree_evidence=best_ev,
