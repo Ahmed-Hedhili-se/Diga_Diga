@@ -19,11 +19,19 @@ fields on `POST /candidates`.
       `data/handbook/` sections, return the cited passage word for word, "no match"
       routes to HR; call `team.knowledge_gaps.record(section_or_None, lang)`. Never
       store the question text.
-- [ ] R4: `GET /reviewer/stats` returns per-reviewer misses; aggregate by batch size
-      (like `/approvals/attention`) or remove, per Ahmed's decision.
+- [ ] R10 (P1, about 30 min): audit `auth.login` (success and failure, no password),
+      `auth.logout` and `auth.user_create` (with the role) in `auth/routes.py`.
+- [ ] R4 (decided by Ahmed: aggregate): `GET /reviewer/stats` returns canary hits and
+      misses by batch size and week, never by user id; keep roles M A; test it.
+- [ ] R14: make the offer approval count a per-customer setting (default 2 other HR
+      managers; SME: 1). Today the demo can't clear an offer with 2 HR accounts.
+- [ ] R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore`.
 - [ ] R6: rename scorecard criterion `team_fit` to `collaboration` (contract change:
       tell Yasmina, update `API.md`).
-- [ ] Run `backend/.venv/Scripts/python.exe -m pytest -q` before every push (104 pass now).
+- [ ] Sign off the interface change log in `hireguard/docs/architecture.md` §9.
+- [ ] Run `backend/.venv/Scripts/python.exe -m pytest -q` before every push (107 pass
+      now). `tests/test_release_gate.py` fails on any new or changed route until its
+      roles are added to `MATRIX` there and to architecture §6, on purpose.
 
 ## Work to execute
 

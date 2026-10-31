@@ -18,8 +18,11 @@ New UI to review against the backend contract (`hireguard/contracts/API.md`):
 - Navigation grouped into Recruit / Team / Oversight / Admin.
 
 - [ ] Check empty, loading, error and 403 states on each new panel.
-- [ ] Rehearse the 4 demo beats in `hireguard/docs/pitch.md` inside 5:00; the demo must
-      say out loud which data is fictional or simulated.
+- [ ] Rehearse the 5 demo beats with the runbook in `hireguard/docs/pitch.md` (accounts,
+      clicks, what must be visible, fallbacks) inside 5:00; say out loud which data is
+      fictional or simulated. Record the backup video of the same path.
+- [ ] The offer beat stops at "1 of 2 approvals" with two HR accounts (risk R14): keep
+      it, and show it as the control working.
 - [ ] Wire the Answer Desk page once Rayen's endpoint lands (R3).
 
 ## Work to execute

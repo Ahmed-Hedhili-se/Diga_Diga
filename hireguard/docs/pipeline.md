@@ -58,6 +58,16 @@ Transport (`llm.py`): round-robin over `HG_OLLAMA_HOSTS`, a local GPU or the Mod
 
 A skill counts only if its evidence span is inside `visible_text` **and** contains an ESCO label for that skill. Years of experience are computed from valid dates (merged intervals), never from a model claim. Every dropped field is logged with a code-generated reason. Each skill also gets `support`: `dated_experience` when a valid dated job block writes it, else `listed_only` (what keyword stuffing looks like), plus `skills_listed_only_ratio` for the CV.
 
+| Claim | Kept only if |
+|---|---|
+| Skill | Known ESCO id; evidence span inside `visible_text`; the span contains an ESCO label of that skill |
+| Experience | Valid dates, not in the future, start year written near the evidence; total years = merged intervals |
+| Years per skill | Union of the valid experiences whose job block writes the (validated) skill |
+| Degree | Valid evidence span with a diploma keyword of that level written there |
+| Language | The language is named in `visible_text` (FR, EN, AR or Tunisian spelling); the CEFR level is the model's reading |
+
+Everything dropped is listed (`validated.dropped`) and shown in the candidate panel.
+
 ## Email extraction (`pipeline/email_extract.py`)
 
 Language, intent and urgency enums only; the gate (P3) decides the lane from code rules. `HG_EXTRACT_MODE=ground_truth` reads the labelled demo emails so the demo runs without Ollama; it logs a warning on every call, is **not** a model run, and returns nothing for text it does not know. The default mode, with the model down, returns nothing (`extraction_failed`, a human decides); it never falls back to ground truth.
@@ -96,6 +106,18 @@ The question is capped at 1,000 characters, control and bidi characters are stri
 | Backend tests | 287 passed, 1 expected failure (a P4 finding) | `python -m pytest -q` in `hireguard/backend` |
 
 Extraction quality against the real model is measured by P2's harness; the Modal run is described in `hireguard/infra/README.md`.
+
+## Oracle-mode check (code path only, 31 Oct)
+
+Ground-truth extraction through the real sanitizer, detector, validator and scorer (`eval/harness.py --extraction
+oracle`, `eval/results/summary_oracle.json`). It shows the code path works; it says nothing about whether the model
+obeys an injection.
+
+| What | Result |
+|---|---|
+| Hidden content found | 40/40 attacks, 0 false alarms on 40 clean twins |
+| Instructions flagged | 18/28 then; the detector rules added since flag 8/8 visible instructions with 0 false alarms on 200 clean CVs |
+| Attacks that moved a field or score, code path | 0/40 |
 
 ## Real model on Modal
 
