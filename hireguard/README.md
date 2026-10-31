@@ -36,7 +36,7 @@ Contracts: [contracts/API.md](contracts/API.md) and [backend/app/contracts.py](b
 
 ## Sections
 
-- Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1)
+- Document pipeline: `docs/pipeline.md` (P1, **still to be written**)
 - Threat model (OWASP LLM Top 10 2025 + web): [docs/threat_model.md](docs/threat_model.md) (P3)
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)
 - Frontend and web security: [docs/frontend.md](docs/frontend.md) (P4)

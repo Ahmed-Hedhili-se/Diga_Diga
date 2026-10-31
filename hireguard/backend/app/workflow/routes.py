@@ -6,7 +6,8 @@ from pydantic import BaseModel
 
 from ..contracts import ApprovalItem, ApprovalKind, AuditEntry, Role, UserOut
 from ..auth.core import require_roles
-from . import anchor, approvals, audit, documents, email_gate, executor, interviews, mock_calendar
+from . import (anchor, approvals, audit, documents, email_gate, employee_questions, executor, followups,
+               interviews, mock_calendar)
 
 router = APIRouter()
 router.add_event_handler("startup", anchor.start_loop)
@@ -74,11 +75,47 @@ def executor_run(item_id: str, user: UserOut = Depends(require_roles(R, M))):
 def reviewer_stats(user: UserOut = Depends(require_roles(M, A))):
     return approvals.reviewer_stats()
 
+# ---------------------------------------------------------------- follow-up reminders (drafts only)
+
+
+@router.get("/followups/preview")
+def followups_preview(days: int = Query(3, ge=1, le=60), user: UserOut = Depends(require_roles(R, M))):
+    return followups.preview(days)
+
+
+@router.post("/followups/run")
+def followups_run(days: int = Query(3, ge=1, le=60), user: UserOut = Depends(require_roles(R, M))):
+    return followups.run(user, days)
+
+# ---------------------------------------------------------------- employee questions (personal Answer Desk -> HR)
+
+
+@router.post("/employee-questions")
+def question_create(body: employee_questions.QuestionIn, user: UserOut = Depends(require_roles(E))):
+    return employee_questions.create_employee_question(user, body.topic, body.text)
+
+
+@router.get("/employee-questions")
+def question_list(user: UserOut = Depends(require_roles(E, M))):
+    return employee_questions.list_for(user)
+
+
+@router.get("/employee-questions/{question_id}")
+def question_get(question_id: str, user: UserOut = Depends(require_roles(E, M))):
+    return employee_questions.get_for(user, question_id)
+
+
+@router.post("/employee-questions/{question_id}/reply", response_model=ApprovalItem)
+def question_reply(question_id: str, body: employee_questions.ReplyIn, user: UserOut = Depends(require_roles(M))):
+    return employee_questions.draft_reply(user, question_id, body.template, body.lang)
+
 # ---------------------------------------------------------------- calendar
 
 
 @router.get("/calendar/slots")
 def calendar_slots(recruiter_id: str = Query("recruiter", max_length=64), user: UserOut = Depends(require_roles(R, M))):
+    if not mock_calendar.is_known_recruiter(recruiter_id):
+        raise HTTPException(404, "recruiter not found")
     return mock_calendar.free_slots(recruiter_id, 3)
 
 # ---------------------------------------------------------------- audit

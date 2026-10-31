@@ -62,7 +62,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/approvals/{id}/decision` | R M (offer: M, 2 distinct approvers) | `{decision:"approve"\|"reject"}` → `ApprovalItem` |
 | POST | `/approvals/batches/{batch_id}/decision` | R M | `{decision, item_ids}` → `ApprovalItem[]` |
 | POST | `/executor/run/{item_id}` | R M | → `{executed}`; **403 if the item is not approved** |
-| GET | `/calendar/slots?recruiter_id=` | R M | → 3 free slots |
+| GET | `/calendar/slots?recruiter_id=` | R M | → 3 free slots; unknown `recruiter_id` → 404 (default `recruiter`, or a recruiter / HR manager account id) |
 | GET | `/audit?limit=` | M A | → `AuditEntry[]` |
 | GET | `/audit/verify` | M A | → `{ok, length, broken_at, last_anchor}` |
 | POST | `/documents/request` | E | `{type: "work_certificate"\|"salary_certificate"\|"leave_confirmation", params}` → `ApprovalItem` |
@@ -73,6 +73,11 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET | `/interviews/reminders` | M | manager reminder list |
 | POST | `/inbox/{id}/release-request` | M | creates a `held_email_release` approval item |
 | POST | `/audit/anchor` | A | anchor the chain head now |
+| POST | `/employee-questions` | E | `{topic: leave\|salary\|certificate\|contract\|other, text ≤2000}` → ticket `{id, topic, risk, status}` (no text echoed) |
+| GET | `/employee-questions`, `/employee-questions/{id}` | E (own) M (all) | question rows; another employee's id → 404 |
+| POST | `/employee-questions/{id}/reply` | M | `{template: received\|contact_hr\|use_documents, lang}` → `ApprovalItem` (`email_send` to the employee's own account) |
+| GET | `/followups/preview?days=3` | R M | → `[{candidate_id, job_id, lang, last_sent_at, days_silent}]`, creates nothing |
+| POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends |
 
 ```
 InboxItem     = {id, from, from_name, subject, received_at, language, intent, urgency, candidate_id|null,

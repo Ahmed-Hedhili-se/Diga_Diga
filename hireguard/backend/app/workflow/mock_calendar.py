@@ -47,6 +47,21 @@ def _ensure_slots(conn, recruiter_id: str, days: int = 10):
         day += timedelta(days=1)
 
 
+def is_known_recruiter(recruiter_id: str, conn: sqlite3.Connection | None = None) -> bool:
+    """The default demo calendar, or a real recruiter / HR manager account. Stops callers creating a calendar
+    (50 rows each) for any made-up id."""
+    if recruiter_id == "recruiter":
+        return True
+    own = conn is None
+    conn = conn or connect()
+    try:
+        return conn.execute("SELECT 1 FROM auth_users WHERE id = ? AND role IN ('recruiter','hr_manager') "
+                            "AND active = 1", (recruiter_id,)).fetchone() is not None
+    finally:
+        if own:
+            conn.close()
+
+
 def free_slots(recruiter_id: str, n: int = 3, conn: sqlite3.Connection | None = None) -> list[dict]:
     own = conn is None
     conn = conn or connect()

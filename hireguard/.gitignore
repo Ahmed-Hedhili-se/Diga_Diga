@@ -2,6 +2,7 @@
 backend/.venv/
 backend/*.db*
 backend/uploads/
+data/anchors/
 __pycache__/
 node_modules/
 frontend/dist/
