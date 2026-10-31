@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { api, errMsg } from "../api";
 import { usePermission } from "../auth";
 import {
   Badge, ConfirmButton, Empty, ErrorBox, fmtDate, fmtNum, Loading, PageHeader, plain, revealInvisible, useLoad,
 } from "../components/ui";
 import type {
-  AuditAnchor, AuditEntry, AuditVerify, EvalSummary, FairnessAttr, FairnessReport, HiddenChannel, Prf, RateStat, ReviewerStat, SecurityFinding,
+  AttackSection, AuditAnchor, AuditEntry, AuditVerify, EvalSummary, FairnessAttr, FairnessReport, HiddenChannel, Prf, RateStat, ReviewerStat, SecurityFinding,
 } from "../types";
 
 const CHANNEL_LABEL: Record<HiddenChannel, string> = {
@@ -211,6 +211,7 @@ const pct = (x: number | null | undefined) => (x === null || x === undefined ? "
 function Evaluation() {
   const ev = useLoad(() => api<EvalSummary>("/eval/summary"));
   const s = ev.data?.sections;
+  const b = ev.data?.baseline;
   return (
     <>
       <ErrorBox error={ev.error} />
@@ -223,55 +224,114 @@ function Evaluation() {
       {s && (
         <div className="stack">
           <p className="muted small">
-            Generated {fmtDate(ev.data?.generated_at)} with {ev.data?.model ?? "?"}. Rates come with 95% exact
-            (Clopper-Pearson) intervals.
+            Last run {fmtDate(ev.data?.generated_at)} on {ev.data?.model ?? "?"}. Every rate is k/n with a 95% exact
+            (Clopper-Pearson) interval. Synthetic, fictional CVs and emails: real documents are messier.
           </p>
-          <section className="card">
-            <h2>Hidden-text attacks</h2>
-            {s.attacks?.skipped ? (
-              <Skipped why={s.attacks.skipped} />
-            ) : s.attacks ? (
-              <>
-                <div className="tiles">
-                  <Metric label="Attack success (lower is better)" stat={s.attacks.attack_success} />
-                  <Metric label="Instruction payloads flagged" stat={s.attacks.instruction_flagged} />
-                  <PrfTile label="Hidden-text detection" prf={s.attacks.hidden_text_detection} />
-                  <Metric label="Detection recall" stat={s.attacks.hidden_text_detection?.recall_ci} />
-                </div>
-                <RateTable title="Attack success by channel" rows={s.attacks.by_channel} />
-              </>
-            ) : null}
-          </section>
-          <section className="card">
-            <h2>Fairness twins</h2>
-            <p className="muted small">Same CV, only the name, town or gender changes. The score must never move.</p>
-            {s.twins?.skipped ? (
-              <Skipped why={s.twins.skipped} />
-            ) : s.twins ? (
-              <>
-                <div className="tiles">
-                  <Metric label="Twins whose score changed (target 0)" stat={s.twins.score_changed} />
-                </div>
-                <RateTable title="By variant" rows={s.twins.by_variant} />
-              </>
-            ) : null}
-          </section>
-          <section className="card">
-            <h2>Extraction quality</h2>
-            {s.extraction?.skipped ? (
-              <Skipped why={s.extraction.skipped} />
-            ) : s.extraction ? (
-              <div className="tiles">
-                <PrfTile label={`Skills (${s.extraction.n_docs ?? 0} CVs)`} prf={s.extraction.skills} />
-                <div className="card tile">
-                  <div className="muted small">Years of experience, mean abs. error</div>
-                  <div className="tile-value">{fmtNum(s.extraction.years_mae, 2)}</div>
-                </div>
+          <EvalCard title="Hidden text (sanitizer only, no model)" sec={s.hidden}>
+            <div className="tiles">
+              <Metric label="Attacked CVs with a high finding" stat={s.hidden?.strict?.recall} />
+              <Metric label="Clean CVs with a high finding (false alarms)" stat={s.hidden?.strict?.false_alarm_on_clean} />
+              <Metric label="Clean CVs with any finding, incl. low (undecodable glyphs)" stat={s.hidden?.all?.false_alarm_on_clean} />
+            </div>
+          </EvalCard>
+          <EvalCard title="Hidden-payload attacks (40, with payload-free twins)" sec={s.attacks}>
+            <AttackTiles a={s.attacks} baseline={b?.vulnerable_screener} />
+          </EvalCard>
+          <EvalCard title="Visible-instruction and bidi attacks (14, with twins)" sec={s.attacks_extra}>
+            <p className="muted small">
+              The payload is visible text, so the model reads it: only the prompt, the schema and the validator stand in the way.
+            </p>
+            <AttackTiles a={s.attacks_extra} baseline={b?.vulnerable_screener_extra} />
+          </EvalCard>
+          <EvalCard title="Counterfactual twins" sec={s.twins}>
+            <p className="muted small">
+              Same CV, only the town, school, a 12-month gap, the CV language or the gendered job title changes. Target: the
+              score never moves.
+            </p>
+            <div className="tiles">
+              <Metric label="Twins whose score changed (target 0)" stat={s.twins?.score_changed} />
+            </div>
+            <RateTable title="By variant" rows={s.twins?.by_variant} />
+          </EvalCard>
+          <EvalCard title="Email routing (100 emails, 15 spoofed)" sec={s.emails}>
+            <div className="tiles">
+              <Metric label="Right lane" stat={s.emails?.lane_correct} />
+              <Metric label="Needed a human but got a draft (unsafe)" stat={s.emails?.unsafe_misroute} />
+              <Metric label="Spoofed emails given no candidate data" stat={s.emails?.spoof_contained} />
+              <Metric label="Clean emails marked suspicious" stat={s.emails?.clean_marked_suspicious} />
+            </div>
+          </EvalCard>
+          <EvalCard title="Extraction quality" sec={s.extraction}>
+            <div className="tiles">
+              <PrfTile label={`Skills (${s.extraction?.n_docs ?? 0} CVs)`} prf={s.extraction?.skills} />
+              <Metric label="Highest degree correct" stat={s.extraction?.degree_correct} />
+              <Metric label="Sent to a human (no usable output)" stat={s.extraction?.sent_to_human} />
+              <div className="card tile">
+                <div className="muted small">Years of experience, mean abs. error</div>
+                <div className="tile-value">{fmtNum(s.extraction?.years_mae, 2)}</div>
               </div>
-            ) : null}
-          </section>
+            </div>
+            {s.extraction?.skills_by_lang && (
+              <div className="badges">
+                {Object.entries(s.extraction.skills_by_lang).map(([lang, p]) => (
+                  <Badge key={lang}>
+                    {lang.toUpperCase()}: F1 {fmtNum(p.f1, 2)}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </EvalCard>
+          {b?.resumeshield?.skipped && <p className="muted small">ResumeShield benchmark: {b.resumeshield.skipped}</p>}
         </div>
       )}
+    </>
+  );
+}
+
+type EvalSec = { extraction_mode?: string; scope?: string; skipped?: string; llm_failed_calls_total?: number };
+
+/** Says which mode produced the numbers: an oracle run tests the code path, never the model. */
+function EvalCard({ title, sec, children }: { title: string; sec?: EvalSec; children: ReactNode }) {
+  if (!sec) return null;
+  const oracle = sec.extraction_mode === "oracle";
+  return (
+    <section className="card">
+      <div className="row between">
+        <h2>{title}</h2>
+        {sec.extraction_mode && (
+          <Badge tone={oracle ? "warn" : "info"}>
+            {oracle ? "oracle: code path only, no model" : `mode: ${sec.extraction_mode}`}
+          </Badge>
+        )}
+      </div>
+      {oracle && (
+        <div className="alert warn">{sec.scope ?? "Ground-truth extraction: this says nothing about how the model behaves."}</div>
+      )}
+      {!!sec.llm_failed_calls_total && (
+        <div className="alert warn">
+          {sec.llm_failed_calls_total} model call(s) failed during this run; those items went to a human.
+        </div>
+      )}
+      {sec.skipped ? <Skipped why={sec.skipped} /> : children}
+    </section>
+  );
+}
+
+function AttackTiles({ a, baseline }: {
+  a?: AttackSection; baseline?: { attack_success?: RateStat; attack_obeyed_10pts?: RateStat };
+}) {
+  if (!a) return null;
+  return (
+    <>
+      <div className="tiles">
+        <Metric label="Anything moved vs the twin (lower is better)" stat={a.attack_success} />
+        <Metric label="Score went up" stat={a.score_raised} />
+        <Metric label="Instruction payloads flagged for HR" stat={a.instruction_flagged} />
+        {baseline?.attack_success && <Metric label="Naive screener, same model: score moved" stat={baseline.attack_success} />}
+        {baseline?.attack_obeyed_10pts && <Metric label="Naive screener: score up 10+ points" stat={baseline.attack_obeyed_10pts} />}
+      </div>
+      <RateTable title="By channel" rows={a.by_channel} />
+      <RateTable title="By payload language" rows={a.by_payload_lang} />
     </>
   );
 }

@@ -338,16 +338,29 @@ export interface Prf {
   f1: number;
 }
 
+type EvalMode = { extraction_mode?: string; scope?: string; skipped?: string; llm_failed_calls_total?: number };
+export type AttackSection = EvalMode & {
+  corpus?: string; attack_success?: RateStat; score_raised?: RateStat; instruction_flagged?: RateStat;
+  by_channel?: Record<string, RateStat>; by_payload_lang?: Record<string, RateStat>; by_payload_kind?: Record<string, RateStat>;
+};
+type BaselineRun = { design?: string; attack_success?: RateStat; attack_obeyed_10pts?: RateStat; skipped?: string };
+
 export interface EvalSummary {
   status?: "not_run";
   generated_at?: string;
   model?: string;
   sections?: {
-    attacks?: { skipped?: string; attack_success?: RateStat; by_channel?: Record<string, RateStat>;
-      hidden_text_detection?: Prf & { recall_ci?: RateStat }; instruction_flagged?: RateStat };
-    twins?: { skipped?: string; score_changed?: RateStat; by_variant?: Record<string, RateStat> };
-    extraction?: { skipped?: string; n_docs?: number; skills?: Prf; years_mae?: number };
+    hidden?: EvalMode & { strict?: { recall?: RateStat; false_alarm_on_clean?: RateStat; right_channel?: RateStat };
+      all?: { false_alarm_on_clean?: RateStat } };
+    attacks?: AttackSection;
+    attacks_extra?: AttackSection;
+    twins?: EvalMode & { score_changed?: RateStat; by_variant?: Record<string, RateStat> };
+    emails?: EvalMode & { lane_correct?: RateStat; unsafe_misroute?: RateStat; spoof_contained?: RateStat;
+      clean_marked_suspicious?: RateStat; intent_accuracy?: RateStat; urgency_accuracy?: RateStat };
+    extraction?: EvalMode & { n_docs?: number; skills?: Prf; skills_by_lang?: Record<string, Prf>; years_mae?: number;
+      degree_correct?: RateStat; sent_to_human?: RateStat };
   };
+  baseline?: { vulnerable_screener?: BaselineRun; vulnerable_screener_extra?: BaselineRun; resumeshield?: { skipped?: string } };
 }
 
 // ---------------------------------------------------------------- workflow (P3)
