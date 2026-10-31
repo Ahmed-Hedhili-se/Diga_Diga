@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field, conlist
@@ -125,6 +126,52 @@ def shortlist(job_id: str, body: ShortlistIn, user: UserOut = Depends(RM)):
         payload={"job_id": job_id, "candidate_ids": body.candidate_ids, "scores": scores},
         created_by=user.id,
         diff={"before": {"status": "proposed"}, "after": {"status": "committed", "candidate_ids": body.candidate_ids}},
+    )
+
+
+class StatusIn(BaseModel):
+    status_to: Literal["shortlisted", "interview", "offer", "hired", "rejected", "withdrawn"]
+
+
+def _hiring_status(conn, candidate_id: str) -> str:
+    """Latest executed status change (P3's table); 'applied' before any."""
+    try:
+        r = conn.execute("SELECT status_to FROM workflow_status_changes WHERE object_type='candidate' "
+                         "AND object_id=? ORDER BY at DESC LIMIT 1", (candidate_id,)).fetchone()
+    except sqlite3.OperationalError:
+        return "applied"
+    return r["status_to"] if r else "applied"
+
+
+@router.post("/jobs/{job_id}/candidates/{candidate_id}/status")
+def change_status(job_id: str, candidate_id: str, body: StatusIn, user: UserOut = Depends(RM)):
+    """Proposes a hiring status change; nothing changes until a human approves it (P3 handoff H4)."""
+    _job_or_404(job_id)
+    conn = connect()
+    try:
+        try:
+            found = conn.execute("SELECT 1 FROM candidates WHERE candidate_id=? AND job_id=?",
+                                 (candidate_id, job_id)).fetchone()
+        except sqlite3.OperationalError:
+            found = None
+        if not found:
+            raise HTTPException(404, "unknown candidate for this job")
+        status_from = _hiring_status(conn, candidate_id)
+    finally:
+        conn.close()
+    if status_from == body.status_to:
+        raise HTTPException(409, f"candidate is already {status_from}")
+    try:
+        from ..workflow.approvals import create_item  # P3
+    except ImportError:
+        raise HTTPException(501, "workflow.approvals not available yet")
+    return create_item(
+        kind=ApprovalKind.status_change,
+        title=f"{candidate_id}: {status_from} -> {body.status_to} ({job_id})",
+        payload={"object_type": "candidate", "object_id": candidate_id, "job_id": job_id,
+                 "status_from": status_from, "status_to": body.status_to},
+        created_by=user.id,
+        diff={"before": {"status": status_from}, "after": {"status": body.status_to}},
     )
 
 

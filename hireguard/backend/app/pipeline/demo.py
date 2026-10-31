@@ -107,7 +107,7 @@ def render_cv(cv: dict) -> bytes:
     doc = fitz.open()
     page = doc.new_page(width=595, height=842)
     kw = {"fontname": "hgfont", "fontfile": str(fonts.require_unicode_font())}  # raises FontNotFound, no helv fallback
-    y = 60
+    y, ar_box = 60, None
     for i, line in enumerate(_lines(cv)):
         size = 16 if i == 0 else (12 if line in HEAD[cv["lang"]] else 10)
         if line:

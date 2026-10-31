@@ -9,6 +9,8 @@ from app.scoring import money, routes
 try:  # register P3's tables (audit/approvals) before init_db when they exist
     import app.workflow.approvals  # noqa: F401
     import app.workflow.audit  # noqa: F401
+    import app.workflow.executor  # noqa: F401
+    import app.pipeline.service  # noqa: F401  (candidates table)
 except ImportError:
     pass
 
@@ -79,3 +81,31 @@ def test_shortlist_requires_scores(client):
 def test_eval_summary_not_run_or_present(client):
     login(client, "u-hrm")
     assert client.get("/api/eval/summary").status_code == 200
+
+
+def test_status_change_is_an_approval_item_until_executed(client):
+    """P3 handoff H4: object_type=candidate, object_id, status_to; nothing changes before approval."""
+    from app.workflow import executor
+    from app.contracts import Role, UserOut
+    conn = db.connect()
+    conn.execute("INSERT INTO candidates VALUES ('CAND-001','A','a@t','JOB-DATA-01','ok','D1','2026-10-31')")
+    conn.close()
+    h = login(client, "u-rec")
+    url = "/api/jobs/JOB-DATA-01/candidates/{}/status"
+    assert client.post(url.format("CAND-404"), json={"status_to": "rejected"}, headers=h).status_code == 404
+    assert client.post("/api/jobs/JOB-FS-02/candidates/CAND-001/status", json={"status_to": "rejected"},
+                       headers=h).status_code == 404  # right candidate, wrong job
+    assert client.post(url.format("CAND-001"), json={"status_to": "applied"}, headers=h).status_code == 422
+    item = client.post(url.format("CAND-001"), json={"status_to": "rejected"}, headers=h).json()
+    assert item["kind"] == "status_change" and item["status"] == "pending"
+    assert {"object_type": "candidate", "object_id": "CAND-001", "status_to": "rejected",
+            "status_from": "applied"}.items() <= item["payload"].items()
+    conn = db.connect()
+    assert routes._hiring_status(conn, "CAND-001") == "applied"  # proposed only
+    conn.execute("UPDATE approval_items SET status='approved' WHERE id=?", (item["id"],))
+    conn.close()
+    executor.run(item["id"], UserOut(id="u-hrm", email="u-hrm@t", display_name="u", role=Role.hr_manager))
+    conn = db.connect()
+    assert routes._hiring_status(conn, "CAND-001") == "rejected"
+    conn.close()
+    assert client.post(url.format("CAND-001"), json={"status_to": "rejected"}, headers=h).status_code == 409
