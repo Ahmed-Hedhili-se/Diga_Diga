@@ -16,6 +16,7 @@ ALLOWED_SLOTS = {
     "slot_1", "slot_2", "slot_3", "slot_label",
     "employee_name", "position", "department", "hire_date", "monthly_salary_tnd",
     "leave_start", "leave_end", "leave_days", "issue_date", "document_ref",
+    "topic_label", "reply_label",
 }
 
 

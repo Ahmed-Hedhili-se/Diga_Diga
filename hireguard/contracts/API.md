@@ -73,6 +73,9 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET | `/interviews/reminders` | M | manager reminder list |
 | POST | `/inbox/{id}/release-request` | M | creates a `held_email_release` approval item |
 | POST | `/audit/anchor` | A | anchor the chain head now |
+| POST | `/employee-questions` | E | `{topic: leave\|salary\|certificate\|contract\|other, text ≤2000}` → ticket `{id, topic, risk, status}` (no text echoed) |
+| GET | `/employee-questions`, `/employee-questions/{id}` | E (own) M (all) | question rows; another employee's id → 404 |
+| POST | `/employee-questions/{id}/reply` | M | `{template: received\|contact_hr\|use_documents, lang}` → `ApprovalItem` (`email_send` to the employee's own account) |
 | GET | `/followups/preview?days=3` | R M | → `[{candidate_id, job_id, lang, last_sent_at, days_silent}]`, creates nothing |
 | POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends |
 
