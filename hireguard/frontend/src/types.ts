@@ -429,3 +429,21 @@ export interface ErpApplicant {
   stage: string | null;
   imported: boolean;
 }
+
+// ---------------------------------------------------------------- talent pool and offer fit (mnasri)
+
+export type WorkMode = "onsite" | "hybrid" | "remote";
+export interface Conditions { salary_min: number; salary_max?: number; notice_weeks?: number; work_modes: WorkMode[] }
+export interface RediscoverView {
+  job_id: string;
+  pool_days: number;
+  candidates: { candidate_id: string; name: string; source_job_id: string; total: number; needs_human: boolean;
+    consent_expires_at: string; matched_skills: string[] }[];
+}
+type FitStatus = "fit" | "negotiable" | "mismatch" | "unknown";
+export interface OfferFitView {
+  job_id: string;
+  terms: { pay_band_tnd_month: [number, number]; work_mode: WorkMode; location: string; start_by: string; contract: string };
+  band_coverage: { k: number; declared: number; within_band: number };
+  candidates: Record<string, { status: FitStatus; checks: { check: string; status: FitStatus; detail: string }[] }>;
+}

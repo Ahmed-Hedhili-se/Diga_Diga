@@ -5,6 +5,7 @@ import { api, errMsg } from "../api";
 import { usePermission } from "../auth";
 import EvidenceText, { pageOfOffset } from "../components/EvidenceText";
 import PdfViewer from "../components/PdfViewer";
+import { OfferFit, TalentPool } from "./TalentAndOffers";
 import {
   Badge, ConfirmButton, Empty, ErrorBox, fmtDate, fmtNum, Loading, Modal, PageHeader, useLoad,
 } from "../components/ui";
@@ -359,6 +360,13 @@ export default function Candidates() {
           {selected ? <CandidatePanel id={selected} /> : <Empty>Select a candidate to see the evidence.</Empty>}
         </section>
       </div>
+
+      {jobId && (
+        <div className="split">
+          <TalentPool jobId={jobId} />
+          <OfferFit jobId={jobId} selected={selected} />
+        </div>
+      )}
 
       {panel === "upload" && job && (
         <UploadCv
