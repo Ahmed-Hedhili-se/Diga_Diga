@@ -29,7 +29,7 @@ Last update: 2026-10-31 · branch `hedhili` · backend tests: 187 passed + 1 exp
 | Task | What | Status |
 |---|---|---|
 | T1 | `severity` on hidden findings (H1) + detection check script | **done** |
-| T2 | Portable font lookup for the demo PDFs | todo |
+| T2 | Portable font lookup for the demo PDFs | **done** |
 | T3 | Answer Desk: BM25 search, personal-question router, route (H2) | todo |
 | T4 | Offline email mode `HG_EXTRACT_MODE=ground_truth` (H11) | todo |
 | T5 | `support: listed_only / dated_experience` on skills | todo |
@@ -44,3 +44,4 @@ Last update: 2026-10-31 · branch `hedhili` · backend tests: 187 passed + 1 exp
 
 - **2026-10-31 · Step 0**: baseline run, 187 passed + 1 expected failure. Created this file.
 - **2026-10-31 · T1**: `HiddenFinding.severity`; the sanitizer now emits separate findings for real invisible characters (high), tag characters (high) and undecodable glyphs (low). 8 tests in `tests/test_severity.py`, including P3's `count_high_findings` (low-only gives 0). `scripts/check_detection.py`: **attacks with a high finding 38/40, clean twins with a high finding 0/40**. The 2 misses (ATK-005, ATK-023, channel `under_image`, Arabic payloads) are a flaw in the generated test PDFs, not in the sanitizer: see R1. H1 closed in `person3.md`.
+- **2026-10-31 · T2**: `pipeline/fonts.py` (`find_unicode_font`, `require_unicode_font`, `FontNotFound`): Arial on Windows, DejaVu Sans on Linux, Arial Unicode on macOS. `pipeline/demo.py` uses it and now raises a clear error instead of silently falling back to the built-in `helv` font (no Arabic glyphs). 6 tests in `tests/test_fonts.py`. Linux install hint: `apt install fonts-dejavu-core`.

@@ -10,20 +10,19 @@ from __future__ import annotations
 
 import json
 import logging
-from pathlib import Path
 
 import fitz
 import httpx
 
 from .. import config
 from ..contracts import CVExtraction
+from . import fonts
 from .esco import label_patterns, load_esco
 from .sanitizer import sanitize
 from .textnorm import fold_with_map
 
 log = logging.getLogger("hireguard.demo")
 
-FONT = Path(r"C:\Windows\Fonts\arial.ttf")
 JOB = "JOB-DATA-01"
 
 # exp: (start, end|None, title, employer, [esco ids], description)
@@ -107,7 +106,7 @@ def _lines(cv: dict) -> list[str]:
 def render_cv(cv: dict) -> bytes:
     doc = fitz.open()
     page = doc.new_page(width=595, height=842)
-    kw = {"fontname": "arial", "fontfile": str(FONT)} if FONT.exists() else {"fontname": "helv"}
+    kw = {"fontname": "hgfont", "fontfile": str(fonts.require_unicode_font())}  # raises FontNotFound, no helv fallback
     y = 60
     for i, line in enumerate(_lines(cv)):
         size = 16 if i == 0 else (12 if line in HEAD[cv["lang"]] else 10)
