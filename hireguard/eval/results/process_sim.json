@@ -1,0 +1,93 @@
+{
+ "source": "simulation",
+ "label": "Simulated history with made-up parameters. Shows the panel; measures no real company.",
+ "params": {
+  "stages": {
+   "shortlisted": {
+    "median_days": 6.0,
+    "share": 0.35
+   },
+   "invited": {
+    "median_days": 3.0,
+    "share": 0.85
+   },
+   "interviewed": {
+    "median_days": 5.0,
+    "share": 0.9
+   },
+   "offer_sent": {
+    "median_days": 9.0,
+    "share": 0.45
+   }
+  },
+  "spread_sigma": 0.6,
+  "files": 150,
+  "days": 60,
+  "seed": 5
+ },
+ "generated_at": "2026-10-31T22:18:49+00:00",
+ "files": 150,
+ "reached": {
+  "received": 150,
+  "shortlisted": 50,
+  "invited": 41,
+  "interviewed": 30,
+  "offer_sent": 10
+ },
+ "closed": 119,
+ "transitions": [
+  {
+   "from": "received",
+   "to": "shortlisted",
+   "n": 50,
+   "median_days": 5.5,
+   "p95_days": 12.6
+  },
+  {
+   "from": "shortlisted",
+   "to": "invited",
+   "n": 41,
+   "median_days": 2.9,
+   "p95_days": 7.4
+  },
+  {
+   "from": "invited",
+   "to": "interviewed",
+   "n": 30,
+   "median_days": 4.5,
+   "p95_days": 13.7
+  },
+  {
+   "from": "interviewed",
+   "to": "offer_sent",
+   "n": 10,
+   "median_days": 8.0,
+   "p95_days": 8.4
+  }
+ ],
+ "bottleneck": {
+  "from": "interviewed",
+  "to": "offer_sent",
+  "n": 10,
+  "median_days": 8.0,
+  "p95_days": 8.4
+ },
+ "time_to_offer": {
+  "n": 10,
+  "median_days": 20.4,
+  "p95_days": 32.7
+ },
+ "wip": {
+  "received": 8,
+  "shortlisted": 3,
+  "invited": 7,
+  "interviewed": 3
+ },
+ "littles_law": {
+  "window_days": 59.1,
+  "arrivals_per_day": 2.54,
+  "mean_days_in_pipeline": 6.9,
+  "expected_in_progress": 17.6,
+  "observed_in_progress": 21
+ }
+}

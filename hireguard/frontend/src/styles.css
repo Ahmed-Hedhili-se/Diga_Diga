@@ -91,6 +91,8 @@ a { color: var(--primary); }
 .nav { padding: 8px 10px; border-radius: 8px; color: var(--text); text-decoration: none; }
 .nav:hover { background: var(--surface-2); }
 .nav.active { background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+.nav-group { margin: 12px 10px 2px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.nav-group:first-child { margin-top: 0; }
 .who { border-top: 1px solid var(--border); padding: 12px 8px 0; display: flex; flex-direction: column; gap: 6px; }
 .who-name { font-weight: 600; font-size: 13px; }
 .content { padding: 24px 28px 48px; min-width: 0; max-width: 1400px; }

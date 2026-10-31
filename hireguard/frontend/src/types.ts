@@ -269,3 +269,109 @@ export interface EmployeeDocument {
   requested_at?: string;
   released_at?: string | null;
 }
+
+// ---------------------------------------------------------------- fast-track: offer fit, follow-ups, talent pool
+
+export type FitStatus = "fit" | "negotiable" | "mismatch" | "unknown";
+
+export interface OfferTerms {
+  job_id: string;
+  pay_band_tnd_month: [number, number];
+  work_mode: "onsite" | "hybrid" | "remote";
+  location: string;
+  start_by: string;
+  contract: string;
+  commitments: string[];
+}
+
+export interface OfferFit {
+  status: FitStatus;
+  checks: { check: string; status: FitStatus; detail: string }[];
+}
+
+export interface OfferFitView {
+  job_id: string;
+  terms: OfferTerms;
+  band_coverage: { k: number; declared: number; within_band: number; share: number | null; band: [number, number] };
+  candidates: Record<string, OfferFit>;
+}
+
+export interface FollowupRow {
+  candidate_id: string;
+  name: string;
+  job_id: string;
+  last_sent_at: string;
+  last_subject: string;
+  lang: string;
+  business_days_waiting: number;
+  reminders_sent: number;
+  reminder_pending: boolean;
+  can_remind: boolean;
+}
+
+export interface FollowupsView {
+  days: number;
+  max_reminders: number;
+  candidates: FollowupRow[];
+}
+
+export interface PoolRow {
+  candidate_id: string;
+  name: string;
+  source_job_id: string;
+  total: number;
+  needs_human: boolean;
+  consent_expires_at: string;
+  matched_skills: string[];
+}
+
+export interface RediscoverView {
+  job_id: string;
+  pool_days: number;
+  candidates: PoolRow[];
+}
+
+// ---------------------------------------------------------------- HR Nexus (Team module): aggregates only
+
+export interface TeamSkills {
+  job_id: string;
+  team: string;
+  team_size: number;
+  coverage: { esco_id: string; label: string; holders: number; verified_holders: number; status: "gap" | "single_holder" | "covered" }[];
+}
+
+export interface StageSummary {
+  n: number;
+  median_days: number | null;
+  p95_days: number | null;
+}
+
+export interface ProcessView {
+  source: "live" | "simulation";
+  status?: "not_run";
+  label?: string;
+  generated_at?: string;
+  files?: number;
+  reached?: Record<string, number>;
+  closed?: number;
+  transitions?: ({ from: string; to: string } & StageSummary)[];
+  bottleneck?: ({ from: string; to: string } & StageSummary) | null;
+  time_to_offer?: StageSummary;
+  wip?: Record<string, number>;
+  littles_law?: {
+    window_days: number;
+    arrivals_per_day: number;
+    mean_days_in_pipeline: number;
+    expected_in_progress: number;
+    observed_in_progress: number;
+  } | null;
+}
+
+export interface KnowledgeGaps {
+  k: number;
+  since_week: string;
+  questions: number | null;
+  no_match: { count: number | null; share: number | null };
+  sections: { section: string; count: number | null; suppressed: boolean }[];
+  weeks: { week: string; questions: number | null; no_match: number | null; no_match_share: number | null }[];
+}

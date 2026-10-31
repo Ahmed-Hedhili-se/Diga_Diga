@@ -1,6 +1,11 @@
 # HireGuard
 
-Secure AI HR system: SUP'COM hackathon.
+Secure AI HR system: SUP'COM hackathon. One platform, two modules on one trust core:
+
+- **Recruit (HireGuard):** HR and candidates. Screening with evidence, inbox triage, replies, interviews, and a fast-track to the offer.
+- **Team (HR Nexus):** HR and staff. Team skills map, HR process metrics, Answer Desk knowledge gaps, self-service documents. Aggregates only, never individual scores.
+
+Architecture, data boundaries, permissions, risk register and references: [docs/architecture.md](docs/architecture.md). Team assignments: [../persons/README.md](../persons/README.md).
 
 > **The AI reads, code decides, humans approve.**
 > Whatever reads stranger text cannot act; whatever can act never reads stranger text.
@@ -36,6 +41,7 @@ Contracts: [contracts/API.md](contracts/API.md) and [backend/app/contracts.py](b
 
 ## Sections
 
+- Architecture and data boundaries: [docs/architecture.md](docs/architecture.md) (Ahmed)
 - Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1)
 - Threat model (OWASP LLM Top 10 2025 + web): [docs/threat_model.md](docs/threat_model.md) (P3)
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)
@@ -50,8 +56,27 @@ Code that checks the system *and* the humans around it. Nothing here makes a dec
 - **Team-aware rubric** (`GET /jobs/{id}/team-gaps`): skills the role's team lacks or holds in one person become a *proposed* rubric. An HR manager applies it through the normal, audited rubric edit.
 - **Attention guard** (`GET /approvals/attention`): canary misses by batch size. After missed canaries, routine batches shrink and bulk approval is capped (EU AI Act Art. 14(4)(b), automation bias).
 
+## Fast-track (Recruit)
+
+Hiring is slow at the end, not the start: salary mismatches found after the interviews, candidates who go quiet, offers waiting for paperwork. Each feature is code, and every outgoing message is an approval item.
+
+- **Offer fit** (`GET /jobs/{id}/offer-fit`): each candidate's own declared conditions (salary range, notice period, work mode, commitments) checked against the job's published terms, plus a job-level *band coverage* ("the band covers 1 of 2 declared expectations in your top 2"). Shown beside the ranking, never inside it. This replaces an "acceptance probability" model, whose best predictors (pay history, commute, family situation) are proxies we refuse to use.
+- **Offer letter** (`POST /candidates/{id}/offer`, HR manager): salary set by HR inside the published band (EU Pay Transparency Directive 2023/970), drafted from a template, approved by 2 HR managers who are not the author.
+- **Follow-ups** (`GET /followups`, Inbox → Awaiting reply): candidates silent for 3+ business days after our email get a template reminder in the approval queue; at most 2.
+- **Talent-pool rediscovery** (`GET /jobs/{id}/rediscover`): past applicants who opted in, re-scored with the new job's rubric; consent expires after 2 years and can be withdrawn.
+
+## HR Nexus (Team)
+
+Team insights page (HR manager, admin). Measures processes, declared skills and handbook coverage, never people.
+
+- **Skills map** (`GET /team/skills`): holder counts per needed skill (gap, single holder, covered). Gaps feed the team-aware rubric proposal.
+- **HR process** (`GET /team/process`): median and p95 days per hiring step from the audit log, bottleneck step, Little's law. A fresh demo has no history, so `eval/process_sim.py` provides a **labelled** simulation.
+- **Knowledge gaps** (`GET /team/knowledge-gaps`): which handbook sections employees ask about, and the share with no match; only (section, week, language) is logged; cells under 5 are hidden.
+
 ## Known limits
 
 - Candidate portal (magic link) is on the roadmap; the demo uses pre-verified candidate addresses.
 - The interview loop closer is built but not demoed.
+- The Answer Desk endpoint still returns 501; the knowledge-gap radar shows fictional seed data until it calls `knowledge_gaps.record()`.
+- Model-mode numbers (attacks through the LLM, extraction F1, LLM load test) are TBD; the published figures are oracle (code-path) results.
 - The demo uses SQLite with triggers for the audit log; production uses a Postgres role restricted to INSERT/SELECT.

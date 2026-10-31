@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { Fragment, ReactElement } from "react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { hasRole, ROLE_LABEL, useAuth } from "./auth";
 import type { Role } from "./types";
@@ -12,26 +12,30 @@ import Money from "./pages/Money";
 import Scorecard from "./pages/Scorecard";
 import EmployeeDocs from "./pages/EmployeeDocs";
 import Users from "./pages/Users";
+import Team from "./pages/Team";
 
 interface NavEntry {
   path: string;
   label: string;
+  group: "Recruit" | "Team" | "Oversight" | "Admin";
   roles: Role[];
   element: ReactElement;
 }
 
 const R: Role = "recruiter", M: Role = "hr_manager", E: Role = "employee", A: Role = "admin";
 
+// Two modules on one trust core: Recruit (HireGuard, HR <-> candidates) and Team (HR Nexus, HR <-> staff)
 const NAV: NavEntry[] = [
-  { path: "/candidates", label: "Candidates", roles: [R, M], element: <Candidates /> },
-  { path: "/approvals", label: "Approvals", roles: [R, M], element: <Approvals /> },
-  { path: "/inbox", label: "Inbox", roles: [R, M], element: <Inbox /> },
-  { path: "/security", label: "Security Center", roles: [M, A], element: <SecurityCenter /> },
-  { path: "/money", label: "Money", roles: [M, A], element: <Money /> },
-  { path: "/answer-desk", label: "Answer Desk", roles: [E, M], element: <AnswerDesk /> },
-  { path: "/documents", label: "My documents", roles: [E], element: <EmployeeDocs /> },
-  { path: "/scorecard", label: "Interview scorecard", roles: [R, M], element: <Scorecard /> },
-  { path: "/users", label: "Users", roles: [A], element: <Users /> },
+  { path: "/candidates", label: "Candidates", group: "Recruit", roles: [R, M], element: <Candidates /> },
+  { path: "/inbox", label: "Inbox", group: "Recruit", roles: [R, M], element: <Inbox /> },
+  { path: "/approvals", label: "Approvals", group: "Recruit", roles: [R, M], element: <Approvals /> },
+  { path: "/scorecard", label: "Interview scorecard", group: "Recruit", roles: [R, M], element: <Scorecard /> },
+  { path: "/team", label: "Team insights", group: "Team", roles: [M, A], element: <Team /> },
+  { path: "/answer-desk", label: "Answer Desk", group: "Team", roles: [E, M], element: <AnswerDesk /> },
+  { path: "/documents", label: "My documents", group: "Team", roles: [E], element: <EmployeeDocs /> },
+  { path: "/security", label: "Security Center", group: "Oversight", roles: [M, A], element: <SecurityCenter /> },
+  { path: "/money", label: "Money", group: "Oversight", roles: [M, A], element: <Money /> },
+  { path: "/users", label: "Users", group: "Admin", roles: [A], element: <Users /> },
 ];
 
 export default function App() {
@@ -50,10 +54,13 @@ export default function App() {
           <span>HireGuard</span>
         </div>
         <nav>
-          {mine.map((n) => (
-            <NavLink key={n.path} to={n.path} className={({ isActive }) => (isActive ? "nav active" : "nav")}>
-              {n.label}
-            </NavLink>
+          {mine.map((n, i) => (
+            <Fragment key={n.path}>
+              {n.group !== mine[i - 1]?.group && <div className="nav-group">{n.group}</div>}
+              <NavLink to={n.path} className={({ isActive }) => (isActive ? "nav active" : "nav")}>
+                {n.label}
+              </NavLink>
+            </Fragment>
           ))}
         </nav>
         <div className="who">

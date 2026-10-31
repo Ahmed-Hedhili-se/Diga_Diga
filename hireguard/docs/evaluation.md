@@ -14,6 +14,8 @@ $py = "backend\.venv\Scripts\python.exe"
 & $py eval\gen_twins.py                   # 10 base CVs x up to 10 counterfactual variants (eval/corpus/twins/)
 & $py eval\harness.py                     # -> eval/results/summary.json, served at GET /api/eval/summary
 & $py eval\fairness.py                    # -> eval/results/fairness.json, served at GET /api/eval/fairness
+& $py eval\load_test.py --n 300           # -> eval/results/load_test.json (oracle; --extraction llm on a GPU laptop)
+& $py eval\process_sim.py                 # -> eval/results/process_sim.json: LABELLED simulation for GET /api/team/process
 ```
 
 `--extraction auto|llm|oracle` (default `auto`: the LLM when reachable, otherwise the oracle). In `llm` mode the harness **refuses to run** when the model is unreachable. A dead model would make every attacked/twin pair fail the same way and report a fake 0/40.
@@ -83,6 +85,23 @@ How to read this:
 ## Shortlist stability (U1), team-aware rubric, attention guard (U3)
 
 These are product features with unit tests (`backend/tests/test_trust_analytics.py`), not eval metrics. See `contracts/API.md`: `/jobs/{id}/stability`, `/jobs/{id}/team-gaps`, `/approvals/attention`.
+
+## Load test ("reliable on real volumes")
+
+`python eval/load_test.py --n 300` runs 300 fictional CVs (the 200 ground-truth CVs, the 40 attack PDFs and 60 twins) through `process_cv` on a temporary database: sanitize, detect, extract, validate, score, persist, audit.
+
+| Mode (31 Oct) | CVs | Errors | Status | Latency per CV | Throughput |
+|---|---|---|---|---|---|
+| oracle (code path and DB, no model) | 300 | 0 | 300 ok | p50 36 ms, p95 45 ms, max 55 ms | about 1,600 CVs/min |
+| llm (Qwen3-8B via Ollama) | TBD | TBD | TBD | TBD | TBD: run on a GPU laptop; the model dominates latency |
+
+The oracle row shows that the code and database are not the bottleneck. It says nothing about the model.
+
+## HR process metrics (HR Nexus)
+
+`GET /api/team/process` times each hiring step from the audit log (received → shortlisted → invited → interviewed → offer sent). It reports per stage only: count, median, p95, the bottleneck step and Little's law (L = λW).
+
+A fresh demo database has no history. `python eval/process_sim.py` therefore writes a **labelled simulation** with made-up stage delays and conversion rates (`eval/results/process_sim.json`); it shows what the panel reports and measures no real company. Replace its parameters with HR interview figures when they exist.
 
 ## Known limits
 
