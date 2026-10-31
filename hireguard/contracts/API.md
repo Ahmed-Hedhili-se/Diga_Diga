@@ -47,7 +47,8 @@ route needs; `tests/test_rbac.py` fails if a route is missing from it or guarded
 | POST | `/answer-desk/ask` | E M | `{question}` (3 to 1000 chars) → one of `{kind:"extract", extracts:[{text, section, section_id, page}]}` (exact handbook paragraphs, best first) · `{kind:"routed", ticket_id, topic}` (personal question, now in the HR queue) · `{kind:"ask_hr", message}` (nothing relevant in the handbook; offer to send it to HR) |
 
 ```
-CandidateRow    = {candidate_id, name, email, job_id, status, score: ScoreOutput|null, flags: int, hidden: int}
+CandidateRow    = {candidate_id, name, email, job_id, status, score: ScoreOutput|null, flags: int, hidden: int,
+                   extraction: "llm"|"none"|"ground_truth"}   # ground_truth = offline demo seed, NOT a model run
 CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_findings: HiddenFinding[]}
 ```
 

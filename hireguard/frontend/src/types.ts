@@ -94,6 +94,8 @@ export interface CandidateRow {
   score: ScoreOutput | null;
   flags: number;
   hidden: number;
+  /** llm = live model, ground_truth = offline demo seed (never present it as a model result), none = failed */
+  extraction?: "llm" | "none" | "ground_truth";
 }
 
 export interface CandidateDetail extends CandidateRow {

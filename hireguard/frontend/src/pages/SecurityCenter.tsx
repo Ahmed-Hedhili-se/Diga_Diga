@@ -337,7 +337,7 @@ function Vigilance() {
       </p>
       <ErrorBox error={st.error} />
       <Loading show={st.loading} />
-      {!st.loading && !st.data?.length && <Empty>No decisions recorded yet.</Empty>}
+      {!st.loading && !st.error && !st.data?.length && <Empty>No decisions recorded yet.</Empty>}
       {!!st.data?.length && (
         <table className="table">
           <thead>
@@ -453,7 +453,7 @@ function Audit() {
             </tbody>
           </table>
         </div>
-        {!log.loading && !log.data?.length && <Empty>No audit entries yet.</Empty>}
+        {!log.loading && !log.error && !log.data?.length && <Empty>No audit entries yet.</Empty>}
       </div>
     </>
   );

@@ -38,7 +38,7 @@ export default function EmployeeQuestions() {
         </div>
       )}
       <Loading show={qs.loading} />
-      {!qs.loading && !qs.data?.length && <Empty>No employee questions yet. They appear here when an employee asks HR.</Empty>}
+      {!qs.loading && !qs.error && !qs.data?.length && <Empty>No employee questions yet. They appear here when an employee asks HR.</Empty>}
       <div className="stack">
         {(qs.data ?? []).map((q) => (
           <QuestionCard

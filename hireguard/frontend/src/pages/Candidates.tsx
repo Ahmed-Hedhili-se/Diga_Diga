@@ -224,6 +224,16 @@ export default function Candidates() {
                 Skills this role's team needs but nobody (gap) or only one person (single holder) holds. A proposal
                 only: nothing changes until an HR manager applies it, and the change is audited.
               </div>
+              <div className="muted small">
+                Team-level counts only, no names · team of {gaps.data.team_size} · source: team skills roster
+                (fictional demo data), current snapshot.
+              </div>
+              {gaps.data.team_size < 5 && (
+                <div className="small text-warn" role="note">
+                  Small team (under 5 people): a count of 1 can point to a specific colleague. Treat it as a staffing
+                  signal, never as information about a person.
+                </div>
+              )}
             </div>
             {canEditRubric && (
               <button className="btn primary small" onClick={applyTeamWeights}>
@@ -271,7 +281,7 @@ export default function Candidates() {
             )}
           </div>
           <Loading show={rows.loading} rows={6} />
-          {!rows.loading && !rows.data?.length && (
+          {!rows.loading && !rows.error && !rows.data?.length && (
             <Empty>No candidates for this job yet.{canUpload ? " Upload a CV to start." : ""}</Empty>
           )}
           {!!rows.data?.length && (
@@ -316,6 +326,11 @@ export default function Candidates() {
                         <div className="badges">
                           {r.score?.status === "committed" ? <Badge tone="ok">committed</Badge> : <Badge>proposed</Badge>}
                           {r.score?.needs_human && <Badge tone="warn">needs human</Badge>}
+                          {r.extraction === "ground_truth" && (
+                            <span title="Fields from the demo's labelled data, not from a model run">
+                              <Badge tone="warn">offline extraction</Badge>
+                            </span>
+                          )}
                           {r.hidden > 0 && <Badge tone="danger">{r.hidden} hidden</Badge>}
                           {r.flags > 0 && <Badge tone="danger">{r.flags} injection flags</Badge>}
                           {stabBy.get(r.candidate_id)?.label === "borderline" && (
@@ -726,10 +741,30 @@ function CandidatePanel({ id }: { id: string }) {
             </div>
           </div>
 
+          <p className="muted small" role="note">
+            Score <strong>{d.score?.status === "committed" ? "committed by an approver" : "proposed"}</strong>:
+            computed by code from the validated fields below. No AI decides; a person approves the shortlist.
+          </p>
+          {d.extraction === "ground_truth" && (
+            <div className="alert warn">
+              Offline demo extraction: these fields come from the demo's labelled data, not from a model run.
+            </div>
+          )}
+          {d.extraction === "none" && (
+            <div className="alert warn">The model returned nothing usable for this CV: a person must review it.</div>
+          )}
           {(highFindings > 0 || d.validated.injection_flags.length > 0) && (
             <div className="alert danger">
-              {highFindings} hidden item(s) and {d.validated.injection_flags.length} injection flag(s) were detected.
-              They were stripped before extraction and did not change the score.{" "}
+              {highFindings > 0 && (
+                <>{highFindings} hidden item(s) were found and removed before the model read the CV. </>
+              )}
+              {d.validated.injection_flags.length > 0 && (
+                <>
+                  {d.validated.injection_flags.length} instruction-like passage(s) were flagged. Visible text is still
+                  read by the model, which can only return typed fields that are checked against the CV.{" "}
+                </>
+              )}
+              Flags never change the score; review the highlighted evidence before approving.{" "}
               {canSecurity && <Link to="/security">Open Security Center</Link>}
             </div>
           )}
