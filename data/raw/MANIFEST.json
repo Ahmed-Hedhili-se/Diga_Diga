@@ -1,0 +1,116 @@
+{
+  "anthropic_ei/onet_task_mappings.csv": {
+    "bytes": 461306,
+    "retrieved": "2026-10-31",
+    "sha256": "8de89c99f762146c9e46b2202c3501e2a14f11c5b44c61c8007021127b6c676e",
+    "url": "https://huggingface.co/datasets/Anthropic/EconomicIndex/resolve/main/release_2025_02_10/onet_task_mappings.csv"
+  },
+  "gss/2002_stata.zip": {
+    "bytes": 1143746,
+    "retrieved": "2026-10-31",
+    "sha256": "f8cd65c5e39036470e242231642b6829ebec8694d1bd2263701e07d8dd079d91",
+    "url": "https://gss.norc.org/content/dam/gss/get-the-data/documents/stata/2002_stata.zip"
+  },
+  "gss/2006_stata.zip": {
+    "bytes": 1812091,
+    "retrieved": "2026-10-31",
+    "sha256": "8eb3f87a40b29d3d8d25298c28b8e70f70b1c7f2e76cc08d36aa8c812b98fb41",
+    "url": "https://gss.norc.org/content/dam/gss/get-the-data/documents/stata/2006_stata.zip"
+  },
+  "gss/2010_stata.zip": {
+    "bytes": 875472,
+    "retrieved": "2026-10-31",
+    "sha256": "df10cad3986178c044b41d782c5984d039c649d9065fde96b063fdebf20f9355",
+    "url": "https://gss.norc.org/content/dam/gss/get-the-data/documents/stata/2010_stata.zip"
+  },
+  "gss/2014_stata.zip": {
+    "bytes": 1004411,
+    "retrieved": "2026-10-31",
+    "sha256": "46b7e9897f65ab7d8d6120f40f2eca8954c9e6f32b4421f65e181f34da0aaedc",
+    "url": "https://gss.norc.org/content/dam/gss/get-the-data/documents/stata/2014_stata.zip"
+  },
+  "gss/2018_stata.zip": {
+    "bytes": 1094533,
+    "retrieved": "2026-10-31",
+    "sha256": "541199514cafbcedb9a4bab3e84fc81e61ebc48e6fac31274f653c893eaa9ad8",
+    "url": "https://gss.norc.org/content/dam/gss/get-the-data/documents/stata/2018_stata.zip"
+  },
+  "gss/2022_stata.zip": {
+    "bytes": 6138410,
+    "retrieved": "2026-10-31",
+    "sha256": "ba0bc3255ce59d5351b8e5382c81d9d29ad6275d61cf24f6f027b69ef2e97fd0",
+    "url": "https://gss.norc.org/content/dam/gss/get-the-data/documents/stata/2022_stata.zip"
+  },
+  "ibm_hr/emp_attrition.csv": {
+    "bytes": 227977,
+    "retrieved": "2026-10-31",
+    "sha256": "a5c31e38bd7fafc9bc333884eb181b06b41b8e5e488e8f7ccb27199fb3be7659",
+    "url": "https://raw.githubusercontent.com/IBM/employee-attrition-aif360/master/data/emp_attrition.csv"
+  },
+  "onet/db_31_0_text.zip": {
+    "bytes": 13183034,
+    "retrieved": "2026-10-31",
+    "sha256": "6883548adf5fde64cf6f801b35d15519c9225f2732c3cab0e281c652d16b23a9",
+    "url": "https://www.onetcenter.org/dl_files/database/db_31_0_text.zip"
+  },
+  "snap/email-Eu-core-department-labels.txt.gz": {
+    "bytes": 2663,
+    "retrieved": "2026-10-31",
+    "sha256": "e5abe5b4581a480032a63adcf2576c161785f45692642c6ebb0b1276f0f33669",
+    "url": "https://snap.stanford.edu/data/email-Eu-core-department-labels.txt.gz"
+  },
+  "snap/email-Eu-core-temporal-Dept1.txt.gz": {
+    "bytes": 267719,
+    "retrieved": "2026-10-31",
+    "sha256": "d914eb16d63cf48db86bb197fd939231092013937d04e80c8e0298bd20248fbf",
+    "url": "https://snap.stanford.edu/data/email-Eu-core-temporal-Dept1.txt.gz"
+  },
+  "snap/email-Eu-core-temporal-Dept2.txt.gz": {
+    "bytes": 211430,
+    "retrieved": "2026-10-31",
+    "sha256": "8e8dcdb9049a671f2afcb4bc91ff8ad77423a40612ce8318ef0825aa8b44b53d",
+    "url": "https://snap.stanford.edu/data/email-Eu-core-temporal-Dept2.txt.gz"
+  },
+  "snap/email-Eu-core-temporal-Dept3.txt.gz": {
+    "bytes": 59124,
+    "retrieved": "2026-10-31",
+    "sha256": "b1f92288e855044bbc74bacac39d42b12e59ec2a0130ad8df419786eb46a7bff",
+    "url": "https://snap.stanford.edu/data/email-Eu-core-temporal-Dept3.txt.gz"
+  },
+  "snap/email-Eu-core-temporal-Dept4.txt.gz": {
+    "bytes": 195082,
+    "retrieved": "2026-10-31",
+    "sha256": "82756f2f2811cf94d4d58b89b95e2fbdb6ce9fa516a3701cec4001e0c6c64b6c",
+    "url": "https://snap.stanford.edu/data/email-Eu-core-temporal-Dept4.txt.gz"
+  },
+  "snap/email-Eu-core-temporal.txt.gz": {
+    "bytes": 1683428,
+    "retrieved": "2026-10-31",
+    "sha256": "f6cc93249978e59d1aba111b55ea10ec553917419a3be1210012b5db3580efa6",
+    "url": "https://snap.stanford.edu/data/email-Eu-core-temporal.txt.gz"
+  },
+  "snap/email-Eu-core.txt.gz": {
+    "bytes": 79754,
+    "retrieved": "2026-10-31",
+    "sha256": "4b47acdb80197b085fe63c819c357ae488131ee904ed93d1b219a68b0f9e245f",
+    "url": "https://snap.stanford.edu/data/email-Eu-core.txt.gz"
+  },
+  "sociopatterns/workplace_InVS15_metadata.txt": {
+    "bytes": 1938,
+    "retrieved": "2026-10-31",
+    "sha256": "e78d9f582975d28f1d151dbb77d7f4479de143d29c372c95c83941d41d0d8b45",
+    "url": "https://sociopatterns.org/assets/data/workplace_InVS15_metadata.txt"
+  },
+  "sociopatterns/workplace_InVS15_tij.dat.gz": {
+    "bytes": 241057,
+    "retrieved": "2026-10-31",
+    "sha256": "339eb090d506d750f38a2c1ac6aca76c00c55b462f9dea325933d8b7bc260871",
+    "url": "https://sociopatterns.org/assets/data/workplace_InVS15_tij.dat.gz"
+  },
+  "uci_absenteeism/absenteeism.zip": {
+    "bytes": 66136,
+    "retrieved": "2026-10-31",
+    "sha256": "89ecdfed5f107bb97015c335b1d812d7ecbe86e601a23b56516967d8657e53c4",
+    "url": "https://archive.ics.uci.edu/static/public/445/absenteeism+at+work.zip"
+  }
+}

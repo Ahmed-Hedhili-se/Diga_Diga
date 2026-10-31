@@ -1,0 +1,11 @@
+department,size,internal_density,ei_index,internal_share,internal_lift,partner_departments,members_with_external_tie,top_bridge_share,people_for_80pct_external,flag_inward,flag_low_reach,flag_single_bridge,flag_silo_candidate
+SRH,9,0.9167,0.5464,0.2268,6.6623,11,1.0,0.1867,6,True,False,False,False
+SSI,9,0.5,0.6697,0.1651,6.4752,11,0.7778,0.1978,5,True,False,False,False
+SCOM,7,0.9048,0.7164,0.1418,4.5225,11,1.0,0.2217,5,True,False,False,False
+DMCT,33,0.4962,-0.0019,0.501,4.0939,11,0.8788,0.0785,19,False,False,False,False
+SFLE,17,0.4338,0.5289,0.2355,4.0186,11,0.7647,0.1253,9,False,False,False,False
+DSE,34,0.5169,-0.0441,0.5221,4.0167,11,0.9412,0.1055,18,False,False,False,False
+DISQ,18,0.902,0.3452,0.3274,3.3198,11,0.9444,0.0864,12,False,False,False,False
+DCAR,15,0.6381,0.5739,0.213,2.8951,11,0.8667,0.1111,10,False,False,False,False
+DST,24,0.7391,0.2688,0.3656,2.8002,11,0.9583,0.0777,15,False,False,False,False
+DMI,60,0.3966,-0.2198,0.6099,2.2648,11,0.95,0.0501,33,False,False,False,False

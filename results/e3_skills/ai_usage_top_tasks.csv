@@ -1,0 +1,17 @@
+,role,task,pct_of_all_conversations
+0,Software Developers,Analyze user needs and software requirements to determine feasibility of design within time and cost constraints.,0.3014944430691457
+1,Software Developers,"Store, retrieve, and manipulate data for analysis of system capabilities and requirements.",0.2872926737110917
+2,Software Developers,"Analyze information to determine, recommend, and plan installation of a new system or modification of an existing system.",0.0534194994202029
+3,Software Quality Assurance Analysts and Testers,"Modify existing software to correct errors, allow it to adapt to new hardware, or to improve its performance.",2.519185417779573
+4,Software Quality Assurance Analysts and Testers,"Perform initial debugging procedures by reviewing configuration files, logs, or code pieces to determine breakdown source.",2.0097458013576373
+5,Software Quality Assurance Analysts and Testers,"Review software documentation to ensure technical accuracy, compliance, or completeness, or to mitigate risks.",0.3369337207332803
+6,Web and Digital Interface Designers,"Design, build, or maintain Web sites, using authoring or scripting languages, content creation tools, management tools, and digital media.",1.1856523042045053
+7,Web and Digital Interface Designers,Write supporting code for Web applications or Web sites.,0.6009042227462834
+8,Web and Digital Interface Designers,"Maintain understanding of current Web technologies or programming practices through continuing education, reading, or participation in professional conferences, workshops, or groups.",0.0935492697163555
+9,Information Security Analysts,Coordinate implementation of computer system plan with establishment personnel and outside vendors.,0.053158916496202
+10,Information Security Analysts,Perform risk assessments and execute tests of data processing system to ensure functioning of data processing activities and security measures.,0.0476866750921812
+11,Information Security Analysts,"Document computer security and emergency measures policies, procedures, and tests.",0.038175398366145
+12,Project Management Specialists,"Identify, review, or select vendors or consultants to meet project needs.",0.0024755377780094
+13,Database Administrators,Modify existing databases and database management systems or direct programmers and analysts to make changes.,0.5502208440280909
+14,Database Administrators,"Test programs or databases, correct errors, and make necessary modifications.",0.2431238680929238
+15,Database Administrators,"Identify, evaluate and recommend hardware or software technologies to achieve desired database performance.",0.0306184935701163

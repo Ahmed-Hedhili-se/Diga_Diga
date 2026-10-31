@@ -1,0 +1,159 @@
+[
+  {
+    "team": "Platform",
+    "period": "2026-W30..W39 (synthetic)",
+    "headcount": 6,
+    "work": {
+      "tasks_in_period": 8,
+      "blocked_tasks": 1
+    },
+    "coordination": {
+      "cross_team_dependencies": 2,
+      "external_share_of_collaboration": 0.468
+    },
+    "capability": {
+      "skills_required_by_tasks": [
+        "Data modelling",
+        "Kubernetes",
+        "Python",
+        "Release mgmt",
+        "Security review",
+        "UX research"
+      ],
+      "single_holder_skills": [
+        "Security review"
+      ],
+      "unheld_skills": []
+    },
+    "provenance": [
+      "HRIS membership",
+      "task tracker (assignment, status, dependency)",
+      "collaboration metadata aggregated weekly, no content"
+    ],
+    "caveats": [
+      "describes work structure, not individual performance",
+      "single-holder status reflects declared/verified skills, which may be incomplete",
+      "collaboration volume is not a measure of value or quality"
+    ],
+    "deliberately_absent": [
+      "individual scores or rankings",
+      "inferred stress, mood or health",
+      "message content"
+    ]
+  },
+  {
+    "team": "Data",
+    "period": "2026-W30..W39 (synthetic)",
+    "headcount": 6,
+    "work": {
+      "tasks_in_period": 9,
+      "blocked_tasks": 0
+    },
+    "coordination": {
+      "cross_team_dependencies": 4,
+      "external_share_of_collaboration": 0.427
+    },
+    "capability": {
+      "skills_required_by_tasks": [
+        "Data modelling",
+        "Python",
+        "SQL",
+        "Security review"
+      ],
+      "single_holder_skills": [
+        "Security review"
+      ],
+      "unheld_skills": []
+    },
+    "provenance": [
+      "HRIS membership",
+      "task tracker (assignment, status, dependency)",
+      "collaboration metadata aggregated weekly, no content"
+    ],
+    "caveats": [
+      "describes work structure, not individual performance",
+      "single-holder status reflects declared/verified skills, which may be incomplete",
+      "collaboration volume is not a measure of value or quality"
+    ],
+    "deliberately_absent": [
+      "individual scores or rankings",
+      "inferred stress, mood or health",
+      "message content"
+    ]
+  },
+  {
+    "team": "Product",
+    "period": "2026-W30..W39 (synthetic)",
+    "headcount": 6,
+    "work": {
+      "tasks_in_period": 6,
+      "blocked_tasks": 0
+    },
+    "coordination": {
+      "cross_team_dependencies": 1,
+      "external_share_of_collaboration": 0.456
+    },
+    "capability": {
+      "skills_required_by_tasks": [
+        "Release mgmt",
+        "Security review",
+        "UX research"
+      ],
+      "single_holder_skills": [
+        "Security review"
+      ],
+      "unheld_skills": []
+    },
+    "provenance": [
+      "HRIS membership",
+      "task tracker (assignment, status, dependency)",
+      "collaboration metadata aggregated weekly, no content"
+    ],
+    "caveats": [
+      "describes work structure, not individual performance",
+      "single-holder status reflects declared/verified skills, which may be incomplete",
+      "collaboration volume is not a measure of value or quality"
+    ],
+    "deliberately_absent": [
+      "individual scores or rankings",
+      "inferred stress, mood or health",
+      "message content"
+    ]
+  },
+  {
+    "team": "Support",
+    "period": "2026-W30..W39 (synthetic)",
+    "headcount": 6,
+    "work": {
+      "tasks_in_period": 3,
+      "blocked_tasks": 1
+    },
+    "coordination": {
+      "cross_team_dependencies": 1,
+      "external_share_of_collaboration": 0.379
+    },
+    "capability": {
+      "skills_required_by_tasks": [
+        "Customer escalation",
+        "SQL"
+      ],
+      "single_holder_skills": [],
+      "unheld_skills": []
+    },
+    "provenance": [
+      "HRIS membership",
+      "task tracker (assignment, status, dependency)",
+      "collaboration metadata aggregated weekly, no content"
+    ],
+    "caveats": [
+      "describes work structure, not individual performance",
+      "single-holder status reflects declared/verified skills, which may be incomplete",
+      "collaboration volume is not a measure of value or quality"
+    ],
+    "deliberately_absent": [
+      "individual scores or rankings",
+      "inferred stress, mood or health",
+      "message content"
+    ]
+  }
+]

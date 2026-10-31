@@ -1,0 +1,15 @@
+,,accuracy,accuracy,macro_f1,macro_f1
+,,mean,std,mean,std
+method,labelled_fraction,,,,
+majority class,0.1,0.095,0.021,0.0049,0.001
+majority class,0.3,0.1044,0.0119,0.0054,0.0006
+majority class,0.5,0.1054,0.0129,0.0055,0.0006
+majority class,0.8,0.1093,0.0173,0.0061,0.001
+neighbour vote,0.1,0.4271,0.0383,0.2889,0.0294
+neighbour vote,0.3,0.6013,0.0195,0.4583,0.0272
+neighbour vote,0.5,0.6572,0.0185,0.5045,0.019
+neighbour vote,0.8,0.7108,0.0399,0.5485,0.036
+spectral + logistic,0.1,0.625,0.0208,0.4244,0.0346
+spectral + logistic,0.3,0.726,0.0118,0.5532,0.0216
+spectral + logistic,0.5,0.7471,0.0142,0.5946,0.0154
+spectral + logistic,0.8,0.7711,0.0363,0.6228,0.0329

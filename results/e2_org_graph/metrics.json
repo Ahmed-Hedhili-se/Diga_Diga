@@ -1,0 +1,559 @@
+{
+  "network": {
+    "people": 1005,
+    "directed_ties": 24929,
+    "isolated_people": 19,
+    "density": 0.024706150522288955,
+    "reciprocity": 0.7112198644149385,
+    "largest_component_share": 0.981094527363184,
+    "departments": 42,
+    "departments_with_at_least_5": 35,
+    "department_assortativity": 0.302441598443072
+  },
+  "concentration": {
+    "degree_gini": 0.5440732001002077,
+    "betweenness_gini": 0.8096835590822595,
+    "top1pct_share_of_betweenness": 0.20033098840366156,
+    "top5pct_share_of_betweenness": 0.49047830145282184,
+    "top5pct_share_of_ties": 0.2288035358565737,
+    "articulation_points": 73,
+    "spearman_degree_vs_betweenness": 0.9126247824864403
+  },
+  "departments": {
+    "reported_departments": 35,
+    "median_internal_lift": 8.381301136414272,
+    "silo_candidates": [
+      2,
+      24,
+      3
+    ],
+    "single_bridge_departments": [
+      2,
+      24,
+      29
+    ],
+    "median_people_for_80pct_external": 8.0,
+    "spearman_size_vs_lift": 0.1702873578599968
+  },
+  "communities_vs_departments_email": {
+    "resolution_sweep": [
+      {
+        "resolution": 0.5,
+        "n_communities": 4,
+        "nmi": 0.41647370502044195,
+        "ari": 0.1252575763417298
+      },
+      {
+        "resolution": 1,
+        "n_communities": 7,
+        "nmi": 0.555456286301024,
+        "ari": 0.2882193423964572
+      },
+      {
+        "resolution": 2,
+        "n_communities": 22,
+        "nmi": 0.6870207254830962,
+        "ari": 0.50763644210434
+      },
+      {
+        "resolution": 4,
+        "n_communities": 49,
+        "nmi": 0.7510686388929979,
+        "ari": 0.5976940017918745
+      },
+      {
+        "resolution": 8,
+        "n_communities": 110,
+        "nmi": 0.7265514667426406,
+        "ari": 0.4239681649039956
+      },
+      {
+        "resolution": 16,
+        "n_communities": 228,
+        "nmi": 0.6759278580846295,
+        "ari": 0.18964891192125688
+      }
+    ],
+    "n_nodes": 986,
+    "n_departments": 42,
+    "louvain_nmi_mean": 0.5721553406926662,
+    "louvain_nmi_sd": 0.012131920060398553,
+    "louvain_ari_mean": 0.3070199217316189,
+    "louvain_ari_sd": 0.02333121142851822,
+    "louvain_n_communities_mean": 7.4,
+    "louvain_modularity_mean": 0.4264231049177377,
+    "louvain_seed_to_seed_nmi_mean": 0.8256083186919326,
+    "label_propagation_nmi": 0.0,
+    "label_propagation_ari": 0.0,
+    "department_partition_modularity": 0.2989558226143665
+  },
+  "department_reconstruction_email": {
+    "majority class": {
+      "0.1": 0.095,
+      "0.3": 0.1044,
+      "0.5": 0.1054,
+      "0.8": 0.1093
+    },
+    "neighbour vote": {
+      "0.1": 0.4271,
+      "0.3": 0.6013,
+      "0.5": 0.6572,
+      "0.8": 0.7108
+    },
+    "spectral + logistic": {
+      "0.1": 0.625,
+      "0.3": 0.726,
+      "0.5": 0.7471,
+      "0.8": 0.7711
+    }
+  },
+  "key_person_removal": {
+    "highest brokerage first": [
+      {
+        "k_removed": 0,
+        "pct_people_removed": 0.0,
+        "pct_cross_dept_ties_lost": 0.0,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.981094527363184
+      },
+      {
+        "k_removed": 1,
+        "pct_people_removed": 0.09950248756218906,
+        "pct_cross_dept_ties_lost": 3.1299784462562097,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.9810756972111554
+      },
+      {
+        "k_removed": 2,
+        "pct_people_removed": 0.19900497512437812,
+        "pct_cross_dept_ties_lost": 5.022959422734519,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.9810568295114656
+      },
+      {
+        "k_removed": 5,
+        "pct_people_removed": 0.4975124378109453,
+        "pct_cross_dept_ties_lost": 10.486364914253588,
+        "pct_dept_pairs_disconnected": 0.6240249609984372,
+        "lcc_fraction": 0.976
+      },
+      {
+        "k_removed": 10,
+        "pct_people_removed": 0.9950248756218906,
+        "pct_cross_dept_ties_lost": 17.664698716146564,
+        "pct_dept_pairs_disconnected": 1.716068642745705,
+        "lcc_fraction": 0.9668341708542714
+      },
+      {
+        "k_removed": 20,
+        "pct_people_removed": 1.9900497512437811,
+        "pct_cross_dept_ties_lost": 28.760191172336235,
+        "pct_dept_pairs_disconnected": 4.680187207488295,
+        "lcc_fraction": 0.9593908629441624
+      },
+      {
+        "k_removed": 50,
+        "pct_people_removed": 4.975124378109452,
+        "pct_cross_dept_ties_lost": 51.58841720551026,
+        "pct_dept_pairs_disconnected": 12.168486739469575,
+        "lcc_fraction": 0.9434554973821989
+      }
+    ],
+    "most ties first": [
+      {
+        "k_removed": 0,
+        "pct_people_removed": 0.0,
+        "pct_cross_dept_ties_lost": 0.0,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.981094527363184
+      },
+      {
+        "k_removed": 1,
+        "pct_people_removed": 0.09950248756218906,
+        "pct_cross_dept_ties_lost": 3.1299784462562097,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.9810756972111554
+      },
+      {
+        "k_removed": 2,
+        "pct_people_removed": 0.19900497512437812,
+        "pct_cross_dept_ties_lost": 5.144784931121727,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.9790628115653041
+      },
+      {
+        "k_removed": 5,
+        "pct_people_removed": 0.4975124378109453,
+        "pct_cross_dept_ties_lost": 10.936182175991005,
+        "pct_dept_pairs_disconnected": 0.31201248049922414,
+        "lcc_fraction": 0.975
+      },
+      {
+        "k_removed": 10,
+        "pct_people_removed": 0.9950248756218906,
+        "pct_cross_dept_ties_lost": 18.751757098678656,
+        "pct_dept_pairs_disconnected": 0.6240249609984372,
+        "lcc_fraction": 0.9738693467336683
+      },
+      {
+        "k_removed": 20,
+        "pct_people_removed": 1.9900497512437811,
+        "pct_cross_dept_ties_lost": 30.81248242901321,
+        "pct_dept_pairs_disconnected": 4.368174726989082,
+        "lcc_fraction": 0.966497461928934
+      },
+      {
+        "k_removed": 50,
+        "pct_people_removed": 4.975124378109452,
+        "pct_cross_dept_ties_lost": 55.17758410645675,
+        "pct_dept_pairs_disconnected": 11.544461778471138,
+        "lcc_fraction": 0.9518324607329843
+      }
+    ],
+    "random (mean of 10)": [
+      {
+        "k_removed": 0,
+        "pct_people_removed": 0.0,
+        "pct_cross_dept_ties_lost": 0.0,
+        "pct_dept_pairs_disconnected": 0.0,
+        "lcc_fraction": 0.9810945273631841
+      },
+      {
+        "k_removed": 1,
+        "pct_people_removed": 0.09950248756218906,
+        "pct_cross_dept_ties_lost": 0.029987817449163012,
+        "pct_dept_pairs_disconnected": 0.031201248049922414,
+        "lcc_fraction": 0.9810756972111554
+      },
+      {
+        "k_removed": 2,
+        "pct_people_removed": 0.19900497512437812,
+        "pct_cross_dept_ties_lost": 0.3008152937869002,
+        "pct_dept_pairs_disconnected": 0.07800312012480437,
+        "lcc_fraction": 0.9809571286141574
+      },
+      {
+        "k_removed": 5,
+        "pct_people_removed": 0.49751243781094534,
+        "pct_cross_dept_ties_lost": 0.6719145347202693,
+        "pct_dept_pairs_disconnected": 0.3744149765990634,
+        "lcc_fraction": 0.9803
+      },
+      {
+        "k_removed": 10,
+        "pct_people_removed": 0.9950248756218907,
+        "pct_cross_dept_ties_lost": 1.5931028019866933,
+        "pct_dept_pairs_disconnected": 0.5616224648985946,
+        "lcc_fraction": 0.979497487437186
+      },
+      {
+        "k_removed": 20,
+        "pct_people_removed": 1.9900497512437814,
+        "pct_cross_dept_ties_lost": 3.778464998594321,
+        "pct_dept_pairs_disconnected": 0.686427457098282,
+        "lcc_fraction": 0.9779695431472082
+      },
+      {
+        "k_removed": 50,
+        "pct_people_removed": 4.975124378109452,
+        "pct_cross_dept_ties_lost": 9.164089588604629,
+        "pct_dept_pairs_disconnected": 1.9500780031201248,
+        "lcc_fraction": 0.9745549738219894
+      }
+    ]
+  },
+  "centrality_stability": [
+    {
+      "period_weeks": 1,
+      "metric": "betweenness",
+      "spearman": 0.5753,
+      "top5pct_jaccard": 0.3286,
+      "top5pct_retained": 0.4858
+    },
+    {
+      "period_weeks": 1,
+      "metric": "degree",
+      "spearman": 0.6526,
+      "top5pct_jaccard": 0.3774,
+      "top5pct_retained": 0.5383
+    },
+    {
+      "period_weeks": 4,
+      "metric": "betweenness",
+      "spearman": 0.7197,
+      "top5pct_jaccard": 0.4028,
+      "top5pct_retained": 0.5704
+    },
+    {
+      "period_weeks": 4,
+      "metric": "degree",
+      "spearman": 0.8174,
+      "top5pct_jaccard": 0.5095,
+      "top5pct_retained": 0.6683
+    },
+    {
+      "period_weeks": 13,
+      "metric": "betweenness",
+      "spearman": 0.8049,
+      "top5pct_jaccard": 0.442,
+      "top5pct_retained": 0.6111
+    },
+    {
+      "period_weeks": 13,
+      "metric": "degree",
+      "spearman": 0.8985,
+      "top5pct_jaccard": 0.6476,
+      "top5pct_retained": 0.7847
+    }
+  ],
+  "sociopatterns": {
+    "people": 232,
+    "contact_pairs": 4274,
+    "contact_events_20s": 78249,
+    "departments": {
+      "DMI": 60,
+      "DSE": 34,
+      "DMCT": 33,
+      "DST": 24,
+      "DISQ": 18,
+      "SFLE": 17,
+      "DCAR": 15,
+      "SSI": 9,
+      "SRH": 9,
+      "SCOM": 7,
+      "SDOC": 4,
+      "DG": 2
+    },
+    "communities_vs_departments": {
+      "resolution_sweep": [
+        {
+          "resolution": 0.5,
+          "n_communities": 6,
+          "nmi": 0.7560342394018427,
+          "ari": 0.7108850266923868
+        },
+        {
+          "resolution": 1,
+          "n_communities": 8,
+          "nmi": 0.8037777577617917,
+          "ari": 0.7782551600616291
+        },
+        {
+          "resolution": 2,
+          "n_communities": 15,
+          "nmi": 0.7603659883654611,
+          "ari": 0.5296202736147807
+        },
+        {
+          "resolution": 4,
+          "n_communities": 27,
+          "nmi": 0.6947578312522055,
+          "ari": 0.3201407365567731
+        },
+        {
+          "resolution": 8,
+          "n_communities": 49,
+          "nmi": 0.657514083918792,
+          "ari": 0.18387797234055864
+        },
+        {
+          "resolution": 16,
+          "n_communities": 76,
+          "nmi": 0.6317180599763226,
+          "ari": 0.12047623658412678
+        }
+      ],
+      "n_nodes": 217,
+      "n_departments": 12,
+      "louvain_nmi_mean": 0.799456779413613,
+      "louvain_nmi_sd": 0.01848998159125692,
+      "louvain_ari_mean": 0.762899891536118,
+      "louvain_ari_sd": 0.033220773553501816,
+      "louvain_n_communities_mean": 8.2,
+      "louvain_modularity_mean": 0.6417844494931354,
+      "louvain_seed_to_seed_nmi_mean": 0.9476463954164362,
+      "label_propagation_nmi": 0.7049335988115827,
+      "label_propagation_ari": 0.4418366115755123,
+      "department_partition_modularity": 0.6171155767184544
+    },
+    "department_indicators": [
+      {
+        "department": "SRH",
+        "size": 9,
+        "internal_density": 0.917,
+        "ei_index": 0.546,
+        "internal_share": 0.227,
+        "internal_lift": 6.662,
+        "partner_departments": 11,
+        "members_with_external_tie": 1.0,
+        "top_bridge_share": 0.187,
+        "people_for_80pct_external": 6,
+        "flag_inward": true,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "SSI",
+        "size": 9,
+        "internal_density": 0.5,
+        "ei_index": 0.67,
+        "internal_share": 0.165,
+        "internal_lift": 6.475,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.778,
+        "top_bridge_share": 0.198,
+        "people_for_80pct_external": 5,
+        "flag_inward": true,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "SCOM",
+        "size": 7,
+        "internal_density": 0.905,
+        "ei_index": 0.716,
+        "internal_share": 0.142,
+        "internal_lift": 4.522,
+        "partner_departments": 11,
+        "members_with_external_tie": 1.0,
+        "top_bridge_share": 0.222,
+        "people_for_80pct_external": 5,
+        "flag_inward": true,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "DMCT",
+        "size": 33,
+        "internal_density": 0.496,
+        "ei_index": -0.002,
+        "internal_share": 0.501,
+        "internal_lift": 4.094,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.879,
+        "top_bridge_share": 0.079,
+        "people_for_80pct_external": 19,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "SFLE",
+        "size": 17,
+        "internal_density": 0.434,
+        "ei_index": 0.529,
+        "internal_share": 0.236,
+        "internal_lift": 4.019,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.765,
+        "top_bridge_share": 0.125,
+        "people_for_80pct_external": 9,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "DSE",
+        "size": 34,
+        "internal_density": 0.517,
+        "ei_index": -0.044,
+        "internal_share": 0.522,
+        "internal_lift": 4.017,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.941,
+        "top_bridge_share": 0.105,
+        "people_for_80pct_external": 18,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "DISQ",
+        "size": 18,
+        "internal_density": 0.902,
+        "ei_index": 0.345,
+        "internal_share": 0.327,
+        "internal_lift": 3.32,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.944,
+        "top_bridge_share": 0.086,
+        "people_for_80pct_external": 12,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "DCAR",
+        "size": 15,
+        "internal_density": 0.638,
+        "ei_index": 0.574,
+        "internal_share": 0.213,
+        "internal_lift": 2.895,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.867,
+        "top_bridge_share": 0.111,
+        "people_for_80pct_external": 10,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "DST",
+        "size": 24,
+        "internal_density": 0.739,
+        "ei_index": 0.269,
+        "internal_share": 0.366,
+        "internal_lift": 2.8,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.958,
+        "top_bridge_share": 0.078,
+        "people_for_80pct_external": 15,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      },
+      {
+        "department": "DMI",
+        "size": 60,
+        "internal_density": 0.397,
+        "ei_index": -0.22,
+        "internal_share": 0.61,
+        "internal_lift": 2.265,
+        "partner_departments": 11,
+        "members_with_external_tie": 0.95,
+        "top_bridge_share": 0.05,
+        "people_for_80pct_external": 33,
+        "flag_inward": false,
+        "flag_low_reach": false,
+        "flag_single_bridge": false,
+        "flag_silo_candidate": false
+      }
+    ]
+  },
+  "department_reconstruction_sociopatterns": {
+    "majority class": {
+      "0.1": 0.2421,
+      "0.3": 0.2689,
+      "0.5": 0.2943
+    },
+    "neighbour vote": {
+      "0.1": 0.6153,
+      "0.3": 0.8142,
+      "0.5": 0.8934
+    },
+    "spectral + logistic": {
+      "0.1": 0.5411,
+      "0.3": 0.8054,
+      "0.5": 0.8906
+    }
+  }
+}

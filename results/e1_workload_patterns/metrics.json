@@ -1,0 +1,265 @@
+{
+  "data_window": {
+    "events_in_file": 332334,
+    "events_in_dense_window": 329884,
+    "dense_weeks": 75,
+    "weeks_in_file": 115,
+    "low_volume_weeks_inside_window": {
+      "10": 66,
+      "57": 1100,
+      "58": 946,
+      "59": 914,
+      "62": 278
+    }
+  },
+  "clock_estimate": {
+    "share_emails_01_04h": 0.007820930993925137,
+    "share_emails_on_two_quiet_weekdays": 0.029246644274957257
+  },
+  "descriptives": {
+    "people": 986,
+    "person_weeks": 58042,
+    "silent_person_weeks_share": 0.27764377519727096,
+    "gini_total_sent": 0.7599433132841606,
+    "top10pct_share_of_sent": 0.6015963187059694,
+    "median_weekly_sent_active": 5.0,
+    "p95_weekly_sent_active": 42.0,
+    "after_hours_share_overall": 0.09713414412338883,
+    "weekend_share_overall": 0.029246644274957257,
+    "median_reply_latency_h": 6.625555555555556
+  },
+  "real_data_flags_top2pct": {
+    "jaccard_robust_z_vs_iforest_within": 0.3490683229813665,
+    "jaccard_robust_z_vs_iforest_cross": 0.2605919907138712,
+    "jaccard_within_vs_cross_iforest": 0.3045045045045045,
+    "flag_persists_next_week": 0.10773480662983426,
+    "share_of_people_flagged_at_least_once": 0.5066666666666667
+  },
+  "injection": [
+    {
+      "kind": "after_hours",
+      "size": 0.05,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.7345,
+      "pr_auc": 0.0362,
+      "precision_at_k": 0.0344
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.05,
+      "detector": "iforest_within",
+      "roc_auc": 0.7047,
+      "pr_auc": 0.0333,
+      "precision_at_k": 0.0332
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.05,
+      "detector": "robust_z",
+      "roc_auc": 0.5405,
+      "pr_auc": 0.0226,
+      "precision_at_k": 0.0297
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.1,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.7815,
+      "pr_auc": 0.0438,
+      "precision_at_k": 0.0368
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.1,
+      "detector": "iforest_within",
+      "roc_auc": 0.7827,
+      "pr_auc": 0.044,
+      "precision_at_k": 0.0332
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.1,
+      "detector": "robust_z",
+      "roc_auc": 0.5928,
+      "pr_auc": 0.0258,
+      "precision_at_k": 0.0202
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.2,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.849,
+      "pr_auc": 0.0625,
+      "precision_at_k": 0.0581
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.2,
+      "detector": "iforest_within",
+      "roc_auc": 0.8648,
+      "pr_auc": 0.0694,
+      "precision_at_k": 0.0439
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.2,
+      "detector": "robust_z",
+      "roc_auc": 0.7131,
+      "pr_auc": 0.0374,
+      "precision_at_k": 0.0237
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.3,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.8943,
+      "pr_auc": 0.0904,
+      "precision_at_k": 0.0771
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.3,
+      "detector": "iforest_within",
+      "roc_auc": 0.9154,
+      "pr_auc": 0.109,
+      "precision_at_k": 0.089
+    },
+    {
+      "kind": "after_hours",
+      "size": 0.3,
+      "detector": "robust_z",
+      "roc_auc": 0.813,
+      "pr_auc": 0.0602,
+      "precision_at_k": 0.0356
+    },
+    {
+      "kind": "volume",
+      "size": 1.25,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.5024,
+      "pr_auc": 0.0219,
+      "precision_at_k": 0.0214
+    },
+    {
+      "kind": "volume",
+      "size": 1.25,
+      "detector": "iforest_within",
+      "roc_auc": 0.5442,
+      "pr_auc": 0.0245,
+      "precision_at_k": 0.0356
+    },
+    {
+      "kind": "volume",
+      "size": 1.25,
+      "detector": "robust_z",
+      "roc_auc": 0.594,
+      "pr_auc": 0.0266,
+      "precision_at_k": 0.0297
+    },
+    {
+      "kind": "volume",
+      "size": 1.5,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.5435,
+      "pr_auc": 0.0248,
+      "precision_at_k": 0.0308
+    },
+    {
+      "kind": "volume",
+      "size": 1.5,
+      "detector": "iforest_within",
+      "roc_auc": 0.6169,
+      "pr_auc": 0.0313,
+      "precision_at_k": 0.051
+    },
+    {
+      "kind": "volume",
+      "size": 1.5,
+      "detector": "robust_z",
+      "roc_auc": 0.6703,
+      "pr_auc": 0.0342,
+      "precision_at_k": 0.038
+    },
+    {
+      "kind": "volume",
+      "size": 2.0,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.6028,
+      "pr_auc": 0.0317,
+      "precision_at_k": 0.0451
+    },
+    {
+      "kind": "volume",
+      "size": 2.0,
+      "detector": "iforest_within",
+      "roc_auc": 0.7183,
+      "pr_auc": 0.0492,
+      "precision_at_k": 0.0593
+    },
+    {
+      "kind": "volume",
+      "size": 2.0,
+      "detector": "robust_z",
+      "roc_auc": 0.7735,
+      "pr_auc": 0.0602,
+      "precision_at_k": 0.0664
+    },
+    {
+      "kind": "volume",
+      "size": 3.0,
+      "detector": "iforest_cross_sectional",
+      "roc_auc": 0.7072,
+      "pr_auc": 0.0518,
+      "precision_at_k": 0.0866
+    },
+    {
+      "kind": "volume",
+      "size": 3.0,
+      "detector": "iforest_within",
+      "roc_auc": 0.8587,
+      "pr_auc": 0.1372,
+      "precision_at_k": 0.1839
+    },
+    {
+      "kind": "volume",
+      "size": 3.0,
+      "detector": "robust_z",
+      "roc_auc": 0.8861,
+      "pr_auc": 0.1274,
+      "precision_at_k": 0.1708
+    }
+  ],
+  "unit_aggregation": {
+    "inferred_units": 35,
+    "unit_weeks": 2546,
+    "unit_weeks_suppressed_k5": 502,
+    "share_suppressed": 0.197172034564022
+  },
+  "absenteeism": {
+    "records": 740,
+    "employees": 36,
+    "periods": 38,
+    "max_distinct_workload_values_within_period": 1,
+    "workload_is_org_level_index": true,
+    "period_level_spearman_workload_vs_absence_hours": {
+      "rho": -0.06861457690461306,
+      "p": 0.6823031137609783,
+      "n_periods": 38
+    },
+    "period_level_spearman_hit_target_vs_absence_hours": {
+      "rho": 0.13163720094590703,
+      "p": 0.43081587807789556
+    },
+    "long_absence_share": 0.08548168249660787,
+    "grouped_cv_long_absence": {
+      "work_conditions_only": {
+        "logistic_auc": 0.5348429183740756,
+        "gbm_auc": 0.541719655221139
+      },
+      "work_plus_personal_attributes": {
+        "logistic_auc": 0.6064598935518817,
+        "gbm_auc": 0.5092788846498044
+      }
+    }
+  }
+}

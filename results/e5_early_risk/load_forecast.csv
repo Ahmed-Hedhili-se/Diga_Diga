@@ -1,0 +1,17 @@
+,horizon_weeks,model,mae_log,skill_vs_persistence,n_test
+0,1,persistence (last week),0.724,0.0,957
+1,1,4-week mean,0.7625,-0.0531,957
+2,1,ridge on lags,0.7491,-0.0347,957
+3,1,gradient boosting,0.8744,-0.2077,957
+4,2,persistence (last week),0.8669,0.0,924
+5,2,4-week mean,0.8284,0.0444,924
+6,2,ridge on lags,0.8701,-0.0037,924
+7,2,gradient boosting,0.7163,0.1737,924
+8,4,persistence (last week),0.9832,0.0,858
+9,4,4-week mean,0.995,-0.012,858
+10,4,ridge on lags,0.8952,0.0895,858
+11,4,gradient boosting,0.8176,0.1685,858
+12,8,persistence (last week),1.2619,0.0,726
+13,8,4-week mean,1.2132,0.0386,726
+14,8,ridge on lags,1.0417,0.1745,726
+15,8,gradient boosting,0.8479,0.3281,726
