@@ -239,14 +239,16 @@ R recruiter · M HR manager · E employee · A admin.
 
 | Area | Read (GET) | Roles | State change | Roles | Human approval / audit event |
 |---|---|---|---|---|---|
-| Auth | `/auth/me` | any | `POST /auth/logout` | any | **none (R10)** |
-| | `/auth/users` | A | `POST /auth/users` (create account, set role) | A | **none (R10)** |
+| Auth | `/auth/me`, `/auth/permissions` | any | `POST /auth/logout`, `POST /auth/logout-all` | any | `auth.logout`, `auth.logout_all` (and `auth.login`, `auth.login_failed`, `auth.lockout`) |
+| | `/auth/users` | A | `POST /auth/users` (create account, set role) | A | `auth.user_create` |
+| | | | `PATCH /auth/users/{id}` (role, active), `POST /auth/users/{id}/reset-password` | A | `auth.user_update`, `auth.password_reset` |
 | Candidates | `/candidates`, `/{id}`, `/{id}/text`, `/{id}/pdf` | R M | `POST /candidates` (upload) | R M | `pipeline.process_cv`, `conditions.update`, `talent_pool.consent` |
 | | | | `PUT /candidates/{id}/conditions` | R M | `conditions.update` |
 | | | | `POST /candidates/{id}/offer` | M | approval item `offer` (2 HR managers, not the author), `approval.create` |
 | Scoring | `/jobs`, `/jobs/{id}/rubric`, `/stability`, `/team-gaps`, `/offer-fit`, `/rediscover` | R M | `PUT /jobs/{id}/rubric` | M | `rubric.update` |
 | | | | `POST /jobs/{id}/rescore` | R M | **none (R12; derived scores only)** |
 | | | | `POST /jobs/{id}/shortlist` | R M | approval item `shortlist_commit` |
+| | | | `POST /jobs/{id}/candidates/{cid}/status` (hiring status) | R M | approval item `status_change` |
 | | | | `POST /jobs/{id}/rediscover/invite` | R M | approval items `email_send` |
 | | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
 | Oversight | `/money`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
@@ -254,13 +256,18 @@ R recruiter · M HR manager · E employee · A admin.
 | Workflow | `/inbox`, `/followups`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
 | | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
 | | | | `POST /followups/draft` | R M | approval items `email_send` |
+| | `/followups/preview` | R M | `POST /followups/run` (second follow-up implementation, to consolidate) | R M | `followups.run`, approval items `email_send` |
+| ERP (Odoo, off unless `HG_ODOO_ENABLED=1`) | `/erp/status` | R M A | `POST /erp/jobs/{id}/import` | R M | `erp.import_applicants`, then `pipeline.process_cv` per CV |
+| | `/erp/jobs/{id}/applicants` | R M | | | |
 | | | | `POST /approvals/{id}/decision`, `/batches/{id}/decision` | R M (offers, documents, leave, held mail: M only) | `approval.approve`, `approval.reject` |
 | | | | `POST /executor/run/{id}` | R M | `executor.run`, `executor.refused`, `executor.canary_blocked` |
 | | | | `POST /interviews/{id}/scorecard` | R M | `interview.scorecard` |
 | Team | `/team/skills`, `/team/process`, `/team/knowledge-gaps` | M A | none | | |
 | Employee | `/documents/mine` | E | `POST /documents/request` | E | approval item `document_release`, `document.request` |
 | | `/documents/{id}/download` | E (owner), M | | | `document.download` |
-| | | | `POST /answer-desk/ask` | E M | returns 501 today (R3) |
+| | | | `POST /answer-desk/ask` | E M | exact handbook extracts; personal questions -> `question.create` |
+| | `/employee-questions`, `/{id}` | E (own), M | `POST /employee-questions` | E | `question.create` |
+| | | | `POST /employee-questions/{id}/reply` | M | `question.reply_draft`, approval item `email_send` (2nd HR manager) |
 
 ## 7. What we refuse to build
 
