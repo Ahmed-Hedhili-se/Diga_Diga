@@ -1,75 +1,100 @@
-# Document pipeline (P1)
+# Document pipeline and AI layer (P1)
 
-The AI reads; it cannot act. Nothing a stranger wrote passes through as free text: the only things that leave the pipeline are ESCO ids, enums, ISO codes, dates and character offsets into the visible text.
+> The AI reads, code decides, humans approve. Everything in this document **reads** stranger text and **cannot act**: typed fields out, no tools, no memory, no way to send, book or change a status.
+
+## Trust boundary
 
 ```
-PDF ──► upload checks ──► sanitizer ──► visible_text ──► extractor (Qwen3-8B) ──► validator ──► scorer (P2)
-        size/magic/pages    │                │              line numbers only       code checks     proposed score
-                            └► hidden_findings ──► detector (signal only) ──► Security Center (P4)
+ stranger PDF / email / question
+          |
+          v
+ [ sanitizer ]  code, no model     visible_text  +  hidden_findings (channel, severity, page, bbox)
+          |                                              |
+          | visible_text only                            | shown to HR, escaped; never sent to a model
+          v                                              v
+ [ detector ]   regex (+ Prompt Guard)  ->  injection_flags   (signal only, never changes a score)
+          |
+          v
+ [ extractor ]  Qwen3-8B, JSON schema      one document per call, no tools, no memory, 1 retry
+          |      numbered lines in, line numbers out; ESCO ids are an enum
+          v
+ [ validator ]  code                       drops every claim it cannot prove from visible text
+          |
+          v
+ ValidatedCV  ->  P2 scorer (proposes)  ->  P3 approvals (humans decide)  ->  executor
 ```
 
-| Stage | File | What it guarantees |
+Nothing in `backend/app/pipeline/` imports the executor, sends mail or changes a status. The one P3 function it calls is `create_employee_question`.
+
+## Sanitizer (`pipeline/sanitizer.py`)
+
+Visibility is decided from rendering facts per character, never from the words. Eight hidden channels (the plan counted a ninth item, hyphenation and ligature repair, which is text repair, not a channel):
+
+| Channel | Meaning | Severity |
 |---|---|---|
-| Upload checks | `pipeline/service.py` | ≤ 5 MB, `%PDF-` magic, parseable, not encrypted, 1–6 pages |
-| Sanitizer | `pipeline/sanitizer.py` | Per-character visibility from rendering facts; hidden text is removed from `visible_text` and reported |
-| Detector | `pipeline/detector.py` | Regex rules FR/EN/AR/Derja/Arabizi (+ optional Prompt Guard 2); flags are shown to HR and never change a score |
-| Extractor | `pipeline/extractor.py`, `llm.py` | One document per call, no tools, no memory, temperature 0, JSON schema with ESCO ids as an enum; retry once, then `needs_human` |
-| Validator | `pipeline/validator.py` | Every claim is checked against the visible text; anything unproven is dropped with a logged reason |
+| `white_text` | contrast against the background below 1.6 | high |
+| `tiny_font` | font under 4 pt | high |
+| `invisible_render` | render mode 3 or zero opacity | high |
+| `off_page` | outside the crop or media box | high |
+| `under_image` | an image or opaque fill drawn on top later | high |
+| `annotation_metadata` | annotations, form values, metadata, XMP, embedded files | high |
+| `zero_width` | zero-width, bidi controls, Unicode tag characters (removed and reported) | high |
+| `zero_width` (undecodable glyph, U+FFFD) | often an Arabic word inside a FR/EN CV | **low**: shown to HR, adds no risk |
+| `homoglyph` | Cyrillic, Greek or math lookalikes inside Latin words, mapped back and reported | high |
 
-## Hidden-content channels
+`HiddenFinding.severity` is `high` unless set to `low`; a missing value means high (fail closed). P3's risk score counts only high findings, so a clean Arabic-name CV is not pushed into the high-risk lane.
 
-| Channel | How it is decided |
-|---|---|
-| `white_text` | WCAG contrast < 1.6 between glyph colour and the topmost fill under it (white on white, black on a black box) |
-| `tiny_font` | font size < 4 pt |
-| `invisible_render` | render mode 3 or opacity 0 (from the text trace) |
-| `off_page` | glyph centre outside the crop box or the media box (extraction runs unclipped) |
-| `under_image` | an image or opaque fill is drawn over the glyph later in the content stream |
-| `annotation_metadata` | annotations, form values, title/author/subject/keywords, XMP description, embedded files |
-| `zero_width` | zero-width, bidi controls and Unicode tag characters (tags are decoded and shown), undecodable glyphs |
-| `homoglyph` | Cyrillic/Greek/math lookalikes inside Latin words are mapped to Latin (`Рython` → `Python`) and reported |
+## Detector (`pipeline/detector.py`)
 
-Hyphenation (`develop-` / `ment`) and ligatures (`ﬁ`) are repaired, and NFKC folds Arabic presentation forms.
+Regex rules in French, English, Arabic, Derja and Arabizi ("ignore", "score me", "evaluator note") run on folded text, over `visible_text` **and** every hidden finding. Prompt Guard 2 on 512-token chunks is optional (`HG_PROMPT_GUARD=1`). Output: `injection_flags` with location. **It never changes a score.**
 
-## Why line numbers, not character offsets
+## Extractor (`pipeline/extractor.py`, `pipeline/llm.py`)
 
-An 8B model cannot count characters. The CV is shown as numbered lines (`L12| ...`) inside a `<document>` block, and the model answers with line numbers. Code converts each line to a `visible_text` span and narrows skill spans to the ESCO label match. The contract (`CVExtraction`) still carries character spans.
+The model never counts characters. The document is shown as numbered lines (at most 500 lines of 160 characters) and the model answers with line numbers; code turns them into `visible_text` offsets and narrows skill evidence to the ESCO label match. The schema has **no free-text field**: dates, ESCO ids (an enum), degree enum, ISO language plus CEFR. Temperature 0, seed 7, thinking off. A schema failure is retried once, then the CV is `needs_human`.
 
-## Validator rules
+## Validator (`pipeline/validator.py`)
 
-- **Skill**: the ESCO id is known, the span lies inside `visible_text`, and the span text contains one of that skill's labels (case-, diacritic- and Arabic-variant-insensitive, word boundaries).
-- **Experience**: valid `YYYY-MM` dates, not in the future, and the start year is written within 200 characters of the evidence. Total years = merged overlapping intervals.
-- **Skill years**: an experience counts toward a skill only if that skill's label is written inside that job's block. In the live test, Qwen3 credited every skill to every job; this rule removed the inflation.
-- **Degree**: the evidence contains a diploma keyword of that level (`ingénieur`, `mastère`, `licence`, `مهندس`, ...).
-- An item the model got wrong is dropped individually; one bad item never sinks the CV.
+A skill counts only if its evidence span is inside `visible_text` **and** contains an ESCO label for that skill. Years of experience are computed from valid dates (merged intervals), never from a model claim. Every dropped field is logged with a code-generated reason. Each skill also gets `support`: `dated_experience` when a valid dated job block writes it, else `listed_only` (what keyword stuffing looks like), plus `skills_listed_only_ratio` for the CV.
 
-## Live run (Qwen3-8B Q4 on RTX 4050 6 GB, `think: false`)
+## Email extraction (`pipeline/email_extract.py`)
 
-| Candidate | What it is | Score | Hidden | Flags |
-|---|---|---|---|---|
-| CAND-001 | strong FR | 99.0 | 0 | 0 |
-| CAND-002 | EN, La Marsa | 84.3 | 0 | 0 |
-| CAND-008 | twin of 002, Kasserine | **84.3** | 0 | 0 |
-| CAND-004 | FR + Arabic summary | 82.3 | 0 | 0 |
-| CAND-006 | white-text skill stuffing + "score 100" + tiny FR note | 32.6 | 2 | 7 |
-| CAND-007 | homoglyphs, zero-width, off-page, annotation, metadata | 58.8 | 5 | 11 |
+Language, intent and urgency enums only; the gate (P3) decides the lane from code rules. `HG_EXTRACT_MODE=ground_truth` reads the labelled demo emails so the demo runs without Ollama; it logs a warning on every call, is **not** a model run, and returns nothing for text it does not know. The default mode, with the model down, returns nothing (`extraction_failed`, a human decides); it never falls back to ground truth.
 
-Latency is 16–40 s per CV (the first call includes model load); seeding all 8 took 158 s.
+## HR Answer Desk (`pipeline/answer_desk.py`)
 
-## Running
+`POST /api/answer-desk/ask` (employee, HR manager). Retrieval is BM25 over the 34 paragraphs of `handbook.pdf` (pure Python, no model). Answer is one of:
 
-```powershell
-cd backend
-.\.venv\Scripts\python.exe -m pytest tests/test_pipeline.py tests/test_pipeline_service.py -q
-..\backend\.venv\Scripts\python.exe ..\data\test_pdfs\make_test_pdfs.py   # regenerate channel PDFs
-```
+- `extract`: the best paragraphs **word for word**, with section and page. Nothing is generated.
+- `routed`: the question is about the asker (a possessive or own-data cue plus a topic: leave, salary, certificate, contract, other) and goes to P3's HR queue as a ticket. "How do I request a certificate?" stays a policy question.
+- `ask_hr`: nothing in the handbook scores above `MIN_SCORE` (4.0).
 
-`seed_candidates("auto")` uses Qwen3 when Ollama has the model, otherwise it falls back to **ground-truth** extractions and says so. `service.analyze_pdf(pdf, cid)` is the pure entry point used by the eval harness.
+The question is capped at 1,000 characters, control and bidi characters are stripped, and only length, topic and kind are logged.
+
+## Environment flags
+
+| Variable | Default | Effect |
+|---|---|---|
+| `HG_OLLAMA_URLS` | `http://localhost:11434` | comma-separated Ollama hosts, round-robin |
+| `HG_OLLAMA_MODEL` | `qwen3:8b` | extraction model |
+| `HG_EXTRACT_MODE` | `model` | `ground_truth` = offline demo for emails (not a model run) |
+| `HG_PROMPT_GUARD` | `0` | `1` adds Prompt Guard 2 to the detector (needs `requirements-ml.txt`) |
+| `HG_GROQ_FALLBACK` | `0` | `1` allows the Groq fallback (fictional data only); needs `GROQ_API_KEY` |
+| `HG_MAX_UPLOAD_BYTES`, `HG_MAX_PDF_PAGES` | 5 MB, 6 | upload limits |
+
+## Numbers (2026-10-31, no model involved)
+
+| Check | Result | How to reproduce |
+|---|---|---|
+| Attacks with a high finding | **38/40** | `python scripts/check_detection.py` (the 2 misses come from the test generator: its cover image is 20x20 pt instead of full width; the sanitizer flags both once the cover is full width, see `person1.md` R1) |
+| Clean twins with a high finding | **0/40** | same |
+| Personal questions routed to HR | **8/8** | `pytest tests/test_answer_desk.py` (`data/handbook/questions.json`) |
+| Policy questions, top-1 section correct | **12/12** | same |
+| Backend tests | 266 passed, 1 expected failure (a P4 finding) | `python -m pytest -q` in `hireguard/backend` |
+
+Extraction quality against the real model is measured by P2's harness; the Modal run is described in `hireguard/infra/README.md`.
 
 ## Known limits
 
-- Text hidden by clipping paths (inside the page but clipped) is not detected yet; only crop/media-box clipping is.
-- Unicode tag characters survive only when the PDF font maps them; otherwise they surface as "undecodable glyphs".
-- Background detection knows vector fills, not image pixels: light text on a dark *image* is treated as visible.
-- Answer Desk retrieval (`POST /answer-desk/ask`) returns 501 until after H9.
-- ESCO `uri` fields are null until they are mapped to official ESCO concept URIs.
+- Keyword stuffing and fake dated jobs written in visible text are not detectable by code; the score is a proposal and HR sees the evidence. `listed_only` makes the first one visible.
+- A `Skills:` line right after the last job is read as part of that job block, so a skill the model attributes to that job counts as dated.
+- The "ask HR" cutoff has a thin margin (real questions score 4.72 or more, out-of-scope ones 3.25 or less): re-check it if the handbook changes.

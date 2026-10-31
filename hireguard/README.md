@@ -43,7 +43,7 @@ Security Center, which the Admin shares with HR, shows only the attack fragments
 
 ## Sections
 
-- Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1)
+- Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1), demo script [docs/demo_p1.md](docs/demo_p1.md)
 - Threat model (OWASP LLM Top 10 2025 + web): [docs/threat_model.md](docs/threat_model.md) (P3)
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)
 - Frontend and web security: [docs/frontend.md](docs/frontend.md) (P4)

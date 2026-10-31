@@ -1,0 +1,9 @@
+,scenario,gaps,single_holder,new_gaps
+0,current team,1,3,
+1,one Software Developers leaves,1,3,
+2,one Software Quality Assurance Analysts and Testers leaves,1,3,
+3,one Data Scientists leaves,1,3,
+4,one Web and Digital Interface Designers leaves,1,4,
+5,one Information Security Analysts leaves,1,4,
+6,one Project Management Specialists leaves,2,2,K: Administrative
+7,one Database Administrators leaves,1,3,

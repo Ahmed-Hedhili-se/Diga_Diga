@@ -1,0 +1,9 @@
+,horizon_weeks,model,auc,pr_auc,base_rate
+0,1,gradient boosting,0.6495,0.4326,0.3009
+1,1,current ratio to 8-week median,0.6776,0.5561,0.3009
+2,2,gradient boosting,0.7137,0.5805,0.3268
+3,2,current ratio to 8-week median,0.6593,0.5856,0.3268
+4,4,gradient boosting,0.7401,0.6412,0.3555
+5,4,current ratio to 8-week median,0.6611,0.612,0.3555
+6,8,gradient boosting,0.6364,0.5178,0.3994
+7,8,current ratio to 8-week median,0.6014,0.5961,0.3994

@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    "Team",
+    "Employee",
+    "Project",
+    "Task",
+    "Skill",
+    "KnowledgeResource"
+  ],
+  "edges": [
+    {
+      "from": "Employee",
+      "rel": "MEMBER_OF",
+      "to": "Team",
+      "evidence": "HRIS"
+    },
+    {
+      "from": "Employee",
+      "rel": "ASSIGNED_TO",
+      "to": "Task",
+      "evidence": "task tracker"
+    },
+    {
+      "from": "Task",
+      "rel": "PART_OF",
+      "to": "Project",
+      "evidence": "task tracker"
+    },
+    {
+      "from": "Task",
+      "rel": "DEPENDS_ON",
+      "to": "Task",
+      "evidence": "task tracker"
+    },
+    {
+      "from": "Task",
+      "rel": "REQUIRES",
+      "to": "Skill",
+      "evidence": "task template / O*NET mapping"
+    },
+    {
+      "from": "Employee",
+      "rel": "HAS_SKILL",
+      "to": "Skill",
+      "evidence": "self-declared + verified (consented)"
+    },
+    {
+      "from": "Employee",
+      "rel": "COLLABORATES_WITH",
+      "to": "Employee",
+      "evidence": "email/chat/meeting metadata, aggregated weekly"
+    },
+    {
+      "from": "Task",
+      "rel": "USES",
+      "to": "KnowledgeResource",
+      "evidence": "document links / wiki metadata"
+    },
+    {
+      "from": "Employee",
+      "rel": "HANDS_OFF_TO",
+      "to": "Employee",
+      "evidence": "task status transitions"
+    }
+  ]
+}

@@ -250,16 +250,16 @@ def _dehyphenate(lines: list[str]) -> str:
 
 def _strip_invisible_chars(text: str, pno: int) -> tuple[str, list[HiddenFinding]]:
     findings, out, tags = [], [], []
-    zw_count, zw_ctx_at, undecodable = 0, None, 0
+    zw_count, zw_ctx_at, undecodable, undec_ctx_at = 0, None, 0, None
     for c in text:
         cp = ord(c)
         if cp in TAG_RANGE:
             if 0xE0020 <= cp <= 0xE007E:
                 tags.append(chr(cp - 0xE0000))
             continue
-        if cp == 0xFFFD:  # glyph with no unicode mapping: content a human cannot read either
+        if cp == 0xFFFD:  # glyph with no unicode mapping (often an Arabic word in a FR/EN CV): not hidden content
             undecodable += 1
-            zw_ctx_at = len(out)
+            undec_ctx_at = len(out)
             continue
         if cp in ZERO_WIDTH:
             if cp != 0x00AD:  # soft hyphen is legitimate typography: drop silently
@@ -268,16 +268,20 @@ def _strip_invisible_chars(text: str, pno: int) -> tuple[str, list[HiddenFinding
             continue
         out.append(c)
     clean = "".join(out)
+    def near(at: int | None) -> str:
+        a = max(0, (at or 0) - 40)
+        return clean[a:(at or 0) + 40].replace("\n", " ")
+
+    # severity: real invisible characters are "high"; an undecodable glyph is "low" and adds no risk (P3 reads this)
     if tags:
-        findings.append(HiddenFinding(channel=HiddenChannel.zero_width,
-                                      text=("[unicode tags] " + "".join(tags))[:MAX_FINDING_CHARS], page=pno))
-    if zw_count or undecodable:
-        a = max(0, (zw_ctx_at or 0) - 40)
-        ctx = clean[a:(zw_ctx_at or 0) + 40].replace("\n", " ")
-        what = ", ".join(p for p in (f"{zw_count} zero-width/bidi chars" if zw_count else "",
-                                     f"{undecodable} undecodable glyphs" if undecodable else "") if p)
-        findings.append(HiddenFinding(channel=HiddenChannel.zero_width,
-                                      text=f"[{what}] near: {ctx}"[:MAX_FINDING_CHARS], page=pno))
+        findings.append(HiddenFinding(channel=HiddenChannel.zero_width, severity="high", page=pno,
+                                      text=("[unicode tags] " + "".join(tags))[:MAX_FINDING_CHARS]))
+    if zw_count:
+        findings.append(HiddenFinding(channel=HiddenChannel.zero_width, severity="high", page=pno,
+                                      text=f"[{zw_count} zero-width/bidi chars] near: {near(zw_ctx_at)}"[:MAX_FINDING_CHARS]))
+    if undecodable:
+        findings.append(HiddenFinding(channel=HiddenChannel.zero_width, severity="low", page=pno,
+                                      text=f"[{undecodable} undecodable glyphs] near: {near(undec_ctx_at)}"[:MAX_FINDING_CHARS]))
     return clean, findings
 
 

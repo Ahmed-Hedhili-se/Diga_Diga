@@ -22,6 +22,7 @@ class Permission(str, Enum):
     scores_read = "scores.read"                      # jobs, rubrics, scores
     scores_rescore = "scores.rescore"
     shortlist_propose = "shortlist.propose"
+    candidates_status_propose = "candidates.status_propose"  # hiring status change -> approval item
     rubric_edit = "rubric.edit"
     # approvals and execution (P3)
     approvals_decide = "approvals.decide"            # routine items
@@ -61,7 +62,7 @@ P = Permission
 
 _RECRUITER = {
     P.candidates_read, P.candidates_upload, P.scores_read, P.scores_rescore, P.shortlist_propose,
-    P.approvals_decide, P.approvals_execute, P.inbox_read, P.followups_manage,
+    P.candidates_status_propose, P.approvals_decide, P.approvals_execute, P.inbox_read, P.followups_manage,
     P.calendar_read, P.interviews_scorecard, P.erp_status, P.erp_import,
 }
 
@@ -111,6 +112,7 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("PUT", "/api/jobs/{job_id}/rubric"): P.rubric_edit,
     ("POST", "/api/jobs/{job_id}/rescore"): P.scores_rescore,
     ("POST", "/api/jobs/{job_id}/shortlist"): P.shortlist_propose,
+    ("POST", "/api/jobs/{job_id}/candidates/{candidate_id}/status"): P.candidates_status_propose,
     ("GET", "/api/money"): P.money_read,
     ("PUT", "/api/money/settings"): P.money_edit,
     ("GET", "/api/eval/summary"): P.security_center_read,
