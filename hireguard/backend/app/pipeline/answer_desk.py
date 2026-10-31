@@ -138,3 +138,44 @@ def search(question: str, k: int = 3) -> list[dict]:
             scored.append((score, i))
     scored.sort(key=lambda x: (-x[0], x[1]))
     return [{**chunks[i], "score": round(s, 3)} for s, i in scored[:k]]
+
+
+# ---------------------------------------------------------------- personal questions go to HR (code only, regex)
+# "Mon solde de congés", "my salary", "راتبي": about the asker's own data, so a person answers, never the handbook.
+# "How do I request a certificate?" is a policy question and stays with the handbook.
+
+_TOPICS = [  # first match wins: a "salary certificate" is a certificate
+    ("certificate", re.compile(r"attestation|certificat|certificate|شهاد")),
+    ("salary", re.compile(r"salair|salary|\bpaie\b|\bpaye\b|payslip|paycheck|bulletin|fiche de pa|راتب|مرتب|\bflous\b")),
+    ("contract", re.compile(r"contrat|contract|\bcdi\b|\bcdd\b|عقد")),
+    ("leave", re.compile(r"conge|leave|vacances|holiday|3otla|3otl|اجاز|عطل")),
+]
+_POSSESSIVE = re.compile(r"\b(mon|ma|mes|my|mine|mta3i|mt3i|mte3i)\b|(راتب|مرتب|عقد|رصيد|اجاز\w*|شهاد\w*|عطل\w*)ي\b")
+_SUBJECT = re.compile(r"\b(i|je|j|ena|3andi|3ndi|nheb)\b|انا")
+_HOWTO = re.compile(r"\b(how (do|can|should|to)|can i|could i|may i|puis je|comment|est ce que je peux|"
+                    r"what is the|what are the|quelle est la|quelles sont les|where can|ou puis)\b")
+_OWN_DATA = re.compile(r"\b(solde|balance|remaining|restant|reste|payslip|fiche de pa\w*|bulletin|status|statut|"
+                       r"approved|approuve\w*|pending|en attente|ou en est)\b")
+_OTHER_PERSONAL = re.compile(r"evaluation|review|performance|promotion|augmentation|\braise\b|manager|\bchef\b|dossier|\bfile\b")
+
+
+def personal_topic(question: str) -> str | None:
+    """'leave' | 'salary' | 'certificate' | 'contract' | 'other' when the question is about the asker, else None."""
+    t = re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", normalize(question)))
+    possessive, subject = bool(_POSSESSIVE.search(t)), bool(_SUBJECT.search(t))
+    topic = next((name for name, rx in _TOPICS if rx.search(t)), None)
+    if topic:
+        own = bool(_OWN_DATA.search(t)) and (possessive or subject)
+        return topic if (possessive and not _HOWTO.search(t)) or own else None
+    return "other" if possessive and _OTHER_PERSONAL.search(t) else None
+
+
+def route_personal(user, question: str) -> dict | None:
+    """If the question is personal, queue it for HR (P3) and return the ticket; otherwise None.
+    The question is stored for HR to read and goes nowhere else: no model, no log."""
+    topic = personal_topic(question)
+    if topic is None:
+        return None
+    from ..workflow.employee_questions import create_employee_question  # P3's queue; lazy: workflow imports us too
+    ticket = create_employee_question(user, topic, question)
+    return {"kind": "routed", "ticket_id": ticket["id"], "topic": topic}
