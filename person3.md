@@ -1,0 +1,65 @@
+# Person 3 (P3): workflow & security backend, report for the team
+
+> The AI reads, code decides, humans approve.
+> P3 owns the code with authority: email gate, drafting, approvals, executor, audit log, documents, interviews, follow-ups.
+> This file is kept up to date after every P3 task. **Section 1 is what I need from you.**
+
+Last update: 2026-10-31 · branch `p3/followups` · backend tests: 91 passed
+
+---
+
+## 1. What I need from you
+
+| # | For | Request | Why | Status |
+|---|---|---|---|---|
+| H1 | **P1** | Add a severity to each hidden finding: `severity: "high" \| "low"` on `HiddenFinding` (or a separate `undecodable` channel). Mark a lone U+FFFD glyph (common in Arabic words inside FR/EN CVs) as `low`. Real zero-width or tag characters stay `high`. Tell me which option you pick | My risk score will count only high-severity findings, so clean Arabic-name CVs aren't pushed into the high-risk lane | open |
+| H2 | **P1** | `pipeline/answer_desk.py` doesn't exist yet, but the threat model cites it. When you build `/api/answer-desk/ask`, send personal questions (leave, salary, certificate, contract) to my queue with `create_employee_question(user, topic, text)` (coming in my T3). Don't answer them yourself | Personal questions must go to HR, never to generated text | waiting on P3 T3 |
+| H3 | **P1** | `README.md` links `docs/pipeline.md`, which doesn't exist. Please add it or tell me to remove the link | Broken link in the deliverable | open |
+| H4 | **P2, P4** | When you change a **candidate's** hiring status, create a `status_change` approval item with `object_type: "candidate"`, `object_id: <candidate_id>`, `status_to: "rejected" \| "hired" \| "withdrawn" \| ...` | Follow-up reminders skip closed candidates by reading this. Any other `object_type` won't be seen | please confirm |
+| H5 | **P4** | Follow-ups UI: a "Silent candidates" card on `GET /api/followups/preview` and a "Draft reminders" button on `POST /api/followups/run` (roles R, M). The reminders then appear in the normal approval queue, with `payload.template = "followup_reminder"` | New spec-book axis "Candidate Follow-ups" | open |
+| H6 | **everyone** | Run `pip install -r hireguard/backend/requirements.txt` before testing. PyMuPDF was missing on my laptop, so 3 test files couldn't load | So tests don't fail at import | info |
+
+Reply by editing the **Status** column (or tell me directly).
+
+---
+
+## 2. What you can use from P3 today
+
+### HTTP (full list in `hireguard/contracts/API.md`)
+- Inbox: `GET /api/inbox` (lanes routine / needs_human / suspicious), `POST /api/inbox/{id}/release-request`
+- Approvals: `GET /api/approvals`, `POST /api/approvals/{id}/decision`, `POST /api/approvals/batches/{batch_id}/decision`
+- Executor: `POST /api/executor/run/{item_id}`. **403 if the item is not approved** (the demo moment)
+- Audit: `GET /api/audit`, `GET /api/audit/verify`, `POST /api/audit/anchor`
+- Documents: `POST /api/documents/request`, `GET /api/documents/mine`, `GET /api/documents/{id}/download`
+- Interviews: `POST /api/interviews/{id}/scorecard`, `GET /api/interviews/reminders`, `GET /api/calendar/slots`
+- **New:** `GET /api/followups/preview`, `POST /api/followups/run`
+
+### Python (in-process)
+```python
+from app.workflow.approvals import create_item   # every action goes through an approval item
+from app.workflow.audit import append            # pass conn=conn to log inside your transaction
+from app.workflow.executor import register_handler  # override how an approved kind is executed
+```
+
+### Rules your code must respect
+- Never send, book, release or change status directly. Create an approval item; the executor does the rest.
+- Never put text from a CV or an email body into an outbound message. Templates and DB slots only.
+- Recipients come from the verified address in `candidates`, never from `From` / `Reply-To`.
+
+---
+
+## 3. P3 progress
+
+| Task | What | Status |
+|---|---|---|
+| T1 | Candidate follow-up reminders (drafted, never auto-sent; max 2 per candidate) | **done** (`1cab8ea`) |
+| T2 | Booking one interview slot withdraws the 2 sibling slots; no double booking | next |
+| T3 | `employee_question` queue for personal Answer Desk questions | todo (unblocks H2) |
+| T4 | Risk score ignores low-severity hidden findings | todo (needs H1) |
+| T5 | Audit anchoring docs + offline/online check | todo |
+| T6 | Internal pentest (IDOR, CSRF, executor, email spoofs, template injection, rate limits) → `docs/pentest_report.md` | todo, **P4: app ready for pentest at H12** |
+| T7 | Docs consistency + threat model update | todo |
+
+## 4. Changelog
+
+- **2026-10-31 · T1**: `workflow/followups.py`, templates `followup_reminder.{fr,en,ar}.txt`, 2 endpoints, 7 tests. A candidate is "silent" when our last email to their verified address is older than N days (default 3) and no verified inbound email came after it. Spoofed mail counts neither as a reply nor as a language signal.
