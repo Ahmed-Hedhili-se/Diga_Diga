@@ -1,0 +1,8 @@
+Subject: Relance : votre candidature au poste de $job_title
+Bonjour $candidate_name,
+
+Nous revenons vers vous au sujet de votre candidature pour le poste de $job_title. Nous n'avons pas encore reçu votre réponse à notre dernier message. Vous pouvez simplement répondre à cet e-mail.
+
+Cordialement,
+$recruiter_name
+$company_name
