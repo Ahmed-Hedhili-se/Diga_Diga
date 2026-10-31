@@ -27,11 +27,15 @@ LAYER_SEEDS = [
     ("app.scoring.jobs", "seed_jobs", "P2 jobs/rubrics"),
     ("app.pipeline.demo", "seed_candidates", "P1 candidates"),  # before inbox: gate matches senders to candidates
     ("app.workflow.demo", "seed_inbox", "P3 inbox/approvals"),
+    ("app.scoring.offer_fit", "seed_conditions", "Fast-track declared conditions (fictional)"),
+    ("app.scoring.rediscover", "seed_pool", "Fast-track talent pool: 20 fictional past applicants"),
+    ("app.workflow.followups", "seed_history", "Fast-track: applicants for the other roles, some never answered"),
+    ("app.team.knowledge_gaps", "seed_log", "HR Nexus: fictional answer-desk log (no question text)"),
 ]
 
 
 def _import_all_layers():
-    for mod in ("app.pipeline.routes", "app.scoring.routes", "app.workflow.routes"):
+    for mod in ("app.pipeline.routes", "app.scoring.routes", "app.workflow.routes", "app.team.routes"):
         try:
             importlib.import_module(mod)
         except ImportError as e:

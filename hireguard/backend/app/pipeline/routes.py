@@ -28,19 +28,48 @@ def _cid(candidate_id: str) -> str:
     return candidate_id
 
 
+def _conditions(salary_min, salary_max, notice_weeks, work_modes, commitments_ok):
+    """Optional fast-track fields from the application form: typed and range-checked, never read from the CV."""
+    if salary_min is None:
+        return None
+    from pydantic import ValidationError
+
+    from ..scoring.offer_fit import Conditions  # P2
+    split = lambda s: [x.strip() for x in (s or "").split(",") if x.strip()]
+    try:
+        return Conditions(salary_min=salary_min, salary_max=salary_max, notice_weeks=notice_weeks or 0,
+                          work_modes=split(work_modes), commitments_ok=split(commitments_ok))
+    except ValidationError as e:
+        raise HTTPException(422, f"invalid conditions: {e.errors()[0]['msg']}")
+
+
 @router.post("/candidates")
 def upload_candidate(
     file: UploadFile = File(...),
     job_id: str = Form(...),
     name: str = Form(...),
     email: str = Form(...),
+    talent_pool_consent: bool = Form(False),
+    salary_min: int | None = Form(None),
+    salary_max: int | None = Form(None),
+    notice_weeks: int | None = Form(None),
+    work_modes: str | None = Form(None, max_length=40),
+    commitments_ok: str | None = Form(None, max_length=40),
     user: UserOut = Depends(RM),
 ):
+    cond = _conditions(salary_min, salary_max, notice_weeks, work_modes, commitments_ok)
     data = file.file.read(MAX_UPLOAD_BYTES + 1)  # never read more than the limit
     try:
-        return service.process_cv(data, name.strip(), email.strip(), job_id.strip(), actor=user.id)
+        out = service.process_cv(data, name.strip(), email.strip(), job_id.strip(), actor=user.id)
     except service.UploadRejected as e:
         raise HTTPException(422, str(e))
+    if cond is not None:
+        from ..scoring.offer_fit import save_conditions
+        save_conditions(out["candidate_id"], cond, "candidate_form", user.id)
+    if talent_pool_consent:
+        from ..scoring.rediscover import add
+        add(out["candidate_id"], job_id.strip(), user.id)
+    return out
 
 
 @router.get("/candidates")

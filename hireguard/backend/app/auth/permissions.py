@@ -56,6 +56,7 @@ class Permission(str, Enum):
     audit_anchor = "audit.anchor"
     money_read = "money.read"
     money_edit = "money.edit"
+    team_read = "team.read"                          # HR Nexus: team-level aggregates only (k >= 5)
     # platform administration
     users_manage = "users.manage"
     erp_status = "erp.status"
@@ -77,14 +78,14 @@ ROLE_PERMISSIONS: dict[Role, frozenset[Permission]] = {
     Role.hr_manager: frozenset(_RECRUITER | {
         P.rubric_edit, P.approvals_decide_high_risk, P.inbox_release_request, P.interviews_reminders,
         P.documents_read, P.documents_release, P.questions_read, P.questions_reply, P.answer_desk_ask,
-        P.security_center_read, P.audit_read, P.money_read, P.money_edit, P.offer_propose,
+        P.security_center_read, P.audit_read, P.money_read, P.money_edit, P.offer_propose, P.team_read,
     }),
     Role.employee: frozenset({
         P.documents_request, P.documents_read, P.questions_ask, P.questions_read, P.answer_desk_ask,
     }),
     Role.admin: frozenset({
         P.security_center_read, P.audit_read, P.audit_anchor, P.money_read,
-        P.users_manage, P.inbox_ingest, P.erp_status, P.erp_configure, P.approvals_attention_read,
+        P.users_manage, P.inbox_ingest, P.erp_status, P.erp_configure, P.approvals_attention_read, P.team_read,
     }),
 }
 
@@ -133,6 +134,12 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("DELETE", "/api/talent-pool/{candidate_id}"): P.talent_pool_manage,
     ("GET", "/api/eval/fairness"): P.security_center_read,
     ("GET", "/api/approvals/attention"): P.approvals_attention_read,
+    # fast-track follow-ups and HR Nexus Team module (main)
+    ("GET", "/api/followups"): P.followups_manage,
+    ("POST", "/api/followups/draft"): P.followups_manage,
+    ("GET", "/api/team/skills"): P.team_read,
+    ("GET", "/api/team/process"): P.team_read,
+    ("GET", "/api/team/knowledge-gaps"): P.team_read,
     # workflow (P3)
     ("POST", "/api/inbox/ingest"): P.inbox_ingest,
     ("GET", "/api/inbox"): P.inbox_read,

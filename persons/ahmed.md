@@ -7,6 +7,19 @@ modules of one responsible HR platform without weakening their data boundaries.
 Coordinate integration and the eventual `mnasri` to `main` merge. Do not merge
 until the team has passed the pre-merge gate in [README.md](./README.md).
 
+## Start here (31 Oct hand-off)
+
+Done on `mnasri`: [hireguard/docs/architecture.md](../hireguard/docs/architecture.md)
+(system context, modules, data classes and boundaries, AI-vs-code table,
+workflows, permissions matrix, refuse-to-build list, risk register R1-R9,
+references). Open items you own:
+
+- [ ] R5: revert commit `8f829d8` on `main` (node_modules, dist, generated PDFs).
+- [ ] R4: decide whether `GET /reviewer/stats` is removed or aggregated by batch size.
+- [ ] Keep the risk register current as owners close R1-R9; record retest evidence.
+- [ ] Final pitch: compliance and refuse-to-build slides are drafted in
+      `hireguard/docs/pitch.md`; fill business TBDs from HR interviews.
+
 ## Work to execute
 
 ### Architecture and product boundaries

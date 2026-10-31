@@ -7,6 +7,26 @@ training or tuning only when justified, inference testing, and reproducible
 evaluation. No model result is a release claim until it has been measured on the
 actual configured model and reviewed with the team.
 
+## Start here (31 Oct hand-off)
+
+Everything published so far is **oracle mode** (code path only). Your numbers
+replace every "TBD (LLM)" on the metrics slide. On the GPU laptop, from `hireguard/`:
+
+```powershell
+ollama pull qwen3:8b
+$py = "backend\.venv\Scripts\python.exe"
+& $py eval\harness.py --extraction llm      # attacks, twins, extraction F1 through the model
+& $py eval\fairness.py --extraction llm     # group audit on model extractions
+& $py eval\load_test.py --n 300 --extraction llm
+```
+
+- [ ] R1: run the three commands; commit the result JSONs; report per language and per attack.
+- [ ] Baseline: the same 40 attacks against a naive "LLM ranks the CV" prompt; paired
+      McNemar (p = 2 x 0.5^b; significant for b >= 6).
+- [ ] R2: close the detector misses (English "Evaluator note" 4/4, Derja 3/3, Arabic 3/4)
+      in `backend/app/pipeline/detector.py` with tests; re-run the harness.
+- [ ] Record model name, digest, quantization, context size and runtime settings.
+
 ## Work to execute
 
 ### Model setup and interface

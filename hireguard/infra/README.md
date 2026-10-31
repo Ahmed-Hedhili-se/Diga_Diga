@@ -39,6 +39,27 @@ modal app stop hireguard-ollama                # when finished: stop paying
 2. **Set a workspace budget** in the Modal dashboard (Settings > Usage and billing) so a forgotten container can't spend more than the credit.
 3. **Never put the key or the secret in a file that git tracks.** They live only in environment variables (or in `.env`, which is git-ignored). The client never logs them.
 
+## If the smoke test gets HTTP 401
+
+401 comes from Modal's proxy, before Ollama: the token did not match. Hedhili's first smoke test hit this (0/3,
+`person1.md`). Check, in order:
+
+1. **Same workspace.** The token must be created in the workspace the app is deployed in (the deploy prints it, for
+   example `ahmedhdhili040`). A token from another workspace is refused.
+2. **Key vs secret.** `HG_OLLAMA_MODAL_KEY` starts with `wk-`, `HG_OLLAMA_MODAL_SECRET` with `ws-`. Swapped values
+   give 401.
+3. **Same shell.** Set the variables in the shell that runs the script (or put them in `hireguard/.env.modal`, which
+   git ignores). No quotes or trailing spaces in the values.
+4. **The app is running.** `modal app list` must show `hireguard-ollama` as deployed; after `modal app stop`, deploy
+   again.
+5. **Test the token alone** (no model call, costs nothing):
+   ```powershell
+   curl.exe -s -o NUL -w "%{http_code}`n" -H "Modal-Key: $env:HG_OLLAMA_MODAL_KEY" -H "Modal-Secret: $env:HG_OLLAMA_MODAL_SECRET" "$env:HG_OLLAMA_HOSTS/api/tags"
+   ```
+   `200` = the token works (the first call may wait for the cold start); `401` = go back to 1–3.
+
+Never paste the key or the secret into chat, commits or screenshots.
+
 ## What the endpoint is
 
 `modal_ollama.py` runs `ollama serve` on port 11434 inside an L4 container and exposes it as a Modal web server with `requires_proxy_auth=True`. A request without valid `Modal-Key` / `Modal-Secret` headers is refused by Modal before it reaches Ollama. It is the same quarantined extractor as the local one: it reads text and returns typed JSON, with no tools, no database and no authority.

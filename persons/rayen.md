@@ -7,6 +7,24 @@ validated scoring paths, persistence, and automated backend tests. Implement
 security controls in code rather than relying on frontend restrictions or
 documentation.
 
+## Start here (31 Oct hand-off)
+
+New backend surfaces to review and own (tests in `backend/tests/test_fast_track.py`
+and `test_team.py`; contracts in `hireguard/contracts/API.md`):
+`scoring/offer_fit.py`, `scoring/rediscover.py`, `workflow/followups.py`,
+`team/` (skills, process metrics, knowledge gaps), optional condition and consent
+fields on `POST /candidates`.
+
+- [ ] R3 (P0): implement `POST /answer-desk/ask` (now 501). Retrieval only over
+      `data/handbook/` sections, return the cited passage word for word, "no match"
+      routes to HR; call `team.knowledge_gaps.record(section_or_None, lang)`. Never
+      store the question text.
+- [ ] R4: `GET /reviewer/stats` returns per-reviewer misses; aggregate by batch size
+      (like `/approvals/attention`) or remove, per Ahmed's decision.
+- [ ] R6: rename scorecard criterion `team_fit` to `collaboration` (contract change:
+      tell Yasmina, update `API.md`).
+- [ ] Run `backend/.venv/Scripts/python.exe -m pytest -q` before every push (104 pass now).
+
 ## Work to execute
 
 ### Contracts and backend

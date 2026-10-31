@@ -1,17 +1,16 @@
 import { DragEvent, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as pdfjs from "pdfjs-dist";
-import { api, errMsg } from "../api";
+import { api, ApiError, errMsg } from "../api";
 import { usePermission } from "../auth";
 import EvidenceText, { pageOfOffset } from "../components/EvidenceText";
 import PdfViewer from "../components/PdfViewer";
-import { OfferFit, TalentPool } from "./TalentAndOffers";
 import {
   Badge, ConfirmButton, Empty, ErrorBox, fmtDate, fmtNum, Loading, Modal, PageHeader, useLoad,
 } from "../components/ui";
 import type {
   ApprovalItem, CandidateDetail, CandidateRow, Cefr, DegreeLevel, ErpApplicant, ErpStatus, Job, Rubric, ScoreOutput,
-  Slot, Span, StabilityView, TeamGapsView,
+  FitStatus, OfferFit, OfferFitView, OfferTerms, RediscoverView, Slot, Span, StabilityView, TeamGapsView,
 } from "../types";
 
 interface TextView {
@@ -30,12 +29,43 @@ const MAX_BYTES = 5 * 1024 * 1024;
 const MAX_PAGES = 6;
 const SHORTLIST_FRAC = 0.2; // same default as the fairness audit (eval/fairness.py --k-frac)
 
+const FIT_TONE: Record<FitStatus, "ok" | "warn" | "danger" | "neutral"> = {
+  fit: "ok",
+  negotiable: "warn",
+  mismatch: "danger",
+  unknown: "neutral",
+};
+const CHECK_LABEL: Record<string, string> = {
+  salary: "Salary",
+  start_date: "Start date",
+  work_mode: "Work mode",
+  commitments: "Commitments",
+};
+
+// 404 means "this job has no roster / published terms": a real absence, not an error to hide
+const orNullOn404 = <T,>(p: Promise<T>) =>
+  p.catch((e) => (e instanceof ApiError && e.status === 404 ? null : Promise.reject(e)));
+
+function FitBadge({ f }: { f?: OfferFit }) {
+  if (!f) return null;
+  const tip = f.checks.length
+    ? f.checks.map((c) => `${CHECK_LABEL[c.check] ?? c.check}: ${c.status} (${c.detail})`).join("\n")
+    : "No conditions declared yet: ask, don't guess.";
+  return (
+    <span title={`Declared conditions vs. published terms. Not part of the score.\n${tip}`}>
+      <Badge tone={FIT_TONE[f.status]}>{f.status === "unknown" ? "conditions unknown" : `offer ${f.status}`}</Badge>
+    </span>
+  );
+}
+
 export default function Candidates() {
   const canUpload = usePermission("candidates.upload");
   const canShortlist = usePermission("shortlist.propose");
   const canRescore = usePermission("scores.rescore");
   const canErp = usePermission("erp.import");
   const canEditRubric = usePermission("rubric.edit");
+  const canPool = usePermission("talent_pool.manage");
+  const canOffer = usePermission("offers.propose");
 
   const jobs = useLoad(() => api<Job[]>("/jobs"));
   const [jobId, setJobId] = useState<string>("");
@@ -63,11 +93,41 @@ export default function Candidates() {
     [jobId, shortK, n],
   );
   const gaps = useLoad(
-    () => (jobId ? api<TeamGapsView>(`/jobs/${encodeURIComponent(jobId)}/team-gaps`).catch(() => null) : Promise.resolve(null)),
+    () => (jobId ? orNullOn404(api<TeamGapsView>(`/jobs/${encodeURIComponent(jobId)}/team-gaps`)) : Promise.resolve(null)),
     [jobId],
   );
+  const fit = useLoad(
+    () =>
+      jobId && n
+        ? orNullOn404(api<OfferFitView>(`/jobs/${encodeURIComponent(jobId)}/offer-fit?k=${shortK}`))
+        : Promise.resolve(null),
+    [jobId, shortK, n],
+  );
+  const pool = useLoad(
+    () => (jobId ? api<RediscoverView>(`/jobs/${encodeURIComponent(jobId)}/rediscover`) : Promise.resolve(null)),
+    [jobId],
+  );
+  const [invite, setInvite] = useState<Set<string>>(new Set());
   const stabBy = new Map((stab.data?.candidates ?? []).map((s) => [s.candidate_id, s]));
   const fills = gaps.data?.candidates_filling_gaps ?? {};
+  const bc = fit.data?.band_coverage;
+
+  async function sendInvites() {
+    setActionErr(null);
+    try {
+      const items = await api<ApprovalItem[]>(`/jobs/${encodeURIComponent(jobId)}/rediscover/invite`, {
+        body: { candidate_ids: [...invite] },
+      });
+      setNotice(
+        items.length
+          ? `${items.length} invitation(s) drafted and sent to the approval queue. Nothing is sent before approval.`
+          : "No invitation drafted: these people were already invited or their consent is no longer valid.",
+      );
+      setInvite(new Set());
+    } catch (e) {
+      setActionErr(errMsg(e));
+    }
+  }
 
   async function applyTeamWeights() {
     if (!gaps.data) return;
@@ -177,7 +237,7 @@ export default function Candidates() {
           </div>
         }
       />
-      <ErrorBox error={jobs.error || rows.error || actionErr} />
+      <ErrorBox error={jobs.error || rows.error || gaps.error || fit.error || pool.error || actionErr} />
       {notice && (
         <div className="alert ok" role="status">
           {notice}
@@ -214,6 +274,31 @@ export default function Candidates() {
             </div>
           </div>
           {showErp && jobId && <ErpPreview jobId={jobId} />}
+        </div>
+      )}
+      {fit.data && bc && (
+        <div className="card">
+          <div className="row between">
+            <div>
+              <h3>
+                Offer fit: published band {fmtNum(bc.band[0])}–{fmtNum(bc.band[1])} TND / month ·{" "}
+                {fit.data.terms.work_mode} · {fit.data.terms.contract}
+              </h3>
+              <div className="muted small">
+                Each candidate's own declared conditions (salary, notice, work mode, commitments) checked against the
+                job's published terms. Shown beside the ranking, never inside it: the scores ignore them.
+              </div>
+            </div>
+            <Badge tone={bc.share === null ? "neutral" : bc.share >= 0.5 ? "ok" : "warn"}>
+              band covers {bc.within_band}/{bc.declared} declared in top {bc.k}
+            </Badge>
+          </div>
+          {bc.share !== null && bc.share < 0.5 && (
+            <div className="alert warn">
+              Most of your shortlist expects more than the band pays. Settle the band or the expectations before the
+              interviews, not after the offer.
+            </div>
+          )}
         </div>
       )}
       {gaps.data && gaps.data.diff.length > 0 && (
@@ -346,6 +431,7 @@ export default function Candidates() {
                               <Badge tone="info">fills gap: {fills[r.candidate_id].join(", ")}</Badge>
                             </span>
                           )}
+                          <FitBadge f={fit.data?.candidates[r.candidate_id]} />
                         </div>
                       </td>
                     </tr>
@@ -357,15 +443,79 @@ export default function Candidates() {
         </section>
 
         <section className="detail-pane">
-          {selected ? <CandidatePanel id={selected} /> : <Empty>Select a candidate to see the evidence.</Empty>}
+          {selected ? (
+            <div className="stack">
+              {fit.data && (
+                <OfferPanel
+                  id={selected}
+                  fit={fit.data.candidates[selected]}
+                  terms={fit.data.terms}
+                  canOffer={canOffer}
+                  onDone={setNotice}
+                />
+              )}
+              <CandidatePanel id={selected} />
+            </div>
+          ) : (
+            <Empty>Select a candidate to see the evidence.</Empty>
+          )}
         </section>
       </div>
 
-      {jobId && (
-        <div className="split">
-          <TalentPool jobId={jobId} />
-          <OfferFit jobId={jobId} selected={selected} />
-        </div>
+      {pool.data && pool.data.candidates.length > 0 && (
+        <section className="card">
+          <div className="row between">
+            <div>
+              <h2>Talent pool: {pool.data.candidates.length} past applicant(s) match</h2>
+              <div className="muted small">
+                People who applied to other roles and opted in to the talent pool, re-scored with this job's rubric.
+                Consent expires after {Math.round(pool.data.pool_days / 365)} years and can be withdrawn at any time;
+                expired or withdrawn people never appear here.
+              </div>
+            </div>
+            <button className="btn primary small" disabled={!invite.size || !canPool} onClick={sendInvites}>
+              Draft invitations ({invite.size})
+            </button>
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th />
+                <th>Candidate</th>
+                <th className="num">Score</th>
+                <th>Matched skills</th>
+                <th>Consent until</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pool.data.candidates.map((p) => (
+                <tr key={p.candidate_id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      aria-label={`Invite ${p.name}`}
+                      checked={invite.has(p.candidate_id)}
+                      onChange={() => {
+                        const next = new Set(invite);
+                        next.has(p.candidate_id) ? next.delete(p.candidate_id) : next.add(p.candidate_id);
+                        setInvite(next);
+                      }}
+                    />
+                  </td>
+                  <td>
+                    <div>{p.name}</div>
+                    <div className="muted small">
+                      {p.candidate_id} · applied to {p.source_job_id}
+                    </div>
+                  </td>
+                  <td className="num strong">{fmtNum(p.total, 1)}</td>
+                  <td className="small">{p.matched_skills.join(", ") || "—"}</td>
+                  <td className="small muted">{p.consent_expires_at}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
       )}
 
       {panel === "upload" && job && (
@@ -696,6 +846,106 @@ function ErpPreview({ jobId }: { jobId: string }) {
             ))}
           </tbody>
         </table>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------- offer (fast-track)
+
+function defaultStart(startBy: string): string {
+  const soon = new Date(Date.now() + 30 * 86400_000).toISOString().slice(0, 10);
+  return startBy > soon ? startBy : soon;
+}
+
+function OfferPanel({
+  id,
+  fit,
+  terms,
+  canOffer,
+  onDone,
+}: {
+  id: string;
+  fit?: OfferFit;
+  terms: OfferTerms;
+  canOffer: boolean;
+  onDone: (msg: string) => void;
+}) {
+  const [lo, hi] = terms.pay_band_tnd_month;
+  const [salary, setSalary] = useState(lo);
+  const [start, setStart] = useState(defaultStart(terms.start_by));
+  const [lang, setLang] = useState<"fr" | "en" | "ar">("fr");
+  const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    setSalary(lo);
+    setErr(null);
+  }, [id, lo]);
+
+  async function submit() {
+    setErr(null);
+    setBusy(true);
+    try {
+      const item = await api<ApprovalItem>(`/candidates/${encodeURIComponent(id)}/offer`, {
+        body: { monthly_salary_tnd: salary, start_date: start, lang },
+      });
+      onDone(`Offer for ${id} drafted (${item.id}). Two other HR managers must approve it before it can be sent.`);
+    } catch (e) {
+      setErr(errMsg(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="card">
+      <div className="row between">
+        <h3>Offer fit</h3>
+        <FitBadge f={fit} />
+      </div>
+      {fit?.checks.length ? (
+        <ul className="small">
+          {fit.checks.map((c) => (
+            <li key={c.check}>
+              <Badge tone={FIT_TONE[c.status]}>{c.status}</Badge> <strong>{CHECK_LABEL[c.check] ?? c.check}</strong>:{" "}
+              {c.detail}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="muted small">No conditions declared yet. Ask on the first call; don't guess.</p>
+      )}
+      {canOffer && (
+        <details>
+          <summary>Draft offer letter</summary>
+          <div className="row">
+            <label>
+              Gross salary (TND / month)
+              <input type="number" min={lo} max={hi} step={50} value={salary} onChange={(e) => setSalary(Number(e.target.value))} />
+            </label>
+            <label>
+              Start date
+              <input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
+            </label>
+            <label>
+              Language
+              <select value={lang} onChange={(e) => setLang(e.target.value as "fr" | "en" | "ar")}>
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+              </select>
+            </label>
+            <button className="btn primary small" disabled={busy} onClick={submit}>
+              Send to approval
+            </button>
+          </div>
+          <p className="muted small">
+            HR sets the salary inside the published band ({fmtNum(lo)}–{fmtNum(hi)} TND), not from the candidate's ask:
+            pay follows the role. Two other HR managers must approve before anything is sent.
+          </p>
+          <ErrorBox error={err} />
+        </details>
       )}
     </div>
   );

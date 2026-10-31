@@ -2,7 +2,7 @@
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, conlist
 
 from ..contracts import ApprovalItem, ApprovalKind, AuditEntry, Role, UserOut
 from ..auth.core import require_roles
@@ -47,6 +47,25 @@ def inbox_release_request(inbox_id: str, user: UserOut = Depends(require_roles(M
     return approvals.create_item(ApprovalKind.held_email_release, f"Release held email {inbox_id}",
                                  {"inbox_id": inbox_id, "suspicious": True, "reasons": item["reasons"]},
                                  created_by=user.id, diff={"before": {"status": "held"}, "after": {"status": "released"}})
+
+# ---------------------------------------------------------------- candidate follow-ups
+
+
+class FollowupDraftIn(BaseModel):
+    candidate_ids: conlist(str, min_length=1, max_length=50)
+    days: int = Field(followups.DEFAULT_DAYS, ge=1, le=30)
+
+
+@router.get("/followups")
+def followups_list(days: int = Query(followups.DEFAULT_DAYS, ge=1, le=30), user: UserOut = Depends(require_roles(R, M))):
+    """Candidates we wrote to who have not answered for `days` business days."""
+    return {"days": days, "max_reminders": followups.MAX_REMINDERS, "candidates": followups.awaiting_reply(days)}
+
+
+@router.post("/followups/draft", response_model=list[ApprovalItem])
+def followups_draft(body: FollowupDraftIn, user: UserOut = Depends(require_roles(R, M))):
+    """Templated reminders into the approval queue; candidates that are not due are skipped."""
+    return followups.draft(body.candidate_ids, user.id, body.days)
 
 # ---------------------------------------------------------------- approvals + executor
 

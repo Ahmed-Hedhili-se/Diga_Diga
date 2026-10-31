@@ -130,9 +130,15 @@ CLOSED_JOB = "JOB-DATA-00"  # a fictional 2025 data role, closed: its applicants
 N_POOL = 20
 
 
-def seed_pool():
-    """20 fictional past applicants, rendered and run through the real pipeline (ground-truth extraction).
-    P001-P014 consented, P015-P017 consent expired, P018-P020 never opted in."""
+def fictional_cvs(job_id: str, n: int) -> list[dict]:
+    """The first n generated ground-truth CVs written for job_id (data/cv_ground_truth, all fictional)."""
+    gts = [json.loads(p.read_text(encoding="utf-8"))["ground_truth"]
+           for p in sorted((DATA_DIR / "cv_ground_truth").glob("CV-*.json"))]
+    return [g for g in gts if g["job_id"] == job_id][:n]
+
+
+def seed_cv(gt: dict, candidate_id: str, job_id: str) -> dict:
+    """Renders a fictional CV and runs it through the real pipeline with its ground-truth extraction."""
     eval_dir = ROOT / "eval"
     if str(eval_dir) not in sys.path:
         sys.path.insert(0, str(eval_dir))
@@ -143,14 +149,17 @@ def seed_pool():
     from ..pipeline.sanitizer import sanitize
     from ..pipeline.service import process_cv
 
-    gts = [json.loads(p.read_text(encoding="utf-8"))["ground_truth"]
-           for p in sorted((DATA_DIR / "cv_ground_truth").glob("CV-*.json"))]
-    gts = [g for g in gts if g["job_id"] == "JOB-DATA-01"][:N_POOL]
-    for i, gt in enumerate(gts, start=1):
+    pdf = text_pdf(render_text(gt), gt["lang"]).tobytes()
+    return process_cv(pdf, gt["name"], gt["email"], job_id, candidate_id=candidate_id, actor="system:seed",
+                      extraction_override=gt_extraction(gt, sanitize(pdf).visible_text))
+
+
+def seed_pool():
+    """20 fictional past applicants of a closed role, through the real pipeline (ground-truth extraction).
+    P001-P014 consented, P015-P017 consent expired, P018-P020 never opted in."""
+    for i, gt in enumerate(fictional_cvs("JOB-DATA-01", N_POOL), start=1):
         cid = f"CAND-P{i:03d}"
-        pdf = text_pdf(render_text(gt), gt["lang"]).tobytes()
-        process_cv(pdf, gt["name"], gt["email"], CLOSED_JOB, candidate_id=cid, actor="system:seed",
-                   extraction_override=gt_extraction(gt, sanitize(pdf).visible_text))
+        seed_cv(gt, cid, CLOSED_JOB)
         if i <= 14:
             add(cid, CLOSED_JOB, "system:seed", consent_at=datetime(2025, 9, 15, tzinfo=timezone.utc))
         elif i <= 17:

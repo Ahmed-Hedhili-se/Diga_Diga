@@ -38,7 +38,7 @@ route needs; `tests/test_rbac.py` fails if a route is missing from it or guarded
 ### Pipeline (P1)
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|
-| POST | `/candidates` | R M | multipart `file` (PDF ≤5 MB, ≤6 pages), `job_id`, `name`, `email` (pre-verified) → `CandidateDetail` |
+| POST | `/candidates` | R M | multipart `file` (PDF ≤5 MB, ≤6 pages), `job_id`, `name`, `email` (pre-verified); optional `salary_min`, `salary_max`, `notice_weeks`, `work_modes` (comma list of onsite/hybrid/remote), `commitments_ok` (on_call/travel/shift_work), `talent_pool_consent` → `CandidateDetail` (422 on invalid conditions) |
 | GET | `/candidates?job_id=` | R M | → `CandidateRow[]`, ranked by `score.total` desc |
 | GET | `/candidates/{id}` | R M | → `CandidateDetail` |
 | GET | `/candidates/{id}/text` | R M | → `{visible_text, page_offsets}` (for evidence highlight) |
@@ -61,6 +61,12 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/jobs/{job_id}/shortlist` | R M | `{candidate_ids}` → `ApprovalItem` (kind `shortlist_commit`) |
 | GET | `/jobs/{job_id}/stability?k=5&jitter=0.15` | R M | → `{k, jitter, draws, candidates: [{candidate_id, base_rank, p_top_k, rank_p05, rank_p95, label}]}`; label `stable_in` / `stable_out` / `borderline` |
 | GET | `/jobs/{job_id}/team-gaps` | R M | → `{team, coverage[], diff[], proposed_rubric, candidates_filling_gaps}`; a proposal only, applied by HR through PUT `/rubric` |
+| GET | `/jobs/{job_id}/offer-fit?k=5` | R M | → `{terms, band_coverage:{k, declared, within_band, share, band}, candidates:{id: {status, checks[]}}}`; status `fit` / `negotiable` / `mismatch` / `unknown`. Never part of the score |
+| PUT | `/candidates/{id}/conditions` | R M | `{salary_min, salary_max?, notice_weeks, work_modes[], commitments_ok[]}` → same; audited `conditions.update` |
+| POST | `/candidates/{id}/offer` | M | `{monthly_salary_tnd, start_date, lang}` → `ApprovalItem` (kind `offer`, 2 approvers); 422 if the salary is outside the published band or an offer is pending |
+| GET | `/jobs/{job_id}/rediscover` | R M | → `{pool_days, candidates:[{candidate_id, name, source_job_id, total, matched_skills, consent_expires_at}]}`: consented, unexpired pool only |
+| POST | `/jobs/{job_id}/rediscover/invite` | R M | `{candidate_ids}` → `ApprovalItem[]` (email drafts; ineligible or already invited are skipped) |
+| DELETE | `/talent-pool/{id}` | R M | → `{withdrawn: true}`; audited `talent_pool.withdraw` |
 | GET | `/money` | M A | → `{roles:[{job_id, title, days_open, target_days, cost_of_vacancy_tnd}], hours_saved:{cv_screening, emails, documents, answers, total}, hourly_cost_tnd, roi_tnd}` |
 | PUT | `/money/settings` | M | `{hourly_cost_tnd}` |
 | GET | `/eval/summary` | M A | → latest eval numbers with Clopper-Pearson CIs |
@@ -75,6 +81,8 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/approvals/{id}/decision` | R M (offer: M, 2 distinct approvers) | `{decision:"approve"\|"reject"}` → `ApprovalItem` |
 | POST | `/approvals/batches/{batch_id}/decision` | R M | `{decision, item_ids}` → `ApprovalItem[]` |
 | POST | `/executor/run/{item_id}` | R M | → `{executed}`; **403 if the item is not approved** |
+| GET | `/followups?days=3` | R M | → `{days, max_reminders, candidates:[{candidate_id, last_sent_at, business_days_waiting, reminders_sent, reminder_pending, can_remind}]}` |
+| POST | `/followups/draft` | R M | `{candidate_ids, days?}` → `ApprovalItem[]` (template reminders; at most 2 per candidate; not-due candidates skipped) |
 | GET | `/calendar/slots?recruiter_id=` | R M | → 3 free slots; unknown `recruiter_id` → 404 (default `recruiter`, or a recruiter / HR manager account id) |
 | GET | `/audit?limit=` | M A | → `AuditEntry[]` |
 | GET | `/audit/verify` | M A | → `{ok, length, broken_at, last_anchor}` |
@@ -92,6 +100,13 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/employee-questions/{id}/reply` | M | `{template: received\|contact_hr\|use_documents, lang}` → `ApprovalItem` (`email_send` to the employee's own account) |
 | GET | `/followups/preview?days=3` | R M | → `[{candidate_id, job_id, lang, last_sent_at, days_silent}]`, creates nothing |
 | POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends |
+
+### HR Nexus: Team module (aggregates only)
+| Method | Path | Roles | Body → Response |
+|---|---|---|---|
+| GET | `/team/skills` | M A | → `[{job_id, team, team_size, coverage:[{esco_id, label, holders, verified_holders, status}]}]`: counts only, never member ids |
+| GET | `/team/process?source=live\|simulation` | M A | → `{source, files, reached, transitions:[{from, to, n, median_days, p95_days}], bottleneck, time_to_offer, wip, littles_law}` |
+| GET | `/team/knowledge-gaps?weeks=8` | M A | → `{k, questions, no_match:{count, share}, sections:[{section, count, suppressed}], weeks[]}`: cells under k are `null` |
 
 ```
 InboxItem     = {id, from, from_name, subject, received_at, language, intent, urgency, candidate_id|null,

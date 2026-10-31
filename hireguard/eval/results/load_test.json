@@ -1,0 +1,20 @@
+{
+ "generated_at": "2026-10-31T22:19:05.610184+00:00",
+ "extraction": "oracle",
+ "scope": "code path and database only; the model is not exercised",
+ "n": 300,
+ "distinct_inputs": 339,
+ "errors": {},
+ "status": {
+  "ok": 300
+ },
+ "pipeline_seconds_total": 11.0,
+ "cvs_per_minute": 1629.9,
+ "latency_ms": {
+  "p50": 36,
+  "p95": 45,
+  "max": 55
+ },
+ "wall_seconds_including_oracle_prep": 14.3,
+ "db_mb": 2.1
+}

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { Fragment, ReactElement } from "react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { IdleWatcher, ROLE_LABEL, useAuth } from "./auth";
 import { Badge, ConfirmButton } from "./components/ui";
@@ -14,26 +14,30 @@ import Scorecard from "./pages/Scorecard";
 import EmployeeDocs from "./pages/EmployeeDocs";
 import Users from "./pages/Users";
 import { Forbidden, NotFound } from "./pages/Errors";
+import Team from "./pages/Team";
 
 interface Page {
   path: string;
   label: string;
   permission: string;
+  group: "Recruit" | "Team" | "Oversight" | "Admin";
   element: ReactElement;
 }
 
+// Two modules on one trust core: Recruit (HireGuard, HR <-> candidates) and Team (HR Nexus, HR <-> staff).
 // Nav, routes and home all derive from permissions (GET /auth/me), never from hard-coded roles.
 const PAGES: Page[] = [
-  { path: "/candidates", label: "Candidates", permission: "candidates.read", element: <Candidates /> },
-  { path: "/approvals", label: "Approvals", permission: "approvals.decide", element: <Approvals /> },
-  { path: "/inbox", label: "Inbox", permission: "inbox.read", element: <Inbox /> },
-  { path: "/interviews", label: "Interviews", permission: "interviews.scorecard", element: <Scorecard /> },
-  { path: "/questions", label: "Employee questions", permission: "questions.reply", element: <EmployeeQuestions /> },
-  { path: "/documents", label: "My documents", permission: "documents.request", element: <EmployeeDocs /> },
-  { path: "/answer-desk", label: "Answer Desk", permission: "answer_desk.ask", element: <AnswerDesk /> },
-  { path: "/security", label: "Security Center", permission: "security_center.read", element: <SecurityCenter /> },
-  { path: "/money", label: "Money", permission: "money.read", element: <Money /> },
-  { path: "/users", label: "Users", permission: "users.manage", element: <Users /> },
+  { path: "/candidates", label: "Candidates", group: "Recruit", permission: "candidates.read", element: <Candidates /> },
+  { path: "/inbox", label: "Inbox", group: "Recruit", permission: "inbox.read", element: <Inbox /> },
+  { path: "/approvals", label: "Approvals", group: "Recruit", permission: "approvals.decide", element: <Approvals /> },
+  { path: "/interviews", label: "Interviews", group: "Recruit", permission: "interviews.scorecard", element: <Scorecard /> },
+  { path: "/team", label: "Team insights", group: "Team", permission: "team.read", element: <Team /> },
+  { path: "/questions", label: "Employee questions", group: "Team", permission: "questions.reply", element: <EmployeeQuestions /> },
+  { path: "/answer-desk", label: "Answer Desk", group: "Team", permission: "answer_desk.ask", element: <AnswerDesk /> },
+  { path: "/documents", label: "My documents", group: "Team", permission: "documents.request", element: <EmployeeDocs /> },
+  { path: "/security", label: "Security Center", group: "Oversight", permission: "security_center.read", element: <SecurityCenter /> },
+  { path: "/money", label: "Money", group: "Oversight", permission: "money.read", element: <Money /> },
+  { path: "/users", label: "Users", group: "Admin", permission: "users.manage", element: <Users /> },
 ];
 
 // Where each kind of user lands: HR manager -> approvals, recruiter -> candidates, employee -> documents,
@@ -65,10 +69,13 @@ export default function App() {
           <span>HireGuard</span>
         </div>
         <nav aria-label="Main">
-          {mine.map((p) => (
-            <NavLink key={p.path} to={p.path} className={({ isActive }) => (isActive ? "nav active" : "nav")}>
-              {p.label}
-            </NavLink>
+          {mine.map((p, i) => (
+            <Fragment key={p.path}>
+              {p.group !== mine[i - 1]?.group && <div className="nav-group">{p.group}</div>}
+              <NavLink to={p.path} className={({ isActive }) => (isActive ? "nav active" : "nav")}>
+                {p.label}
+              </NavLink>
+            </Fragment>
           ))}
         </nav>
       </aside>
