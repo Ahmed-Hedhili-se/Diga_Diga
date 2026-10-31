@@ -4,7 +4,7 @@
 > P3 owns the code with authority: email gate, drafting, approvals, executor, audit log, documents, interviews, follow-ups.
 > This file is kept up to date after every P3 task. **Section 1 is what I need from you.**
 
-Last update: 2026-10-31 · branch `p3/pentest` (includes T1-T5) · backend tests: 187 passed + 1 expected failure (P4 finding F5)
+Last update: 2026-10-31 · branch `p3/docs` (includes T1-T6) · backend tests: 187 passed + 1 expected failure (P4 finding F5)
 
 ---
 
@@ -14,7 +14,7 @@ Last update: 2026-10-31 · branch `p3/pentest` (includes T1-T5) · backend tests
 |---|---|---|---|---|
 | H1 | **P1** | Add a severity to each hidden finding: `severity: "high" \| "low"` on `HiddenFinding` (or a separate `undecodable` channel). Mark a lone U+FFFD glyph (common in Arabic words inside FR/EN CVs) as `low`. Real zero-width or tag characters stay `high`. Tell me which option you pick. **P3 side is done**: when you create an approval item, pass `hidden_findings` as the list of finding dicts (`channel`, `text`, `severity`), or pass `hidden_findings_high` as an int. A plain int in `hidden_findings` still works but counts as all high | My risk score now counts only high-severity findings, so clean Arabic-name CVs aren't pushed into the high-risk lane. Until you add `severity`, I already treat a zero_width finding whose text starts with `[N undecodable glyphs]` as low, so please keep that text format or tell me if it changes | open (P3 part done)
 | H2 | **P1** | `pipeline/answer_desk.py` doesn't exist yet, but the threat model cites it. When you build `/api/answer-desk/ask`, send personal questions (leave, salary, certificate, contract) to my queue with `create_employee_question(user, topic, text)` (coming in my T3). Don't answer them yourself | Personal questions must go to HR, never to generated text | **ready**: T3 is merged-ready, see section 2 |
-| H3 | **P1** | `README.md` links `docs/pipeline.md`, which doesn't exist. Please add it or tell me to remove the link | Broken link in the deliverable | open |
+| H3 | **P1** | `docs/pipeline.md` doesn't exist. I replaced the broken link in `hireguard/README.md` with plain text "(P1, still to be written)". Please write the file and put the link back. Also: the threat model now says `/api/answer-desk/ask` returns 501 until you add handbook retrieval | Deliverable completeness | open |
 | H4 | **P2, P4** | When you change a **candidate's** hiring status, create a `status_change` approval item with `object_type: "candidate"`, `object_id: <candidate_id>`, `status_to: "rejected" \| "hired" \| "withdrawn" \| ...` | Follow-up reminders skip closed candidates by reading this. Any other `object_type` won't be seen | please confirm |
 | H5 | **P4** | Follow-ups UI: a "Silent candidates" card on `GET /api/followups/preview` and a "Draft reminders" button on `POST /api/followups/run` (roles R, M). The reminders then appear in the normal approval queue, with `payload.template = "followup_reminder"` | New spec-book axis "Candidate Follow-ups" | open |
 | H7 | **P4** | Approval queue: an interview-slot item can turn `rejected` after another slot is booked (audit action `approval.withdraw`, `details.reason = "sibling_booked"`). Show it as "withdrawn: another slot was booked" instead of a plain rejection | Reviewers shouldn't think a colleague rejected it | open |
@@ -65,7 +65,7 @@ from app.workflow.employee_questions import create_employee_question  # P1: crea
 | T4 | Risk score ignores low-severity hidden findings | **done** on my side (H1 still wanted from P1) |
 | T5 | Audit anchoring docs + offline/online check | **done** |
 | T6 | Internal pentest (IDOR, CSRF, executor, email spoofs, template injection, rate limits) → `docs/pentest_report.md` | **done**: 3 P3 findings fixed, 1 finding + 2 observations handed to P4, 1 to P1 |
-| T7 | Docs consistency + threat model update | todo |
+| T7 | Docs consistency + threat model update | **done** |
 
 ## 4. Changelog
 
@@ -75,3 +75,11 @@ from app.workflow.employee_questions import create_employee_question  # P1: crea
 - **2026-10-31 · T4**: `approvals.compute_risk` adds +10 only for high-severity hidden findings (`count_high_findings`). Low = `severity: "low"`, or a `zero_width` finding that is only undecodable glyphs. Missing field or unknown shape = high (fail closed). Explicit `hidden_findings_high` int wins. 13 tests in `tests/test_risk.py`.
 - **2026-10-31 · T5**: `anchor_now` now reads the head and does the `ots`/`git` work **before** its write transaction (a slow push no longer blocks approvals) and only runs git when `data/anchors` is its own repo (before, `git commit` could have acted on the HireGuard repo). 12 tests in `tests/test_anchor.py` (offline = no external call, network flag, tamper / delete / full-rewrite / truncation all caught). New docs: `docs/anchoring.md` (what we claim, Windows setup), `docs/demo_p3.md` (5-step demo script), Postgres `REVOKE`/`GRANT` in the threat model. `python -m app.workflow.demo --followups` adds a backdated email so the follow-up demo works. `data/anchors/` is git-ignored.
 - **2026-10-31 · T6**: `tests/test_pentest_p3.py` (59 cases) + a live run of the server with `curl` (demo steps 3, 4, 5 and the 429 check verified). Fixed in P3 code: **F1** duplicate `Authentication-Results` with our authserv-id (email gate), **F2** unlimited calendar rows (`/api/calendar/slots` now 404s for unknown recruiters), **F3** control and bidi characters in template slots. Also fixed the demo helper `python -m app.workflow.demo --followups` (it found nobody to remind because the seeded emails are timestamped "now"; it now backdates that candidate's mail, and logs it). Full write-up: `hireguard/docs/pentest_report.md`.
+- **2026-10-31 · T7**: README no longer links the missing `docs/pipeline.md`; the threat model now points at `pipeline/routes.py` (there is no `pipeline/answer_desk.py`) and says the Answer Desk is 501 until P1 lands retrieval. Threat model gained the T1-T6 controls, the new email rows (IDN homograph, encoded-word display name, duplicate auth-results), the pentest table, and the three residual risks we state openly (visible keyword stuffing, fake dated jobs in visible text, compromise of the laptop). `hireguard/docs/p3_handoffs.md` is a pointer to this file.
+
+## 5. P3 status summary
+
+All seven tasks of the hardening pass are done: T1 follow-ups, T2 no double booking, T3 employee questions, T4 risk score, T5 audit anchoring, T6 pentest, T7 docs. Backend tests: 187 passed + 1 expected failure (P4's finding F5).
+Docs: `hireguard/docs/anchoring.md`, `pentest_report.md`, `demo_p3.md` (5-step demo), `p3_handoffs.md`, `threat_model.md`.
+Open for others: H1 (P1), H2 (P1), H3 (P1), H4 (P2/P4), H5 (P4), H7 (P4), H8 (P4), H9 (P4), H10 (P4), H11 (P1).
+Work is on local branches `p3/followups` → `p3/booking` → `p3/employee-questions` → `p3/risk` → `p3/audit-anchor` → `p3/pentest` → `p3/docs` (each builds on the previous; `p3/docs` has everything). Nothing is pushed yet.
