@@ -19,12 +19,21 @@ All routes are under `/api`. Auth uses a session cookie (`hg_session`, HttpOnly,
 Roles: `R` recruiter · `M` hr_manager · `E` employee · `A` admin.
 
 ### Auth (P4)
+Permissions, not roles, are the contract: `backend/app/auth/permissions.py` holds the matrix and the permission each
+route needs; `tests/test_rbac.py` fails if a route is missing from it or guarded differently.
+`Session` = `{user: UserOut, role, permissions: [str], csrf, idle_timeout_s}`.
+
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|
-| POST | `/auth/login` | public, rate-limited | `{email, password}` → `{user: UserOut, csrf}` |
+| POST | `/auth/login` | public, rate-limited | `{email, password}` → `Session`. Wrong password, unknown, inactive and locked accounts all get `401 "Invalid email or password"`; too many failures from one IP → `429` + `Retry-After` |
 | POST | `/auth/logout` | any | → `{ok}` |
-| GET | `/auth/me` | any | → `{user: UserOut, csrf}` |
-| GET/POST | `/auth/users` | A | list / create user (`{email, display_name, role, password}`) |
+| POST | `/auth/logout-all` | any | closes every session of the caller → `{ok, sessions_closed}` |
+| GET | `/auth/me` | any | → `Session` (fields added to the old `{user, csrf}`, backward compatible) |
+| GET | `/auth/permissions` | any | → `{permissions: [str], roles: {role: [str]}}` (read-only matrix) |
+| GET | `/auth/users` | A | → `[UserOut + {active, last_login_at, locked_until}]`, including deactivated accounts |
+| POST | `/auth/users` | A | `{email, display_name, role, password}` → `UserOut` (422 with a readable message if the password is weak) |
+| PATCH | `/auth/users/{id}` | A | `{role?, active?, unlock?}` → user. Role change or deactivation closes their sessions; 409 on yourself |
+| POST | `/auth/users/{id}/reset-password` | A | → `{user_id, password}` (temporary, shown once); closes sessions, clears lockout |
 
 ### Pipeline (P1)
 | Method | Path | Roles | Body → Response |

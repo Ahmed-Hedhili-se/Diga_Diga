@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useState } from "react";
 import { api, errMsg } from "../api";
-import { hasRole, useAuth } from "../auth";
+import { usePermission } from "../auth";
 import { ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type { MoneyView } from "../types";
 
 export default function Money() {
-  const { user } = useAuth();
+  const canEdit = usePermission("money.edit");
   const m = useLoad(() => api<MoneyView>("/money"));
   const [rate, setRate] = useState("");
   const [err, setErr] = useState<string | null>(null);
@@ -94,7 +94,7 @@ export default function Money() {
                   </div>
                 </div>
               ))}
-              {hasRole(user, "hr_manager") && (
+              {canEdit && (
                 <form className="row" onSubmit={save}>
                   <label className="grow">
                     Your hourly HR cost (TND)

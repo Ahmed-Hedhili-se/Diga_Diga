@@ -1,26 +1,49 @@
 // Same-origin API client: session cookie + double-submit CSRF header on every mutation.
 
 let csrfToken = "";
+let lastActivity = Date.now();
+let onSessionLost: ((reason: string) => void) | null = null;
 
 export function setCsrf(token: string) {
   csrfToken = token;
 }
 
+/** Called once by AuthProvider: any 401 outside the login flow means the session is gone. */
+export function setSessionLostHandler(fn: ((reason: string) => void) | null) {
+  onSessionLost = fn;
+}
+
+/** Time of the last successful API call: the server's idle timer restarts on every request. */
+export function lastApiActivity() {
+  return lastActivity;
+}
+
 export class ApiError extends Error {
-  constructor(public status: number, message: string) {
+  constructor(public status: number, message: string, public retryAfter: number | null = null) {
     super(message);
   }
 }
 
-type Opts = { method?: string; body?: unknown; form?: FormData };
+type Opts = {
+  method?: string;
+  body?: unknown;
+  form?: FormData;
+  raw?: { data: BodyInit; type: string };
+};
+
+const AUTH_FLOW = new Set(["/auth/login", "/auth/me"]);
 
 async function request(path: string, opts: Opts = {}): Promise<Response> {
-  const method = opts.method ?? (opts.body !== undefined || opts.form ? "POST" : "GET");
+  const hasBody = opts.body !== undefined || opts.form !== undefined || opts.raw !== undefined;
+  const method = opts.method ?? (hasBody ? "POST" : "GET");
   const headers: Record<string, string> = {};
   if (method !== "GET") headers["X-CSRF-Token"] = csrfToken;
   let body: BodyInit | undefined;
   if (opts.form) body = opts.form;
-  else if (opts.body !== undefined) {
+  else if (opts.raw) {
+    headers["Content-Type"] = opts.raw.type;
+    body = opts.raw.data;
+  } else if (opts.body !== undefined) {
     headers["Content-Type"] = "application/json";
     body = JSON.stringify(opts.body);
   }
@@ -33,8 +56,11 @@ async function request(path: string, opts: Opts = {}): Promise<Response> {
     } catch {
       /* non-JSON error */
     }
-    throw new ApiError(res.status, msg);
+    const retry = Number(res.headers.get("Retry-After"));
+    if (res.status === 401 && !AUTH_FLOW.has(path)) onSessionLost?.(msg);
+    throw new ApiError(res.status, msg, Number.isFinite(retry) && retry > 0 ? retry : null);
   }
+  lastActivity = Date.now();
   return res;
 }
 

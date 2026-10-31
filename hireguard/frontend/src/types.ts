@@ -170,24 +170,33 @@ export interface SecurityFinding {
   blocked: boolean;
 }
 
-// InboxItem is not frozen in contracts.py yet; rendered defensively.
 export interface InboxItem {
   id: string;
-  from?: string;
-  sender?: string;
-  subject?: string;
-  received_at?: string;
-  intent?: string;
-  urgency?: "low" | "normal" | "high";
-  candidate_id?: string | null;
-  auth?: { spf?: string; dkim?: string; dmarc?: string };
-  reasons?: string[];
-  needs_human?: boolean;
-  suspicious?: boolean;
+  received_at: string;
+  from: string;
+  from_name?: string | null;
+  subject: string;
+  body_preview?: string;
+  auth: { spf?: string; dkim?: string; dmarc?: string };
+  language?: string;
+  intent: string | null;
+  urgency: "low" | "normal" | "high" | null;
+  lane: "routine" | "needs_human" | "suspicious";
+  reasons: string[];
+  status: string; // new | drafted | held | released | archived ...
+  candidate_id: string | null;
+  draft_item_ids: string[];
+}
+
+export interface InboxGroup {
+  intent: string | null;
+  urgency: string | null;
+  count: number;
+  items: InboxItem[];
 }
 
 export interface InboxView {
-  lanes: { routine: InboxItem[]; needs_human: InboxItem[]; suspicious: InboxItem[] };
+  lanes: { routine: InboxGroup[]; needs_human: InboxGroup[]; suspicious: InboxGroup[] };
 }
 
 export interface AnswerResult {
@@ -209,4 +218,136 @@ export interface EmployeeDocument {
   status: string;
   requested_at?: string;
   released_at?: string | null;
+}
+
+// ---------------------------------------------------------------- auth / RBAC (P4)
+
+export interface Session {
+  user: User;
+  role: Role;
+  permissions: string[];
+  csrf: string;
+  idle_timeout_s: number;
+}
+
+export interface UserAdmin extends User {
+  active: boolean;
+  last_login_at: string | null;
+  locked_until: string | null;
+}
+
+export interface PermissionMatrix {
+  permissions: string[];
+  roles: Record<Role, string[]>;
+}
+
+// ---------------------------------------------------------------- scoring (P2)
+
+export type DegreeLevel = "none" | "bac" | "bts" | "licence" | "master" | "ingenieur" | "phd";
+export type Cefr = "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "native";
+
+export interface Rubric {
+  job_id: string;
+  title: string;
+  skill_weights: Record<string, number>;
+  min_years: number;
+  required_degree: DegreeLevel;
+  languages: { iso: "fr" | "en" | "ar"; min_cefr: Cefr }[];
+  component_weights: Record<"skills" | "experience" | "degree" | "languages", number>;
+}
+
+export interface RateStat {
+  k: number;
+  n: number;
+  rate: number | null;
+  ci95: [number, number] | null;
+  text: string;
+}
+
+export interface Prf {
+  tp: number;
+  fp: number;
+  fn: number;
+  precision: number;
+  recall: number;
+  f1: number;
+}
+
+export interface EvalSummary {
+  status?: "not_run";
+  generated_at?: string;
+  model?: string;
+  sections?: {
+    attacks?: { skipped?: string; attack_success?: RateStat; by_channel?: Record<string, RateStat>;
+      hidden_text_detection?: Prf & { recall_ci?: RateStat }; instruction_flagged?: RateStat };
+    twins?: { skipped?: string; score_changed?: RateStat; by_variant?: Record<string, RateStat> };
+    extraction?: { skipped?: string; n_docs?: number; skills?: Prf; years_mae?: number };
+  };
+}
+
+// ---------------------------------------------------------------- workflow (P3)
+
+export interface ReviewerStat {
+  user_id: string;
+  decisions: number;
+  canaries_caught: number;
+  canaries_missed: number;
+}
+
+export interface InterviewReminder {
+  interview_id: string;
+  candidate_id: string;
+  interviewer_id: string;
+  ended_at: string;
+}
+
+export interface SilentCandidate {
+  candidate_id: string;
+  job_id: string;
+  lang: string;
+  last_sent_at: string;
+  days_silent: number;
+}
+
+export interface Slot {
+  id: string;
+  start: string;
+  end: string;
+}
+
+export type QuestionTopic = "leave" | "salary" | "certificate" | "contract" | "other";
+
+export interface EmployeeQuestion {
+  id: string;
+  topic: QuestionTopic;
+  risk: number;
+  status: "open" | "reply_drafted" | "answered";
+  created_at: string;
+  reply_item_id: string | null;
+  text?: string;
+}
+
+export interface AuditAnchor {
+  seq: number;
+  head_hash: string;
+  status?: string;
+  method?: string;
+  file?: string;
+}
+
+// ---------------------------------------------------------------- Odoo connector
+
+export interface ErpStatus {
+  enabled: boolean;
+  connected: boolean;
+  error?: string;
+}
+
+export interface ErpApplicant {
+  applicant_id: number;
+  candidate_id: string;
+  name: string;
+  email: string;
+  stage: string | null;
+  imported: boolean;
 }

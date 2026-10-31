@@ -1,77 +1,109 @@
 import { ReactElement } from "react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { hasRole, ROLE_LABEL, useAuth } from "./auth";
-import type { Role } from "./types";
+import { IdleWatcher, ROLE_LABEL, useAuth } from "./auth";
+import { Badge, ConfirmButton } from "./components/ui";
 import Login from "./pages/Login";
 import Candidates from "./pages/Candidates";
 import Approvals from "./pages/Approvals";
 import Inbox from "./pages/Inbox";
+import EmployeeQuestions from "./pages/EmployeeQuestions";
 import SecurityCenter from "./pages/SecurityCenter";
 import AnswerDesk from "./pages/AnswerDesk";
 import Money from "./pages/Money";
 import Scorecard from "./pages/Scorecard";
 import EmployeeDocs from "./pages/EmployeeDocs";
 import Users from "./pages/Users";
+import { Forbidden, NotFound } from "./pages/Errors";
 
-interface NavEntry {
+interface Page {
   path: string;
   label: string;
-  roles: Role[];
+  permission: string;
   element: ReactElement;
 }
 
-const R: Role = "recruiter", M: Role = "hr_manager", E: Role = "employee", A: Role = "admin";
+// Nav, routes and home all derive from permissions (GET /auth/me), never from hard-coded roles.
+const PAGES: Page[] = [
+  { path: "/candidates", label: "Candidates", permission: "candidates.read", element: <Candidates /> },
+  { path: "/approvals", label: "Approvals", permission: "approvals.decide", element: <Approvals /> },
+  { path: "/inbox", label: "Inbox", permission: "inbox.read", element: <Inbox /> },
+  { path: "/interviews", label: "Interviews", permission: "interviews.scorecard", element: <Scorecard /> },
+  { path: "/questions", label: "Employee questions", permission: "questions.reply", element: <EmployeeQuestions /> },
+  { path: "/documents", label: "My documents", permission: "documents.request", element: <EmployeeDocs /> },
+  { path: "/answer-desk", label: "Answer Desk", permission: "answer_desk.ask", element: <AnswerDesk /> },
+  { path: "/security", label: "Security Center", permission: "security_center.read", element: <SecurityCenter /> },
+  { path: "/money", label: "Money", permission: "money.read", element: <Money /> },
+  { path: "/users", label: "Users", permission: "users.manage", element: <Users /> },
+];
 
-const NAV: NavEntry[] = [
-  { path: "/candidates", label: "Candidates", roles: [R, M], element: <Candidates /> },
-  { path: "/approvals", label: "Approvals", roles: [R, M], element: <Approvals /> },
-  { path: "/inbox", label: "Inbox", roles: [R, M], element: <Inbox /> },
-  { path: "/security", label: "Security Center", roles: [M, A], element: <SecurityCenter /> },
-  { path: "/money", label: "Money", roles: [M, A], element: <Money /> },
-  { path: "/answer-desk", label: "Answer Desk", roles: [E, M], element: <AnswerDesk /> },
-  { path: "/documents", label: "My documents", roles: [E], element: <EmployeeDocs /> },
-  { path: "/scorecard", label: "Interview scorecard", roles: [R, M], element: <Scorecard /> },
-  { path: "/users", label: "Users", roles: [A], element: <Users /> },
+// Where each kind of user lands: HR manager -> approvals, recruiter -> candidates, employee -> documents,
+// admin -> users. Expressed as "first permission held", so a new role lands somewhere sensible.
+const HOME: [string, string][] = [
+  ["approvals.decide_high_risk", "/approvals"],
+  ["candidates.read", "/candidates"],
+  ["documents.request", "/documents"],
+  ["users.manage", "/users"],
 ];
 
 export default function App() {
-  const { user, loading, logout } = useAuth();
+  const { user, loading, can, logout, logoutAll } = useAuth();
 
   if (loading) return <div className="center muted">Loading…</div>;
   if (!user) return <Login />;
 
-  const mine = NAV.filter((n) => hasRole(user, ...n.roles));
+  const mine = PAGES.filter((p) => can(p.permission));
+  const home = HOME.find(([p]) => can(p))?.[1] ?? mine[0]?.path ?? "/403";
 
   return (
     <div className="shell">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <aside className="sidebar">
         <div className="brand">
           <img src="/favicon.svg" alt="" width={26} height={26} />
           <span>HireGuard</span>
         </div>
-        <nav>
-          {mine.map((n) => (
-            <NavLink key={n.path} to={n.path} className={({ isActive }) => (isActive ? "nav active" : "nav")}>
-              {n.label}
+        <nav aria-label="Main">
+          {mine.map((p) => (
+            <NavLink key={p.path} to={p.path} className={({ isActive }) => (isActive ? "nav active" : "nav")}>
+              {p.label}
             </NavLink>
           ))}
         </nav>
-        <div className="who">
-          <div className="who-name">{user.display_name}</div>
-          <div className="muted small">{ROLE_LABEL[user.role]}</div>
-          <button className="btn ghost small" onClick={logout}>
-            Sign out
-          </button>
-        </div>
       </aside>
-      <main className="content">
-        <Routes>
-          {mine.map((n) => (
-            <Route key={n.path} path={n.path} element={n.element} />
-          ))}
-          <Route path="*" element={<Navigate to={mine[0]?.path ?? "/"} replace />} />
-        </Routes>
-      </main>
+      <div className="main-col">
+        <header className="topbar">
+          <div className="who">
+            <span className="who-name">{user.display_name}</span>
+            <Badge tone="info">{ROLE_LABEL[user.role]}</Badge>
+          </div>
+          <div className="row">
+            <button className="btn ghost small" onClick={logout}>
+              Log out
+            </button>
+            <ConfirmButton
+              className="btn ghost small"
+              label="Log out everywhere"
+              title="Log out on every device?"
+              message="This closes all your sessions, including on other computers and phones."
+              confirmLabel="Log out everywhere"
+              onConfirm={logoutAll}
+            />
+          </div>
+        </header>
+        <main className="content" id="main" tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={<Navigate to={home} replace />} />
+            {PAGES.map((p) => (
+              <Route key={p.path} path={p.path} element={can(p.permission) ? p.element : <Forbidden home={home} />} />
+            ))}
+            <Route path="/403" element={<Forbidden home={home} />} />
+            <Route path="*" element={<NotFound home={home} />} />
+          </Routes>
+        </main>
+      </div>
+      <IdleWatcher />
     </div>
   );
 }

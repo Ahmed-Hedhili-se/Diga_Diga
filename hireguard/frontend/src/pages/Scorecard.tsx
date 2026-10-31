@@ -1,6 +1,8 @@
 import { FormEvent, useState } from "react";
 import { api, errMsg } from "../api";
-import { ErrorBox, PageHeader } from "../components/ui";
+import { usePermission } from "../auth";
+import { Badge, Empty, ErrorBox, fmtDate, Loading, PageHeader, useLoad } from "../components/ui";
+import type { InterviewReminder } from "../types";
 
 const CRITERIA = [
   ["technical", "Technical skills"],
@@ -31,6 +33,7 @@ export default function Scorecard() {
   const [rec, setRec] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<string | null>(null);
+  const canReminders = usePermission("interviews.reminders");
 
   const complete = interviewId.trim() && rec && CRITERIA.every(([k]) => ratings[k]);
 
@@ -51,8 +54,10 @@ export default function Scorecard() {
 
   return (
     <>
-      <PageHeader title="Interview scorecard" subtitle="Two minutes, structured: same criteria for every candidate." />
+      <PageHeader title="Interviews" subtitle="Two-minute structured scorecards: the same criteria for every candidate." />
+      {canReminders && <Reminders onPick={(id) => setInterviewId(id)} />}
       <form className="card stack scorecard" onSubmit={submit}>
+        <h2>Interview scorecard</h2>
         <label>
           Interview ID
           <input value={interviewId} onChange={(e) => setInterviewId(e.target.value)} placeholder="INT-…" maxLength={40} />
@@ -91,5 +96,42 @@ export default function Scorecard() {
         </button>
       </form>
     </>
+  );
+}
+
+/** GET /interviews/reminders: interviews that ended without a scorecard. */
+function Reminders({ onPick }: { onPick: (interviewId: string) => void }) {
+  const r = useLoad(() => api<InterviewReminder[]>("/interviews/reminders"));
+  return (
+    <section className="card section-gap-bottom">
+      <div className="row between">
+        <h2>Missing scorecards</h2>
+        <Badge tone={r.data?.length ? "warn" : "ok"}>{r.data?.length ?? 0}</Badge>
+      </div>
+      <ErrorBox error={r.error} />
+      <Loading show={r.loading} rows={2} />
+      {!r.loading && !r.data?.length && <Empty>Every finished interview has a scorecard.</Empty>}
+      {!!r.data?.length && (
+        <table className="table">
+          <tbody>
+            {r.data.map((x) => (
+              <tr key={x.interview_id}>
+                <td>
+                  <div>{x.candidate_id}</div>
+                  <div className="muted small">
+                    {x.interview_id} · interviewer {x.interviewer_id} · ended {fmtDate(x.ended_at)}
+                  </div>
+                </td>
+                <td className="num">
+                  <button className="btn small" onClick={() => onPick(x.interview_id)}>
+                    Fill scorecard
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
   );
 }

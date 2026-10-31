@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { api, downloadFile, errMsg } from "../api";
+import { usePermission } from "../auth";
 import { Badge, Empty, ErrorBox, fmtDate, Loading, PageHeader, useLoad } from "../components/ui";
 import type { ApprovalItem, EmployeeDocument } from "../types";
 
@@ -18,6 +20,7 @@ const PURPOSES = [
 
 export default function EmployeeDocs() {
   const docs = useLoad(() => api<EmployeeDocument[]>("/documents/mine"));
+  const canAsk = usePermission("answer_desk.ask");
   const [type, setType] = useState<string>(TYPES[0][0]);
   const [purpose, setPurpose] = useState<string>("bank");
   const [start, setStart] = useState("");
@@ -49,7 +52,17 @@ export default function EmployeeDocs() {
 
   return (
     <>
-      <PageHeader title="My documents" subtitle="Generated from templates and released only after an HR approval." />
+      <PageHeader
+        title="My documents"
+        subtitle="Generated from templates and released only after an HR approval."
+        actions={
+          canAsk ? (
+            <Link className="btn" to="/answer-desk">
+              Have a question? Answer Desk
+            </Link>
+          ) : undefined
+        }
+      />
       <form className="card stack" onSubmit={request}>
         <h2>Request a document</h2>
         <label>
@@ -93,7 +106,7 @@ export default function EmployeeDocs() {
       <div className="card">
         <h2>My requests</h2>
         <Loading show={docs.loading} />
-        {!docs.loading && !docs.data?.length && <Empty>No documents yet.</Empty>}
+        {!docs.loading && !docs.data?.length && <Empty>No requests yet. Use the form above to ask for a certificate.</Empty>}
         <table className="table">
           <tbody>
             {(docs.data ?? []).map((d) => (

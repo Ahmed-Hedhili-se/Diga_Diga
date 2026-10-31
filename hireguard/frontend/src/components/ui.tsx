@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useId, useRef, useState } from "react";
 import { errMsg } from "../api";
 
 export function useLoad<T>(fn: () => Promise<T>, deps: unknown[] = []) {
@@ -37,12 +37,83 @@ export function ErrorBox({ error }: { error: string | null }) {
   return <div className="alert danger">{error}</div>;
 }
 
-export function Loading({ show }: { show: boolean }) {
-  return show ? <div className="muted">Loading…</div> : null;
+/** Skeleton rows while data loads (announced to screen readers as "Loading"). */
+export function Loading({ show, rows = 3 }: { show: boolean; rows?: number }) {
+  if (!show) return null;
+  return (
+    <div className="skeleton" role="status" aria-label="Loading">
+      {Array.from({ length: rows }, (_, i) => (
+        <div key={i} className="skeleton-bar" style={{ width: `${92 - i * 14}%` }} />
+      ))}
+    </div>
+  );
 }
 
 export function Empty({ children }: { children: ReactNode }) {
   return <div className="empty muted">{children}</div>;
+}
+
+/** Native <dialog>: focus trap, Esc to close and inert background come from the browser. */
+export function Modal({ open, title, onClose, children, actions }: {
+  open: boolean; title: string; onClose: () => void; children: ReactNode; actions?: ReactNode;
+}) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
+  useEffect(() => {
+    const d = ref.current;
+    if (!d) return;
+    if (open && !d.open) d.showModal();
+    if (!open && d.open) d.close();
+  }, [open]);
+  return (
+    <dialog ref={ref} className="modal" aria-labelledby={titleId} onClose={onClose}>
+      <h2 id={titleId}>{title}</h2>
+      <div className="stack">{children}</div>
+      {actions && <div className="row end modal-actions">{actions}</div>}
+    </dialog>
+  );
+}
+
+/** Every action that changes something asks first. */
+export function ConfirmButton({ label, title, message, confirmLabel = "Confirm", danger, onConfirm, className = "btn", disabled }: {
+  label: ReactNode; title: string; message: ReactNode; confirmLabel?: string; danger?: boolean;
+  onConfirm: () => Promise<void> | void; className?: string; disabled?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  async function go() {
+    setBusy(true);
+    try {
+      await onConfirm();
+    } finally {
+      setBusy(false);
+      setOpen(false);
+    }
+  }
+  return (
+    <>
+      <button type="button" className={className} disabled={disabled || busy} onClick={() => setOpen(true)}>
+        {label}
+      </button>
+      <Modal
+        open={open}
+        title={title}
+        onClose={() => setOpen(false)}
+        actions={
+          <>
+            <button type="button" className="btn ghost" onClick={() => setOpen(false)} disabled={busy}>
+              Cancel
+            </button>
+            <button type="button" className={`btn ${danger ? "danger" : "primary"}`} onClick={go} disabled={busy} autoFocus>
+              {busy ? "Working…" : confirmLabel}
+            </button>
+          </>
+        }
+      >
+        {message}
+      </Modal>
+    </>
+  );
 }
 
 export function Badge({ tone = "neutral", children }: { tone?: "neutral" | "ok" | "warn" | "danger" | "info"; children: ReactNode }) {

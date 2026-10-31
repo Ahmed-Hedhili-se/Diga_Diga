@@ -34,12 +34,20 @@ PDF / email ──► Sanitizer ──► Detector (signal only) ──► Extra
 
 Contracts: [contracts/API.md](contracts/API.md) and [backend/app/contracts.py](backend/app/contracts.py).
 
+## Access control
+
+Every API route needs a permission from one matrix ([backend/app/auth/permissions.py](backend/app/auth/permissions.py)),
+and a test walks the route table to prove it. **Separation of duties:** the Admin manages accounts and the platform
+but cannot open a CV, a score, the inbox or an employee question, and cannot approve or execute anything. The
+Security Center, which the Admin shares with HR, shows only the attack fragments stripped from CVs. Details: [docs/security_auth.md](docs/security_auth.md).
+
 ## Sections
 
-- Document pipeline: `docs/pipeline.md` (P1, **still to be written**)
+- Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1)
 - Threat model (OWASP LLM Top 10 2025 + web): [docs/threat_model.md](docs/threat_model.md) (P3)
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)
 - Frontend and web security: [docs/frontend.md](docs/frontend.md) (P4)
+- Authentication and access control (permission matrix, lockout, sessions): [docs/security_auth.md](docs/security_auth.md) (P4)
 - Odoo ERP connector (optional, off by default): [docs/erp_odoo.md](docs/erp_odoo.md)
 
 ## Known limits
