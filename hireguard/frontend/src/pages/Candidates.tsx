@@ -11,6 +11,18 @@ interface TextView {
   page_offsets: number[];
 }
 
+interface ErpStatus {
+  enabled: boolean;
+  connected: boolean;
+  error?: string;
+}
+
+interface ErpImport {
+  job_id: string;
+  imported: { applicant_id: number; candidate_id: string }[];
+  skipped: { applicant_id: number; reason: string }[];
+}
+
 export default function Candidates() {
   const jobs = useLoad(() => api<Job[]>("/jobs"));
   const [jobId, setJobId] = useState<string>("");
@@ -18,6 +30,8 @@ export default function Candidates() {
   const [shortlist, setShortlist] = useState<Set<string>>(new Set());
   const [notice, setNotice] = useState<string | null>(null);
   const [actionErr, setActionErr] = useState<string | null>(null);
+  const erp = useLoad(() => api<ErpStatus>("/erp/status"));
+  const [importing, setImporting] = useState(false);
 
   useEffect(() => {
     if (!jobId && jobs.data?.length) setJobId(jobs.data[0].job_id);
@@ -47,19 +61,49 @@ export default function Candidates() {
     }
   }
 
+  async function importFromOdoo() {
+    setActionErr(null);
+    setImporting(true);
+    try {
+      const res = await api<ErpImport>(`/erp/jobs/${encodeURIComponent(jobId)}/import`, { method: "POST" });
+      setNotice(`Odoo: ${res.imported.length} imported and screened, ${res.skipped.length} skipped.`);
+      rows.reload();
+    } catch (e) {
+      setActionErr(errMsg(e));
+    } finally {
+      setImporting(false);
+    }
+  }
+
   return (
     <>
       <PageHeader
         title="Candidates"
         subtitle="Ranked by code from validated fields only. Scores are proposals until HR commits the shortlist."
         actions={
-          <select value={jobId} onChange={(e) => { setJobId(e.target.value); setSelected(null); }}>
-            {(jobs.data ?? []).map((j) => (
-              <option key={j.job_id} value={j.job_id}>
-                {j.job_id} · {j.title}
-              </option>
-            ))}
-          </select>
+          <div className="row">
+            <select value={jobId} onChange={(e) => { setJobId(e.target.value); setSelected(null); }}>
+              {(jobs.data ?? []).map((j) => (
+                <option key={j.job_id} value={j.job_id}>
+                  {j.job_id} · {j.title}
+                </option>
+              ))}
+            </select>
+            {erp.data?.enabled && (
+              <>
+                {erp.data.connected ? (
+                  <Badge tone="ok">Odoo connected</Badge>
+                ) : (
+                  <span title={erp.data.error}>
+                    <Badge tone="danger">Odoo offline</Badge>
+                  </span>
+                )}
+                <button className="btn" disabled={!jobId || importing} onClick={importFromOdoo}>
+                  {importing ? "Importing…" : "Import from Odoo"}
+                </button>
+              </>
+            )}
+          </div>
         }
       />
       <ErrorBox error={jobs.error || rows.error || actionErr} />

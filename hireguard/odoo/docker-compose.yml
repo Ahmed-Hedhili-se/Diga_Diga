@@ -1,0 +1,32 @@
+# Local Odoo 17 for the HireGuard ERP demo (fictional data only). See docs/erp_odoo.md.
+#   docker compose -f odoo/docker-compose.yml up -d
+# First boot creates the "hireguard" database (admin / admin) with Recruitment + Calendar installed.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - odoo-db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  odoo:
+    image: odoo:17.0
+    depends_on:
+      - db
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: odoo
+    ports:
+      - "127.0.0.1:8069:8069"   # localhost only
+    command: ["--", "-d", "hireguard", "-i", "hr_recruitment,calendar", "--without-demo=all"]
+    volumes:
+      - odoo-data:/var/lib/odoo
+    restart: unless-stopped
+
+volumes:
+  odoo-db:
+  odoo-data:
