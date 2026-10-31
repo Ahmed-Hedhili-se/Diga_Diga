@@ -15,7 +15,10 @@ GROQ_MODEL = os.getenv("HG_GROQ_MODEL", "qwen/qwen3-32b")
 
 PROMPT_GUARD = os.getenv("HG_PROMPT_GUARD", "0") == "1"
 
-SESSION_TTL_MIN = int(os.getenv("HG_SESSION_TTL_MIN", "480"))
+SESSION_TTL_MIN = int(os.getenv("HG_SESSION_TTL_MIN", "480"))          # absolute session lifetime
+SESSION_IDLE_MIN = int(os.getenv("HG_SESSION_IDLE_MIN", "30"))         # signed out after this much inactivity
+LOGIN_IP_MAX_FAILED = int(os.getenv("HG_LOGIN_IP_MAX_FAILED", "20"))   # per IP per 15 min (call centers share NAT)
+API_DOCS = os.getenv("HG_API_DOCS", "1") == "1"                        # Swagger UI: set 0 in production
 COOKIE_SECURE = os.getenv("HG_COOKIE_SECURE", "0") == "1"
 CORS_ORIGINS = [o.strip() for o in os.getenv("HG_CORS_ORIGINS", "http://localhost:5173").split(",") if o.strip()]
 

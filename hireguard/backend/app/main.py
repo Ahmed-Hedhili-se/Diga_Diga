@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import CORS_ORIGINS
+from .config import API_DOCS, CORS_ORIGINS
 from .db import init_db
 from .auth import routes as auth_routes            # P4
 from .pipeline import routes as pipeline_routes    # P1
@@ -11,13 +11,15 @@ from .workflow import routes as workflow_routes    # P3
 from .erp import routes as erp_routes              # Odoo connector (off unless HG_ODOO_ENABLED=1)
 from . import security                             # P4: headers, CSP, rate limits
 
-app = FastAPI(title="HireGuard", docs_url="/api/docs", openapi_url="/api/openapi.json")
+# Swagger UI needs a relaxed CSP (pentest O1): HG_API_DOCS=0 turns it off in production.
+app = FastAPI(title="HireGuard", docs_url="/api/docs" if API_DOCS else None, redoc_url=None,
+              openapi_url="/api/openapi.json" if API_DOCS else None)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
     allow_headers=["Content-Type", "X-CSRF-Token"],
 )
 security.install(app)

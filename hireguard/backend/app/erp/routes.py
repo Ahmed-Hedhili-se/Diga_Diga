@@ -3,8 +3,9 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from ..auth.core import require_roles
-from ..contracts import Role, UserOut
+from ..auth.core import require_permission
+from ..auth.permissions import Permission
+from ..contracts import UserOut
 from ..scoring.jobs import JOBS
 from . import handlers, odoo_client, sync
 from .odoo_client import OdooError
@@ -13,8 +14,8 @@ handlers.install()
 
 router = APIRouter()
 
-RM = require_roles(Role.recruiter, Role.hr_manager)
-RMA = require_roles(Role.recruiter, Role.hr_manager, Role.admin)
+STATUS = require_permission(Permission.erp_status)
+IMPORT = require_permission(Permission.erp_import)
 
 
 def _job(job_id: str) -> str:
@@ -26,12 +27,12 @@ def _job(job_id: str) -> str:
 
 
 @router.get("/erp/status")
-def erp_status(user: UserOut = Depends(RMA)):
+def erp_status(user: UserOut = Depends(STATUS)):
     return odoo_client.status()
 
 
 @router.get("/erp/jobs/{job_id}/applicants")
-def erp_applicants(job_id: str, user: UserOut = Depends(RM)):
+def erp_applicants(job_id: str, user: UserOut = Depends(IMPORT)):
     try:
         return sync.list_applicants(_job(job_id))
     except OdooError as e:
@@ -39,7 +40,7 @@ def erp_applicants(job_id: str, user: UserOut = Depends(RM)):
 
 
 @router.post("/erp/jobs/{job_id}/import")
-def erp_import(job_id: str, user: UserOut = Depends(RM)):
+def erp_import(job_id: str, user: UserOut = Depends(IMPORT)):
     try:
         return sync.import_applicants(_job(job_id), actor=user.id)
     except OdooError as e:
