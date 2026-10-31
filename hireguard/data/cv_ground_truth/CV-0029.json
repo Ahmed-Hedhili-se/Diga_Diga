@@ -1,0 +1,70 @@
+{
+ "ground_truth": {
+  "id": "CV-0029",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Ines Dridi",
+  "town": "Ariana",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-10",
+    "end": "2023-09",
+    "skills": [
+     "javascript",
+     "node-js",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2023-12",
+    "end": null,
+    "skills": [
+     "javascript",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "node-js"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "ines.dridi29@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "node-js",
+   "sql",
+   "typescript"
+  ],
+  "skill_years": {
+   "javascript": 4.8,
+   "node-js": 1.9,
+   "sql": 1.9,
+   "typescript": 2.8
+  },
+  "years_experience": 4.8
+ },
+ "text": "Ines Dridi\nFull-stack developer\nines.dridi29@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n10/2021 – 09/2023 : Fictiva Data SARL\n  tools: JavaScript, Node.js, SQL\n12/2023 – present : Fictiva Data SARL\n  tools: JavaScript, TypeScript\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2021\n\nSKILLS\nDocker, JavaScript, Node.js, SQL, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : C1"
+}

@@ -1,0 +1,50 @@
+[
+ {
+  "candidate_id": "CAND-001",
+  "name": "Amira Ben Salah",
+  "email": "amira.bensalah@gmail.example",
+  "lang": "fr"
+ },
+ {
+  "candidate_id": "CAND-002",
+  "name": "Youssef Trabelsi",
+  "email": "youssef.trabelsi@outlook.example",
+  "lang": "fr"
+ },
+ {
+  "candidate_id": "CAND-003",
+  "name": "Sarah Haddad",
+  "email": "sarah.haddad@gmail.example",
+  "lang": "en"
+ },
+ {
+  "candidate_id": "CAND-004",
+  "name": "Mohamed Ali Jlassi",
+  "email": "medali.jlassi@topnet.example",
+  "lang": "ar"
+ },
+ {
+  "candidate_id": "CAND-005",
+  "name": "Ines Gharbi",
+  "email": "ines.gharbi@gmail.example",
+  "lang": "fr"
+ },
+ {
+  "candidate_id": "CAND-006",
+  "name": "Karim Mansour",
+  "email": "karim.mansour@yahoo.example",
+  "lang": "fr"
+ },
+ {
+  "candidate_id": "CAND-007",
+  "name": "Leila Bouazizi",
+  "email": "leila.bouazizi@gmail.example",
+  "lang": "en"
+ },
+ {
+  "candidate_id": "CAND-008",
+  "name": "Youssef Trabelsi",
+  "email": "y.trabelsi.kasserine@outlook.example",
+  "lang": "fr"
+ }
+]

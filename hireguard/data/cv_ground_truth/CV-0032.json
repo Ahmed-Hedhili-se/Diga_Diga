@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0032",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Wassim Hammami",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2021-08",
+    "end": "2023-08",
+    "skills": [
+     "git",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "etl"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "wassim.hammami32@example.tn",
+  "skills": [
+   "docker",
+   "etl",
+   "git",
+   "rest-api"
+  ],
+  "skill_years": {
+   "git": 2.0,
+   "rest-api": 2.0
+  },
+  "years_experience": 2.0
+ },
+ "text": "Wassim Hammami\nIngénieur données\nwassim.hammami32@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2021 – 08/2023 : Carthage Analytics\n  outils: Git, API REST\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2021\n\nCOMPÉTENCES\nDocker, pipelines ETL, Git, API REST\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : B2"
+}

@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0008",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Malek Sassi",
+  "town": "La Marsa",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2022-11",
+    "end": "2025-04",
+    "skills": [
+     "apache-spark",
+     "hr-administration",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "malek.sassi8@example.tn",
+  "skills": [
+   "apache-spark",
+   "hr-administration",
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "apache-spark": 2.4,
+   "hr-administration": 2.4,
+   "tunisian-labour-law": 2.4
+  },
+  "years_experience": 2.4
+ },
+ "text": "Malek Sassi\nAssistant RH\nmalek.sassi8@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2022 – 04/2025 : Jasmin Digital\n  outils: Apache Spark, administration du personnel, droit du travail tunisien\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2022\n\nCOMPÉTENCES\nApache Spark, administration du personnel, Microsoft Excel, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C2"
+}

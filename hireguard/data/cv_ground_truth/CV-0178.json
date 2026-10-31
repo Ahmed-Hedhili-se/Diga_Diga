@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0178",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "f",
+  "name": "Omar Ayari",
+  "town": "Tataouine",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2021
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-07",
+    "end": "2024-04",
+    "skills": [
+     "docker",
+     "git",
+     "javascript",
+     "microsoft-excel",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2024-04",
+    "end": null,
+    "skills": [
+     "git",
+     "javascript",
+     "microsoft-excel",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "omar.ayari178@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "javascript",
+   "microsoft-excel",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 2.8,
+   "git": 5.2,
+   "javascript": 5.2,
+   "microsoft-excel": 5.2,
+   "typescript": 5.2
+  },
+  "years_experience": 5.2
+ },
+ "text": "Omar Ayari\nFull-stack developer\nomar.ayari178@example.tn | Tataouine\n\nPROFESSIONAL EXPERIENCE\n07/2021 – 04/2024 : Fictiva Data SARL\n  tools: Docker, Git, JavaScript, Microsoft Excel, TypeScript\n04/2024 – present : Carthage Analytics\n  tools: Git, JavaScript, Microsoft Excel, TypeScript\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2021\n\nSKILLS\nDocker, Git, JavaScript, Microsoft Excel, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B1"
+}

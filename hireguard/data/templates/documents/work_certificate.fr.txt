@@ -1,0 +1,7 @@
+Subject: ATTESTATION DE TRAVAIL
+Je soussigné, responsable des ressources humaines de $company_name, atteste que $employee_name est employé(e) au sein de notre société depuis le $hire_date, en qualité de $position, département $department.
+
+Cette attestation est délivrée à l'intéressé(e) pour servir et valoir ce que de droit.
+
+Fait à Tunis, le $issue_date.
+Référence : $document_ref

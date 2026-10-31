@@ -1,0 +1,21 @@
+{
+  "job_id": "JOB-DATA-01",
+  "title": "Data Engineer (Python, SQL, ETL), Tunis",
+  "skill_weights": {
+    "python": 5,
+    "sql": 5,
+    "etl": 4,
+    "data-modelling": 3,
+    "postgresql": 2,
+    "apache-spark": 2,
+    "docker": 1,
+    "git": 1
+  },
+  "min_years": 2,
+  "required_degree": "ingenieur",
+  "languages": [
+    {"iso": "fr", "min_cefr": "B2"},
+    {"iso": "en", "min_cefr": "B2"}
+  ],
+  "component_weights": {"skills": 60, "experience": 20, "degree": 10, "languages": 10}
+}

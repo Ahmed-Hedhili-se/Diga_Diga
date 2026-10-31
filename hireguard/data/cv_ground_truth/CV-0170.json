@@ -1,0 +1,72 @@
+{
+ "ground_truth": {
+  "id": "CV-0170",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Mariem Ben Salah",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2019-12",
+    "end": "2021-02",
+    "skills": [
+     "apache-spark",
+     "node-js",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2021-04",
+    "end": null,
+    "skills": [
+     "apache-spark",
+     "data-modelling",
+     "git"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "node-js"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "mariem.ben.salah170@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "git",
+   "node-js",
+   "sql"
+  ],
+  "skill_years": {
+   "apache-spark": 6.7,
+   "node-js": 1.2,
+   "sql": 1.2,
+   "data-modelling": 5.5,
+   "git": 5.5
+  },
+  "years_experience": 6.7
+ },
+ "text": "Mariem Ben Salah\nData engineer\nmariem.ben.salah170@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n12/2019 – 02/2021 : Fictiva Data SARL\n  tools: Apache Spark, Node.js, SQL\n04/2021 – present : Carthage Analytics\n  tools: Apache Spark, data modelling, Git\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2019\n\nSKILLS\nApache Spark, data modelling, Git, Node.js, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B1"
+}

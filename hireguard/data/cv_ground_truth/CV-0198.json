@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0198",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Malek Trabelsi",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2019
+  },
+  "experiences": [],
+  "extra_skills": [
+   "data-modelling",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "malek.trabelsi198@example.tn",
+  "skills": [
+   "data-modelling",
+   "payroll"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Malek Trabelsi\nHR assistant\nmalek.trabelsi198@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2019\n\nSKILLS\ndata modelling, payroll\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B2"
+}

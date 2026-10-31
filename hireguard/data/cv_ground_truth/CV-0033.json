@@ -1,0 +1,80 @@
+{
+ "ground_truth": {
+  "id": "CV-0033",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Skander Ben Salah",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2014-08",
+    "end": "2017-05",
+    "skills": [
+     "etl",
+     "git",
+     "javascript",
+     "sql"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2017-06",
+    "end": "2019-01",
+    "skills": [
+     "docker",
+     "etl",
+     "git",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "skander.ben.salah33@example.tn",
+  "skills": [
+   "apache-spark",
+   "docker",
+   "etl",
+   "git",
+   "javascript",
+   "postgresql",
+   "python",
+   "sql"
+  ],
+  "skill_years": {
+   "etl": 4.3,
+   "git": 4.3,
+   "javascript": 2.8,
+   "sql": 2.8,
+   "docker": 1.6,
+   "postgresql": 1.6,
+   "python": 1.6
+  },
+  "years_experience": 4.3
+ },
+ "text": "Skander Ben Salah\nIngénieure données\nskander.ben.salah33@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2014 – 05/2017 : Atlas Telecom (fictional)\n  outils: pipelines ETL, Git, JavaScript, SQL\n06/2017 – 01/2019 : Jasmin Digital\n  outils: Docker, pipelines ETL, Git, PostgreSQL, Python\n\nFORMATION\nLicence en informatique, ISET Radès, 2014\n\nCOMPÉTENCES\nApache Spark, Docker, pipelines ETL, Git, JavaScript, PostgreSQL, Python, SQL\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C2\nEnglish : B2"
+}

@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0014",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Eya Sassi",
+  "town": "La Marsa",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2015-10",
+    "end": "2019-01",
+    "skills": [
+     "hr-administration",
+     "postgresql",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2019-05",
+    "end": null,
+    "skills": [
+     "etl",
+     "microsoft-excel",
+     "payroll",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "eya.sassi14@example.tn",
+  "skills": [
+   "etl",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "postgresql",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "hr-administration": 3.2,
+   "postgresql": 10.7,
+   "tunisian-labour-law": 3.2,
+   "etl": 7.4,
+   "microsoft-excel": 7.4,
+   "payroll": 7.4
+  },
+  "years_experience": 10.7
+ },
+ "text": "Eya Sassi\nHR assistant\neya.sassi14@example.tn | La Marsa\n\nPROFESSIONAL EXPERIENCE\n10/2015 – 01/2019 : Medina Soft\n  tools: HR administration, PostgreSQL, Tunisian labour law\n05/2019 – present : Medina Soft\n  tools: ETL pipelines, Microsoft Excel, payroll, PostgreSQL\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2015\n\nSKILLS\nETL pipelines, HR administration, Microsoft Excel, payroll, PostgreSQL, recruitment, Tunisian labour law\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C2"
+}

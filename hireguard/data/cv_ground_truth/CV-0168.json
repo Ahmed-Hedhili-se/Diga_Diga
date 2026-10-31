@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0168",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Skander Bouzid",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2014-10",
+    "end": "2015-12",
+    "skills": [
+     "etl",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "python",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "skander.bouzid168@example.tn",
+  "skills": [
+   "etl",
+   "python",
+   "react",
+   "sql"
+  ],
+  "skill_years": {
+   "etl": 1.2,
+   "react": 1.2
+  },
+  "years_experience": 1.2
+ },
+ "text": "Skander Bouzid\nمهندس بيانات\nskander.bouzid168@example.tn | Bizerte\n\nالخبرة المهنية\n10/2014 – 12/2015 : Olive Systems\n  الأدوات: خطوط ETL, React\n\nالتكوين\nماجستير في علوم البيانات, المدرسة العليا للمواصلات بتونس, 2014\n\nالمهارات\nخطوط ETL, بايثون, React, SQL\n\nاللغات\nالعربية : اللغة الأم\nFrançais : B2\nEnglish : C1"
+}

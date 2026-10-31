@@ -1,0 +1,81 @@
+{
+ "ground_truth": {
+  "id": "CV-0047",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Salma Sassi",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2015-09",
+    "end": "2018-06",
+    "skills": [
+     "apache-spark",
+     "docker",
+     "postgresql",
+     "recruitment"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2018-07",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "etl",
+     "hr-administration",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "salma.sassi47@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "docker",
+   "etl",
+   "hr-administration",
+   "postgresql",
+   "python",
+   "recruitment"
+  ],
+  "skill_years": {
+   "apache-spark": 2.8,
+   "docker": 2.8,
+   "postgresql": 11.0,
+   "recruitment": 2.8,
+   "data-modelling": 8.2,
+   "etl": 8.2,
+   "hr-administration": 8.2,
+   "python": 8.2
+  },
+  "years_experience": 11.0
+ },
+ "text": "Salma Sassi\nData engineer\nsalma.sassi47@example.tn | La Marsa\n\nPROFESSIONAL EXPERIENCE\n09/2015 – 06/2018 : Olive Systems\n  tools: Apache Spark, Docker, PostgreSQL, recruitment\n07/2018 – present : Fictiva Data SARL\n  tools: data modelling, ETL pipelines, HR administration, PostgreSQL, Python\n\nEDUCATION\nEngineering degree in telecommunications, Tunis Private Engineering School, 2015\n\nSKILLS\nApache Spark, data modelling, Docker, ETL pipelines, HR administration, PostgreSQL, Python, recruitment\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C1"
+}

@@ -1,0 +1,66 @@
+{
+ "ground_truth": {
+  "id": "CV-0034",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Omar Dridi",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2015-07",
+    "end": null,
+    "skills": [
+     "git",
+     "payroll",
+     "rest-api",
+     "tunisian-labour-law",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "omar.dridi34@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "payroll",
+   "react",
+   "rest-api",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 11.2,
+   "payroll": 11.2,
+   "rest-api": 11.2,
+   "tunisian-labour-law": 11.2,
+   "typescript": 11.2
+  },
+  "years_experience": 11.2
+ },
+ "text": "Omar Dridi\nDéveloppeuse full-stack\nomar.dridi34@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2015 – aujourd'hui : Jasmin Digital\n  outils: Git, paie, API REST, droit du travail tunisien, TypeScript\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2015\n\nCOMPÉTENCES\nDocker, Git, paie, React, API REST, droit du travail tunisien, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : C2"
+}

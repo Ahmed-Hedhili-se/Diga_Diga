@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Hamza Sassi <hamza.sassi29@gmail.example>
+To: recrutement@hireguard.demo
+Subject: Suivi candidature
+Date: Mon, 02 Nov 2026 13:36:00 +0100
+Message-ID: <EML-049@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Hello,
+
+Could you let me know where my application stands?
+
+Thanks,
+Hamza Sassi

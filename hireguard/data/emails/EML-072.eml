@@ -1,0 +1,19 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=outlook.example; dkim=pass header.d=outlook.example; dmarc=pass
+ header.from=outlook.example
+From: Skander Baccouche <skander.baccouche2@outlook.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - Question
+Date: Mon, 02 Nov 2026 16:17:00 +0100
+Message-ID: <EML-072@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+
+URGENT : merci de me répondre aujourd'hui.
+
+Bonjour,
+
+Y a-t-il un parking visiteurs dans vos locaux ?
+
+Skander Baccouche

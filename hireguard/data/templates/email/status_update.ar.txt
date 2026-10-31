@@ -1,0 +1,8 @@
+Subject: متابعة ترشحكم: $job_title
+مرحبا $candidate_name،
+
+الوضعية الحالية لترشحكم لخطة $job_title: $status_label.
+
+مع أطيب التحيات،
+$recruiter_name
+$company_name

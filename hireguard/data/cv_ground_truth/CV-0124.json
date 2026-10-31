@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0124",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Nour Khelifi",
+  "town": "Sousse",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2017-10",
+    "end": "2018-11",
+    "skills": [
+     "apache-spark",
+     "payroll",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "nour.khelifi124@example.tn",
+  "skills": [
+   "apache-spark",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "apache-spark": 1.1,
+   "payroll": 1.1,
+   "recruitment": 1.1
+  },
+  "years_experience": 1.1
+ },
+ "text": "Nour Khelifi\nHR assistant\nnour.khelifi124@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n10/2017 – 11/2018 : Jasmin Digital\n  tools: Apache Spark, payroll, recruitment\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2017\n\nSKILLS\nApache Spark, payroll, recruitment, Tunisian labour law\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : B2"
+}

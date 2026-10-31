@@ -1,0 +1,56 @@
+{
+ "ground_truth": {
+  "id": "CV-0140",
+  "job_id": "JOB-FS-02",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Wassim Sassi",
+  "town": "Kasserine",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2020-10",
+    "end": null,
+    "skills": [
+     "python",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "rest-api",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "wassim.sassi140@example.tn",
+  "skills": [
+   "python",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "python": 6.0,
+   "typescript": 6.0
+  },
+  "years_experience": 6.0
+ },
+ "text": "Wassim Sassi\nمطور ويب\nwassim.sassi140@example.tn | Kasserine\n\nالخبرة المهنية\n10/2020 – حاليا : Medina Soft\n  الأدوات: بايثون, TypeScript\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2020\n\nالمهارات\nبايثون, واجهات REST, TypeScript\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C1\nEnglish : C2"
+}

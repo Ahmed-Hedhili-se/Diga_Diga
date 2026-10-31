@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0156",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Hamza Mansouri",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2017-11",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "postgresql",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "data-modelling"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "hamza.mansouri156@example.tn",
+  "skills": [
+   "apache-spark",
+   "data-modelling",
+   "hr-administration",
+   "postgresql",
+   "python"
+  ],
+  "skill_years": {
+   "hr-administration": 8.9,
+   "postgresql": 8.9,
+   "python": 8.9
+  },
+  "years_experience": 8.9
+ },
+ "text": "Hamza Mansouri\nمهندس بيانات\nhamza.mansouri156@example.tn | Ariana\n\nالخبرة المهنية\n11/2017 – حاليا : Olive Systems\n  الأدوات: إدارة شؤون الموظفين, PostgreSQL, بايثون\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2017\n\nالمهارات\nApache Spark, نمذجة البيانات, إدارة شؤون الموظفين, PostgreSQL, بايثون\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : C1"
+}

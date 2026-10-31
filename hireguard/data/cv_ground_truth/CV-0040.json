@@ -1,0 +1,65 @@
+{
+ "ground_truth": {
+  "id": "CV-0040",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Hamza Hammami",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2018-07",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "docker",
+     "payroll",
+     "sql",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "payroll",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "hamza.hammami40@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "payroll",
+   "postgresql",
+   "sql",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "data-modelling": 8.2,
+   "docker": 8.2,
+   "payroll": 8.2,
+   "sql": 8.2,
+   "tunisian-labour-law": 8.2
+  },
+  "years_experience": 8.2
+ },
+ "text": "Hamza Hammami\nIngénieur données\nhamza.hammami40@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2018 – aujourd'hui : Atlas Telecom (fictional)\n  outils: modélisation des données, Docker, paie, SQL, droit du travail tunisien\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, ISET Radès, 2018\n\nCOMPÉTENCES\nmodélisation des données, Docker, paie, PostgreSQL, SQL, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : B1"
+}

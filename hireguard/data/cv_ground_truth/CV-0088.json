@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0088",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "f",
+  "name": "Youssef Khelifi",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2019
+  },
+  "experiences": [],
+  "extra_skills": [
+   "git",
+   "react"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "youssef.khelifi88@example.tn",
+  "skills": [
+   "git",
+   "react"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Youssef Khelifi\nData engineer\nyoussef.khelifi88@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nMaster in data science, SUP'COM, 2019\n\nSKILLS\nGit, React\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : B1"
+}

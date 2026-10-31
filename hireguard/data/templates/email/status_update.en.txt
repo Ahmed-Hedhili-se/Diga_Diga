@@ -1,0 +1,8 @@
+Subject: Your application status: $job_title
+Hello $candidate_name,
+
+Current status of your application for the $job_title position: $status_label.
+
+Best regards,
+$recruiter_name
+$company_name

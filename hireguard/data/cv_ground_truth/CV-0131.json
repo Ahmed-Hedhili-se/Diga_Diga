@@ -1,0 +1,86 @@
+{
+ "ground_truth": {
+  "id": "CV-0131",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Eya Bouzid",
+  "town": "Sousse",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2018-10",
+    "end": "2021-09",
+    "skills": [
+     "apache-spark",
+     "hr-administration",
+     "react",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Medina Soft",
+    "start": "2021-10",
+    "end": "2022-06",
+    "skills": [
+     "hr-administration",
+     "react",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2022-07",
+    "end": null,
+    "skills": [
+     "payroll",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "payroll",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "eya.bouzid131@example.tn",
+  "skills": [
+   "apache-spark",
+   "hr-administration",
+   "payroll",
+   "react",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "apache-spark": 2.9,
+   "hr-administration": 3.6,
+   "react": 7.8,
+   "recruitment": 3.6,
+   "tunisian-labour-law": 3.6,
+   "payroll": 4.2
+  },
+  "years_experience": 7.8
+ },
+ "text": "Eya Bouzid\nHR assistant\neya.bouzid131@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n10/2018 – 09/2021 : Carthage Analytics\n  tools: Apache Spark, HR administration, React, recruitment, Tunisian labour law\n10/2021 – 06/2022 : Medina Soft\n  tools: HR administration, React, recruitment, Tunisian labour law\n07/2022 – present : Jasmin Digital\n  tools: payroll, React\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2018\n\nSKILLS\nApache Spark, HR administration, payroll, React, recruitment, Tunisian labour law\n\nLANGUAGES\nالعربية : native\nFrançais : C2\nEnglish : C1"
+}

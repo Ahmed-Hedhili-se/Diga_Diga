@@ -1,0 +1,12 @@
+.env
+backend/.venv/
+backend/*.db*
+backend/uploads/
+__pycache__/
+node_modules/
+frontend/dist/
+eval/results/raw/
+# generated corpora: rebuild with the eval/ generator scripts
+data/cv_ground_truth/pdf/
+eval/corpus/attacks/*.pdf
+eval/corpus/twins/*.pdf

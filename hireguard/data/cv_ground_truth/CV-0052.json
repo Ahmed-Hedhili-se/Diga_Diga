@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0052",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Rania Hammami",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2017-10",
+    "end": null,
+    "skills": [
+     "docker",
+     "python"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "rania.hammami52@example.tn",
+  "skills": [
+   "docker",
+   "etl",
+   "python",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 9.0,
+   "python": 9.0
+  },
+  "years_experience": 9.0
+ },
+ "text": "Rania Hammami\nIngénieur données\nrania.hammami52@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2017 – aujourd'hui : Jasmin Digital\n  outils: Docker, Python\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2017\n\nCOMPÉTENCES\nDocker, pipelines ETL, Python, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : C1"
+}

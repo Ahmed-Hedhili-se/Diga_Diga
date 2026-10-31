@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Leila Bouazizi <leila.bouazizi@gmail.example>
+To: recrutement@hireguard.demo
+Subject: =?utf-8?q?Disponibilit=C3=A9s?= entretien
+Date: Mon, 02 Nov 2026 12:12:00 +0100
+Message-ID: <EML-037@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour,
+
+Merci pour votre retour. Je suis disponible pour un entretien lundi, mardi ou=
+ mercredi prochain.
+
+Leila Bouazizi

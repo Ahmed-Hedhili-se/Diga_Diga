@@ -1,0 +1,72 @@
+{
+ "ground_truth": {
+  "id": "CV-0058",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Nour Mansouri",
+  "town": "Kasserine",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2022-11",
+    "end": "2023-09",
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-10",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "nour.mansouri58@example.tn",
+  "skills": [
+   "data-modelling",
+   "hr-administration",
+   "microsoft-excel",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "hr-administration": 3.8,
+   "microsoft-excel": 3.8,
+   "recruitment": 0.8,
+   "tunisian-labour-law": 3.8
+  },
+  "years_experience": 3.8
+ },
+ "text": "Nour Mansouri\nAssistant RH\nnour.mansouri58@example.tn | Kasserine\n\nEXPÉRIENCE PROFESSIONNELLE\n11/2022 – 09/2023 : Carthage Analytics\n  outils: administration du personnel, Microsoft Excel, recrutement, droit du travail tunisien\n10/2023 – aujourd'hui : Carthage Analytics\n  outils: administration du personnel, Microsoft Excel, droit du travail tunisien\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2022\n\nCOMPÉTENCES\nmodélisation des données, administration du personnel, Microsoft Excel, recrutement, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : B2"
+}

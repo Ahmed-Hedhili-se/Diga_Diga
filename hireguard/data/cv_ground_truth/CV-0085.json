@@ -1,0 +1,60 @@
+{
+ "ground_truth": {
+  "id": "CV-0085",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Yasmine Sassi",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2015-07",
+    "end": "2018-04",
+    "skills": [
+     "git",
+     "javascript",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "yasmine.sassi85@example.tn",
+  "skills": [
+   "git",
+   "hr-administration",
+   "javascript",
+   "microsoft-excel",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 2.8,
+   "javascript": 2.8,
+   "typescript": 2.8
+  },
+  "years_experience": 2.8
+ },
+ "text": "Yasmine Sassi\nDéveloppeur full-stack\nyasmine.sassi85@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2015 – 04/2018 : Jasmin Digital\n  outils: Git, JavaScript, TypeScript\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2015\n\nCOMPÉTENCES\nGit, administration du personnel, JavaScript, Microsoft Excel, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B2\nEnglish : B1"
+}

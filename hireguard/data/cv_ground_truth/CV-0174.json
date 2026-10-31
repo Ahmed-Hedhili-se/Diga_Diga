@@ -1,0 +1,63 @@
+{
+ "ground_truth": {
+  "id": "CV-0174",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Eya Jaziri",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2015
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2015-12",
+    "end": null,
+    "skills": [
+     "docker",
+     "payroll",
+     "recruitment",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "hr-administration",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "eya.jaziri174@example.tn",
+  "skills": [
+   "docker",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 10.8,
+   "payroll": 10.8,
+   "recruitment": 10.8,
+   "tunisian-labour-law": 10.8
+  },
+  "years_experience": 10.8
+ },
+ "text": "Eya Jaziri\nAssistante RH\neya.jaziri174@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n12/2015 – aujourd'hui : Fictiva Data SARL\n  outils: Docker, paie, recrutement, droit du travail tunisien\n\nFORMATION\nLicence en informatique, ISET Radès, 2015\n\nCOMPÉTENCES\nDocker, administration du personnel, Microsoft Excel, paie, recrutement, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C2\nEnglish : C1"
+}

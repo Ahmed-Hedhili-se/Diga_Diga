@@ -1,0 +1,75 @@
+{
+ "ground_truth": {
+  "id": "CV-0065",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Skander Mansouri",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2017-08",
+    "end": "2020-08",
+    "skills": [
+     "data-modelling",
+     "docker",
+     "etl"
+    ]
+   },
+   {
+    "employer": "Jasmin Digital",
+    "start": "2020-12",
+    "end": "2022-01",
+    "skills": [
+     "data-modelling",
+     "git",
+     "node-js",
+     "postgresql"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "etl",
+   "git"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "skander.mansouri65@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "etl",
+   "git",
+   "node-js",
+   "postgresql"
+  ],
+  "skill_years": {
+   "data-modelling": 4.1,
+   "docker": 3.0,
+   "etl": 3.0,
+   "git": 1.1,
+   "node-js": 1.1,
+   "postgresql": 1.1
+  },
+  "years_experience": 4.1
+ },
+ "text": "Skander Mansouri\nIngénieur données\nskander.mansouri65@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n08/2017 – 08/2020 : Carthage Analytics\n  outils: modélisation des données, Docker, pipelines ETL\n12/2020 – 01/2022 : Jasmin Digital\n  outils: modélisation des données, Git, Node.js, PostgreSQL\n\nFORMATION\nLicence en informatique, SUP'COM, 2017\n\nCOMPÉTENCES\nmodélisation des données, Docker, pipelines ETL, Git, Node.js, PostgreSQL\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C2\nEnglish : B1"
+}

@@ -1,0 +1,71 @@
+{
+ "ground_truth": {
+  "id": "CV-0114",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "f",
+  "name": "Malek Jaziri",
+  "town": "Sousse",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Carthage Analytics",
+    "start": "2020-08",
+    "end": "2021-07",
+    "skills": [
+     "etl",
+     "payroll"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2021-11",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "payroll",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "apache-spark",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "malek.jaziri114@example.tn",
+  "skills": [
+   "apache-spark",
+   "etl",
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment"
+  ],
+  "skill_years": {
+   "etl": 0.9,
+   "payroll": 5.8,
+   "hr-administration": 4.9,
+   "recruitment": 4.9
+  },
+  "years_experience": 5.8
+ },
+ "text": "Malek Jaziri\nHR assistant\nmalek.jaziri114@example.tn | Sousse\n\nPROFESSIONAL EXPERIENCE\n08/2020 – 07/2021 : Carthage Analytics\n  tools: ETL pipelines, payroll\n11/2021 – present : Fictiva Data SARL\n  tools: HR administration, payroll, recruitment\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2020\n\nSKILLS\nApache Spark, ETL pipelines, HR administration, Microsoft Excel, payroll, recruitment\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : B1"
+}

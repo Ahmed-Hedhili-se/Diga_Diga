@@ -1,0 +1,21 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Mariem Baccouche <mariem.baccouche98@gmail.example>
+To: recrutement@hireguard.demo
+Subject: URGENT - Candidature
+Date: Mon, 02 Nov 2026 12:40:00 +0100
+Message-ID: <EML-041@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+URGENT : merci de me r=C3=A9pondre aujourd'hui.
+
+Bonjour,
+
+Je vous adresse ma candidature pour le poste de Data Engineer. Mon CV est en =
+pi=C3=A8ce jointe.
+
+Cordialement,
+Mariem Baccouche

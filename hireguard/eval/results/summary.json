@@ -1,0 +1,19 @@
+{
+ "generated_at": "2026-10-31T18:16:14.600286+00:00",
+ "model": "qwen3:8b",
+ "groq_fallback": false,
+ "sections": {
+  "attacks": {
+   "skipped": "P1 pipeline not importable (ImportError: cannot import name 'service' from 'app.pipeline' (C:\\Users\\ASUS\\Desktop\\hackthon project\\hireguard\\backend\\app\\pipeline\\__init__.py)); expected app.pipeline.service.analyze_pdf"
+  },
+  "twins": {
+   "skipped": "P1 pipeline not importable (ImportError: cannot import name 'service' from 'app.pipeline' (C:\\Users\\ASUS\\Desktop\\hackthon project\\hireguard\\backend\\app\\pipeline\\__init__.py)); expected app.pipeline.service.analyze_pdf"
+  },
+  "extraction": {
+   "skipped": "P1 pipeline not importable (ImportError: cannot import name 'service' from 'app.pipeline' (C:\\Users\\ASUS\\Desktop\\hackthon project\\hireguard\\backend\\app\\pipeline\\__init__.py)); expected app.pipeline.service.analyze_pdf"
+  }
+ },
+ "baseline": {
+  "skipped": "run eval/baselines.py"
+ }
+}

@@ -1,0 +1,72 @@
+{
+ "ground_truth": {
+  "id": "CV-0185",
+  "job_id": "JOB-HR-03",
+  "lang": "ar",
+  "gender": "f",
+  "name": "Salma Ben Salah",
+  "town": "Gabès",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2023-10",
+    "end": "2025-05",
+    "skills": [
+     "docker",
+     "hr-administration",
+     "microsoft-excel",
+     "tunisian-labour-law"
+    ]
+   },
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2025-09",
+    "end": null,
+    "skills": [
+     "docker",
+     "recruitment"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "salma.ben.salah185@example.tn",
+  "skills": [
+   "docker",
+   "hr-administration",
+   "microsoft-excel",
+   "recruitment",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 2.7,
+   "hr-administration": 1.6,
+   "microsoft-excel": 1.6,
+   "tunisian-labour-law": 1.6,
+   "recruitment": 1.1
+  },
+  "years_experience": 2.7
+ },
+ "text": "Salma Ben Salah\nمساعدة موارد بشرية\nsalma.ben.salah185@example.tn | Gabès\n\nالخبرة المهنية\n10/2023 – 05/2025 : Olive Systems\n  الأدوات: Docker, إدارة شؤون الموظفين, مايكروسوفت إكسل, قانون الشغل التونسي\n09/2025 – حاليا : Fictiva Data SARL\n  الأدوات: Docker, التوظيف\n\nالتكوين\nإجازة في الإعلامية, المعهد العالي للدراسات التكنولوجية برادس, 2023\n\nالمهارات\nDocker, إدارة شؤون الموظفين, مايكروسوفت إكسل, التوظيف, قانون الشغل التونسي\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : B2"
+}

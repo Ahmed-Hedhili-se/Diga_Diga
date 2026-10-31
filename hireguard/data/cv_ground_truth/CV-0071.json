@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0071",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Wassim Ayari",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2014
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2014-09",
+    "end": null,
+    "skills": [
+     "microsoft-excel",
+     "payroll",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "data-modelling",
+   "payroll"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "wassim.ayari71@example.tn",
+  "skills": [
+   "data-modelling",
+   "microsoft-excel",
+   "payroll",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "microsoft-excel": 12.1,
+   "payroll": 12.1,
+   "tunisian-labour-law": 12.1
+  },
+  "years_experience": 12.1
+ },
+ "text": "Wassim Ayari\nAssistante RH\nwassim.ayari71@example.tn | Ariana\n\nEXPÉRIENCE PROFESSIONNELLE\n09/2014 – aujourd'hui : Olive Systems\n  outils: Microsoft Excel, paie, droit du travail tunisien\n\nFORMATION\nLicence en informatique, SUP'COM, 2014\n\nCOMPÉTENCES\nmodélisation des données, Microsoft Excel, paie, droit du travail tunisien\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : C1"
+}

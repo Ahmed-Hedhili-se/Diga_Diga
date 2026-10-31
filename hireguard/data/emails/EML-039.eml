@@ -1,0 +1,19 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Ines Gharbi <ines.gharbi@gmail.example>
+To: recrutement@hireguard.demo
+Subject: Candidature
+Date: Mon, 02 Nov 2026 12:26:00 +0100
+Message-ID: <EML-039@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour,
+
+Je vous adresse ma candidature pour le poste de Data Engineer. Mon CV est en =
+pi=C3=A8ce jointe.
+
+Cordialement,
+Ines Gharbi

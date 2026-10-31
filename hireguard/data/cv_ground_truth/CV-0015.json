@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0015",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Nour Jaziri",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [],
+  "extra_skills": [
+   "data-modelling",
+   "microsoft-excel"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "nour.jaziri15@example.tn",
+  "skills": [
+   "data-modelling",
+   "microsoft-excel"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Nour Jaziri\nAssistante RH\nnour.jaziri15@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2018\n\nCOMPÉTENCES\nmodélisation des données, Microsoft Excel\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : B2"
+}

@@ -1,0 +1,77 @@
+{
+ "ground_truth": {
+  "id": "CV-0064",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "m",
+  "name": "Malek Dridi",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2018-09",
+    "end": "2020-08",
+    "skills": [
+     "git",
+     "rest-api",
+     "tunisian-labour-law",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2020-12",
+    "end": "2022-01",
+    "skills": [
+     "docker",
+     "postgresql",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "react",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "malek.dridi64@example.tn",
+  "skills": [
+   "docker",
+   "git",
+   "postgresql",
+   "react",
+   "rest-api",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "git": 1.9,
+   "rest-api": 1.9,
+   "tunisian-labour-law": 1.9,
+   "typescript": 1.9,
+   "docker": 1.1,
+   "postgresql": 1.1,
+   "react": 1.1
+  },
+  "years_experience": 3.0
+ },
+ "text": "Malek Dridi\nFull-stack developer\nmalek.dridi64@example.tn | La Marsa\n\nPROFESSIONAL EXPERIENCE\n09/2018 – 08/2020 : Olive Systems\n  tools: Git, REST APIs, Tunisian labour law, TypeScript\n12/2020 – 01/2022 : Carthage Analytics\n  tools: Docker, PostgreSQL, React\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2018\n\nSKILLS\nDocker, Git, PostgreSQL, React, REST APIs, Tunisian labour law, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : B2"
+}

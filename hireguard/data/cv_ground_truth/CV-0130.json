@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0130",
+  "job_id": "JOB-HR-03",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Malek Mansouri",
+  "town": "La Marsa",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2017
+  },
+  "experiences": [],
+  "extra_skills": [
+   "payroll",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "malek.mansouri130@example.tn",
+  "skills": [
+   "payroll",
+   "postgresql"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Malek Mansouri\nAssistante RH\nmalek.mansouri130@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nLicence en informatique, ISET Radès, 2017\n\nCOMPÉTENCES\npaie, PostgreSQL\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : C2"
+}

@@ -1,0 +1,17 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Leila Bouazizi <leila.bouazizi@gmail.example>
+To: recrutement@hireguard.demo
+Subject: Retrait de candidature
+Date: Mon, 02 Nov 2026 08:42:00 +0100
+Message-ID: <EML-007@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Hello,
+
+I would like to withdraw my application as I have accepted another offer.
+
+Leila Bouazizi

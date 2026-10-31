@@ -1,0 +1,18 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=yahoo.example; dkim=pass header.d=yahoo.example; dmarc=pass
+ header.from=yahoo.example
+From: Karim Mansour <karim.mansour@yahoo.example>
+To: recrutement@hireguard.demo
+Subject: Candidature
+Date: Mon, 02 Nov 2026 15:42:00 +0100
+Message-ID: <EML-067@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Hello,
+
+Please find attached my application for the Data Engineer role.
+
+Kind regards,
+Karim Mansour

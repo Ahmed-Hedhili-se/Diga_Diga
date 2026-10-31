@@ -1,0 +1,17 @@
+Authentication-Results: mx.hireguard.demo; spf=pass
+ smtp.mailfrom=gmail.example; dkim=pass header.d=gmail.example; dmarc=pass
+ header.from=gmail.example
+From: Amira Ben Salah <amira.bensalah@gmail.example>
+To: recrutement@hireguard.demo
+Subject: Question
+Date: Mon, 02 Nov 2026 15:14:00 +0100
+Message-ID: <EML-063@demo.hireguard>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Hi,
+
+Is your office reachable by metro?
+
+Amira Ben Salah

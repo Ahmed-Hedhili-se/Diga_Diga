@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0163",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Malek Gharbi",
+  "town": "Bizerte",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2022-07",
+    "end": "2025-07",
+    "skills": [
+     "data-modelling",
+     "postgresql",
+     "rest-api"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "javascript",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "malek.gharbi163@example.tn",
+  "skills": [
+   "data-modelling",
+   "javascript",
+   "postgresql",
+   "rest-api"
+  ],
+  "skill_years": {
+   "data-modelling": 3.0,
+   "postgresql": 3.0,
+   "rest-api": 3.0
+  },
+  "years_experience": 3.0
+ },
+ "text": "Malek Gharbi\nIngénieur données\nmalek.gharbi163@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2022 – 07/2025 : Olive Systems\n  outils: modélisation des données, PostgreSQL, API REST\n\nFORMATION\nLicence en informatique, SUP'COM, 2022\n\nCOMPÉTENCES\nmodélisation des données, JavaScript, PostgreSQL, API REST\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : B1"
+}

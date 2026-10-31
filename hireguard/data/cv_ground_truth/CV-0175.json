@@ -1,0 +1,57 @@
+{
+ "ground_truth": {
+  "id": "CV-0175",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Rania Trabelsi",
+  "town": "Sfax",
+  "school": "supcom",
+  "degree": {
+   "level": "master",
+   "year": 2017
+  },
+  "experiences": [
+   {
+    "employer": "Medina Soft",
+    "start": "2017-07",
+    "end": "2020-03",
+    "skills": [
+     "rest-api",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B1"
+   }
+  ],
+  "email": "rania.trabelsi175@example.tn",
+  "skills": [
+   "microsoft-excel",
+   "postgresql",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "rest-api": 2.7,
+   "typescript": 2.7
+  },
+  "years_experience": 2.7
+ },
+ "text": "Rania Trabelsi\nDéveloppeur full-stack\nrania.trabelsi175@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2017 – 03/2020 : Medina Soft\n  outils: API REST, TypeScript\n\nFORMATION\nMastère professionnel en science des données, SUP'COM, 2017\n\nCOMPÉTENCES\nMicrosoft Excel, PostgreSQL, API REST, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : B1"
+}

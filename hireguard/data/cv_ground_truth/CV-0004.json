@@ -1,0 +1,76 @@
+{
+ "ground_truth": {
+  "id": "CV-0004",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Youssef Gharbi",
+  "town": "Ariana",
+  "school": "supcom",
+  "degree": {
+   "level": "licence",
+   "year": 2023
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2023-10",
+    "end": "2024-10",
+    "skills": [
+     "hr-administration",
+     "payroll",
+     "recruitment",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Atlas Telecom (fictional)",
+    "start": "2024-12",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "microsoft-excel",
+     "payroll",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "youssef.gharbi4@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "payroll",
+   "recruitment",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "hr-administration": 2.8,
+   "payroll": 2.8,
+   "recruitment": 1.0,
+   "typescript": 1.0,
+   "microsoft-excel": 1.8,
+   "tunisian-labour-law": 1.8
+  },
+  "years_experience": 2.8
+ },
+ "text": "Youssef Gharbi\nHR assistant\nyoussef.gharbi4@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n10/2023 – 10/2024 : Fictiva Data SARL\n  tools: HR administration, payroll, recruitment, TypeScript\n12/2024 – present : Atlas Telecom (fictional)\n  tools: HR administration, Microsoft Excel, payroll, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, SUP'COM, 2023\n\nSKILLS\nHR administration, Microsoft Excel, payroll, recruitment, Tunisian labour law, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : C2"
+}

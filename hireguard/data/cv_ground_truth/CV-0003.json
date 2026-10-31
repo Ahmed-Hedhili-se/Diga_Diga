@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0003",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Wassim Hammami",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [],
+  "extra_skills": [
+   "payroll",
+   "recruitment"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "wassim.hammami3@example.tn",
+  "skills": [
+   "payroll",
+   "recruitment"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Wassim Hammami\nHR assistant\nwassim.hammami3@example.tn | La Marsa\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2020\n\nSKILLS\npayroll, recruitment\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : B2"
+}

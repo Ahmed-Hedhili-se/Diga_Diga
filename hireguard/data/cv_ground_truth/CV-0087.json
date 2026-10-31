@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0087",
+  "job_id": "JOB-DATA-01",
+  "lang": "en",
+  "gender": "m",
+  "name": "Youssef Khelifi",
+  "town": "Sfax",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2024
+  },
+  "experiences": [],
+  "extra_skills": [
+   "microsoft-excel",
+   "sql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "youssef.khelifi87@example.tn",
+  "skills": [
+   "microsoft-excel",
+   "sql"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Youssef Khelifi\nData engineer\nyoussef.khelifi87@example.tn | Sfax\n\nPROFESSIONAL EXPERIENCE\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2024\n\nSKILLS\nMicrosoft Excel, SQL\n\nLANGUAGES\nالعربية : native\nFrançais : C1\nEnglish : C1"
+}

@@ -1,0 +1,56 @@
+{
+ "ground_truth": {
+  "id": "CV-0059",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Aziz Sassi",
+  "town": "Ariana",
+  "school": "iset",
+  "degree": {
+   "level": "licence",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2018-12",
+    "end": null,
+    "skills": [
+     "hr-administration",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B2"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "aziz.sassi59@example.tn",
+  "skills": [
+   "hr-administration",
+   "microsoft-excel",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "hr-administration": 7.8,
+   "tunisian-labour-law": 7.8
+  },
+  "years_experience": 7.8
+ },
+ "text": "Aziz Sassi\nHR assistant\naziz.sassi59@example.tn | Ariana\n\nPROFESSIONAL EXPERIENCE\n12/2018 – present : Olive Systems\n  tools: HR administration, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, ISET Radès, 2018\n\nSKILLS\nHR administration, Microsoft Excel, Tunisian labour law\n\nLANGUAGES\nالعربية : native\nFrançais : B2\nEnglish : B2"
+}

@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0110",
+  "job_id": "JOB-DATA-01",
+  "lang": "ar",
+  "gender": "m",
+  "name": "Mariem Ayari",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2014
+  },
+  "experiences": [],
+  "extra_skills": [
+   "etl",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C2"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "mariem.ayari110@example.tn",
+  "skills": [
+   "etl",
+   "rest-api"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Mariem Ayari\nمهندس بيانات\nmariem.ayari110@example.tn | La Marsa\n\nالخبرة المهنية\n\nالتكوين\nشهادة مهندس في الاتصالات, المدرسة الخاصة للمهندسين بتونس, 2014\n\nالمهارات\nخطوط ETL, واجهات REST\n\nاللغات\nالعربية : اللغة الأم\nFrançais : C2\nEnglish : C1"
+}

@@ -1,0 +1,62 @@
+{
+ "ground_truth": {
+  "id": "CV-0025",
+  "job_id": "JOB-FS-02",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Malek Hammami",
+  "town": "La Marsa",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2018
+  },
+  "experiences": [
+   {
+    "employer": "Olive Systems",
+    "start": "2018-07",
+    "end": null,
+    "skills": [
+     "javascript",
+     "postgresql",
+     "tunisian-labour-law",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "malek.hammami25@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "postgresql",
+   "tunisian-labour-law",
+   "typescript"
+  ],
+  "skill_years": {
+   "javascript": 8.2,
+   "postgresql": 8.2,
+   "tunisian-labour-law": 8.2,
+   "typescript": 8.2
+  },
+  "years_experience": 8.2
+ },
+ "text": "Malek Hammami\nDéveloppeur full-stack\nmalek.hammami25@example.tn | La Marsa\n\nEXPÉRIENCE PROFESSIONNELLE\n07/2018 – aujourd'hui : Olive Systems\n  outils: JavaScript, PostgreSQL, droit du travail tunisien, TypeScript\n\nFORMATION\nMastère professionnel en science des données, École privée d'ingénieurs de Tunis, 2018\n\nCOMPÉTENCES\nDocker, JavaScript, PostgreSQL, droit du travail tunisien, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : B2"
+}

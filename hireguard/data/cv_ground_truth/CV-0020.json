@@ -1,0 +1,59 @@
+{
+ "ground_truth": {
+  "id": "CV-0020",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "m",
+  "name": "Mariem Jaziri",
+  "town": "Bizerte",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2019
+  },
+  "experiences": [
+   {
+    "employer": "Jasmin Digital",
+    "start": "2019-10",
+    "end": null,
+    "skills": [
+     "data-modelling",
+     "python",
+     "typescript"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "docker",
+   "python"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C1"
+   }
+  ],
+  "email": "mariem.jaziri20@example.tn",
+  "skills": [
+   "data-modelling",
+   "docker",
+   "python",
+   "typescript"
+  ],
+  "skill_years": {
+   "data-modelling": 7.0,
+   "python": 7.0,
+   "typescript": 7.0
+  },
+  "years_experience": 7.0
+ },
+ "text": "Mariem Jaziri\nIngénieur données\nmariem.jaziri20@example.tn | Bizerte\n\nEXPÉRIENCE PROFESSIONNELLE\n10/2019 – aujourd'hui : Jasmin Digital\n  outils: modélisation des données, Python, TypeScript\n\nFORMATION\nLicence en informatique, École privée d'ingénieurs de Tunis, 2019\n\nCOMPÉTENCES\nmodélisation des données, Docker, Python, TypeScript\n\nLANGUES\nالعربية : langue maternelle\nFrançais : B1\nEnglish : C1"
+}

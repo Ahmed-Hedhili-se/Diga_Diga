@@ -1,0 +1,4 @@
+# Optional: Prompt Guard 2 for the instruction detector (HG_PROMPT_GUARD=1).
+# The model is gated on Hugging Face: accept the Llama license, then `huggingface-cli login`.
+transformers==4.47.1
+torch==2.5.1

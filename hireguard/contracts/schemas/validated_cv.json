@@ -1,0 +1,271 @@
+{
+  "$defs": {
+    "CEFR": {
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2",
+        "native"
+      ],
+      "title": "CEFR",
+      "type": "string"
+    },
+    "DegreeLevel": {
+      "enum": [
+        "none",
+        "bac",
+        "bts",
+        "licence",
+        "master",
+        "ingenieur",
+        "phd"
+      ],
+      "title": "DegreeLevel",
+      "type": "string"
+    },
+    "DroppedField": {
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "reason"
+      ],
+      "title": "DroppedField",
+      "type": "object"
+    },
+    "ExtractedLanguage": {
+      "properties": {
+        "iso": {
+          "$ref": "#/$defs/Lang"
+        },
+        "cefr": {
+          "$ref": "#/$defs/CEFR"
+        }
+      },
+      "required": [
+        "iso",
+        "cefr"
+      ],
+      "title": "ExtractedLanguage",
+      "type": "object"
+    },
+    "InjectionFlag": {
+      "description": "Signal for HR only. Never feeds a score.",
+      "properties": {
+        "where": {
+          "enum": [
+            "visible",
+            "hidden"
+          ],
+          "title": "Where",
+          "type": "string"
+        },
+        "span": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Span"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "finding_index": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finding Index"
+        },
+        "method": {
+          "enum": [
+            "regex",
+            "prompt_guard"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "lang": {
+          "title": "Lang",
+          "type": "string"
+        },
+        "score": {
+          "default": 1.0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "where",
+        "method",
+        "rule_id",
+        "lang"
+      ],
+      "title": "InjectionFlag",
+      "type": "object"
+    },
+    "Lang": {
+      "enum": [
+        "fr",
+        "en",
+        "ar",
+        "de",
+        "es",
+        "it"
+      ],
+      "title": "Lang",
+      "type": "string"
+    },
+    "Span": {
+      "description": "Character offsets into SanitizeResult.visible_text (end exclusive).",
+      "properties": {
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "minimum": 0,
+          "title": "End",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Span",
+      "type": "object"
+    },
+    "ValidSkill": {
+      "properties": {
+        "esco_id": {
+          "title": "Esco Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Span"
+        },
+        "page": {
+          "title": "Page",
+          "type": "integer"
+        },
+        "years": {
+          "default": 0.0,
+          "title": "Years",
+          "type": "number"
+        }
+      },
+      "required": [
+        "esco_id",
+        "label",
+        "evidence",
+        "page"
+      ],
+      "title": "ValidSkill",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "candidate_id": {
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "doc_id": {
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "needs_human"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "skills": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ValidSkill"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "years_experience": {
+      "default": 0.0,
+      "title": "Years Experience",
+      "type": "number"
+    },
+    "highest_degree": {
+      "$ref": "#/$defs/DegreeLevel",
+      "default": "none"
+    },
+    "degree_evidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Span"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "languages": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExtractedLanguage"
+      },
+      "title": "Languages",
+      "type": "array"
+    },
+    "dropped": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/DroppedField"
+      },
+      "title": "Dropped",
+      "type": "array"
+    },
+    "injection_flags": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/InjectionFlag"
+      },
+      "title": "Injection Flags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "doc_id",
+    "status"
+  ],
+  "title": "ValidatedCV",
+  "type": "object"
+}

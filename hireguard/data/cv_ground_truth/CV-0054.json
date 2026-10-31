@@ -1,0 +1,42 @@
+{
+ "ground_truth": {
+  "id": "CV-0054",
+  "job_id": "JOB-DATA-01",
+  "lang": "fr",
+  "gender": "f",
+  "name": "Skander Jaziri",
+  "town": "Sfax",
+  "school": "private",
+  "degree": {
+   "level": "ingenieur",
+   "year": 2015
+  },
+  "experiences": [],
+  "extra_skills": [
+   "data-modelling",
+   "postgresql"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "C1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "skander.jaziri54@example.tn",
+  "skills": [
+   "data-modelling",
+   "postgresql"
+  ],
+  "skill_years": {},
+  "years_experience": 0.0
+ },
+ "text": "Skander Jaziri\nIngénieure données\nskander.jaziri54@example.tn | Sfax\n\nEXPÉRIENCE PROFESSIONNELLE\n\nFORMATION\nDiplôme d'ingénieur en télécommunications, École privée d'ingénieurs de Tunis, 2015\n\nCOMPÉTENCES\nmodélisation des données, PostgreSQL\n\nLANGUES\nالعربية : langue maternelle\nFrançais : C1\nEnglish : C2"
+}

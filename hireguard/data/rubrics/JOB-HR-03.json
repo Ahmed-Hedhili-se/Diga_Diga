@@ -1,0 +1,18 @@
+{
+  "job_id": "JOB-HR-03",
+  "title": "HR assistant (payroll, Tunisian labour law, Excel)",
+  "skill_weights": {
+    "payroll": 5,
+    "tunisian-labour-law": 5,
+    "microsoft-excel": 4,
+    "hr-administration": 3,
+    "recruitment": 2
+  },
+  "min_years": 1,
+  "required_degree": "licence",
+  "languages": [
+    {"iso": "fr", "min_cefr": "C1"},
+    {"iso": "ar", "min_cefr": "C1"}
+  ],
+  "component_weights": {"skills": 55, "experience": 20, "degree": 10, "languages": 15}
+}

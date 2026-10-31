@@ -1,0 +1,61 @@
+{
+ "ground_truth": {
+  "id": "CV-0197",
+  "job_id": "JOB-HR-03",
+  "lang": "en",
+  "gender": "m",
+  "name": "Salma Ayari",
+  "town": "Gabès",
+  "school": "private",
+  "degree": {
+   "level": "licence",
+   "year": 2022
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2022-12",
+    "end": "2025-05",
+    "skills": [
+     "docker",
+     "microsoft-excel",
+     "postgresql",
+     "tunisian-labour-law"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "tunisian-labour-law"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "C2"
+   }
+  ],
+  "email": "salma.ayari197@example.tn",
+  "skills": [
+   "docker",
+   "microsoft-excel",
+   "postgresql",
+   "tunisian-labour-law"
+  ],
+  "skill_years": {
+   "docker": 2.4,
+   "microsoft-excel": 2.4,
+   "postgresql": 2.4,
+   "tunisian-labour-law": 2.4
+  },
+  "years_experience": 2.4
+ },
+ "text": "Salma Ayari\nHR assistant\nsalma.ayari197@example.tn | Gabès\n\nPROFESSIONAL EXPERIENCE\n12/2022 – 05/2025 : Fictiva Data SARL\n  tools: Docker, Microsoft Excel, PostgreSQL, Tunisian labour law\n\nEDUCATION\nBachelor in computer science, Tunis Private Engineering School, 2022\n\nSKILLS\nDocker, Microsoft Excel, PostgreSQL, Tunisian labour law\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : C2"
+}

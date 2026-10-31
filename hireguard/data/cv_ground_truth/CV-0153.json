@@ -1,0 +1,83 @@
+{
+ "ground_truth": {
+  "id": "CV-0153",
+  "job_id": "JOB-FS-02",
+  "lang": "en",
+  "gender": "f",
+  "name": "Skander Gharbi",
+  "town": "Gabès",
+  "school": "private",
+  "degree": {
+   "level": "master",
+   "year": 2020
+  },
+  "experiences": [
+   {
+    "employer": "Fictiva Data SARL",
+    "start": "2020-12",
+    "end": "2022-11",
+    "skills": [
+     "docker",
+     "javascript",
+     "react"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2023-02",
+    "end": "2025-03",
+    "skills": [
+     "javascript",
+     "rest-api",
+     "typescript"
+    ]
+   },
+   {
+    "employer": "Carthage Analytics",
+    "start": "2025-05",
+    "end": null,
+    "skills": [
+     "docker",
+     "javascript",
+     "react"
+    ]
+   }
+  ],
+  "extra_skills": [
+   "postgresql",
+   "rest-api"
+  ],
+  "languages": [
+   {
+    "iso": "ar",
+    "cefr": "native"
+   },
+   {
+    "iso": "fr",
+    "cefr": "B1"
+   },
+   {
+    "iso": "en",
+    "cefr": "B2"
+   }
+  ],
+  "email": "skander.gharbi153@example.tn",
+  "skills": [
+   "docker",
+   "javascript",
+   "postgresql",
+   "react",
+   "rest-api",
+   "typescript"
+  ],
+  "skill_years": {
+   "docker": 3.3,
+   "javascript": 5.4,
+   "react": 3.3,
+   "rest-api": 2.1,
+   "typescript": 2.1
+  },
+  "years_experience": 5.4
+ },
+ "text": "Skander Gharbi\nFull-stack developer\nskander.gharbi153@example.tn | Gabès\n\nPROFESSIONAL EXPERIENCE\n12/2020 – 11/2022 : Fictiva Data SARL\n  tools: Docker, JavaScript, React\n02/2023 – 03/2025 : Carthage Analytics\n  tools: JavaScript, REST APIs, TypeScript\n05/2025 – present : Carthage Analytics\n  tools: Docker, JavaScript, React\n\nEDUCATION\nMaster in data science, Tunis Private Engineering School, 2020\n\nSKILLS\nDocker, JavaScript, PostgreSQL, React, REST APIs, TypeScript\n\nLANGUAGES\nالعربية : native\nFrançais : B1\nEnglish : B2"
+}
