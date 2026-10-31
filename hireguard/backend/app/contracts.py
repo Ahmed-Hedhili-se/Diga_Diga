@@ -76,6 +76,8 @@ class HiddenFinding(BaseModel):
     text: str = Field(max_length=2000)  # shown to HR ESCAPED, never sent to a model
     page: conint(ge=0)
     bbox: tuple[float, float, float, float] | None = None
+    # "low" = not hidden content (an undecodable glyph): shown to HR, adds no risk. Missing = "high" (fail closed).
+    severity: Literal["high", "low"] = "high"
 
 
 class SanitizeResult(BaseModel):
