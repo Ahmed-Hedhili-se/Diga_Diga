@@ -10,7 +10,16 @@ import logging
 
 from pydantic import ValidationError
 
-from ..contracts import CEFR, CVExtraction, DegreeLevel, Lang
+from ..contracts import (
+    CEFR,
+    CVExtraction,
+    DegreeLevel,
+    ExtractedDegree,
+    ExtractedExperience,
+    ExtractedLanguage,
+    ExtractedSkill,
+    Lang,
+)
 from .esco import esco_ids, label_patterns, load_esco
 from .llm import LLMUnavailable, complete_json
 from .textnorm import fold_with_map
@@ -130,24 +139,44 @@ def _narrow_to_label(text: str, span: dict, esco_id: str) -> dict:
     return span
 
 
+CURRENT_WORDS = {"", "present", "présent", "now", "current", "today", "aujourd'hui", "ce jour", "en cours", "null", "none"}
+
+
+def _items(raw: dict, key: str, model, build) -> list[dict]:
+    """Keep each list item that fits the contract; one bad item never sinks the whole CV."""
+    out = []
+    for i, item in enumerate(raw.get(key) or []):
+        if not isinstance(item, dict):
+            continue
+        cand = build(item)
+        try:
+            model.model_validate(cand)
+            out.append(cand)
+        except ValidationError:
+            log.warning("dropping %s[%d]: does not fit schema", key, i)
+    return out
+
+
 def to_extraction(raw: dict, text: str, lines: list[tuple[int, int]]) -> CVExtraction:
-    """Line-numbered model output -> contract CVExtraction (span-based). Raises ValidationError."""
+    """Line-numbered model output -> contract CVExtraction (span-based). Raises ValidationError if the shape is wrong."""
+    if not isinstance(raw, dict):
+        raise ValueError("model output is not an object")
+
+    def end_of(x):
+        e = x.get("end")
+        return None if e is None or (isinstance(e, str) and e.strip().lower() in CURRENT_WORDS) else e
+
     out = {
         "doc_language": raw.get("doc_language"),
-        "skills": [
-            {"esco_id": s.get("esco_id"), "evidence": _narrow_to_label(text, _line_span(lines, s.get("line")), s.get("esco_id"))}
-            for s in raw.get("skills", []) if isinstance(s, dict)
-        ],
-        "experiences": [
-            {"start": x.get("start"), "end": x.get("end"), "skills": x.get("skills", []),
-             "evidence": _line_span(lines, x.get("line"))}
-            for x in raw.get("experiences", []) if isinstance(x, dict)
-        ],
-        "degrees": [
-            {"level": d.get("level"), "year": d.get("year"), "evidence": _line_span(lines, d.get("line"))}
-            for d in raw.get("degrees", []) if isinstance(d, dict)
-        ],
-        "languages": [l for l in raw.get("languages", []) if isinstance(l, dict)],
+        "skills": _items(raw, "skills", ExtractedSkill, lambda s: {
+            "esco_id": s.get("esco_id"),
+            "evidence": _narrow_to_label(text, _line_span(lines, s.get("line")), s.get("esco_id"))}),
+        "experiences": _items(raw, "experiences", ExtractedExperience, lambda x: {
+            "start": x.get("start"), "end": end_of(x), "skills": x.get("skills") or [],
+            "evidence": _line_span(lines, x.get("line"))}),
+        "degrees": _items(raw, "degrees", ExtractedDegree, lambda d: {
+            "level": d.get("level"), "year": d.get("year"), "evidence": _line_span(lines, d.get("line"))}),
+        "languages": _items(raw, "languages", ExtractedLanguage, lambda l: {"iso": l.get("iso"), "cefr": l.get("cefr")}),
     }
     return CVExtraction.model_validate(out)
 
