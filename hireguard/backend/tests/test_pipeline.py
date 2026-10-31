@@ -147,6 +147,19 @@ def test_extractor_maps_lines_to_spans_and_validator_keeps_good_fields(monkeypat
     assert next(s for s in v.skills if s.esco_id == "python").years == 5.2
 
 
+def test_extractor_tolerates_present_and_drops_only_bad_items(monkeypatch):
+    text = "Data Engineer\n2022-03 - present : Python developer\n"
+    out = {"doc_language": "en", "skills": [{"esco_id": "python", "line": 2}],
+           "experiences": [{"start": "2022-03", "end": "present", "skills": ["python"], "line": 2},
+                           {"start": "March 2020", "end": None, "skills": [], "line": 2}],
+           "degrees": [], "languages": [{"iso": "en", "cefr": "C9"}]}
+    _fake_ollama(monkeypatch, [json.dumps(out)])
+    ext = extractor.extract_cv(text)
+    assert ext is not None
+    assert [(x.start, x.end) for x in ext.experiences] == [("2022-03", None)]
+    assert ext.languages == []
+
+
 def test_extractor_retries_once_then_needs_human(monkeypatch):
     calls = _fake_ollama(monkeypatch, ["not json", '{"doc_language": "xx"}'])
     assert extractor.extract_cv("Python developer\n2020-01 - 2021-01") is None

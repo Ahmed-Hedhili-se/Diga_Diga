@@ -39,6 +39,12 @@ def test_cand007_channels(seeded):
     assert {"homoglyph", "off_page", "annotation_metadata", "zero_width"} <= channels
 
 
+def test_clean_candidates_have_no_findings(seeded):
+    for cid in ("CAND-001", "CAND-002", "CAND-003", "CAND-004", "CAND-005", "CAND-008"):
+        c = service.get_candidate(cid)
+        assert c["hidden_findings"] == [] and c["flags"] == 0, cid
+
+
 def test_security_findings_lists_attacks(seeded):
     ids = {x["candidate_id"] for x in service.security_findings()}
     assert {"CAND-006", "CAND-007"} <= ids and "CAND-001" not in ids
