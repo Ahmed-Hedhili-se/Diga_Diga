@@ -37,7 +37,7 @@
 <div id="ripple"></div>
 <svg id="cursor" viewBox="0 0 24 24"><path d="M5 2.5v17.2l4.3-4.1 2.9 6.6 2.7-1.2-2.9-6.5h6.1z" fill="#fff" stroke="#111417" stroke-width="1.4" stroke-linejoin="round"/></svg>
 <div class="chip" id="chip"><span class="m"></span><span class="t"></span><span class="who"></span></div>
-<div class="tag" id="tag">Fictional demo data</div>
+<div class="tag" id="tag">Fictional data. Demo extraction, no live model</div>
 <div class="caption" id="cap"></div>
 <div id="fade"></div>
 <script>
@@ -189,8 +189,9 @@ window.renderAt = async (t) => {
     chip.style.opacity = clamp((t - c.start) / 0.3, 0, 1) * clamp((c.end - t) / 0.3, 0, 1);
   } else chip.style.opacity = 0;
   document.getElementById("tag").style.opacity = slide ? 0 : topAlpha;
+  // Captions on the dashboard only: a slide already carries its message, and its footnote sits where a caption would.
   const cap = document.getElementById("cap"), k = TL.captions.find((x) => t >= x.start && t < x.shownEnd);
-  if (k) {
+  if (k && !slide) {
     cap.textContent = k.text;
     cap.style.opacity = (k.fadeIn ? clamp((t - k.start) / 0.12, 0, 1) : 1) * (k.fadeOut ? clamp((k.shownEnd - t) / 0.12, 0, 1) : 1);
   } else cap.style.opacity = 0;

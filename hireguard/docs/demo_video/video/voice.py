@@ -115,7 +115,7 @@ def music_bed(seconds: float, speech: list[tuple[float, float]]) -> np.ndarray:
     chords = [[57, 60, 64, 71], [53, 57, 60, 67], [48, 55, 60, 64], [55, 59, 62, 67]]  # Am(add9-ish), F, C, G (MIDI)
     hz = lambda m: 440.0 * 2 ** ((m - 69) / 12)
     span, fade = 8.0, 3.0
-    out = np.zeros((n, 2), dtype=np.float64)
+    out = np.zeros((n, 2), dtype=np.float32)  # float32 halves the memory; each chord is computed in float64
     rng = np.random.default_rng(7)
     for k in range(int(seconds // span) + 2):
         notes = chords[k % len(chords)]

@@ -7,7 +7,7 @@
 // Run voice.py and capture.mjs first. ffmpeg: `pip install imageio-ffmpeg`, then
 // python -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())".
 import { spawn } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { launch, newTab, sleep } from "./cdp.mjs";
@@ -58,7 +58,17 @@ try {
   await evaluate(`load(${JSON.stringify(timeline)}, ${JSON.stringify(meta)}, ${JSON.stringify(who)})`);
   const frame = async (t, format = "jpeg") => {
     await evaluate(`renderAt(${t})`);
-    const { data } = await tab.send("Page.captureScreenshot", { format, ...(format === "jpeg" ? { quality: 93 } : {}), fromSurface: true });
+    // Chrome refuses a screenshot now and then when the machine is short of memory: wait and try again.
+    let data;
+    for (let attempt = 0; !data; attempt++) {
+      try {
+        ({ data } = await tab.send("Page.captureScreenshot", { format, ...(format === "jpeg" ? { quality: 93 } : {}), fromSurface: true }));
+      } catch (e) {
+        if (attempt === 8) throw e;
+        await sleep(500 * (attempt + 1));
+        await evaluate(`renderAt(${t})`);
+      }
+    }
     return Buffer.from(data, "base64");
   };
 
@@ -83,17 +93,25 @@ try {
       "-vf", "scale=in_range=pc:out_range=tv:in_color_matrix=bt601:out_color_matrix=bt709,format=yuv420p",
       "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv",
       "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-r", String(fps),
-      "-c:a", "aac", "-b:a", "192k", "-ac", "2", "-movflags", "+faststart", "-shortest", out,
+      "-c:a", "aac", "-b:a", "192k", "-ac", "2", "-movflags", "+faststart", "-shortest", "-f", "mp4", `${out}.part`,
     ], { stdio: ["pipe", "inherit", "inherit"] });
     const done = new Promise((res, rej) => ffmpeg.on("close", (code) => (code === 0 ? res() : rej(new Error(`ffmpeg exited ${code}`)))));
     const n = Math.round((to - from) * fps), t0 = Date.now();
+    // Watchdog: a frame that takes over a minute means Chrome or ffmpeg has stalled; exit so the caller can retry.
+    let lastFrame = Date.now();
+    const watchdog = setInterval(() => {
+      if (Date.now() - lastFrame > 60000) { console.error("stalled: no frame for 60 s"); process.exit(2); }
+    }, 5000);
     for (let f = 0; f < n; f++) {
       const jpg = await frame(from + f / fps);
       if (!ffmpeg.stdin.write(jpg)) await new Promise((r) => ffmpeg.stdin.once("drain", r));
+      lastFrame = Date.now();
       if (f % 150 === 0) console.log(`  frame ${f}/${n} (${((Date.now() - t0) / 1000).toFixed(0)}s)`);
     }
     ffmpeg.stdin.end();
     await done;
+    clearInterval(watchdog);
+    renameSync(`${out}.part`, out); // a failed render never replaces a good video
     console.log(`wrote ${out} (${n} frames in ${((Date.now() - t0) / 1000).toFixed(0)}s)`);
   }
 } finally {
