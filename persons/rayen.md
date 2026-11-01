@@ -9,24 +9,27 @@ documentation.
 
 ## Left to do (1 Nov)
 
+All items below were closed on 1 Nov (tests: about 480 backend pass). The scorer change means the stored
+evaluation results predate it: Hedhili re-runs them.
+
 Done since 31 Oct: the permission matrix, lockout, idle timeout, user admin, audit of sign-in,
 sign-out and account changes (closes R10), the permission-driven UI, the Odoo connector, the
 dashboard redesign and design system (`hireguard/docs/design_system.md`), contract-drift tests,
 rubric validation, the explicit evaluation report, `GET /model/status`, the live Overview
 dashboard and the plain-language Security Center.
 
-- [ ] **P0** Scorer: weight a skill whose `support == "listed_only"` at 0.3 or less of a
+- [x] **P0** Scorer: weight a skill whose `support == "listed_only"` at 0.3 or less of a
       `dated_experience` one (request R3 in [archive/person1.md](archive/person1.md)); add a twin-style test.
-- [ ] **P0** N8 (`hireguard/P4_NOTES.md`): `GET /approvals` lists pending items only, so an
+- [x] **P0** N8 (`hireguard/P4_NOTES.md`): `GET /approvals` lists pending items only, so an
       approved routine item vanishes before anyone executes it. Return approved-not-executed too.
 - [x] **P0** Document in `contracts/API.md`: `GET /erp/status`, `GET /erp/jobs/{id}/applicants`,
       `POST /erp/jobs/{id}/import`, `POST /jobs/{id}/candidates/{id}/status` (done, `5a7f39b`).
-- [ ] **P1** R4: `GET /reviewer/stats` still groups by user; return hits and misses by batch
+- [x] **P1** R4: `GET /reviewer/stats` still groups by user; return hits and misses by batch
       size and week instead (decided by Ahmed).
 - [x] **P1** R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore` (done, `5a7f39b`).
-- [ ] **P1** R14: offer approver count as a setting (default 2 others; SME: 1 other).
-- [ ] **P1** N10: `hidden_high` count in `list_candidates`, so a clean Arabic CV shows no badge.
-- [ ] Keep `tests/test_release_gate.py` `MATRIX` and architecture §6 in step with every route.
+- [x] **P1** R14: offer approver count as a setting (default 2 others; SME: 1 other).
+- [x] **P1** N10: `hidden_high` count in `list_candidates`, so a clean Arabic CV shows no badge.
+- [x] Keep `tests/test_release_gate.py` `MATRIX` and architecture §6 in step with every route.
 
 ## Work to execute
 

@@ -68,3 +68,10 @@ def test_analyze_pdf_is_pure_and_returns_contract():
 
 def test_list_validated_for_rescore(seeded):
     assert len(service.list_validated("JOB-DATA-01")) == 8
+
+
+def test_ranking_badge_counts_only_high_findings(seeded):
+    """N10: CAND-004 (Arabic CV) has one low finding, an undecodable glyph: "hidden" counts it, "hidden_high" does not."""
+    c4 = seeded["CAND-004"]
+    assert c4["hidden"] >= 1 and c4["hidden_high"] == 0
+    assert seeded["CAND-006"]["hidden_high"] >= 2

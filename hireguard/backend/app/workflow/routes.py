@@ -52,8 +52,8 @@ def inbox_release_request(inbox_id: str, user: UserOut = Depends(require_roles(M
 
 
 @router.get("/approvals")
-def approval_queue(user: UserOut = Depends(require_roles(R, M))):
-    return approvals.queue(user)
+def approval_queue(status: Literal["pending", "approved"] = "pending", user: UserOut = Depends(require_roles(R, M))):
+    return approvals.queue(user, status)
 
 
 @router.post("/approvals/{item_id}/decision", response_model=ApprovalItem)
@@ -116,6 +116,33 @@ def question_reply(question_id: str, body: employee_questions.ReplyIn, user: Use
 def approval_attention(user: UserOut = Depends(require_roles(R, M, A))):
     """Canary miss rate by batch size and the current batch cap (process-level, not per reviewer)."""
     return attention.stats()
+
+
+class ApprovalSettingsIn(BaseModel):
+    offer_approvals: int
+
+
+@router.get("/approvals/settings")
+def approval_settings(user: UserOut = Depends(require_roles(M))):
+    """How many distinct HR managers must approve an offer, and how many active HR managers exist to do it."""
+    from ..db import connect
+    conn = connect()
+    try:
+        managers = conn.execute("SELECT COUNT(*) FROM auth_users WHERE role = 'hr_manager' AND active = 1").fetchone()[0]
+    finally:
+        conn.close()
+    lo, hi = approvals.OFFER_APPROVALS_RANGE
+    return {"offer_approvals": approvals.get_offer_approvals(), "min": lo, "max": hi, "hr_managers": managers}
+
+
+@router.put("/approvals/settings")
+def set_approval_settings(body: ApprovalSettingsIn, user: UserOut = Depends(require_roles(M))):
+    """Audited as approvals.settings. Applies to offers created afterwards."""
+    try:
+        approvals.set_offer_approvals(body.offer_approvals, user.id)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    return approval_settings(user)
 
 # ---------------------------------------------------------------- calendar
 

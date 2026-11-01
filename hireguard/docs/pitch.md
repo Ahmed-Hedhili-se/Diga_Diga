@@ -61,7 +61,7 @@ Two claims to say out loud:
 | Doesn't human approval slow things down? | Routine items are batched; risky ones go one by one. If reviewers start missing planted test items, the batches shrink automatically. |
 | Where does the model run? | Locally by default: Ollama on the customer's own machine, so candidate data can stay in Tunisia (law 2004-63; GDPR for EU clients). For the hackathon we also deployed it on a rented cloud GPU, with fictional data only. Speed: the code path handles about 1,600 CVs a minute; the model takes about 40 seconds per CV on the hardware we measured. |
 | What about GDPR deletion and retention? | The talent pool expires after 2 years and can be withdrawn. Purging data after a requisition closes is on the roadmap (risk R11): we say so. |
-| An SME has one HR manager. Who are the "two other approvers" for an offer? | The number of approvers is one policy value in the code (`REQUIRED_APPROVALS`). The demo shows the strictest policy; a small company would use the author plus one approver (risk R14). |
+| An SME has one HR manager. Who are the "two other approvers" for an offer? | The number of approvers is a per-customer setting (1 to 3, default 2) on the Approvals page, HR managers only, and every change is in the audit log. The demo shows the strictest policy; a small company would use the author plus one approver (risk R14, closed). |
 | What isn't done? | Model numbers after masking (re-run in progress), extraction quality on a large sample, the candidate portal. Everything on the slide is measured; everything else is labelled. |
 | How do you make money? | Per-company subscription; see the business slide. Pilots: [n] of [N] HR managers we interviewed asked for one. |
 

@@ -47,7 +47,7 @@ route needs; `tests/test_rbac.py` fails if a route is missing from it or guarded
 | POST | `/answer-desk/ask` | E M | `{question}` (3 to 1000 chars) → one of `{kind:"extract", extracts:[{text, section, section_id, page}]}` (exact handbook paragraphs, best first) · `{kind:"routed", ticket_id, topic}` (personal question, now in the HR queue) · `{kind:"ask_hr", message}` (nothing relevant in the handbook; offer to send it to HR) |
 
 ```
-CandidateRow    = {candidate_id, name, email, job_id, status, score: ScoreOutput|null, flags: int, hidden: int,
+CandidateRow    = {candidate_id, name, email, job_id, status, score: ScoreOutput|null, flags: int, hidden: int, hidden_high: int,
                    extraction: "llm"|"none"|"ground_truth"}   # ground_truth = offline demo seed, NOT a model run
 CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_findings: HiddenFinding[]}
 ```
@@ -91,7 +91,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 |---|---|---|---|
 | POST | `/inbox/ingest` | A (demo seeding) | raw `.eml` text → `InboxItem` |
 | GET | `/inbox` | R M | → `{lanes:{routine:[...], needs_human:[...], suspicious:[...]}}`, grouped by intent and urgency |
-| GET | `/approvals` | R M | → `{batches:[{batch_id, kind, items: ApprovalItem[]}], high_risk: ApprovalItem[], max_batch_size}`; batches shrink when reviewers miss canaries |
+| GET | `/approvals?status=pending\|approved` | R M | `approved` lists approved-not-executed items (same role filter), so they survive a new browser → `{batches:[{batch_id, kind, items: ApprovalItem[]}], high_risk: ApprovalItem[], max_batch_size}`; batches shrink when reviewers miss canaries |
 | POST | `/approvals/{id}/decision` | R M (offer: M, 2 distinct approvers) | `{decision:"approve"\|"reject"}` → `ApprovalItem` |
 | POST | `/approvals/batches/{batch_id}/decision` | R M | `{decision, item_ids}` → `ApprovalItem[]` |
 | POST | `/executor/run/{item_id}` | R M | → `{executed}`; **403 if the item is not approved** |
@@ -101,9 +101,10 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/documents/request` | E | `{type: "work_certificate"\|"salary_certificate"\|"leave_confirmation", params}` → `ApprovalItem` |
 | GET | `/documents/mine` | E | → own documents only |
 | GET | `/documents/{id}/download` | E (owner) M | → PDF, only after release |
-| GET | `/reviewer/stats` | M A | → canary hits/misses per reviewer |
+| GET | `/reviewer/stats` | M A | → `{totals:{decisions, canaries, caught, missed}, by_batch_size[], by_week[{week, canaries, missed, miss_rate}]}`: aggregate, never per reviewer |
+| GET/PUT | `/approvals/settings` | M | `{offer_approvals: 1-3}` → `{offer_approvals, min, max, hr_managers}`; default 2 (`HG_OFFER_APPROVALS`); applies to offers created afterwards; audited `approvals.settings` |
 | GET | `/approvals/attention` | R M A | → `{max_batch_size, recent, by_batch_size[], rule}`: canary miss rate by batch size; bulk approvals above `max_batch_size` → 422 |
-| POST | `/interviews/{id}/scorecard` | R M | `{ratings:{technical, problem_solving, communication, team_fit: 1-4}, recommendation: strong_no\|no\|yes\|strong_yes}` |
+| POST | `/interviews/{id}/scorecard` | R M | `{ratings:{technical, problem_solving, communication, collaboration: 1-4}, recommendation: strong_no\|no\|yes\|strong_yes}` |
 | GET | `/interviews/reminders` | M | manager reminder list |
 | POST | `/inbox/{id}/release-request` | M | creates a `held_email_release` approval item |
 | POST | `/audit/anchor` | A | anchor the chain head now |

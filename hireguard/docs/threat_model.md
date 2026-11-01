@@ -139,7 +139,7 @@ Every 20th approval item (`HG_CANARY_EVERY`) gets a twin with a planted defect (
 | Team skills map | Exposing who holds which skill | The API returns holder counts per skill, never member ids (tested) | `team/routes.py` |
 | HR process metrics | Turning the audit log into per-person productivity | Output is per stage (count, median, p95); no actor or candidate id leaves the function | `team/process_metrics.py` |
 | Knowledge-gap radar | A rare question pointing at one employee | Only (section, ISO week, language) is stored; cells under k = 5 are returned as `null` | `team/knowledge_gaps.py` |
-| `GET /reviewer/stats` (existing) | Per-reviewer canary misses are a per-person monitoring score | **Open (R4 in `docs/architecture.md`)**: aggregate by batch size like `/approvals/attention`, or remove | `workflow/approvals.py` |
+| `GET /reviewer/stats` (existing) | Per-reviewer canary misses are a per-person monitoring score | **Closed 1 Nov (R4 in `docs/architecture.md`)**: aggregate by batch size and week, no user id in the response | `workflow/approvals.py` |
 
 ## Known limits (stated honestly)
 

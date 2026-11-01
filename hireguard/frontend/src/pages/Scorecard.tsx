@@ -5,10 +5,10 @@ import { Badge, Empty, ErrorBox, fmtDate, Loading, PageHeader, useLoad } from ".
 import type { InterviewReminder } from "../types";
 
 const CRITERIA = [
-  ["technical", "Technical skills"],
-  ["problem_solving", "Problem solving"],
-  ["communication", "Communication"],
-  ["team_fit", "Team fit"],
+  ["technical", "Technical skills", "The skills the job description asks for, shown in the answers and exercises."],
+  ["problem_solving", "Problem solving", "How they broke down the problems you gave them and reached an answer."],
+  ["communication", "Communication", "Whether their explanations were clear and to the point."],
+  ["collaboration", "Working with others", "Examples of working with others on a task, as the job requires. Rate what they described, not whether you liked them."],
 ] as const;
 
 const SCALE = [
@@ -62,9 +62,10 @@ export default function Scorecard() {
           Interview ID
           <input value={interviewId} onChange={(e) => setInterviewId(e.target.value)} placeholder="INT-…" maxLength={40} />
         </label>
-        {CRITERIA.map(([key, label]) => (
+        {CRITERIA.map(([key, label, hint]) => (
           <fieldset key={key}>
             <legend>{label}</legend>
+            <div className="muted small">{hint}</div>
             <div className="seg">
               {SCALE.map(([v, l]) => (
                 <button

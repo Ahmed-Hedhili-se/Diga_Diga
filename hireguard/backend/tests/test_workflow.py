@@ -118,6 +118,27 @@ def test_csrf_required_for_state_change(db):
 # ---------------------------------------------------------------- approvals policy
 
 
+def test_offer_approval_count_is_a_setting_and_audited(db):
+    m1, m2 = make_user(Role.hr_manager, "hrm1"), make_user(Role.hr_manager, "hrm2")
+    rec = make_user(Role.recruiter, "rec1")
+    assert approvals.get_offer_approvals() == 2
+    c = client_for(m1)
+    s = c.get("/api/approvals/settings").json()
+    assert s["offer_approvals"] == 2 and s["hr_managers"] == 2 and (s["min"], s["max"]) == (1, 3)
+    assert client_for(rec).put("/api/approvals/settings", json={"offer_approvals": 1}).status_code == 403
+    assert c.put("/api/approvals/settings", json={"offer_approvals": 0}).status_code == 400
+    assert c.put("/api/approvals/settings", json={"offer_approvals": 4}).status_code == 400
+
+    waiting = approvals.create_item(ApprovalKind.offer, "Offer A", {"candidate_id": "CAND-002"}, created_by="hrm1")
+    assert c.put("/api/approvals/settings", json={"offer_approvals": 1}).json()["offer_approvals"] == 1
+    assert approvals.get_item(waiting.id).required_approvals == 2  # offers already waiting keep their count
+    one = approvals.create_item(ApprovalKind.offer, "Offer B", {"candidate_id": "CAND-003"}, created_by="hrm1")
+    assert one.required_approvals == 1
+    assert approvals.decide(one.id, m2, "approve").status == "approved"  # clears with only 2 HR accounts
+    changed = [e for e in audit.list_entries() if e.action == "approvals.settings"]
+    assert changed and changed[0].details == {"before": 2, "after": 1}
+
+
 def test_offer_needs_two_distinct_hr_managers(db):
     rec = make_user(Role.recruiter, "rec1")
     m1, m2 = make_user(Role.hr_manager, "hrm1"), make_user(Role.hr_manager, "hrm2")
@@ -157,7 +178,9 @@ def test_canary_is_never_serialized_and_misses_are_tracked(db, monkeypatch):
     assert c.post(f"/api/approvals/batches/{batch['batch_id']}/decision",
                   json={"decision": "approve", "item_ids": ids}).status_code == 200
     stats = c.get("/api/reviewer/stats").json()
-    assert stats == [{"user_id": "hrm1", "decisions": 4, "canaries_caught": 0, "canaries_missed": 1}]
+    assert stats["totals"] == {"decisions": 4, "canaries": 1, "caught": 0, "missed": 1}
+    assert "hrm1" not in c.get("/api/reviewer/stats").text  # aggregate by batch size and week, never by person
+    assert stats["by_week"][0]["missed"] == 1 and stats["by_batch_size"]
 
     conn = app_db.connect()
     canary_id = conn.execute("SELECT id FROM approval_items WHERE is_canary = 1").fetchone()["id"]
@@ -267,7 +290,7 @@ def test_interview_booking_then_scorecard(db):
 
     bad = {"ratings": {"technical": 3, "problem_solving": 4, "communication": 2}, "recommendation": "yes"}
     assert c.post(f"/api/interviews/{interview_id}/scorecard", json=bad).status_code == 422
-    good = {"ratings": {"technical": 3, "problem_solving": 4, "communication": 2, "team_fit": 3}, "recommendation": "yes"}
+    good = {"ratings": {"technical": 3, "problem_solving": 4, "communication": 2, "collaboration": 3}, "recommendation": "yes"}
     assert c.post(f"/api/interviews/{interview_id}/scorecard", json=good).status_code == 200
     assert c.post(f"/api/interviews/{interview_id}/scorecard", json=good).status_code == 409
 
@@ -279,3 +302,17 @@ def test_templates_reject_unknown_slots(db):
                                      {"candidate_name": "A\nBcc: evil@x.example", "job_title": "Data Engineer",
                                       "recruiter_name": "R", "company_name": "C"})
     assert "\nBcc" not in body and "Data Engineer" in subject
+
+
+def test_approved_items_survive_a_new_browser(db):
+    """N8: GET /approvals?status=approved lists approved-not-executed items, with the same role filter."""
+    rec = make_user(Role.recruiter, "rec1")
+    item = approvals.create_item(ApprovalKind.email_send, "Reply", {"to": "c@gmail.example", "subject": "s", "body": "b",
+                                                                   "recipient_verified": True}, created_by="system")
+    c = client_for(rec)
+    assert c.get("/api/approvals?status=approved").json() == {"batches": [], "high_risk": [], "max_batch_size": 10}
+    assert c.post(f"/api/approvals/{item.id}/decision", json={"decision": "approve"}).status_code == 200
+    listed = [i["id"] for b in c.get("/api/approvals?status=approved").json()["batches"] for i in b["items"]]
+    assert item.id in listed
+    assert item.id not in [i["id"] for b in c.get("/api/approvals").json()["batches"] for i in b["items"]]
+    assert c.get("/api/approvals?status=bogus").status_code == 422

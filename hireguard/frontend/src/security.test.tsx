@@ -7,6 +7,7 @@ import { api } from "./api";
 import { AuthProvider, usePermission } from "./auth";
 import EvidenceText from "./components/EvidenceText";
 import { ConfirmButton, ErrorBox } from "./components/ui";
+import { OfferRule } from "./pages/Approvals";
 import EmployeeDocs from "./pages/EmployeeDocs";
 
 const HOSTILE = `Ahmed <img src=x onerror="window.pwned=1"> <script>window.pwned=1</script> <a href="javascript:alert(1)">cv</a>`;
@@ -128,5 +129,33 @@ describe("permissions shape the UI; the session and CSRF go with every change", 
     await screen.findByRole("button", { name: "Upload CV" });
     await expect(api("/candidates")).rejects.toThrow();
     await waitFor(() => expect(screen.queryByRole("button", { name: "Upload CV" })).toBeNull());
+  });
+});
+
+describe("the offer approval rule (R14)", () => {
+  const settings = { offer_approvals: 2, min: 1, max: 3, hr_managers: 2 };
+
+  it("is not rendered, and not even requested, without the permission", async () => {
+    const calls = mockFetch((url) => (url.endsWith("/auth/me") ? { body: session([]) } : undefined));
+    render(<MemoryRouter><AuthProvider><OfferRule /></AuthProvider></MemoryRouter>);
+    await waitFor(() => expect(calls.some((c) => c.url.endsWith("/auth/me"))).toBe(true));
+    expect(screen.queryByText("Offer approval rule")).toBeNull();
+    expect(calls.some((c) => c.url.includes("/approvals/settings"))).toBe(false);
+  });
+
+  it("warns when the rule cannot be met, and a change is sent with the CSRF token", async () => {
+    const calls = mockFetch((url, init) => {
+      if (url.endsWith("/auth/me")) return { body: session(["approvals.configure"]) };
+      if (url.includes("/approvals/settings")) return { body: init?.method === "PUT" ? { ...settings, offer_approvals: 1 } : settings };
+    });
+    render(<MemoryRouter><AuthProvider><OfferRule /></AuthProvider></MemoryRouter>);
+    expect(await screen.findByText("Offer approval rule")).toBeTruthy();
+    // 2 HR managers and an author who cannot approve their own offer: only 1 person can approve, 2 are required
+    expect(screen.getByText(/cannot be\s+completed/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "1" }));
+    await screen.findByText(/need 1 HR manager/);
+    const put = calls.find((c) => c.init?.method === "PUT")!;
+    expect((put.init!.headers as Record<string, string>)["X-CSRF-Token"]).toBe("csrf-123");
+    expect(JSON.parse(put.init!.body as string)).toEqual({ offer_approvals: 1 });
   });
 });
