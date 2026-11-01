@@ -31,6 +31,7 @@ import argparse
 import email
 import hashlib
 import json
+import os
 import re
 import time
 from datetime import datetime, timezone
@@ -376,6 +377,15 @@ def _write(summary: dict, path=SUMMARY):
     path.write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def runtime_record(config) -> dict:
+    """Where the model ran, so a result file says it (the pitch must). HG_MODEL_GPU / HG_MODEL_DIGEST are optional notes."""
+    modal = any(".modal.run" in h for h in config.OLLAMA_URLS)
+    return {"where": "Modal cloud (US), fictional data only" if modal else "local Ollama",
+            "gpu": os.getenv("HG_MODEL_GPU") or ("NVIDIA L4 24 GB (Modal)" if modal else "not recorded"),
+            "model_digest": os.getenv("HG_MODEL_DIGEST") or "not recorded",
+            "settings": {"temperature": 0, "seed": 7, "num_ctx": 8192, "think": False}}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default=",".join(SECTIONS))
@@ -395,7 +405,7 @@ def main():
     summary = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
     summary.setdefault("sections", {})
     summary.update({"generated_at": datetime.now(timezone.utc).isoformat(), "model": config.OLLAMA_MODEL,
-                    "groq_fallback": config.GROQ_FALLBACK})
+                    "groq_fallback": config.GROQ_FALLBACK, "runtime": runtime_record(config)})
     an = None
     for name in a.only.split(","):
         if name != "hidden" and an is None:

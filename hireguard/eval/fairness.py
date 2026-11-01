@@ -35,7 +35,7 @@ import numpy as np
 
 from common import GT_DIR, RESULTS_DIR, SKILLS
 from gen_cvs import finalize, render_text
-from harness import ORACLE_SCOPE, _load_pipeline
+from harness import ORACLE_SCOPE, Analyzer
 from render import text_pdf
 
 REGION = {"La Marsa": "Grand Tunis", "Ariana": "Grand Tunis", "Sfax": "coast", "Sousse": "coast",
@@ -213,6 +213,17 @@ def _line(attr: str, a: dict) -> str:
     px = a["proxy"]
     return (f"  {attr:<12} AIR {a['air']:.2f} [{a['air_ci95'][0]:.2f}-{a['air_ci95'][1]:.2f}] p={a['p_value']:.3f} "
             f"-> {a['verdict'].upper():<5} | proxy AUC {px['auc']} (null95 {px['null_auc_95th']}) | {rates}")
+
+
+def _load_pipeline(requested: str):
+    """(analyze, mode), or (message, None) when the model was asked for and is not reachable."""
+    from app.pipeline.demo import _ollama_ready
+    mode = requested
+    if mode == "auto":
+        mode = "llm" if _ollama_ready() else "oracle"
+    if mode == "llm" and not _ollama_ready():
+        return "LLM mode requested but the model is not reachable; nothing written", None
+    return Analyzer(mode).cv, mode
 
 
 def main():

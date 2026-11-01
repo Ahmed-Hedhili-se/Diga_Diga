@@ -60,7 +60,7 @@ def inject(doc: fitz.Document, channel: str, payload: str) -> fitz.Document:
         _put(page, (60, y), payload, fontsize=9)
         pix = fitz.Pixmap(fitz.csRGB, fitz.IRect(0, 0, 8, 8), False)
         pix.set_rect(pix.irect, (255, 255, 255))
-        page.insert_image(fitz.Rect(50, y - 14, A4.width - 50, y + 6), pixmap=pix)
+        page.insert_image(fitz.Rect(50, y - 14, A4.width - 50, y + 6), pixmap=pix, keep_proportion=False)
     elif channel == "annotation":
         page.add_text_annot((A4.width - 40, 40), payload)
     elif channel == "metadata":
