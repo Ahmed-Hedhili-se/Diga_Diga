@@ -66,7 +66,7 @@ RULES: list[tuple[str, str, str]] = [
     ("tn.ignore_arabizi", "aeb-latn",
      rf"\b(insa|ensa|inse|nsa|ma t?(a)?3tich bel|matkhamemch|ma tkhamemch|ma t7sebch|mat7sebch)\b{_G}\b(t3limet|ta3limet|ta3limat|instructions?|9wa3ed|qwa3ed|consignes?|li fet|elli fet|eli fet)\b"),
     ("tn.score_arabizi", "aeb-latn",
-     rf"\b(a3ti|3ti|a3tini|3tini|a3tih|3tih|a3tiha|3tiha|7ot|7otli|hotli|7ottli)\b{_G}(\b100\b|\bmya\b|\bmiya\b|\bmeya\b|ma(x|ks)imum|\bfull\b|20/20|\bnote\b)"),
+     rf"\b(a3ti|3ti|a3iti|3iti|a3tini|3tini|a3tih|3tih|a3tiha|3tiha|7ot|7otli|hotli|7ottli)\b{_G}(\b100\b|\bmya\b|\bmiya\b|\bmeya\b|ma(x|ks)imum|\bfull\b|20/20|\bnote\b)"),
     ("tn.note_arabizi", "aeb-latn", r"\b(note|message|remarque|kelma)\s+(lel|lil|l|li)\s*(ia|ai|modele|model|robot|systeme)\b"),
     ("tn.best_arabizi", "aeb-latn", r"\b(houa|howa|hia|hiya|hiyya)\s+(el|l)\s*(a7sen|ahsen|afdhel|afdel|afdhal)\b"),
 ]
@@ -74,20 +74,55 @@ RULES: list[tuple[str, str, str]] = [
 _COMPILED = [(rid, lang, re.compile(p, re.S)) for rid, lang, p in RULES]
 
 
+_DIGITS = re.compile(r"\d+")
+_LRO, _RLO, _PDF = chr(0x202D), chr(0x202E), chr(0x202C)
+_BIDI_OVERRIDE = re.compile(f"[{_LRO}{_RLO}]([^{_PDF}]*){_PDF}?")  # LRO / RLO ... PDF (or end of text)
+
+
+def _visual_reverse(s: str) -> str:
+    """Reverse a string the way a bidi-unaware extractor emits it, keeping digit runs readable."""
+    return _DIGITS.sub(lambda m: m.group()[::-1], s[::-1])
+
+
+def _variants(text: str) -> list[tuple[str, list[int] | None]]:
+    """The text as written, plus reversed readings: lines in visual order (hidden Arabic and Derja come back
+    from PDF extraction that way; an RLO payload stays reversed once the sanitizer strips the override) and
+    RLO-wrapped segments still carrying their controls. Each variant carries a map back to ORIGINAL offsets."""
+    out: list[tuple[str, list[int] | None]] = [(text, None)]
+    pos = 0
+    for line in text.split(chr(10)):
+        if len(line) > 8:
+            back = [pos + len(line) - 1 - j for j in range(len(line))]  # reversed index j <- original len-1-j
+            out.append((line[::-1], back))                     # reversed as written (RLO payload)
+            if _DIGITS.search(line):
+                out.append((_visual_reverse(line), back))      # bidi-aware extraction keeps digit runs forward
+        pos += len(line) + 1
+    for m in _BIDI_OVERRIDE.finditer(text):
+        seg = m.group(1)
+        if seg:
+            out.append((seg[::-1], [m.start(1) + len(seg) - 1 - j for j in range(len(seg))]))
+    return out
+
+
 def _regex_hits(text: str) -> list[tuple[str, str, int, int]]:
     """Returns (rule_id, lang, start, end) in ORIGINAL text offsets."""
-    mapped, _ = deconfuse(text)                 # same length? no: deconfuse can NFKC math chars
-    if len(mapped) != len(text):
-        mapped = text
-    folded, imap = fold_with_map(mapped)
     hits = []
-    for rid, lang, rx in _COMPILED:
-        for m in rx.finditer(folded):
-            if m.end() <= m.start():
-                continue
-            start = imap[m.start()]
-            end = imap[m.end() - 1] + 1
-            hits.append((rid, lang, start, end))
+    seen = set()
+    for variant, back in _variants(text):
+        mapped, _ = deconfuse(variant)          # same length? no: deconfuse can NFKC math chars
+        if len(mapped) != len(variant):
+            mapped = variant
+        folded, imap = fold_with_map(mapped)
+        for rid, lang, rx in _COMPILED:
+            for m in rx.finditer(folded):
+                if m.end() <= m.start():
+                    continue
+                start, end = imap[m.start()], imap[m.end() - 1] + 1
+                if back is not None:
+                    start, end = min(back[start], back[end - 1]), max(back[start], back[end - 1]) + 1
+                if (rid, start, end) not in seen:
+                    seen.add((rid, start, end))
+                    hits.append((rid, lang, start, end))
     return hits
 
 

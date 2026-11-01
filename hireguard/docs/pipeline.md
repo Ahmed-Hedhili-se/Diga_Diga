@@ -99,7 +99,7 @@ The question is capped at 1,000 characters, control and bidi characters are stri
 
 | Check | Result | How to reproduce |
 |---|---|---|
-| Attacks with a high finding | **38/40** | `python scripts/check_detection.py` (the 2 misses come from the test generator: its cover image is 20x20 pt instead of full width; the sanitizer flags both once the cover is full width, see `persons/archive/person1.md` R1) |
+| Attacks with a high finding | **40/40** | `python scripts/check_detection.py` (38/40 until 1 Nov: the test generator drew the `under_image` cover as a 20x20 pt square; `eval/render.py` now passes `keep_proportion=False`, and the attacks were regenerated) |
 | Clean twins with a high finding | **0/40** | same |
 | Personal questions routed to HR | **8/8** | `pytest tests/test_answer_desk.py` (`data/handbook/questions.json`) |
 | Policy questions, top-1 section correct | **12/12** | same |
@@ -116,7 +116,7 @@ obeys an injection.
 | What | Result |
 |---|---|
 | Hidden content found | 40/40 attacks, 0 false alarms on 40 clean twins |
-| Instructions flagged | 18/28 then; the detector rules added since flag 8/8 visible instructions with 0 false alarms on 200 clean CVs |
+| Instructions flagged | 18/28 then; **28/28 and 11/11 (supplementary corpus) after the 1 Nov detector fixes** (reversed-text reading), 0 false alarms on 200 clean CVs |
 | Attacks that moved a field or score, code path | 0/40 |
 
 ## Real model on Modal

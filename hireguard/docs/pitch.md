@@ -27,19 +27,20 @@ Money dashboard, employee documents and follow-ups are cut from the live demo. M
 
 ## Metrics slide
 
-Two kinds of numbers, never mixed. **Model** = the real Qwen3-8B, run on 31 Oct **before identity masking** (`eval/results/summary_unmasked_qwen3-8b.json`, `baseline.json`). **Code path** = ground-truth extraction, no model (`summary_oracle.json`).
+Two kinds of numbers, never mixed. **Model** = the real Qwen3-8B on a Modal L4 GPU, run on 1 Nov **with identity masking on** (`eval/results/summary.json`, `baseline.json`; the 31 Oct run before masking is `summary_unmasked_qwen3-8b.json`). **Code path** = ground-truth extraction, no model (`summary_oracle.json`).
 
 | Claim | HireGuard | Standard screener (same model) |
 |---|---|---|
-| Attacks that moved a field, score or rank (model) | **3/40** (7.5%, CI 1.6–20.4%); 1 raised the score (+1.4 points), 2 lowered it | **13/40** (32.5%, CI 18.6–49.1%); 4/40 raised it by 10+ points |
-| Paired comparison, same 40 attacks | 11 attacks moved only the screener, 1 only HireGuard: **exact McNemar p = 0.006** | |
+| Attacks that moved a field, score or rank (model) | **3/40** (7.5%, CI 1.6–20.4%); 2 raised the score (+10.0 and +1.4 points), 1 lowered it | **13/40** (32.5%, CI 18.6–49.1%); 4/40 raised it by 10+ points |
+| Paired comparison, same 40 attacks | 11 attacks moved only the screener, 1 only HireGuard: **exact McNemar p = 0.0063** | |
 | Attacks that moved anything (code path) | 0/40 (CI 0.0–8.8%) | — |
 | Hidden-text detection (sanitizer, no model) | 40/40 found, 0 false alarms on 40 clean twins | — |
-| Email routing (model, 100 emails, 15 spoofed) | right lane 100/100; spoofed emails given no candidate data 15/15; unsafe routing 0/100 | — |
+| Email routing (model, 100 emails, 15 spoofed) | right lane 100/100; spoofed emails given no candidate data 15/15; unsafe routing 0/100. Urgency is the weak field: 80/100 | — |
 | Fairness audit catches a planted biased criterion | yes: adverse-impact ratio 0.28, p = 0.005; gap traced to the degree component | — |
 | 300 CVs through pipeline and database (code path) | 0 errors, p95 45 ms per CV | — |
-| **Known limit:** score changed when only town, school, gap, language or gendered title changed (model) | **26/90** (28.9%, CI 19.8–39.4%), 14/20 for language swaps. Code path: 0/89. Masking of identity fields was added after this run; its number comes from Hedhili's re-run | — |
-| Extraction F1 (model) | TBD: measured on 2 CVs only, which supports no claim | — |
+| **Known limit:** score changed when only town, school, gap, language or gendered title changed (model, with masking) | **17/89** (19.1%, CI 11.5–28.8%): town 0/30, school 0/20, gender 0/10, gap 4/9, **language swaps 13/20**. 26/90 before masking. Code path: 0/89 | — |
+| Extraction F1 (model, 200 CVs) | **skill F1 0.944** (precision 0.999, recall 0.894). French 0.97, English 0.97, **Arabic 0.80**. Years MAE 0.23; degree correct 92.5% | — |
+| **Known limit:** visible attacks (model) | 7/14 supplementary attacks moved a field or score (visible instructions 3/8, bidi 2/4, visible stuffing 2/2), against 8/14 for the standard screener: text that is visible to everyone cannot be removed by a sanitizer. Instructions are flagged to HR 11/11; visible stuffing is not flagged. The 3/40 above covers hidden channels only | — |
 
 Footnote on the slide: "Clopper-Pearson 95% intervals; n shown for every rate. Fictional CVs and emails."
 
@@ -62,7 +63,7 @@ Two claims to say out loud:
 | Where does the model run? | Locally by default: Ollama on the customer's own machine, so candidate data can stay in Tunisia (law 2004-63; GDPR for EU clients). For the hackathon we also deployed it on a rented cloud GPU, with fictional data only. Speed: the code path handles about 1,600 CVs a minute; the model takes about 40 seconds per CV on the hardware we measured. |
 | What about GDPR deletion and retention? | The talent pool expires after 2 years and can be withdrawn. Purging data after a requisition closes is on the roadmap (risk R11): we say so. |
 | An SME has one HR manager. Who are the "two other approvers" for an offer? | The number of approvers is a per-customer setting (1 to 3, default 2) on the Approvals page, HR managers only, and every change is in the audit log. The demo shows the strictest policy; a small company would use the author plus one approver (risk R14, closed). |
-| What isn't done? | Model numbers after masking (re-run in progress), extraction quality on a large sample, the candidate portal. Everything on the slide is measured; everything else is labelled. |
+| What isn't done? | The outsider attack set, the candidate portal, and the model's weakness on visible attacks and Arabic CVs (stated above). Everything on the slide is measured; everything else is labelled. |
 | How do you make money? | Per-company subscription; see the business slide. Pilots: [n] of [N] HR managers we interviewed asked for one. |
 
 References for every claim: `docs/architecture.md` §11.
