@@ -25,8 +25,8 @@ RM = require_roles(Role.recruiter, Role.hr_manager)
 M = require_roles(Role.hr_manager)
 MA = require_roles(Role.hr_manager, Role.admin)
 
-EVAL_SUMMARY = ROOT / "eval" / "results" / "summary.json"
-EVAL_FAIRNESS = ROOT / "eval" / "results" / "fairness.json"
+EVAL_DIR = ROOT / "eval" / "results"
+EVAL_FAIRNESS = EVAL_DIR / "fairness.json"
 
 
 def _validated(job_id: str):
@@ -301,11 +301,50 @@ def put_money_settings(body: MoneySettingsIn, user: UserOut = Depends(M)):
     return {"hourly_cost_tnd": body.hourly_cost_tnd}
 
 
+def _eval_runs() -> dict[str, dict]:
+    """Every harness output in eval/results: summary.json (the last run) and summary_<name>.json (kept runs).
+
+    Each run is labelled with the mode that produced it, so a code-path (oracle) number can never be shown
+    as a model result. Older files without a per-section mode take the run's mode.
+    """
+    runs = {}
+    for path in sorted(EVAL_DIR.glob("summary*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        run_id = "latest" if path.stem == "summary" else path.stem.removeprefix("summary_")
+        modes = {s.get("extraction_mode") for s in data.get("sections", {}).values()
+                 if isinstance(s, dict) and s.get("extraction_mode")}
+        mode = data.get("extraction_mode") or (modes.pop() if len(modes) == 1 else None) \
+            or ("llm" if data.get("model") else "unknown")
+        label = "code path only, no model" if mode == "oracle" else f"model {data.get('model') or '?'}"
+        if "unmasked" in run_id:
+            label += ", before identity masking"
+        runs[run_id] = {"id": run_id, "mode": mode, "model": data.get("model"), "label": label,
+                        "generated_at": data.get("generated_at"), "data": data}
+    return runs
+
+
 @router.get("/eval/summary")
-def eval_summary(user: UserOut = Depends(MA)):
-    if not EVAL_SUMMARY.exists():
-        return {"status": "not_run"}
-    return json.loads(EVAL_SUMMARY.read_text(encoding="utf-8"))
+def eval_summary(run: str | None = Query(None, max_length=80), user: UserOut = Depends(MA)):
+    """One labelled evaluation run (default: the newest model run, else the newest run) plus the list of runs."""
+    runs = _eval_runs()
+    if not runs:
+        return {"status": "not_run", "runs": []}
+    if run is None:
+        model_runs = [r for r in runs.values() if r["mode"] == "llm"]
+        run = max(model_runs or runs.values(), key=lambda r: r["generated_at"] or "")["id"]
+    if run not in runs:
+        raise HTTPException(404, "unknown evaluation run")
+    chosen = runs[run]
+    data = dict(chosen["data"])
+    data["sections"] = {k: ({"extraction_mode": chosen["mode"]} | v) if isinstance(v, dict) else v
+                        for k, v in data.get("sections", {}).items()}
+    if chosen["mode"] == "llm" and "baseline" not in data and (EVAL_DIR / "baseline.json").exists():
+        data["baseline"] = json.loads((EVAL_DIR / "baseline.json").read_text(encoding="utf-8"))
+    meta = lambda r: {k: r[k] for k in ("id", "mode", "model", "label", "generated_at")}
+    return data | {"run": meta(chosen), "runs": [meta(r) for r in runs.values()]}
 
 
 @router.get("/eval/fairness")

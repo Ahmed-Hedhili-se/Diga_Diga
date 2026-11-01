@@ -49,7 +49,7 @@ Security Center, which the Admin shares with HR, shows only the attack fragments
 ## Sections
 
 - Architecture and data boundaries: [docs/architecture.md](docs/architecture.md) (Ahmed)
-- Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1), demo script [docs/demo_p1.md](docs/demo_p1.md)
+- Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1)
 - Threat model (OWASP LLM Top 10 2025 + web): [docs/threat_model.md](docs/threat_model.md) (P3)
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)
 - Frontend and web security: [docs/frontend.md](docs/frontend.md) (P4)
@@ -71,7 +71,7 @@ Hiring is slow at the end, not the start: salary mismatches found after the inte
 
 - **Offer fit** (`GET /jobs/{id}/offer-fit`): each candidate's own declared conditions (salary range, notice period, work mode, commitments) checked against the job's published terms, plus a job-level *band coverage* ("the band covers 1 of 2 declared expectations in your top 2"). Shown beside the ranking, never inside it. This replaces an "acceptance probability" model, whose best predictors (pay history, commute, family situation) are proxies we refuse to use.
 - **Offer letter** (`POST /candidates/{id}/offer`, HR manager): salary set by HR inside the published band (EU Pay Transparency Directive 2023/970), drafted from a template, approved by 2 HR managers who are not the author.
-- **Follow-ups** (`GET /followups`, Inbox → Awaiting reply): candidates silent for 3+ business days after our email get a template reminder in the approval queue; at most 2.
+- **Follow-ups** (`GET /followups/preview`, Approvals → Silent candidates): a candidate who has not answered our last sent email for 3+ days gets a template reminder in the approval queue; at most 2, never to rejected, hired or withdrawn candidates.
 - **Talent-pool rediscovery** (`GET /jobs/{id}/rediscover`): past applicants who opted in, re-scored with the new job's rubric; consent expires after 2 years and can be withdrawn.
 
 ## HR Nexus (Team)
@@ -86,6 +86,6 @@ Team insights page (HR manager, admin). Measures processes, declared skills and 
 
 - Candidate portal (magic link) is on the roadmap; the demo uses pre-verified candidate addresses.
 - The interview loop closer is built but not demoed.
-- The Answer Desk endpoint still returns 501; the knowledge-gap radar shows fictional seed data until it calls `knowledge_gaps.record()`.
-- Model-mode numbers (attacks through the LLM, extraction F1, LLM load test) are TBD; the published figures are oracle (code-path) results.
+- The knowledge-gap radar mixes a fictional seed log with the live Answer Desk questions (section and week only); say so in the demo.
+- Model numbers were measured on 31 Oct **before identity masking** (attacks 3/40 vs 13/40 for a standard screener; twin CVs 26/90). The masked re-run, extraction quality on more than 2 CVs and an LLM load test are pending. Code-path (oracle) results are labelled as such everywhere.
 - The demo uses SQLite with triggers for the audit log; production uses a Postgres role restricted to INSERT/SELECT.

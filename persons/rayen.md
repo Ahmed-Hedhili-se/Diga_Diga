@@ -7,31 +7,23 @@ validated scoring paths, persistence, and automated backend tests. Implement
 security controls in code rather than relying on frontend restrictions or
 documentation.
 
-## Start here (31 Oct hand-off)
+## Left to do (1 Nov)
 
-New backend surfaces to review and own (tests in `backend/tests/test_fast_track.py`
-and `test_team.py`; contracts in `hireguard/contracts/API.md`):
-`scoring/offer_fit.py`, `scoring/rediscover.py`, `workflow/followups.py`,
-`team/` (skills, process metrics, knowledge gaps), optional condition and consent
-fields on `POST /candidates`.
+Done since 31 Oct: the permission matrix, lockout, idle timeout, user admin, audit of sign-in,
+sign-out and account changes (closes R10), the permission-driven UI and the Odoo connector.
 
-- [ ] R3 (P0): implement `POST /answer-desk/ask` (now 501). Retrieval only over
-      `data/handbook/` sections, return the cited passage word for word, "no match"
-      routes to HR; call `team.knowledge_gaps.record(section_or_None, lang)`. Never
-      store the question text.
-- [ ] R10 (P1, about 30 min): audit `auth.login` (success and failure, no password),
-      `auth.logout` and `auth.user_create` (with the role) in `auth/routes.py`.
-- [ ] R4 (decided by Ahmed: aggregate): `GET /reviewer/stats` returns canary hits and
-      misses by batch size and week, never by user id; keep roles M A; test it.
-- [ ] R14: make the offer approval count a per-customer setting (default 2 other HR
-      managers; SME: 1). Today the demo can't clear an offer with 2 HR accounts.
-- [ ] R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore`.
-- [ ] R6: rename scorecard criterion `team_fit` to `collaboration` (contract change:
-      tell Yasmina, update `API.md`).
-- [ ] Sign off the interface change log in `hireguard/docs/architecture.md` §9.
-- [ ] Run `backend/.venv/Scripts/python.exe -m pytest -q` before every push (107 pass
-      now). `tests/test_release_gate.py` fails on any new or changed route until its
-      roles are added to `MATRIX` there and to architecture §6, on purpose.
+- [ ] **P0** Scorer: weight a skill whose `support == "listed_only"` at 0.3 or less of a
+      `dated_experience` one (request R3 in [archive/person1.md](archive/person1.md)); add a twin-style test.
+- [ ] **P0** N8 (`hireguard/P4_NOTES.md`): `GET /approvals` lists pending items only, so an
+      approved routine item vanishes before anyone executes it. Return approved-not-executed too.
+- [ ] **P0** Document in `contracts/API.md`: `GET /erp/status`, `GET /erp/jobs/{id}/applicants`,
+      `POST /erp/jobs/{id}/import`, `POST /jobs/{id}/candidates/{id}/status`.
+- [ ] **P1** R4: `GET /reviewer/stats` still groups by user; return hits and misses by batch
+      size and week instead (decided by Ahmed).
+- [ ] **P1** R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore`.
+- [ ] **P1** R14: offer approver count as a setting (default 2 others; SME: 1 other).
+- [ ] **P1** N10: `hidden_high` count in `list_candidates`, so a clean Arabic CV shows no badge.
+- [ ] Keep `tests/test_release_gate.py` `MATRIX` and architecture §6 in step with every route.
 
 ## Work to execute
 

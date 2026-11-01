@@ -93,7 +93,7 @@ Colours: red = untrusted input, yellow = the only place a model runs, blue = det
 
 **External services:**
 
-- **Ollama** (Qwen3-8B), local only: candidate data never leaves the machine.
+- **Ollama** (Qwen3-8B) on the customer's own machine by default (`HG_OLLAMA_HOSTS=http://localhost:11434`). Optional: a Modal cloud GPU behind proxy auth (`infra/`, used for the hackathon with fictional data only) and a Groq fallback (off by default, fictional data only). Production for a Tunisian customer stays on-premise.
 - **Mail:** a mock outbox in the demo. In production, SMTP behind the executor.
 - **Audit anchoring:** a file, OpenTimestamps and git.
 
@@ -110,12 +110,13 @@ Colours: red = untrusted input, yellow = the only place a model runs, blue = det
 | | Inbox digest, template replies, interview slots, scorecards | `workflow/` | built |
 | | **Offer fit and pay-band coverage** | `scoring/offer_fit.py` | built |
 | | **Offer letter** (salary inside the band, 2 approvers) | `scoring/offer_fit.py` | built |
-| | **Candidate follow-ups** (at most 2) | `workflow/followups.py` | built |
+| | **Candidate follow-ups** (one engine, at most 2, never to closed candidates) | `workflow/followups.py` | built (P3) |
 | | **Talent-pool rediscovery** (opt-in, 2-year expiry) | `scoring/rediscover.py` | built |
 | Team | **Team skills map** | `team/routes.py` and `scoring/team_gaps.py` | built |
 | | **HR process metrics** (live audit log and labelled simulation) | `team/process_metrics.py`, `eval/process_sim.py` | built |
-| | **Knowledge-gap radar** (logging hook) | `team/knowledge_gaps.py` | built; the Answer Desk must call `record()` |
-| | Answer Desk | `pipeline/routes.py` | **returns 501, owner Rayen** |
+| | **Knowledge-gap radar** | `team/knowledge_gaps.py` | built; fed by every Answer Desk answer since 1 Nov (section and week only) |
+| | Answer Desk: BM25 over the handbook, word-for-word extracts, personal questions routed to HR | `pipeline/answer_desk.py` | built (Hedhili) |
+| Integration | Odoo connector: import applicants, mirror approved actions (off by default) | `erp/` | built (Rayen) |
 | | Self-service documents | `workflow/documents.py` | built |
 
 ## 3. Data classes and boundaries
@@ -184,7 +185,7 @@ flowchart TD
   INV --> Q1
   RANK --> OFF["Offer letter<br/>salary inside published band"]
   OFF --> Q2["Approval queue<br/>offer: 2 HR managers, not the author"]
-  SILENT["Candidate silent 3+ business days"] --> FUP["Follow-up reminder<br/>template, max 2"]
+  SILENT["Candidate silent 3+ days"] --> FUP["Follow-up reminder<br/>template, max 2"]
   FUP --> Q1
   Q1 --> H1{{"Human approves or rejects"}}
   Q2 --> H1
@@ -253,10 +254,9 @@ R recruiter · M HR manager · E employee · A admin.
 | | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
 | Oversight | `/money`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
 | | `/approvals/attention` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
-| Workflow | `/inbox`, `/followups`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
+| Workflow | `/inbox`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
 | | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
-| | | | `POST /followups/draft` | R M | approval items `email_send` |
-| | `/followups/preview` | R M | `POST /followups/run` (second follow-up implementation, to consolidate) | R M | `followups.run`, approval items `email_send` |
+| | `/followups/preview` | R M | `POST /followups/run` | R M | `followups.run`, approval items `email_send` |
 | ERP (Odoo, off unless `HG_ODOO_ENABLED=1`) | `/erp/status` | R M A | `POST /erp/jobs/{id}/import` | R M | `erp.import_applicants`, then `pipeline.process_cv` per CV |
 | | `/erp/jobs/{id}/applicants` | R M | | | |
 | | | | `POST /approvals/{id}/decision`, `/batches/{id}/decision` | R M (offers, documents, leave, held mail: M only) | `approval.approve`, `approval.reject` |
@@ -284,20 +284,26 @@ R recruiter · M HR manager · E employee · A admin.
 
 | ID | Risk | Severity | Owner | Status, evidence |
 |---|---|---|---|---|
-| R1 | Model-mode robustness and extraction quality are unmeasured; only oracle (code-path) numbers exist. The naive-screener baseline (`eval/baselines.py`) is still a **stub**, so the before/after comparison cannot run yet | High | Hedhili | Open. Implement TODO 2 in `eval/baselines.py`, then run `harness.py`, `fairness.py` and `load_test.py` with `--extraction llm` on the GPU laptop |
+| R1 | Model-mode evidence. **Measured 31 Oct** (Qwen3-8B, before identity masking): attacks 3/40 vs 13/40 for a standard screener, paired p = 0.006; emails 100/100 right lane. Still open: the run after masking, and extraction quality (n = 2 CVs) | High | Hedhili | Partly closed. Re-run `eval/harness.py --extraction llm` on current `main`; extraction on 50+ CVs; record where the model ran |
 | R2 | The detector misses instruction payloads: English "Evaluator note" 4/4, Derja 3/3, Arabic 3/4 | Medium (the detector is a signal, not a control) | Hedhili | Open. `docs/evaluation.md` |
-| R3 | The Answer Desk returns 501, so the Employee Questions feature can't be demoed and the radar has only seed data | High for the demo | Rayen | Open. Fallback: retrieval-only, cited passage word for word, "no match" goes to HR, call `knowledge_gaps.record()` |
+| R3 | The Answer Desk returned 501 | High for the demo | Hedhili | **Closed 31 Oct**: BM25 extracts and HR routing (`pipeline/answer_desk.py`), tests in `test_answer_desk.py` |
 | R4 | `GET /reviewer/stats` returns canary misses **per reviewer**: a per-person monitoring score, against section 7 | Medium | Rayen | **Decided 31 Oct (Ahmed): aggregate.** Return canary hits and misses by batch size and week, never by user id; keep it M A. Open until implemented and tested |
 | R5 | `main` commit `8f829d8` contains `node_modules` (3,273 files), `frontend/dist` and about 380 generated PDFs | Medium (repo hygiene, pre-merge gate) | Ahmed | **Closed 31 Oct**: reverted in `932747e`; `hireguard/.gitignore` is now on `main`; a scan of tracked files finds no `node_modules`, build output, database or secret |
 | R6 | Scorecard criterion `team_fit` invites "culture fit" judgements | Low | Rayen | Open. Rename to `collaboration` with job-related anchors |
 | R7 | HR could read offer fit as a ranking signal | Medium | Yasmina, Rayen | Mitigated: not in the score (test `test_conditions_never_change_the_score`), UI copy, offers set inside the band |
 | R8 | Talent-pool use without valid consent | Medium | Rayen | Mitigated: opt-in at upload, 730-day expiry, withdraw endpoint, audited, tested |
 | R9 | Demo history (old outbox emails, answer-desk log, process simulation) mistaken for measurements | Low | Yasmina | Mitigated: `seed:history` marker, "Simulation" banner, and this note |
-| R10 | Sign-in, sign-out and account creation (role assignment) are not in the audit log: the one place an admin grants power leaves no trace | Medium | Rayen | Open. Append `auth.login` (success and failure), `auth.logout` and `auth.user_create` (with the role) in `auth/routes.py` |
+| R10 | Sign-in, sign-out and account changes were not audited | Medium | Rayen | **Closed 31 Oct**: `auth.login`, `auth.login_failed`, `auth.lockout`, `auth.logout`, `auth.user_create`, `auth.user_update` and more |
 | R11 | Retention is documented (section 3), but only the talent-pool expiry is enforced in code; nothing purges candidate files after a requisition closes | Medium | Rayen (Ahmed owns the policy) | Open. Roadmap: a purge job and a delete-on-request endpoint, both audited. Say so if a judge asks about GDPR |
 | R12 | `POST /jobs/{id}/rescore` rewrites proposed scores without an audit event | Low: scores are derived and reproducible from the audited rubric | Rayen | Open. One `scores.rescore` event with the job and the count |
 | R13 | The pitch hook said "today's AI screeners obey it" before any baseline was measured | Medium (credibility) | Ahmed | **Closed 31 Oct**: the hook now cites a measured external figure; "obeys it" comes back only with our own baseline number |
 | R14 | An offer needs 2 HR managers who are not its author, so 3 in total. The demo seed has 2, so an offer can never fully clear on stage, and many SMEs have only one HR manager | Medium (demo and product fit) | Rayen | Open. Make the offer approval count a per-customer setting (default 2; SME: 1 other approver). Until then the demo shows the offer waiting at 1 of 2 and says why |
+| R15 | Through the model, twin CVs changed score 26/90 (14/20 when only the CV language changed); the code path alone gives 0/89 | High (fairness claim) | Hedhili | Open. Identity masking added after the run; re-measure. The pitch states the 26/90 as a known limit |
+| R16 | Two route tables must be kept in step by hand: `auth/permissions.py` `ROUTE_PERMISSIONS` (Rayen) and `tests/test_release_gate.py` `MATRIX` (Ahmed) | Low (both fail loudly when out of step) | Rayen, Ahmed | Open. Derive the gate's roles from `ROUTE_PERMISSIONS` |
+| R17 | The Evaluation tab was blank: the harness output was renamed (`summary_oracle.json`, `summary_unmasked_qwen3-8b.json`) but the API read `summary.json` | High for the demo | Ahmed | **Closed 1 Nov**: `GET /eval/summary?run=` serves every labelled run, newest model run by default (test `test_eval_summary_labels_every_run`) |
+| R18 | Two follow-up engines after the merge: double reminders (up to 4 per candidate) and reminders to rejected candidates; two screens disagreed | High | Ahmed | **Closed 1 Nov**: one engine (P3's), the duplicate routes, panel and templates removed; the P3 demo seed runs in `run.ps1 -Seed` |
+| R19 | The pitch and this document said candidate data "never leaves the machine" while the measured setup could use a cloud GPU | Medium (credibility) | Ahmed | **Closed 1 Nov**: "local by default; cloud GPU for the hackathon, fictional data only" |
+| R20 | Y5 (`docs/frontend_security.md`): skill holder counts for teams under 5 people can point to a colleague | Medium (privacy) | Ahmed | Open, decision pending |
 
 ## 9. Interface change log
 
@@ -305,27 +311,30 @@ R recruiter · M HR manager · E employee · A admin.
 |---|---|---|---|
 | 31 Oct | `POST /candidates` gains optional `salary_min`, `salary_max`, `notice_weeks`, `work_modes`, `commitments_ok`, `talent_pool_consent` (backwards compatible) | Upload form (not wired yet) | Rayen, Yasmina: pending |
 | 31 Oct | New: `/jobs/{id}/offer-fit`, `/candidates/{id}/conditions`, `/candidates/{id}/offer`, `/jobs/{id}/rediscover` (+ `/invite`), `/talent-pool/{id}` | Candidates page | Rayen, Yasmina: pending |
-| 31 Oct | New: `/followups`, `/followups/draft` | Inbox page | Rayen, Yasmina: pending |
+| 1 Nov | Removed `/followups` and `/followups/draft` (duplicate engine); `/followups/preview` and `/followups/run` stay | Inbox page (panel removed), Approvals page | Yasmina: pending |
 | 31 Oct | New: `/team/skills`, `/team/process`, `/team/knowledge-gaps` | Team insights page | Rayen, Yasmina: pending |
 | 31 Oct | Template slots added: `start_date`, `work_mode`, `location`, `contract`, `sent_date` | `workflow/templates.py` | Rayen: pending |
+| 1 Nov | `GET /eval/summary` gains `?run=` and returns `run` + `runs` (each with its mode and label) | Security Center → Evaluation (run selector added) | Yasmina: pending |
+| 1 Nov | `POST /answer-desk/ask` now feeds the knowledge-gap radar (section and week only) | Team insights | Hedhili: pending |
 | planned | `GET /reviewer/stats` aggregated (R4); scorecard `team_fit` renamed `collaboration` (R6) | Security Center, Scorecard page | Rayen, Yasmina |
 
-## 10. Release readiness (31 Oct)
+## 10. Release readiness (1 Nov, all branches merged)
 
 | Gate | Status | Evidence |
 |---|---|---|
-| Backend tests | ✅ 107 pass | `pytest -q`, including the release gate |
+| Backend tests | ✅ 449 pass | `pytest -q`, including the release gate and Rayen's route-permission check |
+| Frontend tests | ✅ 11 pass | `npx vitest run` (after `npm ci`) |
 | Frontend build | ✅ | `npm run build` (type check and bundle) |
 | Auth, CSRF and roles on every route | ✅ | `test_release_gate.py`; mutation-checked: an unprotected route is caught |
 | No secrets, databases, `node_modules`, build output or generated PDFs tracked | ✅ | Scan of tracked files; only fixture PDFs (`data/test_pdfs`, the handbook) |
 | Audit chain verifies after a full demo seed | ✅ | `GET /audit/verify` returns ok over 78 entries |
 | Pitch numbers match the result files | ✅ | 0/40, 40/40 with 0 false alarms, 18/28, 0/89, AIR 0.28 (p = 0.005), load test 0 errors and p95 45 ms: all equal to `eval/results/*.json` |
-| Model-mode evidence | ❌ blocks the headline | R1 |
-| Employee Questions demo | ❌ | R3 |
-| Every state change audited | ⚠️ | R10, R12 |
-| Demo path rehearsed end to end | ⚠️ | Runbook in `docs/pitch.md`; offers stop at 1 of 2 approvals (R14) |
+| Model-mode evidence | ✅ headline measured, ⚠️ masked re-run pending | R1, R15 |
+| Employee Questions demo | ✅ | R3 closed |
+| Every state change audited | ⚠️ | R12 (rescore) only |
+| Demo path rehearsed end to end | ⚠️ | Single script `docs/demo_script.md`; offers stop at 1 of 2 approvals (R14) |
 
-**Decision:** `main` is the integration branch. Go for the demo once R1 and R3 are closed or explicitly cut from the pitch. R10 and R12 take under an hour together and must be closed before any pilot.
+**Decision (1 Nov):** `main` is the only working branch. Go for the demo with the measured model numbers and the twin limit stated plainly. Before any pilot: R12, R14, R15 and R20.
 
 ## 11. References
 

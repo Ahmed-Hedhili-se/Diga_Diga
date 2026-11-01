@@ -7,34 +7,27 @@ training or tuning only when justified, inference testing, and reproducible
 evaluation. No model result is a release claim until it has been measured on the
 actual configured model and reviewed with the team.
 
-## Start here (31 Oct hand-off)
+## Left to do (1 Nov)
 
-Everything published so far is **oracle mode** (code path only). Your numbers
-replace every "TBD (LLM)" on the metrics slide. On the GPU laptop, from `hireguard/`:
+Done since 31 Oct: Answer Desk (BM25 extracts, HR routing), P3 follow-ups and hardening, the
+pentest, the Modal app, masking of identity fields, the naive-screener baseline and the first
+real model run. The baseline result is the headline of the pitch: 13/40 vs 3/40, p = 0.006.
 
-```powershell
-.\run.ps1 -Setup                            # first time: venv and npm install
-ollama pull qwen3:8b
-$py = "backend\.venv\Scripts\python.exe"
-& $py eval\gen_cvs.py --count 200 --pdf     # the PDFs are no longer in git: regenerate them
-& $py eval\gen_attacks.py
-& $py eval\gen_twins.py
-& $py eval\harness.py --extraction llm      # attacks, twins, extraction F1 through the model
-& $py eval\fairness.py --extraction llm     # group audit on model extractions
-& $py eval\load_test.py --n 300 --extraction llm
-```
-
-- [ ] R1: run the three commands; commit the result JSONs; report per language and per attack.
-- [ ] Baseline (P0, the headline depends on it): `eval/baselines.py` is still a **stub**.
-      Implement its TODO 2 (one prompt with the job and the raw CV text, free-text
-      verdict and score, same model) over `eval/corpus/attacks/` (attacked + twin).
-      Attack success = the score or verdict differs from the twin. Write
-      `eval/results/baseline.json`; `harness.py` embeds it. Then the paired McNemar
-      (p = 2 x 0.5^b; significant for b >= 6). Ask Ahmed if you want the code drafted.
-- [ ] If `data/cv_ground_truth/*.json` change after regenerating, don't commit them; tell Ahmed.
-- [ ] R2: close the detector misses (English "Evaluator note" 4/4, Derja 3/3, Arabic 3/4)
-      in `backend/app/pipeline/detector.py` with tests; re-run the harness.
-- [ ] Record model name, digest, quantization, context size and runtime settings.
+- [ ] **P0** Re-run the model evaluation **with masking on**, on the current `main`:
+      ```powershell
+      cd hireguard
+      $py = "backend\.venv\Scripts\python.exe"
+      & $py eval\harness.py --extraction llm      # attacks, twins, extraction
+      & $py eval\baselines.py                      # only if the model or prompt changed
+      ```
+      Twins went 26/90 before masking; the pitch needs the new number either way.
+- [ ] **P0** Extraction on **50 or more CVs** (today n = 2, which supports no claim).
+- [ ] **P0** Record where the model ran (local GPU or Modal, GPU type) in the result file; the
+      pitch must say it. If Modal still returns 401 (T7.4), run on a local GPU.
+- [ ] **P1** Attack generator fix (R1 in [archive/person1.md](archive/person1.md)): `keep_proportion=False` in
+      `eval/render.py` for `under_image`, regenerate the attacks, then report one detection
+      number (today `pipeline.md` says 38/40 and the pitch 40/40).
+- [ ] **P1** Re-measure "instructions flagged" (18/28 before the new detector rules).
 
 ## Work to execute
 

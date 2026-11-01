@@ -83,6 +83,35 @@ def test_eval_summary_not_run_or_present(client):
     assert client.get("/api/eval/summary").status_code == 200
 
 
+def test_eval_summary_labels_every_run(client, tmp_path, monkeypatch):
+    """The tab must never show a code-path (oracle) number as a model result, nor go blank when the
+    harness output is kept under a per-run name."""
+    import json
+    monkeypatch.setattr(routes, "EVAL_DIR", tmp_path)
+    login(client, "u-hrm")
+    assert client.get("/api/eval/summary").json() == {"status": "not_run", "runs": []}
+
+    sec = {"attack_success": {"k": 0, "n": 40}}
+    (tmp_path / "summary_oracle.json").write_text(json.dumps({
+        "generated_at": "2026-10-31T20:00:00", "extraction_mode": "oracle",
+        "sections": {"attacks": sec | {"extraction_mode": "oracle"}}}), encoding="utf-8")
+    (tmp_path / "summary_unmasked_qwen3-8b.json").write_text(json.dumps({
+        "generated_at": "2026-10-31T21:00:00", "model": "qwen3:8b", "sections": {"attacks": sec}}), encoding="utf-8")
+    (tmp_path / "baseline.json").write_text(json.dumps({"vulnerable_screener": {"attack_success": {"k": 13, "n": 40}}}),
+                                            encoding="utf-8")
+
+    default = client.get("/api/eval/summary").json()
+    assert default["run"]["id"] == "unmasked_qwen3-8b" and default["run"]["mode"] == "llm"
+    assert "before identity masking" in default["run"]["label"]
+    assert default["sections"]["attacks"]["extraction_mode"] == "llm"          # older file, labelled by its run
+    assert default["baseline"]["vulnerable_screener"]["attack_success"]["k"] == 13
+    assert {r["id"] for r in default["runs"]} == {"oracle", "unmasked_qwen3-8b"}
+
+    oracle = client.get("/api/eval/summary?run=oracle").json()
+    assert oracle["sections"]["attacks"]["extraction_mode"] == "oracle" and "baseline" not in oracle
+    assert client.get("/api/eval/summary?run=nope").status_code == 404
+
+
 def test_status_change_is_an_approval_item_until_executed(client):
     """P3 handoff H4: object_type=candidate, object_id, status_to; nothing changes before approval."""
     from app.workflow import executor

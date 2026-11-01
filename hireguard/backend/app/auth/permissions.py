@@ -135,8 +135,6 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("GET", "/api/eval/fairness"): P.security_center_read,
     ("GET", "/api/approvals/attention"): P.approvals_attention_read,
     # fast-track follow-ups and HR Nexus Team module (main)
-    ("GET", "/api/followups"): P.followups_manage,
-    ("POST", "/api/followups/draft"): P.followups_manage,
     ("GET", "/api/team/skills"): P.team_read,
     ("GET", "/api/team/process"): P.team_read,
     ("GET", "/api/team/knowledge-gaps"): P.team_read,

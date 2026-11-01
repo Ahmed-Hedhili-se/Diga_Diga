@@ -42,7 +42,7 @@ modal app stop hireguard-ollama                # when finished: stop paying
 ## If the smoke test gets HTTP 401
 
 401 comes from Modal's proxy, before Ollama: the token did not match. Hedhili's first smoke test hit this (0/3,
-`person1.md`). Check, in order:
+`persons/archive/person1.md`). Check, in order:
 
 1. **Same workspace.** The token must be created in the workspace the app is deployed in (the deploy prints it, for
    example `ahmedhdhili040`). A token from another workspace is refused.

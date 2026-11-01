@@ -7,26 +7,26 @@ modules of one responsible HR platform without weakening their data boundaries.
 Coordinate integration and the eventual `mnasri` to `main` merge. Do not merge
 until the team has passed the pre-merge gate in [README.md](./README.md).
 
-## Start here (31 Oct hand-off)
+## Left to do (1 Nov)
 
-Done: [hireguard/docs/architecture.md](../hireguard/docs/architecture.md)
-(system context, modules, data classes and boundaries, AI-vs-code table,
-workflows, full permissions and audit matrix, refuse-to-build list, risk
-register R1-R14, interface change log, release readiness, references).
+Fixed on 1 Nov (with Claude, each step tested; also: the Answer Desk now feeds the knowledge-gap radar):
+- [x] Evaluation tab: `GET /api/eval/summary` serves the labelled runs (code path and model)
+      instead of the missing `summary.json`.
+- [x] One follow-up engine instead of two (no double reminders, never to rejected candidates).
+- [x] Pitch and architecture: real model numbers, the paired result, the twin caveat, honest
+      wording on where the model runs, current test counts and risk statuses.
+- [x] Root README for the platform; HR Nexus research moved to `research/`; one task list
+      (`persons/`), older plans in `persons/archive/`; one demo script.
 
-- [x] R5: reverted `8f829d8` on `main` (`932747e`); tracked-file scan clean.
-- [x] R4 decided: aggregate `/reviewer/stats` by batch size and week (Rayen implements).
-- [x] Release gate: `backend/tests/test_release_gate.py` proves session, CSRF
-      and the role matrix on every route (mutation-checked).
-- [x] Pitch claims checked against `eval/results/*.json`; hook rewritten (R13).
-- [x] Final pitch draft: timed 5:00 script, demo runbook, Q&A sheet in
-      `hireguard/docs/pitch.md`.
-- [ ] Business TBDs: run 3+ calls with
-      [hireguard/docs/hr_interview_guide.md](../hireguard/docs/hr_interview_guide.md),
-      then fill the pitch and `MINUTES_PER_UNIT` in `scoring/money.py`.
-- [ ] Choose the ask (pilots, GPU credits or incubation).
-- [ ] Keep the risk register current as owners close R1-R14; record retest evidence.
-- [ ] Collect sign-offs on the interface change log (architecture §9).
+Yours:
+- [ ] **P0** HR interview calls (3+) with
+      [hireguard/docs/hr_interview_guide.md](../hireguard/docs/hr_interview_guide.md), then fill
+      the business slide and `MINUTES_PER_UNIT` in `backend/app/scoring/money.py`.
+- [ ] **P0** Choose the ask (pilots, GPU credits or incubation).
+- [ ] **P0** After Hedhili's masked run: put the final model numbers on the metrics slide.
+- [ ] **P1** Decide Y5 (`docs/frontend_security.md`): team skill counts for teams under 5 people.
+- [ ] **P1** Decide R4 is implemented as agreed (reviewer stats by batch size, not by person).
+- [ ] **P1** Collect sign-offs on the interface change log (architecture §9); keep §8 current.
 
 ## Work to execute
 

@@ -119,4 +119,7 @@ class AskIn(BaseModel):
 def ask_answer_desk(body: AskIn, user: UserOut = Depends(EM)):
     """{kind:"extract", extracts:[{text, section, section_id, page}]} | {kind:"routed", ticket_id, topic}
     | {kind:"ask_hr", message}. Handbook text word for word; nothing is generated."""
-    return answer_desk.answer(user, body.question)
+    out = answer_desk.answer(user, body.question)
+    from ..team.knowledge_gaps import record_answer  # HR Nexus radar: section + week only, never the text
+    record_answer(out, body.question)
+    return out

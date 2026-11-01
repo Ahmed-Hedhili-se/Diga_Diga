@@ -345,10 +345,20 @@ export type AttackSection = EvalMode & {
 };
 type BaselineRun = { design?: string; attack_success?: RateStat; attack_obeyed_10pts?: RateStat; skipped?: string };
 
+export interface EvalRun {
+  id: string;
+  mode: string;
+  model?: string | null;
+  label: string;
+  generated_at?: string | null;
+}
+
 export interface EvalSummary {
   status?: "not_run";
   generated_at?: string;
   model?: string;
+  run?: EvalRun;
+  runs?: EvalRun[];
   sections?: {
     hidden?: EvalMode & { strict?: { recall?: RateStat; false_alarm_on_clean?: RateStat; right_channel?: RateStat };
       all?: { false_alarm_on_clean?: RateStat } };
@@ -454,25 +464,6 @@ export interface OfferFitView {
   terms: OfferTerms;
   band_coverage: { k: number; declared: number; within_band: number; share: number | null; band: [number, number] };
   candidates: Record<string, OfferFit>;
-}
-
-export interface FollowupRow {
-  candidate_id: string;
-  name: string;
-  job_id: string;
-  last_sent_at: string;
-  last_subject: string;
-  lang: string;
-  business_days_waiting: number;
-  reminders_sent: number;
-  reminder_pending: boolean;
-  can_remind: boolean;
-}
-
-export interface FollowupsView {
-  days: number;
-  max_reminders: number;
-  candidates: FollowupRow[];
 }
 
 export interface PoolRow {

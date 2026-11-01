@@ -63,8 +63,6 @@ MATRIX = {
     ("POST", "/api/inbox/ingest"): "A",
     ("GET", "/api/inbox"): "M R",
     ("POST", "/api/inbox/{inbox_id}/release-request"): "M",
-    ("GET", "/api/followups"): "M R",
-    ("POST", "/api/followups/draft"): "M R",
     ("GET", "/api/followups/preview"): "M R",
     ("POST", "/api/followups/run"): "M R",
     ("GET", "/api/approvals"): "M R",

@@ -62,7 +62,7 @@ $env:HG_ANCHOR_NETWORK = "1"
 1. Log in as an HR manager, open the Security Center: `GET /api/audit/verify` returns `{"ok": true, ...}`.
 2. As admin: `POST /api/audit/anchor` returns `{"status": "pending"|"anchored", "file": "anchor-....json"}`.
 3. `GET /api/audit/verify` again: `last_anchor` now shows that head hash.
-4. (Optional live tamper) See `docs/demo_p3.md`, step 4.
+4. (Optional live tamper) See `docs/archive/demo_p3.md`, step 4.
 
 ## Check it yourself
 

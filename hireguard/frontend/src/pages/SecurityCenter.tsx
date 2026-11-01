@@ -209,9 +209,11 @@ function Attacks() {
 const pct = (x: number | null | undefined) => (x === null || x === undefined ? "—" : `${fmtNum(100 * x, 1)}%`);
 
 function Evaluation() {
-  const ev = useLoad(() => api<EvalSummary>("/eval/summary"));
+  const [run, setRun] = useState<string | null>(null);
+  const ev = useLoad(() => api<EvalSummary>(run ? `/eval/summary?run=${encodeURIComponent(run)}` : "/eval/summary"), [run]);
   const s = ev.data?.sections;
   const b = ev.data?.baseline;
+  const runs = ev.data?.runs ?? [];
   return (
     <>
       <ErrorBox error={ev.error} />
@@ -221,12 +223,30 @@ function Evaluation() {
           The evaluation has not been run yet. Run <code>python eval/harness.py</code> to produce the metrics.
         </Empty>
       )}
+      {runs.length > 1 && (
+        <div className="row">
+          <span className="muted small">Run:</span>
+          <div className="seg">
+            {runs.map((r) => (
+              <button key={r.id} className={ev.data?.run?.id === r.id ? "on" : ""} onClick={() => setRun(r.id)}>
+                {r.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       {s && (
         <div className="stack">
           <p className="muted small">
-            Last run {fmtDate(ev.data?.generated_at)} on {ev.data?.model ?? "?"}. Every rate is k/n with a 95% exact
+            Run "{ev.data?.run?.label ?? "latest"}", {fmtDate(ev.data?.generated_at)}. Every rate is k/n with a 95% exact
             (Clopper-Pearson) interval. Synthetic, fictional CVs and emails: real documents are messier.
           </p>
+          {ev.data?.run?.id.includes("unmasked") && (
+            <div className="alert warn">
+              Measured before towns, schools, gendered titles and emails were masked from the model. The current code
+              masks them; its numbers come with the next run.
+            </div>
+          )}
           <EvalCard title="Hidden text (sanitizer only, no model)" sec={s.hidden}>
             <div className="tiles">
               <Metric label="Attacked CVs with a high finding" stat={s.hidden?.strict?.recall} />
