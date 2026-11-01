@@ -80,7 +80,7 @@ export default function Overview() {
       const to = `/candidates?job=${encodeURIComponent(r.job_id)}&c=${encodeURIComponent(r.candidate_id)}`;
       if (r.extraction === "none")
         out.push({ key: `${r.candidate_id}-ext`, kind: "candidate", tone: "warn", title: r.name, detail: "The model could not read this CV, so it has no score. Re-upload once the model is ready", to });
-      else if (r.flags || r.hidden)
+      else if (r.flags || r.hidden_high)
         out.push({ key: `${r.candidate_id}-sec`, kind: "candidate", tone: "danger", title: r.name, detail: `${r.hidden} hidden item(s), ${r.flags} injection flag(s) stripped before scoring`, to });
       else if (r.score?.needs_human)
         out.push({ key: `${r.candidate_id}-hum`, kind: "candidate", tone: "warn", title: r.name, detail: "Score needs a human check before it counts", to });

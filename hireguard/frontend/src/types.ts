@@ -94,6 +94,8 @@ export interface CandidateRow {
   score: ScoreOutput | null;
   flags: number;
   hidden: number;
+  /** hidden findings excluding harmless undecodable glyphs: this is what the ranking badge counts */
+  hidden_high: number;
   /** llm = live model, ground_truth = offline demo seed (never present it as a model result), none = failed */
   extraction?: "llm" | "none" | "ground_truth";
 }
@@ -375,11 +377,18 @@ export interface EvalSummary {
 
 // ---------------------------------------------------------------- workflow (P3)
 
-export interface ReviewerStat {
-  user_id: string;
-  decisions: number;
-  canaries_caught: number;
-  canaries_missed: number;
+/** GET /reviewer/stats: aggregate by batch size and week, never by reviewer. */
+export interface ReviewerStats {
+  totals: { decisions: number; canaries: number; caught: number; missed: number };
+  by_batch_size: { batch_size: string; canaries: number; missed: number; miss_rate: number | null; ci95: number[] | null }[];
+  by_week: { week: string; canaries: number; missed: number; miss_rate: number }[];
+}
+
+export interface ApprovalSettings {
+  offer_approvals: number;
+  min: number;
+  max: number;
+  hr_managers: number;
 }
 
 export interface InterviewReminder {

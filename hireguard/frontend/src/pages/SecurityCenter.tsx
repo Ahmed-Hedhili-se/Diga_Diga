@@ -7,7 +7,7 @@ import {
 } from "../components/ui";
 import type {
   AttackSection, AuditAnchor, AuditEntry, AuditVerify, EvalSummary, FairnessAttr, FairnessReport, HiddenChannel, Prf,
-  RateStat, ReviewerStat, SecurityFinding,
+  RateStat, ReviewerStats, SecurityFinding,
 } from "../types";
 
 // Written for HR staff, not security engineers: each tab says what it is, how to read it and what (if anything)
@@ -107,11 +107,11 @@ function Term({ children, tip }: { children: ReactNode; tip: string }) {
 function Summary({ go, canAudit }: { go: (t: Tab) => void; canAudit: boolean }) {
   const f = useLoad(() => api<SecurityFinding[]>("/security/findings"));
   const v = useLoad(() => (canAudit ? api<AuditVerify>("/audit/verify") : Promise.resolve(null)), [canAudit]);
-  const r = useLoad(() => api<ReviewerStat[]>("/reviewer/stats"));
+  const r = useLoad(() => api<ReviewerStats>("/reviewer/stats"));
   const fa = useLoad(() => api<FairnessReport>("/eval/fairness"));
 
   const hit = (f.data ?? []).filter((x) => x.hidden_findings.some((h) => h.severity !== "low") || x.injection_flags.length);
-  const missed = (r.data ?? []).reduce((n, x) => n + x.canaries_missed, 0);
+  const missed = r.data?.totals.missed ?? 0;
   const flagged = Object.entries(fa.data?.observed ?? {}).filter(([, a]) => a.verdict === "flag").map(([k]) => ATTR_LABEL[k] ?? k);
   const fairnessRun = !!fa.data?.observed;
 
@@ -134,7 +134,7 @@ function Summary({ go, canAudit }: { go: (t: Tab) => void; canAudit: boolean }) 
     {
       tab: "vigilance", label: "Reviewer attention",
       value: r.data ? (missed ? `${missed} missed` : "All caught") : "…",
-      sub: r.data ? (r.data.length ? (missed ? "Some test items were approved by mistake. Nothing was sent." : "Every planted test item was caught.") : "No approvals reviewed yet.") : "Loading",
+      sub: r.data ? (r.data.totals.canaries ? (missed ? "Some test items were approved by mistake. Nothing was sent." : "Every planted test item was caught.") : "No test items have come up yet.") : "Loading",
       tone: missed ? "warn" : "ok",
     },
     {
@@ -547,41 +547,79 @@ function RateTable({ title, rows }: { title: string; rows?: Record<string, RateS
 // ---------------------------------------------------------------- reviewer attention (GET /reviewer/stats)
 
 function Vigilance() {
-  const st = useLoad(() => api<ReviewerStat[]>("/reviewer/stats"));
+  const st = useLoad(() => api<ReviewerStats>("/reviewer/stats"));
+  const d = st.data;
   return (
     <section className="card">
       <h2>Reviewer attention</h2>
       <Intro
-        what="Approving many items quickly can lead to mistakes. To check that reviewers still read each item, the system secretly slips in a deliberately wrong test item, such as an email to the wrong person or an interview at 3 a.m., about once every 20 approvals."
-        read="Caught means the reviewer did not approve the test item. Missed means they approved it. A missed test item is harmless: nothing is ever sent or booked from it."
-        act="If someone misses several, suggest smaller batches or a short break. This page is about the process, not a performance review."
+        what="Approving many items quickly can lead to mistakes. To check that items are still being read, the system slips in a deliberately wrong test item, such as an email to the wrong person or an interview at 3 a.m., about once every 20 approvals."
+        read="Caught means the test item was not approved. Missed means it was approved. A missed test item is harmless: nothing is ever sent or booked from it. Results are grouped by batch size and by week. They are never shown per person, because this is a check on the process, not on individuals."
+        act="If misses cluster in big batches, lower the batch size. If a week stands out, look at how busy it was. The system already shrinks batches automatically after recent misses."
       />
       <ErrorBox error={st.error} />
       <Loading show={st.loading} />
-      {!st.loading && !st.error && !st.data?.length && <Empty>No approvals have been reviewed yet, so there is nothing to show.</Empty>}
-      {!!st.data?.length && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Reviewer</th>
-              <th className="num">Items decided</th>
-              <th className="num">Test items caught</th>
-              <th className="num">Test items missed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {st.data.map((r) => (
-              <tr key={r.user_id}>
-                <td>{r.user_id}</td>
-                <td className="num">{r.decisions}</td>
-                <td className="num">{r.canaries_caught}</td>
-                <td className="num">
-                  {r.canaries_missed ? <Badge tone="danger">{r.canaries_missed} missed</Badge> : <Badge tone="ok">None missed</Badge>}
-                </td>
+      {d && !d.totals.canaries && <Empty>No test items have come up yet, so there is nothing to show. They appear as approvals are decided.</Empty>}
+      {d && d.totals.canaries > 0 && (
+        <div className="stack">
+          <div className="tiles">
+            <div className="card tile">
+              <div className="muted small">Approvals decided</div>
+              <div className="tile-value">{fmtNum(d.totals.decisions)}</div>
+            </div>
+            <div className="card tile">
+              <div className="muted small">Test items caught</div>
+              <div className="tile-value">{fmtNum(d.totals.caught)} of {fmtNum(d.totals.canaries)}</div>
+            </div>
+            <div className={`card tile ${d.totals.missed ? "tile-alert" : ""}`}>
+              <div className="muted small">Test items approved by mistake</div>
+              <div className="tile-value">{fmtNum(d.totals.missed)}</div>
+            </div>
+          </div>
+          <h3 className="section-title">By batch size</h3>
+          <div className="table-wrap"><table className="table">
+            <thead>
+              <tr>
+                <th>Items reviewed together</th>
+                <th className="num">Test items</th>
+                <th className="num">Missed</th>
+                <th className="num">Share missed</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {d.by_batch_size.map((b) => (
+                <tr key={b.batch_size}>
+                  <td>{b.batch_size}</td>
+                  <td className="num">{b.canaries}</td>
+                  <td className="num">{b.missed}</td>
+                  <td className="num">
+                    {b.miss_rate === null ? "No data" : `${fmtNum(100 * b.miss_rate, 0)}%`}
+                    {b.ci95 && <span className="muted small"> (between {fmtNum(100 * b.ci95[0], 0)}% and {fmtNum(100 * b.ci95[1], 0)}%)</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table></div>
+          <h3 className="section-title">By week</h3>
+          <div className="table-wrap"><table className="table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th className="num">Test items</th>
+                <th className="num">Missed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {d.by_week.map((w) => (
+                <tr key={w.week}>
+                  <td>{w.week}</td>
+                  <td className="num">{w.canaries}</td>
+                  <td className="num">{w.missed ? <Badge tone="warn">{w.missed}</Badge> : <Badge tone="ok">0</Badge>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table></div>
+        </div>
       )}
     </section>
   );

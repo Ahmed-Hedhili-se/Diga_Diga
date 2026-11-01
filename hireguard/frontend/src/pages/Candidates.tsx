@@ -415,7 +415,7 @@ export default function Candidates() {
                               <Badge tone="warn">offline extraction</Badge>
                             </span>
                           )}
-                          {r.hidden > 0 && <Badge tone="danger">{r.hidden} hidden</Badge>}
+                          {r.hidden_high > 0 && <Badge tone="danger">{r.hidden_high} hidden</Badge>}
                           {r.flags > 0 && <Badge tone="danger">{r.flags} injection flags</Badge>}
                           {stabBy.get(r.candidate_id)?.label === "borderline" && (
                             <span

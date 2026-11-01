@@ -4,7 +4,7 @@ import { api, ApiError, errMsg } from "../api";
 import { useAuth, usePermission } from "../auth";
 import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, Loading, PageHeader, plain, useLoad } from "../components/ui";
 import type {
-  ApprovalItem, ApprovalsView, AttentionStats, EmployeeQuestion, InterviewReminder, SilentCandidate,
+  ApprovalItem, ApprovalSettings, ApprovalsView, AttentionStats, EmployeeQuestion, InterviewReminder, SilentCandidate,
 } from "../types";
 
 const KIND_LABEL: Record<string, string> = {
@@ -76,6 +76,11 @@ export default function Approvals() {
   const canFollowups = usePermission("followups.manage");
   const canExecute = usePermission("approvals.execute");
   const ready = useReadyList(user?.id);
+  const approved = useLoad(() => (canExecute ? api<ApprovalsView>("/approvals?status=approved") : Promise.resolve(null)), [canExecute]);
+  const trackReady = ready.track;
+  useEffect(() => {
+    if (approved.data) trackReady([...approved.data.batches.flatMap((b) => b.items), ...approved.data.high_risk]);
+  }, [approved.data, trackReady]);
 
   const report = (tone: "ok" | "danger", text: string) => {
     setMsg({ tone, text });
@@ -100,6 +105,7 @@ export default function Approvals() {
           {msg.text}
         </div>
       )}
+      <OfferRule />
       <Counters high={high.length} routine={batches.reduce((n, b) => n + b.items.length, 0)} loading={view.loading} />
       <Loading show={view.loading} />
       {att && (
@@ -166,6 +172,63 @@ export default function Approvals() {
 
       {canFollowups && <Followups report={report} />}
     </>
+  );
+}
+
+/** How many HR managers must approve an offer (risk R14). A per-customer setting; changing it is audited. */
+export function OfferRule() {
+  const allowed = usePermission("approvals.configure");
+  const s = useLoad(() => (allowed ? api<ApprovalSettings>("/approvals/settings") : Promise.resolve(null)), [allowed]);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  if (!allowed || !s.data) return <ErrorBox error={s.error} />;
+  const d = s.data;
+  const choices = Array.from({ length: d.max - d.min + 1 }, (_, i) => d.min + i);
+  async function set(n: number) {
+    setErr(null);
+    setMsg(null);
+    try {
+      const r = await api<ApprovalSettings>("/approvals/settings", { method: "PUT", body: { offer_approvals: n } });
+      s.setData(r);
+      setMsg(`Offers created from now on need ${r.offer_approvals} HR ${r.offer_approvals === 1 ? "manager" : "managers"}. The change is recorded in the activity log.`);
+    } catch (e) {
+      setErr(errMsg(e));
+    }
+  }
+  // The author cannot approve their own offer, so the people who can approve are the other HR managers.
+  const reachable = Math.max(0, d.hr_managers - 1);
+  return (
+    <section className="card offer-rule" aria-labelledby="offer-rule">
+      <div className="row between">
+        <div>
+          <h2 id="offer-rule">Offer approval rule</h2>
+          <div className="muted small">
+            Offers need approval from this many HR managers other than the person who wrote the offer.
+            There {d.hr_managers === 1 ? "is" : "are"} {d.hr_managers} active HR {d.hr_managers === 1 ? "manager" : "managers"}, so {reachable}{" "}
+            {reachable === 1 ? "person" : "people"} can approve a new offer.
+          </div>
+        </div>
+        <div className="seg" role="group" aria-label="Approvals needed for an offer">
+          {choices.map((n) => (
+            <button key={n} type="button" className={d.offer_approvals === n ? "on" : ""} aria-pressed={d.offer_approvals === n}
+              onClick={() => d.offer_approvals !== n && set(n)}>
+              {n}
+            </button>
+          ))}
+        </div>
+      </div>
+      {d.offer_approvals > reachable && (
+        <div className="alert warn">
+          Offers need {d.offer_approvals} approvals but only {reachable} {reachable === 1 ? "person" : "people"} can give one, so new offers cannot be
+          completed until another HR account is added or this number is lowered.
+        </div>
+      )}
+      {d.offer_approvals === 1 && (
+        <div className="alert info">With 1, a single second HR manager can release an offer. Keep it at 2 or more if you can.</div>
+      )}
+      <ErrorBox error={err} />
+      {msg && <div className="alert ok" role="status">{msg}</div>}
+    </section>
   );
 }
 
@@ -453,7 +516,8 @@ function HighRiskReviewer({ items, report, track, onGone }: {
       </div>
       {needsSecond && (
         <div className="alert warn">
-          2nd approver needed: {approvals.length} of {item.required_approvals} approvals.
+          This item needs {item.required_approvals} HR managers, and {approvals.length} {approvals.length === 1 ? "has" : "have"} approved. Nobody
+          can approve something they created or approve twice, so no single person can release it alone. Waiting here is the control working.
           {iApproved && " You already approved; another HR manager must approve."}
         </div>
       )}
