@@ -20,6 +20,7 @@ import { Forbidden, NotFound } from "./pages/Errors";
 import StyleGuide from "./pages/StyleGuide";
 import Team from "./pages/Team";
 import Overview from "./pages/Overview";
+import PageHints from "./components/PageHints";
 
 interface Page {
   path: string;
@@ -262,6 +263,7 @@ export default function App() {
             <Route path="/403" element={<Forbidden home={home} />} />
             <Route path="*" element={<NotFound home={home} />} />
           </Routes>
+          <PageHints path={location.pathname} />
           {examples.length > 0 && (
             <details className="quick-start">
               <summary>

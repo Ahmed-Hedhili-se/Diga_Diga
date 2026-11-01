@@ -979,3 +979,22 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
   .sc-tabs { display: flex; width: 100%; overflow-x: auto; flex-wrap: nowrap; }
   .sc-tabs button { flex: none; }
 }
+
+/* ---------- words on this page ---------- */
+.page-hints { margin: 28px 0 8px; padding: 14px 16px; border-top: 1px solid var(--border); color: var(--muted); }
+.page-hints h2 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+.page-hints dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 24px; margin: 0; }
+.page-hints dt { font-size: 13px; font-weight: 600; color: var(--text); }
+.page-hints dd { margin: 2px 0 0; font-size: 12.5px; line-height: 1.45; }
+
+/* ---------- connected systems ---------- */
+.systems { margin-bottom: 16px; }
+.systems .section-title { margin-top: 0; }
+.systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; align-items: start; }
+.systems-grid .model-card { margin-bottom: 0; }
+.model-card.is-off { --state: var(--muted); }
+.model-howto { margin-top: 8px; font-size: 13px; }
+.model-howto summary { cursor: pointer; color: var(--primary); font-weight: 600; }
+.model-howto ol { margin: 8px 0 4px; padding-left: 20px; line-height: 1.5; }
+.model-howto code { font-size: 12px; }
+@media (max-width: 520px) { .systems-grid { grid-template-columns: 1fr; } }

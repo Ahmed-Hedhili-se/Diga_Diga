@@ -5,7 +5,7 @@ import { useAuth } from "../auth";
 import { Icon, type IconName } from "../components/icons";
 import { Badge, Empty, ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type {
-  ApprovalsView, CandidateRow, EmployeeDocument, InboxView, Job, KnowledgeGaps, ModelStatus, MoneyView,
+  ApprovalsView, CandidateRow, EmployeeDocument, ErpApplicant, ErpStatus, InboxView, Job, KnowledgeGaps, ModelStatus, MoneyView,
   SecurityFinding, TeamSkills,
 } from "../types";
 
@@ -15,8 +15,8 @@ import type {
 
 const AUTO_REFRESH_MS = 30_000;
 
-type Attention = { key: string; kind: "approval" | "inbox" | "candidate"; tone: "danger" | "warn"; title: string; detail: string; to: string };
-const KIND_LABEL = { approval: "Approvals", inbox: "Inbox", candidate: "Candidates" } as const;
+type Attention = { key: string; kind: "approval" | "inbox" | "candidate" | "odoo"; tone: "danger" | "warn"; title: string; detail: string; to: string };
+const KIND_LABEL = { approval: "Approvals", inbox: "Inbox", candidate: "Candidates", odoo: "Odoo" } as const;
 
 const skip = <T,>(): Promise<T | null> => Promise.resolve(null);
 
@@ -40,6 +40,16 @@ export default function Overview() {
   const money = useLoad(() => (can("money.read") ? api<MoneyView>("/money") : skip<MoneyView>()), [tick]);
   const skills = useLoad(() => (can("team.read") ? api<TeamSkills[]>("/team/skills") : skip<TeamSkills[]>()), [tick]);
   const gaps = useLoad(() => (can("team.read") ? api<KnowledgeGaps>("/team/knowledge-gaps?weeks=8") : skip<KnowledgeGaps>()), [tick]);
+  const erp = useLoad(() => (can("erp.status") ? api<ErpStatus>("/erp/status") : skip<ErpStatus>()), [tick]);
+  // Applicants waiting in Odoo that HireGuard has not screened yet, per job. A job Odoo does not know is skipped.
+  const odooNew = useLoad(
+    () =>
+      can("erp.import") && erp.data?.connected && jobs.data
+        ? Promise.allSettled(jobs.data.map((j) => api<ErpApplicant[]>(`/erp/jobs/${encodeURIComponent(j.job_id)}/applicants`)))
+            .then((rs) => rs.map((r, i) => ({ job: jobs.data![i], waiting: r.status === "fulfilled" ? r.value.filter((a) => !a.imported).length : 0 })))
+        : skip<{ job: Job; waiting: number }[]>(),
+    [erp.data?.connected, jobs.data],
+  );
   const docs = useLoad(() => (can("documents.request") ? api<EmployeeDocument[]>("/documents/mine") : skip<EmployeeDocument[]>()), [tick]);
 
   // Silent refresh while the tab is visible; the model check is not part of it (see ModelCard).
@@ -85,10 +95,14 @@ export default function Overview() {
       else if (r.score?.needs_human)
         out.push({ key: `${r.candidate_id}-hum`, kind: "candidate", tone: "warn", title: r.name, detail: "Score needs a human check before it counts", to });
     }
+    for (const o of odooNew.data ?? [])
+      if (o.waiting)
+        out.push({ key: `odoo-${o.job.job_id}`, kind: "odoo", tone: "warn", title: `${o.waiting} new applicant(s) in Odoo`,
+          detail: `${o.job.title}: not screened yet. Use "Import from Odoo" on the Candidates page`, to: `/candidates?job=${encodeURIComponent(o.job.job_id)}` });
     return out;
-  }, [approvals.data, lanes, rows]);
+  }, [approvals.data, lanes, rows, odooNew.data]);
 
-  const anyRecruit = can("candidates.read") || can("approvals.decide") || can("inbox.read");
+  const anyRecruit = can("erp.import") || can("candidates.read") || can("approvals.decide") || can("inbox.read");
   const error = approvals.error || inbox.error || jobs.error || pipeline.error || findings.error || money.error || skills.error || gaps.error || docs.error;
 
   return (
@@ -111,7 +125,15 @@ export default function Overview() {
       />
       <ErrorBox error={error} />
 
-      {can("model.status") && <ModelCard />}
+      {(can("model.status") || can("erp.status")) && (
+        <section className="systems" aria-labelledby="ov-systems">
+          <h2 id="ov-systems" className="section-title">Connected systems</h2>
+          <div className="systems-grid">
+            {can("model.status") && <ModelCard />}
+            {can("erp.status") && <OdooCard erp={erp.data} loading={erp.loading} error={erp.error} />}
+          </div>
+        </section>
+      )}
 
       <div className="tiles overview-tiles">
         {can("approvals.decide") && (
@@ -256,7 +278,7 @@ function ModelCard() {
         <span className="model-dot" aria-hidden="true" />
         <div>
           <h2 id="ov-model">
-            CV extraction model <span className="model-state">· {label}</span>
+            AI model: <span className="model-state">{label}</span>
           </h2>
           <div className="muted small">
             {s ? (
@@ -273,10 +295,11 @@ function ModelCard() {
           {s?.error && <div className="small model-error">{s.error}</div>}
           {s && !s.reachable && (
             <div className="muted small">
-              Uploads still work: the sanitizer, detector and scorer run without the model, and candidates are marked
-              for a human check{s.groq_fallback ? " (Groq fallback is on for fictional data)" : ""}.
+              Uploads still work: hidden text is still removed and CVs are still scored by rules, but CVs the AI cannot
+              read are marked for a person to check{s.groq_fallback ? " (Groq fallback is on for fictional data)" : ""}.
             </div>
           )}
+          {s && !(s.reachable && s.model_loaded) && <ConnectSteps s={s} />}
         </div>
       </div>
       <div className="model-side">
@@ -292,6 +315,76 @@ function ModelCard() {
         for a minute so this page does not keep a sleeping GPU awake.
       </p>
       <ErrorBox error={m.error} />
+    </section>
+  );
+}
+
+/** What an administrator does to connect the model. Shown only while it is not ready. */
+function ConnectSteps({ s }: { s: ModelStatus }) {
+  return (
+    <details className="model-howto">
+      <summary>How to connect the AI model</summary>
+      {s.host === "modal" && !s.credentials ? (
+        <ol>
+          <li>Get the team's Modal key and secret (Modal dashboard, Settings, Proxy Auth Tokens).</li>
+          <li>On the computer that runs the backend, copy <code>hireguard/.env.modal.example</code> to <code>hireguard/.env.modal</code> and paste both values.</li>
+          <li>Restart with <code>.\run.ps1</code>, then press Check now. The first answer can take 1 to 3 minutes while the GPU starts.</li>
+        </ol>
+      ) : s.host === "local" ? (
+        <ol>
+          <li>No model is running on this computer. To use the team's cloud GPU instead, create <code>hireguard/.env.modal</code> from <code>.env.modal.example</code> with the Modal URL, key and secret.</li>
+          <li>Or install Ollama and run <code>ollama pull {s.model}</code> on a computer with a GPU of 8 GB or more.</li>
+          <li>Restart with <code>.\run.ps1</code>, then press Check now.</li>
+        </ol>
+      ) : (
+        <ol>
+          <li>The backend reached the model host but it is not ready. If it says cold start, wait 1 to 3 minutes and press Check now.</li>
+          <li>If it says the model is not pulled, run <code>ollama pull {s.model}</code> on the model host.</li>
+        </ol>
+      )}
+      <p className="muted small">The key stays on the backend computer. Never put it in the website or share it in chat.</p>
+    </details>
+  );
+}
+
+// ---------------------------------------------------------------- Odoo (GET /erp/status)
+
+function OdooCard({ erp, loading, error }: { erp: ErpStatus | null; loading: boolean; error: string | null }) {
+  const state = !erp ? "checking" : !erp.enabled ? "off" : erp.connected ? "ready" : "down";
+  const label = { checking: "Checking…", off: "Not switched on", ready: "Connected", down: "Unreachable" }[state];
+  const host = erp?.url ? erp.url.replace(/^https?:\/\//, "") : "";
+  return (
+    <section className={`card model-card is-${state === "off" ? "warming" : state}`} aria-labelledby="ov-odoo" aria-busy={loading}>
+      <div className="model-main">
+        <span className="model-dot" aria-hidden="true" />
+        <div>
+          <h2 id="ov-odoo">
+            Odoo HR: <span className="model-state">{label}</span>
+          </h2>
+          <div className="muted small">
+            {state === "ready" && <>Signed in with the API key to <code>{host}</code>, database {erp!.db}, Odoo {erp!.server_version}.</>}
+            {state === "down" && <>Odoo did not answer: {erp!.error ?? "unknown error"}.</>}
+            {state === "off" && <>The Odoo connector is off. HireGuard works on its own until it is switched on.</>}
+            {state === "checking" && "Asking the backend whether it can reach Odoo…"}
+          </div>
+          {state === "ready" && (
+            <div className="muted small">
+              Applicants are imported and screened like an upload. Approved shortlists, emails, interviews and offers are copied back to Odoo.
+            </div>
+          )}
+          {(state === "down" || state === "off") && (
+            <details className="model-howto">
+              <summary>How to connect Odoo</summary>
+              <ol>
+                <li>In Odoo, open your user's Preferences, then Account Security, and create an API key.</li>
+                <li>In <code>hireguard/.env</code> set <code>HG_ODOO_ENABLED=1</code>, <code>HG_ODOO_URL</code>, <code>HG_ODOO_DB</code>, <code>HG_ODOO_USER</code> and <code>HG_ODOO_API_KEY</code>.</li>
+                <li>Restart with <code>.\run.ps1</code>. The key stays on the backend computer.</li>
+              </ol>
+            </details>
+          )}
+        </div>
+      </div>
+      <ErrorBox error={error} />
     </section>
   );
 }

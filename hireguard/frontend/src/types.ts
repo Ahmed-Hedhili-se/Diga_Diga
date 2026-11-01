@@ -437,6 +437,10 @@ export interface AuditAnchor {
 export interface ErpStatus {
   enabled: boolean;
   connected: boolean;
+  url?: string;
+  db?: string;
+  uid?: number;
+  server_version?: string;
   error?: string;
 }
 
