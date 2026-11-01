@@ -1,4 +1,7 @@
 * text=auto
 *.pdf binary
 *.png binary
+*.jpg binary
+*.mp4 binary
+*.pptx binary
 *.eml -text

@@ -20,3 +20,6 @@ eval/corpus/twins/*.pdf
 
 # brand tooling: downloaded font cache
 brand/.cache/
+
+# pitch deck renders (docs/deck/render_slides.mjs output)
+docs/deck/build/

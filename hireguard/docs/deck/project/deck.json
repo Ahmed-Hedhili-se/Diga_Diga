@@ -1,0 +1,82 @@
+{
+  "v": 4,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-01T06:58:00Z"
+  },
+  "lists": "css",
+  "title": "Venidis: 6-minute pitch",
+  "order": [
+    "cover",
+    "agenda",
+    "composition",
+    "hook",
+    "problem",
+    "obstacle",
+    "intro",
+    "pipeline",
+    "agents",
+    "security",
+    "hrnexus",
+    "research",
+    "erp",
+    "proof",
+    "aiuse",
+    "market",
+    "limits",
+    "close",
+    "brand",
+    "refs",
+    "thanks",
+    "teaser"
+  ],
+  "sections": {
+    "s1": {
+      "description": "Opening: agenda and what Venidis is made of",
+      "start": "cover"
+    },
+    "s2": {
+      "description": "Problem: hidden prompts, overloaded HR teams, agents that read and act",
+      "start": "hook"
+    },
+    "s3": {
+      "description": "Solution: principle, architecture, agents and security",
+      "start": "intro"
+    },
+    "s4": {
+      "description": "HR Nexus: the Team module and the research behind it",
+      "start": "hrnexus"
+    },
+    "s5": {
+      "description": "ERP integration with Odoo",
+      "start": "erp"
+    },
+    "s6": {
+      "description": "Evidence, AI usage, market and limits",
+      "start": "proof"
+    },
+    "s7": {
+      "description": "Conclusion and brand",
+      "start": "close"
+    },
+    "s8": {
+      "description": "Appendix: references for every figure",
+      "start": "refs"
+    },
+    "s9": {
+      "description": "Thank you, then a looping Venidis teaser for the screen after the talk",
+      "start": "thanks"
+    }
+  },
+  "faces": {
+    "manrope": {
+      "family": "Manrope",
+      "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap"
+    },
+    "ibm-plex-mono": {
+      "family": "IBM Plex Mono",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
+    }
+  },
+  "designSystems": []
+}

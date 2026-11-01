@@ -1,0 +1,25 @@
+<section id="erp" data-transition="fade" style="background:#F7F8FA;color:#0E1525;font-family:'Manrope', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px"><p style="font-family:'IBM Plex Mono', monospace;font-size:24px;font-weight:600;letter-spacing:3px;color:#4338CA">05 · ERP INTEGRATION</p><h2 style="font-size:64px;font-weight:800;line-height:1.1;letter-spacing:-1px;color:#0E1525">Odoo stays the system of record</h2></div>
+<p style="font-size:30px;color:#5B6475">No double entry: Venidis plugs into the ERP that HR teams already use.</p>
+<div style="position:relative;width:1664px;height:340px">
+<!-- ODOO 0,30,420,280  VEN 1244,30,420,280 ; read y=110, write y=230 -->
+<div style="position:absolute;left:0px;top:30px;width:420px;height:280px;background:#FDFDFE;border:2px solid #D9DDE5;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px"><svg aria-label="database icon" width="72" height="72" viewBox="0 0 72 72"><g transform="scale(1.125)" fill="none" stroke="#5B6475" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="14" rx="18" ry="6"/><path d="M14 14v36c0 3.3 8 6 18 6s18-2.7 18-6V14"/><path d="M14 26c0 3.3 8 6 18 6s18-2.7 18-6M14 38c0 3.3 8 6 18 6s18-2.7 18-6"/></g></svg><p style="font-size:48px;font-weight:800;line-height:1">Odoo</p><p style="font-family:'IBM Plex Mono', monospace;font-size:24px;color:#5B6475">recruitment · calendar</p></div>
+<div style="position:absolute;left:1244px;top:30px;width:420px;height:280px;background:#ECEBFC;border:2px solid #4338CA;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px"><img src="/_blob/30b1221322031f853bd7673cc42034b5" alt="Venidis mark" style="width:72px;height:72px;object-fit:contain"><p style="font-size:48px;font-weight:800;line-height:1">Venidis</p><p style="font-family:'IBM Plex Mono', monospace;font-size:24px;color:#3730A3">screen · rank · approve</p></div>
+<x-connector x1="420" y1="110" x2="1244" y2="110" style="color:#4338CA;border-width:4px"></x-connector>
+<x-connector x1="1244" y1="230" x2="420" y2="230" style="color:#0E9F6E;border-width:4px"></x-connector>
+<p style="position:absolute;left:470px;top:52px;width:724px;font-size:28px;font-weight:700;text-align:center;color:#3730A3">reads applicants, CVs, busy slots</p>
+<p style="position:absolute;left:470px;top:268px;width:724px;font-size:28px;font-weight:700;text-align:center;color:#047857">writes back only approved actions</p>
+<p style="position:absolute;left:707px;top:208px;width:250px;font-family:'IBM Plex Mono', monospace;font-size:24px;font-weight:600;text-align:center;padding:6px 0;border-radius:10px;background:#E3F6EE;color:#047857">human approval</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="flex:1;font-size:26px;font-weight:600;padding:16px 22px;border-radius:12px;background:#FDFDFE;border:1px solid #D9DDE5">ERP data treated as untrusted</p>
+<p style="flex:1;font-size:26px;font-weight:600;padding:16px 22px;border-radius:12px;background:#FDFDFE;border:1px solid #D9DDE5">all-or-nothing writes</p>
+<p style="flex:1;font-size:26px;font-weight:600;padding:16px 22px;border-radius:12px;background:#FDFDFE;border:1px solid #D9DDE5">Odoo 17 to 20 · Online</p>
+</div>
+<div style="position:absolute;left:128px;bottom:64px;width:1664px;display:flex;justify-content:space-between"><p style="font-family:'IBM Plex Mono', monospace;font-size:24px;color:#5B6475">Connector built by Rayen · least-privilege bot user · off by default · 9 tests on a fake Odoo</p><p style="font-family:'IBM Plex Mono', monospace;font-size:24px;color:#5B6475">13</p></div>
+<aside>~3:40–4:05 · A (credit Rayen by name).
+A: “Most Tunisian SMEs already run their HR in Odoo. So Rayen built our ERP connector: Odoo stays the system of record, and Venidis plugs in. No double entry.”
+A (top arrow): “Venidis reads applicants, their CVs and the recruiters’ busy slots, and treats all of it as untrusted: a poisoned CV stored in Odoo goes through the same checks as an upload.”
+A (bottom arrow): “And it writes back only what a person has approved: a stage change, a note, an email, an interview in the calendar. If Odoo fails mid-way, nothing is half-written.”
+A: “It runs with a least-privilege bot user, works from Odoo 17 to Odoo Online, and is switched off unless a customer turns it on.”</aside>
+</section>
