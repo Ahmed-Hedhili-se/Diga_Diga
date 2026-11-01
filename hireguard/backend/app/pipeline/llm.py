@@ -9,6 +9,7 @@ import itertools
 import json
 import logging
 import threading
+import time
 
 import httpx
 
@@ -99,3 +100,56 @@ def complete_json(system: str, user: str, schema: dict) -> dict:
         log.warning("ollama unavailable (%s), using Groq fallback: fictional data only", e)
         raw = _groq(system, user, schema)
     return json.loads(raw)
+
+
+# ---------------------------------------------------------------- reachability (GET /model/status)
+
+STATUS_FLOOR_S = 10  # even refresh=1 reuses a result this fresh
+STATUS_TTL_S = 60  # each check can wake a scaled-to-zero Modal GPU: cache it so page views don't keep it warm
+_status_cache: tuple[float, dict] | None = None
+
+
+def has_model(names: set[str], model: str | None = None) -> bool:
+    """True if Ollama's /api/tags names include the configured model ("qwen3:8b", or "qwen3" -> any tag)."""
+    model = model or config.OLLAMA_MODEL
+    base = model.split(":")[0]
+    return any(n.split(":")[0] == base and (":" not in model or n in (model, model + ":latest")) for n in names)
+
+
+def _host_kind(url: str) -> str:
+    if ".modal.run" in url:
+        return "modal"
+    return "local" if any(h in url for h in ("://localhost", "://127.0.0.1", "://[::1]")) else "remote"
+
+
+def status(force: bool = False) -> dict:
+    """Can the backend reach the model? Never returns the host URL or credentials, only their kind."""
+    global _status_cache
+    now = time.monotonic()
+    if _status_cache and now - _status_cache[0] < (STATUS_FLOOR_S if force else STATUS_TTL_S):
+        return _status_cache[1] | {"cached": True}
+    url = config.OLLAMA_URLS[0]
+    kind = _host_kind(url)
+    out = {"model": config.OLLAMA_MODEL, "host": kind, "hosts": len(config.OLLAMA_URLS),
+           "credentials": bool(_auth_headers()), "groq_fallback": config.GROQ_FALLBACK,
+           "reachable": False, "model_loaded": False, "latency_ms": None, "error": None, "cached": False}
+    t0 = time.monotonic()
+    try:
+        r = httpx.get(f"{url}/api/tags", timeout=httpx.Timeout(8.0, connect=4.0), headers=_auth_headers())
+        out["latency_ms"] = round(1000 * (time.monotonic() - t0))
+        if r.status_code in (401, 403):
+            out["error"] = ("the Modal endpoint refused the backend: set HG_OLLAMA_MODAL_KEY and HG_OLLAMA_MODAL_SECRET"
+                            " in .env.modal" if kind == "modal" else f"the model host refused the request ({r.status_code})")
+        else:
+            r.raise_for_status()
+            out["reachable"] = True
+            out["model_loaded"] = has_model({m.get("name", "") for m in r.json().get("models", [])})
+            if not out["model_loaded"]:
+                out["error"] = f"{config.OLLAMA_MODEL} is not pulled on the model host"
+    except httpx.TimeoutException:
+        out["error"] = ("no answer within 8 s: a Modal cold start takes 1-3 minutes, check again shortly"
+                        if kind == "modal" else "no answer within 8 s")
+    except (httpx.HTTPError, ValueError) as e:
+        out["error"] = _scrub(f"{type(e).__name__}: model host unreachable")
+    _status_cache = (now, out)
+    return out

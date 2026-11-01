@@ -77,6 +77,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|
 | GET | `/health` | public | → `{ok: true}` |
+| GET | `/model/status?refresh=0` | R M A | → `{model, host: local\|modal\|remote, hosts, credentials, groq_fallback, reachable, model_loaded, latency_ms, error, cached}`; checks the Ollama host with backend-held credentials, cached 60 s (refresh: 10 s floor) so page views do not keep a Modal GPU awake; never returns the host URL or secrets |
 
 ### Odoo connector (optional, `HG_ODOO_ENABLED=1`; see docs/erp_odoo.md)
 | Method | Path | Roles | Body → Response |

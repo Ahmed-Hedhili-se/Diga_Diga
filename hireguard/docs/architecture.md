@@ -246,13 +246,13 @@ R recruiter · M HR manager · E employee · A admin.
 | | | | `PUT /candidates/{id}/conditions` | R M | `conditions.update` |
 | | | | `POST /candidates/{id}/offer` | M | approval item `offer` (2 HR managers, not the author), `approval.create` |
 | Scoring | `/jobs`, `/jobs/{id}/rubric`, `/stability`, `/team-gaps`, `/offer-fit`, `/rediscover` | R M | `PUT /jobs/{id}/rubric` | M | `rubric.update` |
-| | | | `POST /jobs/{id}/rescore` | R M | **none (R12; derived scores only)** |
+| | | | `POST /jobs/{id}/rescore` | R M | `scores.rescore` (R12, done) |
 | | | | `POST /jobs/{id}/shortlist` | R M | approval item `shortlist_commit` |
 | | | | `POST /jobs/{id}/candidates/{cid}/status` (hiring status) | R M | approval item `status_change` |
 | | | | `POST /jobs/{id}/rediscover/invite` | R M | approval items `email_send` |
 | | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
 | Oversight | `/money`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
-| | `/approvals/attention` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
+| | `/approvals/attention`, `/model/status` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
 | Workflow | `/inbox`, `/followups`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
 | | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
 | | | | `POST /followups/draft` | R M | approval items `email_send` |

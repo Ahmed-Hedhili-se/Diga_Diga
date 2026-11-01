@@ -11,13 +11,14 @@ from pydantic import BaseModel, Field
 from ..config import MAX_UPLOAD_BYTES, UPLOAD_DIR
 from ..contracts import Role, UserOut
 from ..auth.core import require_roles
-from . import answer_desk, service
+from . import answer_desk, llm, service
 
 router = APIRouter()
 
 RM = require_roles(Role.recruiter, Role.hr_manager)
 MA = require_roles(Role.hr_manager, Role.admin)
 EM = require_roles(Role.employee, Role.hr_manager)
+RMA = require_roles(Role.recruiter, Role.hr_manager, Role.admin)
 
 CID_RX = re.compile(r"^CAND-[A-Z0-9-]{3,32}$")
 
@@ -104,6 +105,13 @@ def get_candidate_pdf(candidate_id: str, user: UserOut = Depends(RM)):
     return FileResponse(path, media_type="application/pdf", filename=f"{candidate_id}.pdf",
                         headers={"X-Content-Type-Options": "nosniff", "Cache-Control": "no-store"},
                         content_disposition_type="attachment")
+
+
+@router.get("/model/status")
+def model_status(refresh: bool = False, user: UserOut = Depends(RMA)):
+    """Is the extraction model (Ollama, local or Modal GPU) reachable from the backend? Cached 60 s; refresh=1
+    skips the cache. The browser never calls the model host itself: it needs backend-held credentials."""
+    return llm.status(force=refresh)
 
 
 @router.get("/security/findings")
