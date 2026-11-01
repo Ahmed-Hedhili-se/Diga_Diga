@@ -38,20 +38,20 @@ interface Page {
 // Nav, routes and home all derive from permissions (GET /auth/me), never from hard-coded roles.
 const PAGES: Page[] = [
   { path: "/overview", label: "Overview", permission: "", group: "Workspace", module: "overview", icon: "overview", element: <Overview /> },
-  { path: "/candidates", label: "Candidates", permission: "candidates.read", group: "Recruit", module: "candidates", icon: "candidates", element: <Candidates /> },
-  { path: "/inbox", label: "Inbox", permission: "inbox.read", group: "Recruit", module: "inbox", icon: "inbox", element: <Inbox /> },
-  { path: "/approvals", label: "Approvals", permission: "approvals.decide", group: "Recruit", module: "approvals", icon: "approvals", element: <Approvals /> },
-  { path: "/interviews", label: "Interviews", permission: "interviews.scorecard", group: "Recruit", module: "scorecard", icon: "interviews", element: <Scorecard /> },
-  { path: "/team", label: "Team insights", permission: "team.read", group: "Team", module: "team", icon: "team", element: <Team /> },
-  { path: "/questions", label: "Employee questions", permission: "questions.reply", group: "Team", module: "answer-desk", icon: "questions", element: <EmployeeQuestions /> },
-  { path: "/answer-desk", label: "Answer Desk", permission: "answer_desk.ask", group: "Team", module: "answer-desk", icon: "answers", element: <AnswerDesk /> },
-  { path: "/documents", label: "My documents", permission: "documents.request", group: "Team", module: "documents", icon: "documents", element: <EmployeeDocs /> },
+  { path: "/candidates", label: "Candidates", permission: "candidates.read", group: "HireGuard", module: "candidates", icon: "candidates", element: <Candidates /> },
+  { path: "/inbox", label: "Inbox", permission: "inbox.read", group: "HireGuard", module: "inbox", icon: "inbox", element: <Inbox /> },
+  { path: "/approvals", label: "Approvals", permission: "approvals.decide", group: "HireGuard", module: "approvals", icon: "approvals", element: <Approvals /> },
+  { path: "/interviews", label: "Interviews", permission: "interviews.scorecard", group: "HireGuard", module: "scorecard", icon: "interviews", element: <Scorecard /> },
+  { path: "/team", label: "Team insights", permission: "team.read", group: "HR Nexus", module: "team", icon: "team", element: <Team /> },
+  { path: "/questions", label: "Employee questions", permission: "questions.reply", group: "HR Nexus", module: "answer-desk", icon: "questions", element: <EmployeeQuestions /> },
+  { path: "/answer-desk", label: "Answer Desk", permission: "answer_desk.ask", group: "HR Nexus", module: "answer-desk", icon: "answers", element: <AnswerDesk /> },
+  { path: "/documents", label: "My documents", permission: "documents.request", group: "HR Nexus", module: "documents", icon: "documents", element: <EmployeeDocs /> },
   { path: "/security", label: "Security Center", permission: "security_center.read", group: "Oversight", module: "security", icon: "attacks", element: <SecurityCenter /> },
   { path: "/money", label: "Money", permission: "money.read", group: "Oversight", module: "money", icon: "vacancy", element: <Money /> },
   { path: "/users", label: "Users", permission: "users.manage", group: "Admin", module: "users", icon: "users", element: <Users /> },
 ];
 // Recruit = HireGuard (HR <-> candidates); Team = HR Nexus (HR <-> staff); Oversight spans both on the trust core.
-const GROUPS = ["Workspace", "Recruit", "Team", "Oversight", "Admin"] as const;
+const GROUPS = ["Workspace", "HireGuard", "HR Nexus", "Oversight", "Admin"] as const;
 type Group = (typeof GROUPS)[number];
 type Theme = "system" | "light" | "dark";
 

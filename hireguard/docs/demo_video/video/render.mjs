@@ -19,10 +19,10 @@ const arg = (name, fallback) => {
   return i > 0 ? process.argv[i + 1] : fallback;
 };
 const PERSONA = {
-  "recruiter@hireguard.demo": "Recruiter Nour",
-  "hrm@hireguard.demo": "HR manager Karim",
-  "hrm2@hireguard.demo": "HR manager Leila, the second approver",
-  "employee@hireguard.demo": "Employee Youssef",
+  "recruiter@hireguard.demo": "Nour, recruiter",
+  "hrm@hireguard.demo": "Karim, HR manager",
+  "hrm2@hireguard.demo": "Leila, second HR manager",
+  "employee@hireguard.demo": "Youssef, employee",
 };
 
 const timeline = JSON.parse(readFileSync(path.join(BUILD, "timeline.json"), "utf8"));
@@ -72,7 +72,7 @@ try {
   } else {
     const fps = timeline.fps;
     const from = Number(arg("from", 0)), to = Number(arg("to", timeline.duration));
-    const out = path.resolve(arg("out", path.join(HERE, "..", "out", from === 0 && to === timeline.duration ? "HireGuard_demo_3min.mp4" : `preview_${from}-${to}.mp4`)));
+    const out = path.resolve(arg("out", path.join(HERE, "..", "out", from === 0 && to === timeline.duration ? "Venidis_demo_3min.mp4" : `preview_${from}-${to}.mp4`)));
     mkdirSync(path.dirname(out), { recursive: true });
     const ffmpeg = spawn(arg("ffmpeg", "ffmpeg"), [
       "-hide_banner", "-loglevel", "error", "-y",

@@ -1049,8 +1049,15 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 .model-howto code { font-size: var(--fs-xs); }
 @media (max-width: 520px) { .systems-grid { grid-template-columns: 1fr; } }
 
-/* Venidis mark: navy badge on light, brighter blue on dark so it never sinks into the background */
-.brand-mark .badge { fill: var(--primary); }
+/* Venidis mark: ink badge on light, paper badge on dark, so it never sinks into the background */
+.brand-mark .badge { fill: #111417; }
+.brand-mark .stroke { stroke: #EEF0EC; }
+:root[data-theme="dark"] .brand-mark .badge { fill: #EEF0EC; }
+:root[data-theme="dark"] .brand-mark .stroke { stroke: #111417; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .brand-mark .badge { fill: #EEF0EC; }
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .brand-mark .stroke { stroke: #111417; }
+}
 
 /* ROI card (Money page) */
 .roi-card { margin-top: 16px; }
