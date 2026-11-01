@@ -95,7 +95,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 
 ### 4.2 The model
 
-- **Qwen3-8B** (quantized to Q4_K_M), run through Ollama. Free, open, runs on a normal GPU.
+- **Qwen3-8B** (quantized to Q4_K_M), run through Ollama. Free, open, runs on one 24 GB GPU (slowly on a 6 GB laptop GPU).
 - It reads one document at a time, with no memory between documents and no tools.
 - Its output must match a fixed schema: dates, skill IDs from the ESCO skills list (a closed list), degree level, languages. There is **no free-text field**, so an attacker has no place to hide a message.
 - The model never counts characters. It sees numbered lines and answers with line numbers; code turns them into exact positions.
@@ -333,9 +333,9 @@ Outside facts you may quote (with their limits):
 
 **What if the model invents a skill?** The validator keeps a skill only if its proof is in the visible text and contains the skill's name. Invented skills are dropped and listed.
 
-**Why a small 8B model?** It runs on a normal GPU, so data can stay on the customer's machine. The design does not depend on the model being smart or honest.
+**Why a small 8B model?** It runs on one 24 GB GPU (a 6 GB laptop GPU works but slowly, about 30 to 40 seconds per CV), so data can stay on the customer's machine. The design does not depend on the model being smart or honest.
 
-**Why not just use a big cloud model?** Candidate data is personal data; Tunisian law 2004-63 limits transfers abroad. For the hackathon we used a rented GPU with fictional data only.
+**Why not just use a big cloud model?** Candidate data is personal data; Tunisian law 2004-63 limits transfers abroad. **Not because of cost:** at list prices a small hosted model costs less per CV than our own cloud GPU (about $0.0007 against $0.003, E12 and E11; token counts are our assumption), and both are negligible. A big model would probably extract better on unusual CVs; we have not measured the gap. The model is replaceable and untrusted, so an API could be an option if a customer allows it: `llm.py` already has optional Groq and Gemini backends, off by default, fictional data only. For the hackathon we used a rented GPU with fictional data only.
 
 **Is the ranking fair?** Not proven yet, and we say so: through the model, 17 of 89 twin CVs changed score, mostly when the CV language changed (Arabic extraction is weaker), and our group audit flags CV language (Arabic CVs shortlisted 1 in 33 against 30 in 103 for French). Town, school and gender show no gap. We mask identity before the model reads, and the audit catches a planted bias, so we trust what it reports.
 
