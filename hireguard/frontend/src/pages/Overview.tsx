@@ -160,7 +160,10 @@ export default function Overview() {
             ))}
           </section>
         )}
-        {anyRecruit && <AttentionList items={attention} loading={!approvals.data && !inbox.data && !pipeline.data} />}
+        {anyRecruit && (
+          <AttentionList items={attention} loading={approvals.loading || inbox.loading || pipeline.loading}
+            failed={!!(approvals.error || inbox.error || pipeline.error)} />
+        )}
         {can("team.read") && gaps.data && <KnowledgeCard gaps={gaps.data} />}
         {can("answer_desk.ask") && !can("candidates.read") && (
           <Link className="card tile-link overview-cta module-answer-desk" to="/answer-desk">
@@ -366,7 +369,7 @@ function Legend() {
 
 // ---------------------------------------------------------------- attention list
 
-function AttentionList({ items, loading }: { items: Attention[]; loading: boolean }) {
+function AttentionList({ items, loading, failed }: { items: Attention[]; loading: boolean; failed: boolean }) {
   const [filter, setFilter] = useState<"all" | Attention["kind"]>("all");
   const [all, setAll] = useState(false);
   const kinds = (["approval", "inbox", "candidate"] as const).filter((k) => items.some((i) => i.kind === k));
@@ -387,7 +390,12 @@ function AttentionList({ items, loading }: { items: Attention[]; loading: boolea
         )}
       </div>
       <Loading show={loading} rows={3} />
-      {!loading && !items.length && <Empty>Nothing is waiting for you. New items appear here as they arrive.</Empty>}
+      {failed && (
+        <div className="alert warn" role="alert">
+          Some of your work could not be loaded, so this list may be incomplete. Refresh, or open Approvals and Inbox directly.
+        </div>
+      )}
+      {!loading && !failed && !items.length && <Empty>Nothing is waiting for you. New items appear here as they arrive.</Empty>}
       <ul className="attention-list">
         {visible.map((i) => (
           <li key={i.key}>
