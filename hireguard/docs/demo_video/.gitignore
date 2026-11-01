@@ -1,0 +1,4 @@
+# generated: rebuild with build_slides.py and the video/ pipeline (README.md)
+html/
+out/
+video/build/

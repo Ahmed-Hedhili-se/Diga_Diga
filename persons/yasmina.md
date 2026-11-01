@@ -13,8 +13,10 @@ states, the UI-to-API contract test, offer-fit and talent-pool screens, mode lab
 Evaluation tab, and the demo script with a backup path.
 
 - [ ] **P0** Rehearse the demo twice with the single script (`hireguard/docs/demo_script.md`)
-      inside 5:00, and record the backup video of the same path. Use seeded candidates only:
-      a live upload through the model takes about 40 seconds.
+      inside 5:00. Use seeded candidates only: a live upload through the model takes about 40 seconds.
+- [ ] **P0** Watch the 3-minute demo video (`hireguard/docs/demo_video/out/HireGuard_demo_3min.mp4`, script in
+      `script.md` next to it). It was built from the dashboard with the model on, with a synthetic voice: re-record the
+      narration with your own voice if you prefer (timings in `script.md`).
 - [ ] **P0** After today's fixes: check the Evaluation tab (code-path and model runs, each
       labelled) and the single follow-up screen.
 - [x] **P0** The offer beat stops at "1 of 2 approvals" with two HR accounts (risk R14):

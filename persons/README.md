@@ -58,9 +58,9 @@ Code comments still say P1-P4 (the first plan). Map them to owners:
 | Person | P0 | P1 |
 |---|---|---|
 | Hedhili | Re-run the model evaluation with masking on (twins, attacks, extraction on 50+ CVs); record where the model ran | Fix the attack generator (`render.py`, R1 in `archive/person1.md`) and re-count detection; re-measure the detector |
-| Rayen | Down-weight `listed_only` skills in the scorer; keep approved routine items visible until executed (N8); document the 4 missing routes | R4 aggregate reviewer stats; R12 rescore audit; R14 offer approver count; N10 `hidden_high` |
-| Yasmina | Rehearse the single demo script and record the backup video; check the Evaluation tab and the follow-up screen after today's fixes | Phone and screen-reader pass; `/api/docs` off in production; Y5 copy once Ahmed decides |
-| Ahmed | HR interview calls for the business numbers; choose the ask; final pitch numbers after Hedhili's run | Decide Y5 and R4; collect sign-offs; keep the risk register current |
+| Rayen | Earlier P0 items done. Optional: real screen recordings as a live-demo backup ([rayen.md](./rayen.md)) | Done: R4, R12, R14, N10 |
+| Yasmina | Rehearse the single demo script; check the 3-minute demo video ([`hireguard/docs/demo_video/`](../hireguard/docs/demo_video/), video in `out/`, built from the dashboard); check the Evaluation tab and the follow-up screen after today's fixes | Phone and screen-reader pass; `/api/docs` off in production; Y5 copy once Ahmed decides |
+| Ahmed | HR interview calls for the business numbers; choose the ask; final pitch numbers after Hedhili's run. The business numbers and the ask go into `FILL_IN` in `hireguard/docs/demo_video/build_slides.py` | Decide Y5 and R4; collect sign-offs; keep the risk register current |
 
 ## Ownership at a glance
 
