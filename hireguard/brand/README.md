@@ -29,8 +29,8 @@ The code still uses the old name in places that other people depend on (the `hir
 ![Venidis](venidis-logo.svg)
 
 A **V** that narrows what arrives to a single point, with a **highlighter-yellow dot** above it: the evidence a human reviews. It
-also reads as a head above shoulders, the person in the loop. The colours are the product's own: navy `#16324F` (the folder
-spine), highlighter yellow `#F2C94C`, blue `#1F4F8F`. The wordmark is Figtree SemiBold (SIL Open Font License), converted to outlines.
+also reads as a head above shoulders, the person in the loop. The colours are the product's own (`docs/design_system.md`): indigo `#4338CA`
+(primary), amber `#FBBF24` (the dot) and ink `#0F172A` (the wordmark). The wordmark is Figtree SemiBold (SIL Open Font License), converted to outlines.
 
 | File | Use |
 |---|---|
@@ -45,9 +45,9 @@ stretch, rotate, outline or add effects; the minimum size for the mark is 16 px;
 
 ## Colour and type
 
-Use the product's tokens (`frontend/src/styles.css`): navy `#16324F` for structure, blue `#1F4F8F` for actions, yellow `#F2C94C`
-only for evidence and highlights, green/amber/red only for state. Headings and the interface: **Figtree**; long reading text:
-**Literata**. For Arabic: Noto Sans Arabic.
+Use the product's tokens, documented in `docs/design_system.md` and implemented in `frontend/src/styles.css`: neutral surfaces, indigo
+`#4338CA` for actions, amber only for evidence and highlights, green/amber/red only for state. The interface and its headings use **Figtree**;
+long document text (CV extracts, employee questions) uses **Literata**. For Arabic: Noto Sans Arabic.
 
 ## Voice
 

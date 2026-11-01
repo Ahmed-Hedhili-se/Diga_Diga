@@ -115,8 +115,8 @@ export default function App() {
   // Demo names carry a role suffix, e.g. "Karim Trabelsi (HR Manager)": greet by first name only.
   const firstName = user.display_name.replace(/\(.*\)/, "").trim().split(/\s+/)[0] || user.display_name;
   const hour = new Date().getHours();
-  const greeting = hour < 5 ? "Working late" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-  const today = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   const examples = [
     { path: "/candidates", title: "Inspect a candidate", detail: "Open a CV, review score evidence, then check its security findings." },
     { path: "/approvals", title: "Review an approval", detail: "Compare the proposed change and its risk before deciding." },

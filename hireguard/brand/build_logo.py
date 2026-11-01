@@ -5,7 +5,7 @@ outlined paths, so the SVGs need no font and print the same everywhere. Figtree 
 brand/.cache (git-ignored). Needs: pip install fonttools brotli
 
 Mark: a V (a funnel that narrows what arrives to one point) with a highlighter-yellow dot above it (the evidence a
-human reviews; also a head over shoulders: the person in the loop). Colours are the product's own tokens.
+human reviews; also a head over shoulders: the person in the loop). Colours are the product's own tokens (docs/design_system.md): indigo, amber, ink.
 """
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ FONT_URL = "https://github.com/google/fonts/raw/main/ofl/figtree/Figtree%5Bwght%
 FONT = HERE / ".cache" / "Figtree.ttf"
 NAME = "venidis"
 
-NAVY, BLUE, YELLOW, WHITE = "#16324F", "#1F4F8F", "#F2C94C", "#FFFFFF"
+NAVY, BLUE, YELLOW, WHITE = "#4338CA", "#6366F1", "#FBBF24", "#FFFFFF"  # NAVY = indigo primary; names kept for the code below
 
 # 64 x 64 mark
 V_PATH = "M16 26 L32 50 L48 26"
@@ -86,7 +86,7 @@ def main() -> None:
         "venidis-mark.svg": svg(64, 64, mark_body(NAVY, WHITE, YELLOW), "Venidis"),
         "venidis-mark-on-dark.svg": svg(64, 64, mark_body(BLUE, WHITE, YELLOW), "Venidis"),
         "venidis-mark-mono.svg": mono_mark(),
-        "venidis-logo.svg": logo(NAVY, WHITE, YELLOW, NAVY),
+        "venidis-logo.svg": logo(NAVY, WHITE, YELLOW, "#0F172A"),
         "venidis-logo-on-dark.svg": logo(BLUE, WHITE, YELLOW, WHITE),
     }
     for name, content in files.items():
