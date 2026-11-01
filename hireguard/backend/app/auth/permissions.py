@@ -64,6 +64,7 @@ class Permission(str, Enum):
     erp_import = "erp.import"
     erp_configure = "erp.configure"                  # .env today; reserved for a settings screen
     model_status = "model.status"                    # is the extraction model reachable (no URL, no secrets)
+    agent_plan = "agent.plan"                        # propose-only planning agent: reads counts, changes nothing
 
 
 P = Permission
@@ -72,7 +73,7 @@ _RECRUITER = {
     P.candidates_read, P.candidates_upload, P.scores_read, P.scores_rescore, P.shortlist_propose,
     P.candidates_status_propose, P.approvals_decide, P.approvals_execute, P.inbox_read, P.followups_manage,
     P.calendar_read, P.interviews_scorecard, P.erp_status, P.erp_import,
-    P.offer_conditions_edit, P.talent_pool_manage, P.approvals_attention_read, P.model_status,
+    P.offer_conditions_edit, P.talent_pool_manage, P.approvals_attention_read, P.model_status, P.agent_plan,
 }
 
 ROLE_PERMISSIONS: dict[Role, frozenset[Permission]] = {
@@ -116,6 +117,7 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("GET", "/api/candidates/{candidate_id}/pdf"): P.candidates_read,
     ("GET", "/api/security/findings"): P.security_center_read,
     ("GET", "/api/model/status"): P.model_status,
+    ("POST", "/api/agent/plan"): P.agent_plan,
     ("POST", "/api/answer-desk/ask"): P.answer_desk_ask,
     # scoring (P2)
     ("GET", "/api/jobs"): P.scores_read,

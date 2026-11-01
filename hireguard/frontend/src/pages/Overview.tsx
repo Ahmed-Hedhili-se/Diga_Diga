@@ -1,9 +1,11 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
+import { emailReason } from "../lib/labels";
 import { BRAND } from "../brand";
 import { useAuth } from "../auth";
 import { Icon, type IconName } from "../components/icons";
+import PlanCard from "../components/PlanCard";
 import { Badge, Empty, ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type {
   ApprovalsView, CandidateRow, EmployeeDocument, ErpApplicant, ErpStatus, InboxView, Job, KnowledgeGaps, ModelStatus,
@@ -81,7 +83,7 @@ export default function Overview() {
       out.push({ key: a.id, kind: "approval", tone: "danger", title: a.title, detail: `High-risk ${a.kind.replace(/_/g, " ")}, ${a.decisions.length} of ${a.required_approvals} approvals`, to: "/approvals" });
     for (const g of lanes?.suspicious ?? [])
       for (const m of g.items)
-        out.push({ key: m.id, kind: "inbox", tone: "danger", title: m.subject || "(no subject)", detail: `Held: ${m.reasons[0] ?? "sender could not be verified"}`, to: "/inbox" });
+        out.push({ key: m.id, kind: "inbox", tone: "danger", title: m.subject || "(no subject)", detail: `Held: ${m.reasons[0] ? emailReason(m.reasons[0]) : "sender could not be verified"}`, to: "/inbox" });
     for (const g of lanes?.needs_human ?? [])
       for (const m of g.items)
         out.push({ key: m.id, kind: "inbox", tone: "warn", title: m.subject || "(no subject)", detail: `Needs a person, from ${m.from_name || m.from}`, to: "/inbox" });
@@ -170,6 +172,8 @@ export default function Overview() {
             sub={docs.data ? `${readyDocs} ready to download` : undefined} />
         )}
       </div>
+
+      {can("agent.plan") && <PlanCard />}
 
       <div className="overview-grid">
         {can("candidates.read") && (

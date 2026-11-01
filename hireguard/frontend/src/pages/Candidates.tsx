@@ -5,6 +5,7 @@ import { api, ApiError, errMsg } from "../api";
 import { usePermission } from "../auth";
 import EvidenceText, { pageOfOffset } from "../components/EvidenceText";
 import PdfViewer from "../components/PdfViewer";
+import ChipList, { type Chip } from "../components/ChipList";
 import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type {
   ApprovalItem, CandidateDetail, CandidateRow, ErpApplicant, ErpStatus, Job, ScoreOutput,
@@ -40,6 +41,15 @@ const CHECK_LABEL: Record<string, string> = {
 // 404 means "this job has no roster / published terms": a real absence, not an error to hide
 const orNullOn404 = <T,>(p: Promise<T>) =>
   p.catch((e) => (e instanceof ApiError && e.status === 404 ? null : Promise.reject(e)));
+
+function fitChip(f?: OfferFit): Chip | null {
+  if (!f) return null;
+  const tip = f.checks.length
+    ? f.checks.map((c) => `${CHECK_LABEL[c.check] ?? c.check}: ${c.status} (${c.detail})`).join("\n")
+    : "No conditions declared yet: ask, don't guess.";
+  return { key: "fit", tone: FIT_TONE[f.status], label: f.status === "unknown" ? "conditions unknown" : `offer ${f.status}`,
+    title: `Declared conditions vs. published terms. Not part of the score.\n${tip}` };
+}
 
 function FitBadge({ f }: { f?: OfferFit }) {
   if (!f) return null;
@@ -103,6 +113,25 @@ export default function Candidates() {
   const stabBy = new Map((stab.data?.candidates ?? []).map((s) => [s.candidate_id, s]));
   const fills = gaps.data?.candidates_filling_gaps ?? {};
   const bc = fit.data?.band_coverage;
+
+  /** Scores are proposals until a shortlist is approved (said once in the page header), so only "committed" is a chip. */
+  const rowChips = (r: CandidateRow): Chip[] => {
+    const chips: Chip[] = [];
+    if (r.score?.status === "committed") chips.push({ key: "committed", label: "committed", tone: "ok" });
+    if (r.score?.needs_human) chips.push({ key: "human", label: "needs human", tone: "warn" });
+    if (r.hidden_high > 0) chips.push({ key: "hidden", label: `${r.hidden_high} hidden`, tone: "danger" });
+    if (r.flags > 0) chips.push({ key: "flags", label: `${r.flags} injection flags`, tone: "danger" });
+    const sb = stabBy.get(r.candidate_id);
+    if (sb?.label === "borderline" && stab.data)
+      chips.push({ key: "borderline", tone: "warn", label: `borderline · ${Math.round(100 * sb.p_top_k)}% top ${stab.data.k}`,
+        title: `In ${Math.round(100 * sb.p_top_k)}% of ${stab.data.draws} rubric variations (weights ±${Math.round(100 * stab.data.jitter)}%) this candidate is in the top ${stab.data.k}; rank ranges ${sb.rank_p05}–${sb.rank_p95}. Review this decision one by one.` });
+    if (fills[r.candidate_id])
+      chips.push({ key: "fills", tone: "info", label: `fills gap: ${fills[r.candidate_id].join(", ")}`, title: "Evidenced skills the team lacks or holds in one person only" });
+    const fc = fitChip(fit.data?.candidates[r.candidate_id]);
+    if (fc) chips.push(fc);
+    return chips;
+  };
+  const offline = (rows.data ?? []).some((r) => r.extraction === "ground_truth");
 
   async function sendInvites() {
     setActionErr(null);
@@ -306,6 +335,11 @@ export default function Candidates() {
           {!rows.loading && !rows.error && !rows.data?.length && (
             <Empty>No candidates for this job yet.{canUpload ? " Upload a CV to start." : ""}</Empty>
           )}
+          {offline && (
+            <div className="alert warn" role="status">
+              Offline extraction: these fields come from the demo's labelled data, not from a model run.
+            </div>
+          )}
           {!!rows.data?.length && (
             <div className="table-wrap">
               <table className="table">
@@ -346,28 +380,7 @@ export default function Candidates() {
                       <td className="num strong">{r.score ? fmtNum(r.score.total, 1) : "—"}</td>
                       <td>
                         <div className="badges">
-                          {r.score?.status === "committed" ? <Badge tone="ok">committed</Badge> : <Badge>proposed</Badge>}
-                          {r.score?.needs_human && <Badge tone="warn">needs human</Badge>}
-                          {r.extraction === "ground_truth" && (
-                            <span title="Fields from the demo's labelled data, not from a model run">
-                              <Badge tone="warn">offline extraction</Badge>
-                            </span>
-                          )}
-                          {r.hidden_high > 0 && <Badge tone="danger">{r.hidden_high} hidden</Badge>}
-                          {r.flags > 0 && <Badge tone="danger">{r.flags} injection flags</Badge>}
-                          {stabBy.get(r.candidate_id)?.label === "borderline" && (
-                            <span
-                              title={`In ${Math.round(100 * stabBy.get(r.candidate_id)!.p_top_k)}% of ${stab.data!.draws} rubric variations (weights ±${Math.round(100 * stab.data!.jitter)}%) this candidate is in the top ${stab.data!.k}; rank ranges ${stabBy.get(r.candidate_id)!.rank_p05}–${stabBy.get(r.candidate_id)!.rank_p95}. Review this decision one by one.`}
-                            >
-                              <Badge tone="warn">borderline · {Math.round(100 * stabBy.get(r.candidate_id)!.p_top_k)}% top {stab.data!.k}</Badge>
-                            </span>
-                          )}
-                          {fills[r.candidate_id] && (
-                            <span title="Evidenced skills the team lacks or holds in one person only">
-                              <Badge tone="info">fills gap: {fills[r.candidate_id].join(", ")}</Badge>
-                            </span>
-                          )}
-                          <FitBadge f={fit.data?.candidates[r.candidate_id]} />
+                          <ChipList chips={rowChips(r)} />
                         </div>
                       </td>
                     </tr>

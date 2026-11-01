@@ -254,6 +254,7 @@ R recruiter · M HR manager · E employee · A admin.
 | | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
 | Oversight | `/money`, `/money/roi`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
 | | `/approvals/attention`, `/model/status` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
+| | | | `POST /agent/plan` (propose-only planning agent, docs/agent.md) | R M | `agent.plan` |
 | Workflow | `/inbox`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
 | | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
 | | `/followups/preview` | R M | `POST /followups/run` | R M | `followups.run`, approval items `email_send` |

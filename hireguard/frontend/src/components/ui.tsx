@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useEffect, useId, useRef, useState } from "react";
 import { errMsg } from "../api";
+import HelpButton from "./HelpButton";
 
 export function useLoad<T>(fn: () => Promise<T>, deps: unknown[] = []) {
   const [data, setData] = useState<T | null>(null);
@@ -27,7 +28,10 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
         <h1>{title}</h1>
         {subtitle && <p className="muted">{subtitle}</p>}
       </div>
-      {actions && <div className="actions">{actions}</div>}
+      <div className="actions">
+        {actions}
+        <HelpButton />
+      </div>
     </header>
   );
 }
