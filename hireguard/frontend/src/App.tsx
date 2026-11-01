@@ -19,6 +19,7 @@ import Rubric from "./pages/Rubric";
 import { Forbidden, NotFound } from "./pages/Errors";
 import StyleGuide from "./pages/StyleGuide";
 import Team from "./pages/Team";
+import Overview from "./pages/Overview";
 
 interface Page {
   path: string;
@@ -33,6 +34,7 @@ interface Page {
 // Two modules on one trust core: Recruit (HireGuard, HR <-> candidates) and Team (HR Nexus, HR <-> staff).
 // Nav, routes and home all derive from permissions (GET /auth/me), never from hard-coded roles.
 const PAGES: Page[] = [
+  { path: "/overview", label: "Overview", permission: "", group: "Workspace", module: "overview", icon: "overview", element: <Overview /> },
   { path: "/candidates", label: "Candidates", permission: "candidates.read", group: "Recruit", module: "candidates", icon: "candidates", element: <Candidates /> },
   { path: "/inbox", label: "Inbox", permission: "inbox.read", group: "Recruit", module: "inbox", icon: "inbox", element: <Inbox /> },
   { path: "/approvals", label: "Approvals", permission: "approvals.decide", group: "Recruit", module: "approvals", icon: "approvals", element: <Approvals /> },
@@ -46,13 +48,14 @@ const PAGES: Page[] = [
   { path: "/users", label: "Users", permission: "users.manage", group: "Admin", module: "users", icon: "users", element: <Users /> },
 ];
 // Recruit = HireGuard (HR <-> candidates); Team = HR Nexus (HR <-> staff); Oversight spans both on the trust core.
-const GROUPS = ["Recruit", "Team", "Oversight", "Admin"] as const;
+const GROUPS = ["Workspace", "Recruit", "Team", "Oversight", "Admin"] as const;
 type Group = (typeof GROUPS)[number];
 type Theme = "system" | "light" | "dark";
 
-// Where each kind of user lands: HR manager -> approvals, recruiter -> candidates, employee -> documents,
-// admin -> users. Expressed as "first permission held", so a new role lands somewhere sensible.
+// Where each kind of user lands: staff (recruiter, HR manager, admin) -> overview, employee -> documents.
+// Expressed as "first permission held", so a new role lands somewhere sensible.
 const HOME: [string, string][] = [
+  ["model.status", "/overview"],
   ["approvals.decide_high_risk", "/approvals"],
   ["candidates.read", "/candidates"],
   ["documents.request", "/documents"],
@@ -100,12 +103,17 @@ export default function App() {
   if (loading) return <div className="center muted">Loading…</div>;
   if (!user) return <Login />;
 
-  const mine = PAGES.filter((p) => can(p.permission));
+  const allowed = (p: Page) => !p.permission || can(p.permission); // "" = any signed-in user
+  const mine = PAGES.filter(allowed);
   const home = HOME.find(([p]) => can(p))?.[1] ?? mine[0]?.path ?? "/403";
-  const currentPage = PAGES.find((p) => location.pathname.startsWith(p.path));
   const isStyleGuide = location.pathname === "/style-guide";
   const visiblePages = mine.filter((p) => p.label.toLowerCase().includes(query.trim().toLowerCase()));
   const themeLabel = theme === "system" ? "System" : theme === "light" ? "Light" : "Dark";
+  // Demo names carry a role suffix, e.g. "Karim Trabelsi (HR Manager)": greet by first name only.
+  const firstName = user.display_name.replace(/\(.*\)/, "").trim().split(/\s+/)[0] || user.display_name;
+  const hour = new Date().getHours();
+  const greeting = hour < 5 ? "Working late" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const today = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
   const examples = [
     { path: "/candidates", title: "Inspect a candidate", detail: "Open a CV, review score evidence, then check its security findings." },
     { path: "/approvals", title: "Review an approval", detail: "Compare the proposed change and its risk before deciding." },
@@ -137,7 +145,7 @@ export default function App() {
             aria-expanded={!collapsed}
             onClick={() => setCollapsed((value) => !value)}
           >
-            <span aria-hidden="true">{collapsed ? "»" : "«"}</span>
+            <Icon name={collapsed ? "panelRight" : "panelLeft"} size={18} />
           </button>
         </div>
         <nav aria-label="Main">
@@ -169,34 +177,33 @@ export default function App() {
             );
           })}
         </nav>
+        <p className="sidebar-note">
+          <strong><span className="status-dot" aria-hidden="true" />Nothing leaves without a person</strong>
+          Emails, offers and Odoo updates wait in Approvals until someone signs off.
+        </p>
       </aside>
       <div className="main-col">
         <header className="topbar">
           <div className="topbar-leading">
             <button
               type="button"
-              className="mobile-menu btn ghost"
+              className="mobile-menu icon-btn"
               aria-label={mobileNavOpen ? "Close navigation" : "Open navigation"}
               aria-expanded={mobileNavOpen}
               onClick={() => setMobileNavOpen((value) => !value)}
             >
-              <span aria-hidden="true">☰</span>
+              <Icon name="menu" size={20} />
             </button>
-            <div className="topbar-title">
-              <span className={`module-chip module-${currentPage?.module ?? "users"}`} aria-hidden="true">
-                <Icon name={currentPage?.icon ?? "overview"} size={16} />
-              </span>
-              <div>
-                <span className="topbar-eyebrow">{currentPage?.group ?? (isStyleGuide ? "Admin" : "Workspace")}</span>
-                <h1>{isStyleGuide ? "Style guide" : currentPage?.label ?? "HireGuard"}</h1>
-              </div>
+            <div className="greeting">
+              <p className="greeting-line">{greeting}, {firstName}</p>
+              <p className="greeting-date">{today}</p>
             </div>
           </div>
           <div className="topbar-actions">
-            <button type="button" className="global-search" onClick={() => setPaletteOpen(true)} aria-keyshortcuts="Control+K Meta+K">
-              <span className="search-glyph" aria-hidden="true">⌕</span>
+            <button type="button" className="global-search" onClick={() => setPaletteOpen(true)} aria-keyshortcuts="Control+K Meta+K" aria-label="Search pages">
+              <Icon name="search" size={17} />
               <span>Search pages</span>
-              <kbd>Ctrl / ⌘ K</kbd>
+              <kbd>Ctrl K</kbd>
             </button>
             <button
               type="button"
@@ -205,7 +212,7 @@ export default function App() {
               aria-label={`Theme: ${themeLabel}. Click to change.`}
               onClick={() => setTheme((value) => value === "system" ? "light" : value === "light" ? "dark" : "system")}
             >
-              <span aria-hidden="true">{theme === "light" ? "☼" : theme === "dark" ? "☾" : "◐"}</span>
+              <Icon name={theme === "light" ? "sun" : theme === "dark" ? "moon" : "system"} size={17} />
               <span className="theme-label">{themeLabel}</span>
             </button>
             <div className="user-menu">
@@ -213,10 +220,10 @@ export default function App() {
                 <summary className="user-trigger">
                   <span className="avatar" aria-hidden="true">{user.display_name.trim().charAt(0).toUpperCase() || "?"}</span>
                   <span className="user-copy">
-                    <span className="who-name">{user.display_name}</span>
+                    <span className="who-name">{user.display_name.replace(/\s*\(.*\)\s*$/, "") || user.display_name}</span>
                     <Badge tone="neutral">{ROLE_LABEL[user.role]}</Badge>
                   </span>
-                  <span className="user-chevron" aria-hidden="true">⌄</span>
+                  <span className="user-chevron"><Icon name="chevronDown" size={16} /></span>
                 </summary>
                 <div className="user-menu-panel">
                   <div className="user-menu-identity">
@@ -241,7 +248,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Navigate to={home} replace />} />
             {PAGES.map((p) => (
-              <Route key={p.path} path={p.path} element={can(p.permission) ? p.element : <Forbidden home={home} />} />
+              <Route key={p.path} path={p.path} element={allowed(p) ? p.element : <Forbidden home={home} />} />
             ))}
             <Route
               path="/candidates/upload"
@@ -258,8 +265,8 @@ export default function App() {
           {examples.length > 0 && (
             <details className="quick-start">
               <summary>
-                <span>Examples to try</span>
-                <span className="muted small">Quick tour · only pages available to your account</span>
+                <span>New here? Try one of these</span>
+                <span className="muted small">Only pages your account can open are listed.</span>
               </summary>
               <div className="quick-start-grid">
                 {examples.map((example) => (
@@ -271,7 +278,7 @@ export default function App() {
                   >
                     <strong>{example.title}</strong>
                     <span>{example.detail}</span>
-                    <span className="quick-start-link">Open example →</span>
+                    <span className="quick-start-link">Open this page</span>
                   </button>
                 ))}
               </div>
@@ -292,7 +299,7 @@ export default function App() {
         onClose={() => setPaletteOpen(false)}
       >
         <label className="palette-input">
-            <span aria-hidden="true">⌕</span>
+            <Icon name="search" size={18} />
             <input
               autoFocus
               aria-label="Search accessible pages"
