@@ -4,6 +4,7 @@ import { api } from "../api";
 import { BRAND } from "../brand";
 import { useAuth } from "../auth";
 import { Icon, type IconName } from "../components/icons";
+import PlanCard from "../components/PlanCard";
 import { Badge, Empty, ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type {
   ApprovalsView, CandidateRow, EmployeeDocument, ErpApplicant, ErpStatus, InboxView, Job, KnowledgeGaps, ModelStatus,
@@ -170,6 +171,8 @@ export default function Overview() {
             sub={docs.data ? `${readyDocs} ready to download` : undefined} />
         )}
       </div>
+
+      {can("agent.plan") && <PlanCard />}
 
       <div className="overview-grid">
         {can("candidates.read") && (

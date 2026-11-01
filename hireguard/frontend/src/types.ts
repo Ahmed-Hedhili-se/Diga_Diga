@@ -564,3 +564,22 @@ export interface ModelStatus {
   error: string | null;
   cached: boolean;
 }
+
+
+// POST /agent/plan (propose-only planning agent; docs/agent.md)
+export interface AgentPlanItem {
+  rank: number;
+  id: string;
+  title: string;
+  why: string;
+  target: string;
+  needs_approval: boolean;
+}
+export interface AgentPlan {
+  run_id: string;
+  mode: "model" | "rules";
+  note: string | null;
+  steps: { tool: string; by: "model" | "rules" }[];
+  items: AgentPlanItem[];
+  limits: { max_steps: number; read_only: boolean; executes_nothing: boolean };
+}

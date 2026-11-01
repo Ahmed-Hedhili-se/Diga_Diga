@@ -80,6 +80,11 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET | `/health` | public | → `{ok: true}` |
 | GET | `/model/status?refresh=0` | R M A | → `{model, host: local\|modal\|remote\|gemini, hosts, credentials, groq_fallback, reachable, model_loaded, latency_ms, error, cached}`; checks the Ollama host with backend-held credentials, cached 60 s (refresh: 10 s floor) so page views do not keep a Modal GPU awake; never returns the host URL or secrets |
 
+### Planning agent (propose-only; see docs/agent.md)
+| Method | Path | Roles | Body → Response |
+|---|---|---|---|
+| POST | `/agent/plan` | R M | no body → `{run_id, mode: model\|rules, note, steps[{tool, by}], items[{rank, id, title, why, target, needs_approval}], limits}`; calls only read-only allowlisted tools (counts, no stranger text), at most 6 steps, creates no approval item, writes one `agent_plan` audit entry; without a reachable model the plan is built by rules |
+
 ### Odoo connector (optional, `HG_ODOO_ENABLED=1`; see docs/erp_odoo.md)
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|

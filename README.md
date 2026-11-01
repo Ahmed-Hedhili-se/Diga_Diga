@@ -21,6 +21,7 @@ One platform, two modules, one trust core:
   slots, follow-ups and a fast-track to the offer (offer-fit check, talent pool, offer letters with two approvers).
 - **Team (HR Nexus):** the employee Answer Desk (exact handbook quotes or "ask HR", never generated text), self-service
   documents, a team skills map, HR process metrics and a knowledge-gap radar. Aggregates only, never individual scores.
+- **Planning agent ("Plan my day"):** a propose-only agent that reads counts through allowlisted read-only tools, caps itself at 6 steps, logs every run, and suggests where to start. It cannot send, approve or execute anything ([docs/agent.md](hireguard/docs/agent.md)).
 - **ERP layer:** an optional Odoo connector. Odoo stays the system of record; HireGuard screens what it reads and writes
   back only after a human approves ([docs/erp_odoo.md](hireguard/docs/erp_odoo.md)).
 
