@@ -15,7 +15,7 @@ from .auth import routes as _auth  # noqa: F401
 from .auth.routes import create_user
 
 DEMO_USERS = [
-    ("recruiter@hireguard.demo", "Amira Ben Salah (Recruiter)", Role.recruiter),
+    ("recruiter@hireguard.demo", "Nour Ben Ali (Recruiter)", Role.recruiter),  # not a candidate name (CAND-001 is Amira Ben Salah)
     ("hrm@hireguard.demo", "Karim Trabelsi (HR Manager)", Role.hr_manager),
     ("hrm2@hireguard.demo", "Leila Mansour (HR Manager, 2nd approver)", Role.hr_manager),
     ("employee@hireguard.demo", "Youssef Gharbi (Employee EMP-001)", Role.employee),

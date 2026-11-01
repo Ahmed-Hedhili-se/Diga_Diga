@@ -14,7 +14,7 @@ cd hireguard
 ```
 
 1. Store the passwords. Open three logged-in browser profiles:
-   - recruiter Amira (`recruiter@hireguard.demo`)
+   - recruiter Nour (`recruiter@hireguard.demo`)
    - HR manager Karim (`hrm@hireguard.demo`)
    - second HR manager Leila (`hrm2@hireguard.demo`)
 2. With Ollama up, the seeded CVs go through qwen3:8b; send one warm-up request first.
