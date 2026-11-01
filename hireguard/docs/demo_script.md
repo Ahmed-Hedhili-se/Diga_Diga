@@ -20,7 +20,7 @@ cd hireguard
 2. With Ollama up, the seeded CVs go through qwen3:8b; send one warm-up request first.
 3. Check the Candidates list: if it shows an **"offline extraction"** badge, the model did not read these CVs. Use the
    backup path below and say so.
-4. **Never upload a CV live through the model:** it takes about 40 seconds per CV on the hardware we measured.
+4. **Never upload a CV live through the model:** it takes 30 to 40 seconds per CV on the 6 GB laptop GPU we measured (about 10 seconds on a cloud L4).
 5. Zoom 125%, notifications off, the backup video open in a tab.
 
 ## Click path (about 2 minutes)

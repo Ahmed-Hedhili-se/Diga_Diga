@@ -426,7 +426,9 @@ button:not(:disabled), summary, select, [role="button"], .clickable, label.file-
 .align-end { align-self: flex-end; }
 .split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; gap: 20px; }
 /* Sheets stacked directly in the page flow get breathing room; grids and stacks keep their own gap. */
-:where(.content, .content > div, .content > section) > .card + .card { margin-top: 14px; }
+.content > .card + .card { margin-top: 14px; }
+/* Cards in a row of a grid or a stack share one top edge: the grid gap is their only spacing. */
+.tiles > *, .grid2 > *, .split > *, .lanes > *, .overview-grid > *, .sc-summary > *, .stack > * { margin-top: 0; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 20px; }
 .lanes { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: 16px; }
 .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
@@ -921,7 +923,7 @@ mark, .evidence-text mark {
 
 /* ---------- overview dashboard ---------- */
 .module-overview { --module-color: var(--primary); }
-.overview-tiles { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); } /* 6 tiles fit one row at 1440 px; was 210 px, which left one tile alone */
+.overview-tiles { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .overview-tile { position: relative; display: flex; flex-direction: column; gap: 2px; min-height: 128px; transition: border-color .15s ease; }
 .module-chip { display: inline-grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: var(--radius-ctl, 7px); background: color-mix(in srgb, var(--module-color, var(--primary)) 12%, var(--surface)); color: var(--module-color, var(--primary)); }
 .overview-tile .module-chip { width: 26px; height: 26px; }
@@ -1068,3 +1070,20 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 .roi-out div { background: var(--surface-2); border-radius: var(--radius-ctl); padding: 8px 12px; }
 .roi-out dt { color: var(--muted); font-size: var(--fs-sm); }
 .roi-out dd { margin: 2px 0 0; font-size: var(--fs-xl); font-weight: 650; font-variant-numeric: tabular-nums; }
+
+/* Overview, simplified: one slim status line per system, the attention list first, details on demand */
+.systems { margin-bottom: 12px; }
+.systems-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
+.model-card.status-card { grid-template-columns: 1fr; gap: 4px; padding: 10px 14px; }
+.status-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.status-line h2 { margin: 0; font-size: var(--fs-md); font-weight: 650; }
+.status-line .model-dot { margin-top: 0; width: 10px; height: 10px; }
+.status-sub { flex: 1 1 140px; min-width: 0; }
+.status-action { margin-left: auto; }
+.status-more { margin-top: 2px; font-size: var(--fs-sm); }
+.status-more .badges { margin: 6px 0; }
+.status-more > summary, .page-hints > summary { cursor: pointer; color: var(--primary); font-weight: 600; font-size: var(--fs-sm); }
+.page-hints > summary { color: var(--muted); }
+.page-hints[open] > summary { margin-bottom: 10px; color: var(--text); }
+.page-hints { padding-top: 10px; padding-bottom: 10px; }
+.overview-tiles { margin: 16px 0; }

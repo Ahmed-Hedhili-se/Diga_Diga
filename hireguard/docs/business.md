@@ -15,7 +15,7 @@ would turn hypotheses into evidence are prepared in [discovery/](discovery/call_
 
 | Plan | For | Price | Anchor |
 |---|---|---|---|
-| Pilot | 1 open role, 3 months, up to 300 CVs | Free | Cost to serve is small: about $0.003 of compute per CV if the GPU stays busy (E11, our measured throughput) |
+| Pilot | 1 open role, 3 months, up to 300 CVs | Free | Cost to serve is small: about $0.003 of compute per CV if the GPU stays busy (E11, our measured throughput). At list prices a small hosted model would cost less per CV than our GPU (about $0.0007, E12; token counts are our assumption), so cost is not our edge: data residency is |
 | SME | Up to 100 employees | 150 to 400 | An Odoo seat is about 33 TND a month (E8, at about 3 TND per USD) |
 | Company | Up to 500 employees, on-premises GPU | 600 to 1,200, plus setup | A regional SaaS ATS is 2,500 to 3,750 TND a month, a vendor figure to read as a ceiling (E9) |
 

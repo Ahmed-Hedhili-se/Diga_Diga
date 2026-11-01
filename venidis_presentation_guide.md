@@ -1,4 +1,4 @@
-# HireGuard: the whole project, explained simply
+# Venidis: the whole project, explained simply
 
 Team Diga_Diga · SUP'COM hackathon "Reinventing HR through AI" · all data in the demo is fictional.
 
@@ -10,7 +10,9 @@ Where a number comes from a model run, a code-only run, an assumption or an outs
 
 ## 1. The 30-second version
 
-**One sentence:** HireGuard is an AI assistant for HR teams that does the paperwork (reading CVs, sorting emails, drafting replies, booking interviews, answering staff questions), where the AI can *read* but never *act*, and a human approves everything that leaves the building.
+**The product:** **Venidis** is the product. It has two main features: **HireGuard** (safe recruiting: CVs, inbox, replies, interviews, offers) and **HR Nexus** (team skills, process times and handbook gaps, aggregates only). Everything below that says "HireGuard" describes the recruiting feature unless it says Venidis.
+
+**One sentence:** Venidis is an AI assistant for HR teams that does the paperwork (reading CVs, sorting emails, drafting replies, booking interviews, answering staff questions), where the AI can *read* but never *act*, and a human approves everything that leaves the building.
 
 **The golden rule:** *The AI reads, code decides, humans approve.*
 
@@ -41,7 +43,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 3. Defences against reviewers who stop paying attention (planted test items, shrinking batches).
 4. A fairness audit that finds a planted bias, and twin CVs that differ in only one detail.
 5. A fast-track to the offer (check salary and conditions *before* interviews).
-6. A second module for staff, HR Nexus (team skills, process times, handbook gaps), with aggregates only.
+6. A second main feature for staff, HR Nexus (team skills, process times, handbook gaps), with aggregates only.
 7. An Odoo connector.
 8. A published "what we refuse to build" list.
 
@@ -95,7 +97,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 
 ### 4.2 The model
 
-- **Qwen3-8B** (quantized to Q4_K_M), run through Ollama. Free, open, runs on a normal GPU.
+- **Qwen3-8B** (quantized to Q4_K_M), run through Ollama. Free, open, runs on one 24 GB GPU (slowly on a 6 GB laptop GPU).
 - It reads one document at a time, with no memory between documents and no tools.
 - Its output must match a fixed schema: dates, skill IDs from the ESCO skills list (a closed list), degree level, languages. There is **no free-text field**, so an attacker has no place to hide a message.
 - The model never counts characters. It sees numbered lines and answers with line numbers; code turns them into exact positions.
@@ -127,7 +129,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 | **Talent pool** | Past applicants who opted in are re-scored for new jobs. Consent expires after 2 years and can be withdrawn | No scraping of outside profiles |
 | **Odoo connector** (off by default) | Import applicants from Odoo; mirror *approved* actions back | Nothing is written back without approval |
 
-### 4.5 The second module: HR Nexus (Team)
+### 4.5 The second main feature: HR Nexus (Team)
 
 For HR managers, never for judging individuals:
 - **Team skills map:** counts of people per needed skill (gap, single holder, covered). It can *propose* a rubric change that HR applies through the normal audited edit.
@@ -248,7 +250,7 @@ Cost to us: about $0.003 per CV in GPU time, only if the GPU is kept busy (hardw
 | Scraping outside profiles | Real personal data without consent |
 | Reading employees' email or chat | Disproportionate monitoring |
 
-Say this proudly: HR is losing importance partly because tools have felt like surveillance. Our line is "HireGuard does the paperwork; people decide about people."
+Say this proudly: HR is losing importance partly because tools have felt like surveillance. Our line is "Venidis does the paperwork; people decide about people."
 
 ### 6.7 Competition
 
@@ -333,9 +335,9 @@ Outside facts you may quote (with their limits):
 
 **What if the model invents a skill?** The validator keeps a skill only if its proof is in the visible text and contains the skill's name. Invented skills are dropped and listed.
 
-**Why a small 8B model?** It runs on a normal GPU, so data can stay on the customer's machine. The design does not depend on the model being smart or honest.
+**Why a small 8B model?** It runs on one 24 GB GPU (a 6 GB laptop GPU works but slowly, about 30 to 40 seconds per CV), so data can stay on the customer's machine. The design does not depend on the model being smart or honest.
 
-**Why not just use a big cloud model?** Candidate data is personal data; Tunisian law 2004-63 limits transfers abroad. For the hackathon we used a rented GPU with fictional data only.
+**Why not just use a big cloud model?** Candidate data is personal data; Tunisian law 2004-63 limits transfers abroad. **Not because of cost:** at list prices a small hosted model costs less per CV than our own cloud GPU (about $0.0007 against $0.003, E12 and E11; token counts are our assumption), and both are negligible. A big model would probably extract better on unusual CVs; we have not measured the gap. The model is replaceable and untrusted, so an API could be an option if a customer allows it: `llm.py` already has optional Groq and Gemini backends, off by default, fictional data only. For the hackathon we used a rented GPU with fictional data only.
 
 **Is the ranking fair?** Not proven yet, and we say so: through the model, 17 of 89 twin CVs changed score, mostly when the CV language changed (Arabic extraction is weaker), and our group audit flags CV language (Arabic CVs shortlisted 1 in 33 against 30 in 103 for French). Town, school and gender show no gap. We mask identity before the model reads, and the audit catches a planted bias, so we trust what it reports.
 
