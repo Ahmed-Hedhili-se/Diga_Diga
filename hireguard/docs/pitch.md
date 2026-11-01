@@ -2,7 +2,7 @@
 
 > Rules for every number on stage:
 > - It comes from `eval/results/*.json` (also on Security Center → Evaluation, with its mode) or the HR interview notes, as k/n with its 95% interval.
-> - A row still marked **TBD** one hour before the pitch is cut, not guessed.
+> - A row that is still empty one hour before the pitch is cut, not guessed. Every external figure is in `docs/evidence.md` with its source and caveat (`python scripts/check_claims.py` checks it).
 > - Oracle (code-path) results are never presented as model results.
 >
 > The click path, accounts and backup plan are in [`demo_script.md`](demo_script.md), the only demo script.
@@ -12,7 +12,7 @@
 | Time | Slide | Say | On screen |
 |---|---|---|---|
 | 0:00–0:25 | Hook | "An HR assistant in Sfax gets 300 CVs for one Data Engineer job. Researchers scanned 197,000 real CVs this year: about one in a hundred hides text meant only for the AI (USENIX Security 2026). We took 40 such attacks to a standard AI screener: 13 moved its score." | Title, then one CV with its white text revealed |
-| 0:25–0:50 | Problem | "HR teams spend the day sorting, replying and chasing; a hire takes 39 days at the median in SHRM's benchmark. AI agents can do this work, but they read strangers' text *and* they can act. That combination is the vulnerability." | Problem slide: [TBD from the interviews] minutes per CV, 39-day median |
+| 0:25–0:50 | Problem | "HR teams spend the day sorting, replying and chasing; a hire takes 39 days at the median in SHRM's benchmark. In a survey of 159 large US employers, 70% of talent leaders said their recruiters lose six or more hours a week to unqualified or misrepresenting applicants. In Tunisia a recruiter's hour is cheap, so we sell a faster hire, a safer process and AI Act readiness, not just hours saved. AI agents can do this work, but they read strangers' text *and* they can act. That combination is the vulnerability." | Problem slide: SHRM median of 39 days (E4); Recruitics survey of 159 large US employers (E3, not Tunisian data) |
 | 0:50–1:15 | Principle | "HireGuard: the AI reads, code decides, humans approve. One trust core, two modules: Recruit for candidates, Team for staff." | Architecture diagram (`docs/architecture.md` §1) |
 | 1:15–1:45 | Demo | "Here is the poisoned CV." The hidden text is revealed; the score did not move. Click a score: every point is highlighted in the CV. | Demo steps 1–2 |
 | 1:45–2:05 | Demo | "These two are tied. Any ranker picks one by sort order. We flag it as borderline and leave it to a human." | Demo step 3 |
@@ -20,7 +20,7 @@
 | 2:30–2:50 | Demo | "Nothing leaves without a human." Run an unapproved item: **403**. "And if reviewers start rubber-stamping, the batches shrink." | Demo step 5 |
 | 2:50–3:15 | Demo | "HR Nexus: the data team has nobody with Spark, so the hiring rubric proposes it. Employees ask most about remote work. We measure the process and the handbook, never the people." | Demo step 6 |
 | 3:15–3:55 | Proof | "Same model, same 40 attacks: the standard screener moved on 13, HireGuard on 3, and only one of those 3 helped the attacker, by 1.4 points. Paired, that difference is significant: p = 0.006." Then one limit, said plainly: the twin result below. | Metrics slide |
-| 3:55–4:35 | Business | Beachhead, pricing, pilots asked, then one line on compliance: "built to the EU AI Act, which ESNs serving EU clients will need". | Business slide, compliance table |
+| 3:55–4:35 | Business | Beachhead, pricing, pilots asked, then one line on compliance: "designed around the human oversight and logging that the EU AI Act asks of hiring tools, which ESNs serving EU clients will need; we describe the controls and do not claim compliance". | Business slide, compliance table |
 | 4:35–5:00 | Close | "What we refuse to build: emotion AI, performance scores, culture fit. HireGuard does the paperwork; people decide about people." Then the ask. | Refuse-to-build slide, then the ask |
 
 Money dashboard, employee documents and follow-ups are cut from the live demo. Mention them in one line if time allows.
@@ -72,7 +72,7 @@ References for every claim: `docs/architecture.md` §11.
 
 **One platform, two modules.** Recruit (HireGuard: HR and candidates) and Team (HR Nexus: HR and staff) on one trust core: AI reads, code decides, humans approve. The only bridge is aggregate: team skill counts become a proposed rubric.
 
-**Compliance by design.** Recruitment AI is high-risk under the EU AI Act (Annex III 4(a); obligations from 2 Dec 2027).
+**Compliance by design.** Recruitment AI is high-risk under the EU AI Act (Annex III 4(a); obligations scheduled for 2 December 2027 under the agreed delay, to be confirmed as published).
 
 | Requirement | HireGuard feature |
 |---|---|
@@ -96,19 +96,19 @@ References for every claim: `docs/architecture.md` §11.
 
 **Positioning:** a secure AI HR assistant for Tunisian SMEs and ESNs. It prepares the work (screening, inbox, offers, HR answers), and a human approves every action. The model runs locally by default, so candidate data can stay in Tunisia, and it can import applicants from Odoo and mirror approved actions back to it.
 
-**Beachhead:** IT services companies and ESNs in Grand Tunis and Sfax with 50–500 employees that hire engineers continuously (SUP'COM and ISET pipelines). Size: TBD companies (source TBD).
+**Beachhead:** IT services companies and ESNs in Grand Tunis and Sfax with 50–500 employees that hire engineers continuously (SUP'COM and ISET pipelines). Size: about 2,200 active ICT companies in Tunisia, about 18 staff on average (Invest in Tunisia, E7; an estimate). Firms with 50 or more staff are probably 110 to 220 (assumption: 5% to 10%, to be replaced by a count from a real directory).
 
 **Pricing hypothesis (TND, to be validated in interviews):**
 
 | Plan | For | Price |
 |---|---|---|
-| Pilot | 1 open role, 3 months | TBD TND (free or nominal) |
-| SME | up to 100 employees | TBD TND per month |
-| Company | up to 500 employees, on-prem GPU | TBD TND per month plus setup |
+| Pilot | 1 open role, 3 months, up to 300 CVs | Free (hypothesis) |
+| SME | up to 100 employees | 150 to 400 TND per month (hypothesis; anchor: an Odoo seat is about 33 TND a month, E8) |
+| Company | up to 500 employees, on-prem GPU | 600 to 1,200 TND per month plus setup (hypothesis; anchor: a regional ATS is 2,500 to 3,750 TND a month, E9, a vendor figure to read as a ceiling) |
 
-Anchor: the ROI counter on the money dashboard (hours saved × the customer's own hourly cost).
+Anchor: the ROI card on the money dashboard (hours saved × the customer's own hourly cost, with every default labelled as an assumption; see [`business.md`](business.md)).
 
-**HR interview findings:** collected with [`hr_interview_guide.md`](hr_interview_guide.md). Target 8–10 calls, 3+ asking for a pilot. Results: TBD (n = TBD, pilots asked = TBD).
+**HR interview findings:** collected with [`hr_interview_guide.md`](hr_interview_guide.md). Target 8–10 calls, 3+ asking for a pilot. Interviews: n = 0 so far; the guide, the call script and the pilot-letter template are ready ([`discovery/`](discovery/call_script.md)). Any count shown here must come from `discovery/call_log.csv` (`python scripts/discovery_summary.py`).
 
 **Roadmap:** candidate portal (magic link) → interview confirmations and rescheduling → retention purge and deletion requests → ATS integrations → INPDP compliance pack → anonymous team pulse survey (k ≥ 5).
 

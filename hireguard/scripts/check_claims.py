@@ -39,8 +39,11 @@ def numbers_in(text: str) -> set[str]:
 
 
 def _add_fraction(out: set[str], frac: float) -> None:
-    out.add(canon(round(frac * 100, 1)))
-    out.add(canon(round(frac * 100)))
+    """The percentage to one decimal; the whole-number form only when the value really is a whole number."""
+    pct = frac * 100
+    out.add(canon(round(pct, 1)))
+    if abs(pct - round(pct)) < 0.05:
+        out.add(canon(round(pct)))
 
 
 def _walk(node, out: set[str]) -> None:
@@ -88,10 +91,10 @@ def check(targets: list[Path], evidence: Path, results_dir: Path) -> list[tuple[
                     status = "OK"
                 elif num in ev:
                     status = "OK"
+                elif LABEL.search(line):  # an explicit label wins over a coincidental match with some result
+                    status = "LABELLED"
                 elif num in res:
                     status = "OK"
-                elif LABEL.search(line):
-                    status = "LABELLED"
                 else:
                     status = "UNSOURCED"
                 rows.append((path, no, token, status, line.strip()[:110]))

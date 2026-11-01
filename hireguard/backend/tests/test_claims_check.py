@@ -50,8 +50,13 @@ def test_a_labelled_assumption_is_allowed_but_visible(tmp_path):
 
 
 def test_k_over_n_percentages_from_results_count(tmp_path):
-    s, _ = status_of(tmp_path, "3 of 40 is 7.5%, or 8% rounded.\n")
-    assert s == ["OK", "OK"]
+    s, _ = status_of(tmp_path, "3 of 40 is 7.5%.\n")
+    assert s == ["OK"]
+
+
+def test_a_rounded_result_is_not_a_licence_for_an_unrelated_number(tmp_path):
+    s, _ = status_of(tmp_path, "3 of 40 is 8% rounded, and 10% of firms agree.\n")
+    assert s == ["UNSOURCED", "UNSOURCED"]
 
 
 def test_the_real_documents_have_no_unsourced_percentage():
