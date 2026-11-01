@@ -29,7 +29,7 @@ interface ReadyItem {
 /**
  * GET /approvals lists pending items only, so an approved routine item would vanish before anyone runs it.
  * Decision responses carry the new status: approved items are kept here (per user, per browser session) until
- * executed. P4_NOTES N8 asks P3 for a server-side list.
+ * executed.
  */
 function useReadyList(userId: string | undefined) {
   const key = `hg.ready.${userId ?? "anon"}`;

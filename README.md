@@ -233,7 +233,6 @@ Python 3.11 or newer is recommended. Optional Odoo demo (needs Docker): [erp_odo
 |---|---|
 | [`hireguard/`](hireguard/README.md) | The product: FastAPI backend, React frontend, evaluation harness, fictional data, Odoo connector, Modal deployment, brand kit |
 | [`research/`](research/README.md) | HR Nexus feasibility research: the experiments that decided what the Team module does, and what we refuse to build |
-| [`persons/`](persons/README.md) | Who owns what |
 
 **Read next:** [architecture and risk register](hireguard/docs/architecture.md) · [threat model](hireguard/docs/threat_model.md) ·
 [pipeline](hireguard/docs/pipeline.md) · [evaluation](hireguard/docs/evaluation.md) · [pentest report](hireguard/docs/pentest_report.md) ·

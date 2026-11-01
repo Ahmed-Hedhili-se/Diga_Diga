@@ -103,7 +103,7 @@ Browser                         API                                   SQLite
 
 ## Residual risks
 
-- No second factor yet. TOTP for HR managers and admins is the next step (see `P4_NOTES.md`).
+- No second factor yet. TOTP for HR managers and admins is the next step.
 - Lockout and rate-limit counters are per process. Several API workers would need a shared store.
 - Behind a reverse proxy, set `HG_TRUSTED_PROXIES` to the proxy's address: `X-Forwarded-For` is then read right to left, skipping trusted hops. Without it the header is ignored and everyone behind the proxy shares one rate-limit bucket (pentest O2, `test_client_ip_trusts_forwarded_for_only_from_listed_proxies`).
 - A malicious admin can create an HR account. It is audited but not prevented: in production, require a second admin to approve role grants.

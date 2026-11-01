@@ -5,7 +5,7 @@ Secure AI HR system: SUP'COM hackathon. One platform, two modules on one trust c
 - **Recruit (HireGuard):** HR and candidates. Screening with evidence, inbox triage, replies, interviews, and a fast-track to the offer.
 - **Team (HR Nexus):** HR and staff. Team skills map, HR process metrics, Answer Desk knowledge gaps, self-service documents. Aggregates only, never individual scores.
 
-Architecture, data boundaries, permissions, risk register and references: [docs/architecture.md](docs/architecture.md). Team assignments: [../persons/README.md](../persons/README.md).
+Architecture, data boundaries, permissions, risk register and references: [docs/architecture.md](docs/architecture.md).
 
 Business side: the case and its evidence level are in [docs/business.md](docs/business.md) (every external figure in [docs/evidence.md](docs/evidence.md); `python scripts/check_claims.py` fails on an unsourced percentage). Customer discovery kit: [docs/discovery](docs/discovery/call_script.md) (call script, French outreach message, pilot letter template, call log; `python scripts/discovery_summary.py` prints what the pitch may quote).
 

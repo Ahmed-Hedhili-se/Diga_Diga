@@ -1,7 +1,7 @@
 # Demo script (2 minutes inside the 5-minute pitch)
 
 Owner: Yasmina. The only demo script: it merges Yasmina's script with the pitch runbook (1 Nov); the older
-per-person scripts are in `archive/`. The spoken lines and timing are in [`pitch.md`](pitch.md).
+The spoken lines and timing are in [`pitch.md`](pitch.md).
 
 All people, CVs and emails are fictional. Numbers are never quoted from memory: read them from **Security Center >
 Evaluation**, which shows which run (model or code path) produced every number.
