@@ -951,3 +951,20 @@ mark, .evidence-text mark {
 .top-candidate:hover, .top-candidate:focus-visible { background: var(--surface); }
 .score-track { flex: 0 0 38%; height: 6px; border-radius: 999px; background: var(--border); overflow: hidden; }
 .score-track > span { display: block; height: 100%; background: var(--primary); }
+
+/* ---------- security center ---------- */
+.sc-tabs { margin: 4px 0 16px; }
+.sc-intro { margin: 0 0 16px; padding: 12px 16px; border: 1px solid var(--border); border-left: 3px solid var(--info); border-radius: var(--radius); background: var(--info-soft); }
+.sc-intro p { margin: 0 0 6px; max-width: 78ch; line-height: 1.5; }
+.sc-intro p:last-child { margin-bottom: 0; }
+.sc-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.sc-card { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; text-align: left; font: inherit; color: inherit; cursor: pointer; margin: 0; }
+.sc-card:hover, .sc-card:focus-visible { border-color: var(--primary); }
+.sc-value { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.sc-card.tone-ok .sc-value { color: var(--ok); }
+.sc-card.tone-warn .sc-value { color: var(--warn); }
+.sc-card.tone-danger { border-color: color-mix(in srgb, var(--danger) 50%, var(--border)); }
+.sc-card.tone-danger .sc-value { color: var(--danger); }
+.sc-open { margin-top: auto; padding-top: 6px; color: var(--primary); font-weight: 600; }
+.sc-aim { margin-top: 4px; color: var(--muted); font-style: italic; }
+abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }

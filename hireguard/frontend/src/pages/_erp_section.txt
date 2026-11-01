@@ -1,0 +1,36 @@
+// ---------------------------------------------------------------- Odoo preview (GET /erp/jobs/{id}/applicants)
+
+function ErpPreview({ jobId }: { jobId: string }) {
+  const apps = useLoad(() => api<ErpApplicant[]>(`/erp/jobs/${encodeURIComponent(jobId)}/applicants`), [jobId]);
+  return (
+    <div className="section-gap">
+      <ErrorBox error={apps.error} />
+      <Loading show={apps.loading} rows={2} />
+      {!apps.loading && !apps.data?.length && !apps.error && <Empty>No applicants for this job in Odoo.</Empty>}
+      {!!apps.data?.length && (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Applicant</th>
+              <th>Odoo stage</th>
+              <th>HireGuard</th>
+            </tr>
+          </thead>
+          <tbody>
+            {apps.data.map((a) => (
+              <tr key={a.applicant_id}>
+                <td>
+                  <div>{a.name || "(no name)"}</div>
+                  <div className="muted small">{a.email}</div>
+                </td>
+                <td>{a.stage ?? "—"}</td>
+                <td>{a.imported ? <Badge tone="ok">{a.candidate_id}</Badge> : <Badge>not imported</Badge>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+

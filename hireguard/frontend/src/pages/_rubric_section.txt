@@ -1,0 +1,150 @@
+// ---------------------------------------------------------------- rubric (GET / PUT /jobs/{id}/rubric)
+
+const COMPONENTS = ["skills", "experience", "degree", "languages"] as const;
+const DEGREES: DegreeLevel[] = ["none", "bac", "bts", "licence", "master", "ingenieur", "phd"];
+const CEFRS: Cefr[] = ["A1", "A2", "B1", "B2", "C1", "C2", "native"];
+const LANGS = ["fr", "en", "ar"] as const;
+
+function RubricEditor({ jobId, onClose, onSaved }: { jobId: string; onClose: () => void; onSaved: () => void }) {
+  const canEdit = usePermission("rubric.edit");
+  const loaded = useLoad(() => api<Rubric>(`/jobs/${encodeURIComponent(jobId)}/rubric`), [jobId]);
+  const [r, setR] = useState<Rubric | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => setR(loaded.data), [loaded.data]);
+
+  const compTotal = r ? COMPONENTS.reduce((s, c) => s + (r.component_weights[c] ?? 0), 0) : 0;
+  const skillTotal = r ? Object.values(r.skill_weights).reduce((s, w) => s + w, 0) : 0;
+  const valid = !!r && Math.round(compTotal) === 100 && skillTotal > 0;
+
+  async function save() {
+    if (!r) return;
+    setError(null);
+    try {
+      await api<Rubric>(`/jobs/${encodeURIComponent(jobId)}/rubric`, { method: "PUT", body: r });
+      onSaved();
+      onClose();
+    } catch (x) {
+      setError(errMsg(x));
+    }
+  }
+
+  return (
+    <Modal
+      open
+      title={`Rubric · ${jobId}`}
+      onClose={onClose}
+      actions={
+        <>
+          <button className="btn ghost" onClick={onClose}>
+            {canEdit ? "Cancel" : "Close"}
+          </button>
+          {canEdit && (
+            <ConfirmButton
+              className="btn primary"
+              label="Save rubric"
+              disabled={!valid}
+              title="Save this rubric?"
+              message="The change is recorded in the audit log. Existing scores change only when someone rescores."
+              confirmLabel="Save"
+              onConfirm={save}
+            />
+          )}
+        </>
+      }
+    >
+      <ErrorBox error={loaded.error || error} />
+      <Loading show={loaded.loading} rows={5} />
+      {r && (
+        <fieldset disabled={!canEdit} className="stack rubric">
+          {!canEdit && <div className="alert info">Read-only: only HR managers edit rubrics.</div>}
+          <h3>Score components</h3>
+          <p className={`small ${Math.round(compTotal) === 100 ? "muted" : "text-danger"}`}>
+            Total {fmtNum(compTotal)} / 100{Math.round(compTotal) === 100 ? "" : " (must equal 100)"}
+          </p>
+          {COMPONENTS.map((c) => (
+            <label key={c} className="slider-row">
+              <span className="cap">{c}</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={r.component_weights[c] ?? 0}
+                onChange={(e) => setR({ ...r, component_weights: { ...r.component_weights, [c]: Number(e.target.value) } })}
+              />
+              <span className="num">{r.component_weights[c] ?? 0}</span>
+            </label>
+          ))}
+
+          <h3>Skill weights</h3>
+          <p className="muted small">Relative weights; the share shows how much each skill counts inside the skills component.</p>
+          {Object.entries(r.skill_weights).map(([skill, w]) => (
+            <label key={skill} className="slider-row">
+              <code>{skill}</code>
+              <input
+                type="range"
+                min={0}
+                max={10}
+                step={1}
+                value={w}
+                onChange={(e) => setR({ ...r, skill_weights: { ...r.skill_weights, [skill]: Number(e.target.value) } })}
+              />
+              <span className="num">{skillTotal ? `${fmtNum((100 * w) / skillTotal)}%` : "—"}</span>
+            </label>
+          ))}
+
+          <div className="grid2">
+            <label>
+              Minimum years of experience
+              <input type="number" min={0} max={40} step={0.5} value={r.min_years}
+                onChange={(e) => setR({ ...r, min_years: Number(e.target.value) })} />
+            </label>
+            <label>
+              Required degree
+              <select value={r.required_degree} onChange={(e) => setR({ ...r, required_degree: e.target.value as DegreeLevel })}>
+                {DEGREES.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <h3>Languages</h3>
+          {r.languages.map((l, i) => (
+            <div key={i} className="row">
+              <select aria-label="Language" value={l.iso}
+                onChange={(e) => setR({ ...r, languages: r.languages.map((x, j) => (j === i ? { ...x, iso: e.target.value as typeof l.iso } : x)) })}>
+                {LANGS.map((x) => (
+                  <option key={x} value={x}>
+                    {x}
+                  </option>
+                ))}
+              </select>
+              <select aria-label="Minimum level" value={l.min_cefr}
+                onChange={(e) => setR({ ...r, languages: r.languages.map((x, j) => (j === i ? { ...x, min_cefr: e.target.value as Cefr } : x)) })}>
+                {CEFRS.map((x) => (
+                  <option key={x} value={x}>
+                    {x}
+                  </option>
+                ))}
+              </select>
+              <button type="button" className="btn small ghost" onClick={() => setR({ ...r, languages: r.languages.filter((_, j) => j !== i) })}>
+                Remove
+              </button>
+            </div>
+          ))}
+          <div>
+            <button type="button" className="btn small" disabled={r.languages.length >= LANGS.length}
+              onClick={() => setR({ ...r, languages: [...r.languages, { iso: LANGS.find((x) => !r.languages.some((l) => l.iso === x)) ?? "fr", min_cefr: "B2" }] })}>
+              Add language
+            </button>
+          </div>
+        </fieldset>
+      )}
+    </Modal>
+  );
+}
+
