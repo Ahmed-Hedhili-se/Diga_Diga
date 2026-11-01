@@ -21,8 +21,10 @@ const KIND_LABEL = { approval: "Approvals", inbox: "Inbox", candidate: "Candidat
 const skip = <T,>(): Promise<T | null> => Promise.resolve(null);
 
 export default function Overview() {
-  const { can } = useAuth();
-  const [tick, setTick] = useState(0);
+  const { user, can } = useAuth();
+  const [refreshes, setRefreshes] = useState(0);
+  // reload when the refresh button is pressed or the signed-in user (and so the permissions) changes
+  const tick = `${refreshes}:${user?.id ?? ""}`;
   const [auto, setAuto] = useState(true);
   const [updated, setUpdated] = useState(() => Date.now());
 
@@ -62,7 +64,7 @@ export default function Overview() {
   }, [auto]);
 
   function refresh() {
-    setTick((t) => t + 1);
+    setRefreshes((t) => t + 1);
     setUpdated(Date.now());
   }
 

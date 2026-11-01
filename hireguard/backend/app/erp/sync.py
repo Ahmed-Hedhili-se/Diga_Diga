@@ -142,7 +142,10 @@ def import_applicants(job_id: str, actor: str) -> dict:
             skipped.append({"applicant_id": aid, "reason": "PDF too large"})
             continue
         link = links.get(aid)
-        if link and link["attachment_checksum"] == att.get("checksum") and service.get_candidate(cid):
+        known = service.get_candidate(cid) if link else None
+        # an unchanged CV is skipped, unless the model could not read it last time (no model, timeout):
+        # then it is screened again, so connecting a model later fixes the earlier imports
+        if link and link["attachment_checksum"] == att.get("checksum") and known and known.get("extraction") != "none":
             skipped.append({"applicant_id": aid, "candidate_id": cid, "reason": "already imported"})
             continue
         try:
