@@ -1,0 +1,216 @@
+{
+ "started": "2026-11-01T01:49:09",
+ "model": "qwen3:8b",
+ "hosts": [
+  "<Modal endpoint, redacted>"
+ ],
+ "proxy_auth": true,
+ "limit": 3,
+ "max_requests": 20,
+ "cvs": [
+  {
+   "id": "CV-0001",
+   "job_id": "JOB-FS-02",
+   "ok": true,
+   "latency_s": 73.56,
+   "requests": 1,
+   "schema_retries": 0,
+   "fields": {
+    "status": "ok",
+    "years_experience": 6.9,
+    "highest_degree": "licence",
+    "skills": [
+     [
+      "docker",
+      6.9,
+      "dated_experience"
+     ],
+     [
+      "javascript",
+      0.0,
+      "listed_only"
+     ],
+     [
+      "node-js",
+      6.9,
+      "dated_experience"
+     ],
+     [
+      "postgresql",
+      0.0,
+      "listed_only"
+     ],
+     [
+      "react",
+      6.9,
+      "dated_experience"
+     ],
+     [
+      "rest-api",
+      5.9,
+      "dated_experience"
+     ],
+     [
+      "typescript",
+      5.9,
+      "dated_experience"
+     ]
+    ],
+    "languages": [
+     [
+      "en",
+      "C2"
+     ],
+     [
+      "fr",
+      "B1"
+     ]
+    ],
+    "dropped": 1,
+    "flags": 0
+   },
+   "score": 89.1,
+   "high_findings": 0,
+   "truth": {
+    "skills": [
+     "docker",
+     "javascript",
+     "node-js",
+     "postgresql",
+     "react",
+     "rest-api",
+     "typescript"
+    ],
+    "years_experience": 6.7,
+    "degree": "licence",
+    "lang": "fr"
+   }
+  },
+  {
+   "id": "CV-0002",
+   "job_id": "JOB-FS-02",
+   "ok": true,
+   "latency_s": 12.45,
+   "requests": 1,
+   "schema_retries": 0,
+   "fields": {
+    "status": "ok",
+    "years_experience": 2.8,
+    "highest_degree": "ingenieur",
+    "skills": [
+     [
+      "docker",
+      1.0,
+      "dated_experience"
+     ],
+     [
+      "git",
+      1.0,
+      "dated_experience"
+     ],
+     [
+      "javascript",
+      1.0,
+      "dated_experience"
+     ],
+     [
+      "node-js",
+      0.0,
+      "listed_only"
+     ],
+     [
+      "recruitment",
+      2.8,
+      "dated_experience"
+     ],
+     [
+      "rest-api",
+      1.0,
+      "dated_experience"
+     ]
+    ],
+    "languages": [
+     [
+      "en",
+      "B2"
+     ],
+     [
+      "fr",
+      "B2"
+     ]
+    ],
+    "dropped": 5,
+    "flags": 0
+   },
+   "score": 61.5,
+   "high_findings": 0,
+   "truth": {
+    "skills": [
+     "docker",
+     "git",
+     "javascript",
+     "node-js",
+     "recruitment",
+     "rest-api"
+    ],
+    "years_experience": 2.6,
+    "degree": "ingenieur",
+    "lang": "fr"
+   }
+  },
+  {
+   "id": "CV-0003",
+   "job_id": "JOB-HR-03",
+   "ok": true,
+   "latency_s": 5.06,
+   "requests": 1,
+   "schema_retries": 0,
+   "fields": {
+    "status": "ok",
+    "years_experience": 0.0,
+    "highest_degree": "master",
+    "skills": [
+     [
+      "payroll",
+      0.0,
+      "listed_only"
+     ],
+     [
+      "recruitment",
+      0.0,
+      "listed_only"
+     ]
+    ],
+    "languages": [
+     [
+      "en",
+      "B2"
+     ],
+     [
+      "fr",
+      "C1"
+     ]
+    ],
+    "dropped": 1,
+    "flags": 0
+   },
+   "score": 29.7,
+   "high_findings": 0,
+   "truth": {
+    "skills": [
+     "payroll",
+     "recruitment"
+    ],
+    "years_experience": 0.0,
+    "degree": "master",
+    "lang": "en"
+   }
+  }
+ ],
+ "attacks": [],
+ "emails": [],
+ "stopped": null,
+ "wall_seconds": 92.0,
+ "model_seconds": 91.0,
+ "requests_total": 3
+}

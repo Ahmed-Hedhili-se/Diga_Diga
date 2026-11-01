@@ -1,7 +1,9 @@
 # Frontend, auth and web security (P4)
 
 ## Run
-- Dev: `uvicorn app.main:app --port 8000` in `backend/`, then `npm run dev` in `frontend/` → http://localhost:5173 (Vite proxies `/api`).
+- Dev: `.\run.ps1` from `hireguard/` starts FastAPI on `0.0.0.0:8000` and Vite on `0.0.0.0:5173`; open `http://<backend-machine-ip>:5173` from another machine. Vite proxies `/api` to `VITE_BACKEND_URL` (default `http://localhost:8000`).
+- For a frontend developer on another machine, set `VITE_BACKEND_URL=http://<backend-machine-ip>:8000` before starting Vite, or give them the Vite URL from the backend machine and let the existing proxy handle `/api`.
+- Keep `.env.modal` only on the backend machine. It contains the Modal proxy credentials; frontend code must never receive them.
 - Prod/demo: `npm run build`; FastAPI serves `frontend/dist` from the same origin under the strict CSP → http://localhost:8000.
 - Demo users: `python -m app.seed` in `backend/` prints 5 random passwords **once**. There are no default accounts.
 

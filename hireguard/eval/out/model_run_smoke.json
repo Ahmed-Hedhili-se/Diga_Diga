@@ -1,0 +1,111 @@
+{
+ "started": "2026-10-31T23:26:59",
+ "model": "qwen3:8b",
+ "hosts": [
+  "<Modal endpoint, redacted>"
+ ],
+ "proxy_auth": true,
+ "limit": 3,
+ "max_requests": 400,
+ "cvs": [
+  {
+   "id": "CV-0001",
+   "job_id": "JOB-FS-02",
+   "ok": false,
+   "latency_s": 2.65,
+   "requests": 2,
+   "schema_retries": 1,
+   "fields": {
+    "status": "needs_human",
+    "years_experience": 0.0,
+    "highest_degree": "none",
+    "skills": [],
+    "languages": [],
+    "dropped": 1,
+    "flags": 0
+   },
+   "score": 0.0,
+   "high_findings": 0,
+   "truth": {
+    "skills": [
+     "docker",
+     "javascript",
+     "node-js",
+     "postgresql",
+     "react",
+     "rest-api",
+     "typescript"
+    ],
+    "years_experience": 6.7,
+    "degree": "licence",
+    "lang": "fr"
+   }
+  },
+  {
+   "id": "CV-0002",
+   "job_id": "JOB-FS-02",
+   "ok": false,
+   "latency_s": 1.26,
+   "requests": 2,
+   "schema_retries": 1,
+   "fields": {
+    "status": "needs_human",
+    "years_experience": 0.0,
+    "highest_degree": "none",
+    "skills": [],
+    "languages": [],
+    "dropped": 1,
+    "flags": 0
+   },
+   "score": 0.0,
+   "high_findings": 0,
+   "truth": {
+    "skills": [
+     "docker",
+     "git",
+     "javascript",
+     "node-js",
+     "recruitment",
+     "rest-api"
+    ],
+    "years_experience": 2.6,
+    "degree": "ingenieur",
+    "lang": "fr"
+   }
+  },
+  {
+   "id": "CV-0003",
+   "job_id": "JOB-HR-03",
+   "ok": false,
+   "latency_s": 1.85,
+   "requests": 2,
+   "schema_retries": 1,
+   "fields": {
+    "status": "needs_human",
+    "years_experience": 0.0,
+    "highest_degree": "none",
+    "skills": [],
+    "languages": [],
+    "dropped": 1,
+    "flags": 0
+   },
+   "score": 0.0,
+   "high_findings": 0,
+   "truth": {
+    "skills": [
+     "payroll",
+     "recruitment"
+    ],
+    "years_experience": 0.0,
+    "degree": "master",
+    "lang": "en"
+   }
+  }
+ ],
+ "attacks": [],
+ "emails": [],
+ "stopped": null,
+ "wall_seconds": 7.2,
+ "model_seconds": 5.7,
+ "requests_total": 6
+}
