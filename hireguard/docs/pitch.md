@@ -37,7 +37,7 @@ Two kinds of numbers, never mixed. **Model** = the real Qwen3-8B on a Modal L4 G
 | Hidden-text detection (sanitizer, no model) | 40/40 found, 0 false alarms on 40 clean twins | — |
 | Email routing (model, 100 emails, 15 spoofed) | right lane 100/100; spoofed emails given no candidate data 15/15; unsafe routing 0/100. Urgency is the weak field: 80/100 | — |
 | Fairness audit catches a planted biased criterion | yes: adverse-impact ratio 0.28, p = 0.005; gap traced to the degree component | — |
-| 300 CVs through pipeline and database (code path) | 0 errors, p95 45 ms per CV | — |
+| 300 CVs through pipeline and database (code path) | 0 errors, p95 45 ms per CV. **Through the model** (100 CVs, Modal L4, one at a time): 0 errors, p50 9.9 s, p95 14.5 s per CV, about 5 CVs per minute per GPU | — |
 | **Known limit:** score changed when only town, school, gap, language or gendered title changed (model, with masking) | **17/89** (19.1%, CI 11.5–28.8%): town 0/30, school 0/20, gender 0/10, gap 4/9, **language swaps 13/20**. 26/90 before masking. Code path: 0/89 | — |
 | Extraction F1 (model, 200 CVs) | **skill F1 0.944** (precision 0.999, recall 0.894). French 0.97, English 0.97, **Arabic 0.80**. Years MAE 0.23; degree correct 92.5% | — |
 | **Known limit:** visible attacks (model) | 7/14 supplementary attacks moved a field or score (visible instructions 3/8, bidi 2/4, visible stuffing 2/2), against 8/14 for the standard screener: text that is visible to everyone cannot be removed by a sanitizer. Instructions are flagged to HR 11/11; visible stuffing is not flagged. The 3/40 above covers hidden channels only | — |

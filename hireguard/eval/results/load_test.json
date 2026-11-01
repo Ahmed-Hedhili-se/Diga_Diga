@@ -1,20 +1,26 @@
 {
- "generated_at": "2026-10-31T22:19:05.610184+00:00",
- "extraction": "oracle",
- "scope": "code path and database only; the model is not exercised",
- "n": 300,
+ "generated_at": "2026-11-01T02:35:14.631675+00:00",
+ "extraction": "llm",
+ "scope": "full pipeline including the model",
+ "n": 100,
  "distinct_inputs": 339,
  "errors": {},
  "status": {
-  "ok": 300
+  "ok": 100
  },
- "pipeline_seconds_total": 11.0,
- "cvs_per_minute": 1629.9,
+ "pipeline_seconds_total": 1213.3,
+ "cvs_per_minute": 4.9,
  "latency_ms": {
-  "p50": 36,
-  "p95": 45,
-  "max": 55
+  "p50": 9891,
+  "p95": 14496,
+  "max": 257965
  },
- "wall_seconds_including_oracle_prep": 14.3,
- "db_mb": 2.1
+ "wall_seconds_including_oracle_prep": 1213.3,
+ "db_mb": 0.9,
+ "runtime": {
+  "where": "Modal cloud (US), fictional data only",
+  "gpu": "NVIDIA L4 24 GB (Modal)",
+  "model": "qwen3:8b Q4_K_M",
+  "note": "sequential, one CV after another; max latency is a cold or restarted container"
+ }
 }

@@ -85,7 +85,7 @@ These are product features with unit tests (`backend/tests/test_trust_analytics.
 | Mode (31 Oct) | CVs | Errors | Status | Latency per CV | Throughput |
 |---|---|---|---|---|---|
 | oracle (code path and DB, no model) | 300 | 0 | 300 ok | p50 36 ms, p95 45 ms, max 55 ms | about 1,600 CVs/min |
-| llm (Qwen3-8B via Ollama) | TBD | TBD | TBD | TBD | TBD: run on a GPU laptop; the model dominates latency |
+| llm (Qwen3-8B on a Modal L4, 1 Nov) | 100 | 0 | 100 ok | p50 9.9 s, p95 14.5 s, max 258 s (a cold or restarted container) | 4.9 CVs/min, one CV at a time |
 
 The oracle row shows that the code and database are not the bottleneck. It says nothing about the model.
 
