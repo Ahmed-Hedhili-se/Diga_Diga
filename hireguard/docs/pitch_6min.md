@@ -1,8 +1,10 @@
 # Venidis: 6-minute pitch, plan and script for two speakers
 
-Deck: [Venidis pitch deck](https://claude.ai/artifact/7JPNhFEWSxzzjo8e5H2znG) (18 presented slides, a brand slide and a references appendix;
-speaker notes on every slide; downloads as PowerPoint or PDF). The demo is separate and comes after the pitch
-([`demo_video/`](demo_video/), [`demo_script.md`](demo_script.md)).
+Deck: [Venidis pitch deck](https://claude.ai/artifact/PfBNgg7sFsLF374ziHC6ZX) (18 presented slides, a brand slide, a references
+appendix, a thank-you slide and a looping teaser for the screen after the talk; speaker notes on every slide; downloads as
+PowerPoint or PDF). Offline copy: [`Venidis_pitch.pptx`](Venidis_pitch.pptx) (slides as pictures, so the fonts never change;
+the teaser plays and loops by itself), rebuilt from [`deck/`](deck/); the teaser's source is [`teaser/`](teaser/). The demo
+is separate and comes after the pitch ([`demo_video/`](demo_video/), [`demo_script.md`](demo_script.md)).
 
 ## The plan
 

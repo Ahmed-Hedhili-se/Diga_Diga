@@ -1,0 +1,326 @@
+<!doctype html>
+<!-- Venidis looping teaser (15 s). Every frame is a pure function of t: renderAt(t) sets the whole scene, so
+     render.mjs can capture frames one by one and the last frame matches the first (seamless loop).
+     Open in a browser to preview it playing; ?t=9.6 freezes one moment. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Venidis teaser</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;600&display=block">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0E1525; }
+  * { box-sizing: border-box; }
+  .layer { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  #glow1, #glow2 { position: absolute; border-radius: 50%; }
+  #glow1 { width: 1800px; height: 1800px; background: radial-gradient(circle, rgba(38,48,122,.95) 0%, rgba(38,48,122,.35) 32%, rgba(14,21,37,0) 62%); }
+  #glow2 { width: 1300px; height: 1300px; background: radial-gradient(circle, rgba(251,191,36,.10) 0%, rgba(251,191,36,0) 60%); }
+  #dots { -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 50%, #000 0%, rgba(0,0,0,.35) 60%, transparent 100%); }
+  #vignette { background: radial-gradient(ellipse 75% 70% at 50% 50%, rgba(5,8,16,0) 55%, rgba(5,8,16,.75) 100%); }
+  .sans { font-family: 'Manrope', Arial, sans-serif; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  #mark { position: absolute; width: 210px; height: 210px; }
+  #mark svg { width: 210px; height: 210px; overflow: visible; display: block; }
+  #ring { position: absolute; width: 210px; height: 210px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(79,70,229,0) 38%, rgba(99,102,241,.55) 50%, rgba(79,70,229,0) 64%); }
+  #word { position: absolute; width: 420px; height: 105px; }
+  #word svg { width: 420px; height: 105px; display: block; overflow: visible; }
+  #tagline { position: absolute; left: 0; width: 1920px; top: 660px; text-align: center; font-size: 60px; font-weight: 800;
+             letter-spacing: -1px; color: #F2F4F8; white-space: nowrap; }
+  #tagline span { display: inline-block; margin: 0 9px; }
+  .card { position: absolute; width: 580px; height: 236px; padding: 34px 40px; border-radius: 28px;
+          background: linear-gradient(160deg, rgba(31,42,72,.96), rgba(20,28,48,.96)); border: 2px solid #2B3757;
+          box-shadow: 0 30px 80px rgba(0,0,0,.40); }
+  .card .tag { font-size: 22px; font-weight: 600; letter-spacing: 4px; }
+  .card h2 { margin: 10px 0 8px; font-size: 64px; font-weight: 800; letter-spacing: -1.5px; color: #F2F4F8; line-height: 1; }
+  .card p { margin: 0; font-size: 26px; line-height: 1.35; color: #A3ACBF; width: 400px; }
+  .card svg { position: absolute; right: 36px; top: 34px; }
+  .card .bar { position: absolute; left: 40px; right: 40px; top: 0; height: 4px; border-radius: 0 0 4px 4px; }
+  #hub { position: absolute; left: 894px; top: 724px; width: 132px; height: 132px; border-radius: 34px; background: #172036;
+         border: 3px solid #FBBF24; }
+  #hubGlow { position: absolute; left: 860px; top: 690px; width: 200px; height: 200px; border-radius: 50%;
+             background: radial-gradient(circle, rgba(251,191,36,.55) 0%, rgba(251,191,36,0) 65%); }
+  #hubSquare { position: absolute; left: 942px; top: 772px; width: 36px; height: 36px; border-radius: 6px; background: #F5C842; }
+  #chips { position: absolute; left: 0; width: 1920px; top: 905px; display: flex; justify-content: center; align-items: center; gap: 22px; }
+  .chip { font-size: 30px; font-weight: 700; padding: 14px 30px; border-radius: 999px; white-space: nowrap; }
+  .chev { font-size: 34px; color: #7D879C; font-weight: 700; }
+  #closing { position: absolute; left: 0; width: 1920px; top: 600px; text-align: center; font-size: 72px; font-weight: 800;
+             letter-spacing: -1.5px; line-height: 1.12; }
+  #closing div { display: block; }
+  #modules { position: absolute; left: 0; width: 1920px; top: 872px; display: flex; justify-content: center; align-items: center;
+             gap: 28px; font-size: 26px; font-weight: 600; letter-spacing: 6px; color: #A3ACBF; }
+  #modules i { display: block; width: 16px; height: 16px; border-radius: 3px; background: #F5C842; }
+</style>
+</head>
+<body>
+<div id="bg" class="layer">
+  <div id="glow1"></div>
+  <div id="glow2"></div>
+  <svg id="dots" class="layer" width="1920" height="1080" viewBox="0 0 1920 1080">
+    <defs><pattern id="dotp" width="48" height="48" patternUnits="userSpaceOnUse"><circle cx="24" cy="24" r="2" fill="rgba(165,180,252,.20)"/></pattern></defs>
+    <rect id="dotRect" x="-48" y="-96" width="2016" height="1272" fill="url(#dotp)"/>
+  </svg>
+  <div id="vignette" class="layer"></div>
+</div>
+
+<div id="content" class="layer">
+  <!-- act 2: two modules converge into one platform -->
+  <div id="act2" class="layer">
+    <svg class="layer" width="1920" height="1080" viewBox="0 0 1920 1080">
+      <defs>
+        <linearGradient id="gL" gradientUnits="userSpaceOnUse" x1="440" y1="585" x2="890" y2="790"><stop offset="0" stop-color="#A5B4FC"/><stop offset="1" stop-color="#FBBF24"/></linearGradient>
+        <linearGradient id="gR" gradientUnits="userSpaceOnUse" x1="1480" y1="585" x2="1030" y2="790"><stop offset="0" stop-color="#6EE7B7"/><stop offset="1" stop-color="#FBBF24"/></linearGradient>
+        <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+      </defs>
+      <g fill="none" stroke="#4F46E5" stroke-width="3" stroke-dasharray="8 10" opacity=".55" id="rails">
+        <path d="M440 585 C 440 745, 690 790, 884 790"/>
+        <path d="M1480 585 C 1480 745, 1230 790, 1036 790"/>
+      </g>
+      <path id="pL" d="M440 585 C 440 745, 690 790, 884 790" fill="none" stroke="url(#gL)" stroke-width="5" stroke-linecap="round"/>
+      <path id="pR" d="M1480 585 C 1480 745, 1230 790, 1036 790" fill="none" stroke="url(#gR)" stroke-width="5" stroke-linecap="round"/>
+      <path id="headL" d="M866 776 L888 790 L866 804" fill="none" stroke="#FBBF24" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="headR" d="M1054 776 L1032 790 L1054 804" fill="none" stroke="#FBBF24" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g id="pulses"></g>
+    </svg>
+    <div id="cardL" class="card sans" style="left:150px;top:350px">
+      <div class="bar" style="background:#A5B4FC"></div>
+      <div class="tag mono" style="color:#A5B4FC">MODULE 01</div>
+      <h2>HireGuard</h2>
+      <p>Safe recruiting: CVs, inbox, interviews, offers</p>
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#A5B4FC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 L54 14 V30 C54 44 44 54 32 58 C20 54 10 44 10 30 V14 Z"/><path d="M22 32 l7 7 l13 -14"/></svg>
+    </div>
+    <div id="cardR" class="card sans" style="left:1190px;top:350px">
+      <div class="bar" style="background:#6EE7B7"></div>
+      <div class="tag mono" style="color:#6EE7B7">MODULE 02</div>
+      <h2>HR Nexus</h2>
+      <p>Team insight: skills, process times, handbook gaps</p>
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#6EE7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="14" r="7"/><circle cx="12" cy="48" r="7"/><circle cx="52" cy="48" r="7"/><path d="M28 20 L16 42 M36 20 L48 42 M19 48 H45"/></svg>
+    </div>
+    <div id="hubGlow"></div>
+    <div id="hub"></div>
+    <div id="hubSquare"></div>
+    <div id="chips" class="sans">
+      <span class="chip" id="c1" style="color:#C7D2FE;background:rgba(79,70,229,.22);border:2px solid rgba(165,180,252,.45)">A local model reads</span>
+      <span class="chev" id="v1">›</span>
+      <span class="chip" id="c2" style="color:#C7D2FE;background:rgba(79,70,229,.22);border:2px solid rgba(165,180,252,.45)">Code decides</span>
+      <span class="chev" id="v2">›</span>
+      <span class="chip" id="c3" style="color:#0E1525;background:#FBBF24;border:2px solid #FBBF24">People approve</span>
+    </div>
+  </div>
+
+  <!-- the lockup: mark + wordmark (brand/venidis-logo-on-dark.svg) -->
+  <div id="lockup" class="layer">
+    <div id="ring"></div>
+    <div id="mark">
+      <svg viewBox="0 0 64 64">
+        <defs>
+          <clipPath id="badgeClip"><rect width="64" height="64" rx="14"/></clipPath>
+          <linearGradient id="sweep" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="64" y2="0">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="sqGlow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="3.2"/></filter>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="#EEF0EC"/>
+        <path id="vStroke" d="M13 16 L32 47 L51 16" fill="none" stroke="#111417" stroke-width="7.0" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect id="sqHalo" x="28" y="21.6" width="8" height="8" rx="1.4" fill="#F5C842" filter="url(#sqGlow)"/>
+        <rect id="sq" x="28" y="21.6" width="8" height="8" rx="1.4" fill="#F5C842"/>
+        <g clip-path="url(#badgeClip)"><rect id="sweepBand" x="-40" y="-20" width="34" height="110" fill="url(#sweep)" transform="skewX(-18)"/></g>
+      </svg>
+    </div>
+    <div id="word">
+      <svg viewBox="78 12 128 32">
+        <defs>
+          <linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="30" y2="0">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#FFF6D6" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path id="wordPath" fill="#EEF0EC" d="M87.54 42 79.3 22H84.25L89.96 36.51L95.64 22H100.61L92.37 42Z M111.890 42.480Q108.950 42.480 106.680 41.140Q104.410 39.800 103.120 37.440Q101.820 35.080 101.820 32.000Q101.820 28.920 103.140 26.560Q104.470 24.200 106.780 22.860Q109.090 21.520 112.090 21.520Q114.770 21.520 116.950 22.900Q119.130 24.280 120.410 26.900Q121.700 29.520 121.700 33.210H106.800Q107.000 35.520 108.610 36.850Q110.210 38.190 112.360 38.190Q114.110 38.190 115.250 37.410Q116.390 36.640 117.010 35.400L121.270 37.140Q120.440 38.790 119.120 39.990Q117.810 41.200 116.000 41.840Q114.190 42.480 111.890 42.480ZM107.080 29.580H116.510Q116.390 28.230 115.690 27.350Q114.990 26.480 114.000 26.050Q113.000 25.610 111.960 25.610Q110.960 25.610 109.880 26.030Q108.800 26.450 108.020 27.320Q107.240 28.200 107.080 29.580Z M124.6 42V22H129.11L129.31 24.78Q130.29 23.2 131.81 22.36Q133.33 21.52 135.3 21.52Q137.67 21.52 139.37 22.48Q141.06 23.44 141.96 25.46Q142.86 27.48 142.84 30.7V42H138.05V31.76Q138.05 29.52 137.53 28.28Q137 27.05 136.08 26.54Q135.16 26.03 133.94 26.01Q131.76 25.97 130.57 27.4Q129.39 28.84 129.39 31.54V42Z M147.12 42V22H151.91V42ZM149.54 18.43Q148.42 18.43 147.58 17.59Q146.74 16.76 146.74 15.64Q146.74 14.48 147.58 13.66Q148.42 12.84 149.54 12.84Q150.7 12.84 151.51 13.66Q152.33 14.48 152.33 15.64Q152.33 16.76 151.51 17.59Q150.7 18.43 149.54 18.43Z M164.58 42.48Q161.84 42.48 159.81 41.19Q157.78 39.9 156.66 37.53Q155.54 35.16 155.54 32Q155.54 28.8 156.66 26.45Q157.78 24.1 159.81 22.81Q161.84 21.52 164.58 21.52Q166.6 21.52 168.18 22.39Q169.76 23.26 170.77 24.84V14H175.56V42H171L170.85 39.06Q169.84 40.68 168.24 41.58Q166.64 42.48 164.58 42.48ZM165.78 38.09Q167.2 38.09 168.3 37.36Q169.4 36.63 170.05 35.31Q170.71 34 170.77 32.34V31.68Q170.71 30 170.05 28.7Q169.4 27.39 168.29 26.66Q167.18 25.93 165.74 25.93Q164.22 25.93 163.03 26.7Q161.83 27.47 161.16 28.85Q160.49 30.22 160.49 32Q160.49 33.78 161.18 35.15Q161.87 36.53 163.07 37.31Q164.26 38.09 165.78 38.09Z M180.24 42V22H185.03V42ZM182.66 18.43Q181.54 18.43 180.7 17.59Q179.86 16.76 179.86 15.64Q179.86 14.48 180.7 13.66Q181.54 12.84 182.66 12.84Q183.82 12.84 184.63 13.66Q185.45 14.48 185.45 15.64Q185.45 16.76 184.63 17.59Q183.82 18.43 182.66 18.43Z M197.13 42.48Q195.15 42.48 193.47 41.88Q191.8 41.29 190.56 40.19Q189.33 39.09 188.66 37.57L192.78 35.71Q193.39 36.75 194.51 37.49Q195.63 38.22 197.05 38.22Q198.51 38.22 199.36 37.76Q200.21 37.29 200.21 36.42Q200.21 35.58 199.54 35.14Q198.88 34.7 197.69 34.41L195.83 33.92Q192.98 33.17 191.35 31.56Q189.73 29.94 189.73 27.86Q189.73 24.83 191.68 23.18Q193.63 21.52 197.28 21.52Q199.13 21.52 200.71 22.07Q202.29 22.62 203.42 23.61Q204.55 24.59 205 25.91L201.01 27.72Q200.67 26.79 199.56 26.27Q198.46 25.75 197.22 25.75Q195.96 25.75 195.27 26.28Q194.58 26.81 194.58 27.76Q194.58 28.34 195.22 28.77Q195.85 29.2 197.04 29.48L199.49 30.09Q201.45 30.57 202.67 31.6Q203.88 32.63 204.46 33.91Q205.03 35.19 205.03 36.45Q205.03 38.25 203.99 39.62Q202.96 40.99 201.18 41.73Q199.4 42.48 197.13 42.48Z"/>
+        <use id="wordShine" href="#wordPath" fill="url(#shine)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div id="tagline" class="sans"><span>Read</span><span>safely.</span><span style="color:#FBBF24">Decide</span><span style="color:#FBBF24">together.</span></div>
+
+  <div id="closing" class="sans">
+    <div id="cl1" style="color:#F2F4F8">Venidis does the paperwork.</div>
+    <div id="cl2" style="color:#FBBF24">People decide about people.</div>
+  </div>
+  <div id="modules" class="mono"><span>HIREGUARD</span><i></i><span>HR NEXUS</span></div>
+</div>
+
+<script>
+const T = 15;
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, x) => a + (b - a) * x;
+const outCubic = (x) => 1 - Math.pow(1 - x, 3);
+const inOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const outExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const outBack = (x) => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const hump = (t, a, b) => { const x = prog(t, a, b); return Math.sin(Math.PI * x); };
+
+const V_LEN = $("vStroke").getTotalLength();
+const pL = $("pL"), pR = $("pR");
+const L_LEN = pL.getTotalLength(), R_LEN = pR.getTotalLength();
+const pulses = [];
+for (let i = 0; i < 6; i++) {
+  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  g.innerHTML = '<circle r="16" fill="#FFE7A3" opacity=".35" filter="url(#soft)"/><circle r="6" fill="#FFF3CF"/>';
+  $("pulses").appendChild(g);
+  pulses.push(g);
+}
+const tagWords = [...$("tagline").children];
+
+function renderAt(t) {
+  t = ((t % T) + T) % T;
+  const ang = (2 * Math.PI * t) / T;
+
+  // background: everything periodic in T, so the loop has no seam
+  $("glow1").style.transform = `translate(${960 - 900 + 260 * Math.sin(ang)}px, ${400 - 900 + 110 * Math.cos(ang)}px)`;
+  $("glow2").style.transform = `translate(${1250 - 650 - 300 * Math.sin(ang)}px, ${720 - 650 - 90 * Math.sin(2 * ang)}px)`;
+  $("dotRect").setAttribute("transform", `translate(0, ${(t / T) * 96})`);
+
+  // global exit: content fades and drifts forward, background stays
+  const exit = inOutCubic(prog(t, 13.7, 14.85));
+  $("content").style.opacity = 1 - exit;
+  $("content").style.transform = `scale(${1 + 0.035 * exit})`;
+  $("content").style.filter = exit > 0 ? `blur(${6 * exit}px)` : "none";
+
+  // ---------------------------------------------------------------- act 1: the mark, then the name
+  const markIn = outExpo(prog(t, 0.8, 1.9));
+  const shift = inOutCubic(prog(t, 2.45, 3.35));
+  const markCx = lerp(960, 725, shift);
+  const mark = $("mark");
+  mark.style.left = markCx - 105 + "px";
+  mark.style.top = 540 - 105 + "px";
+  mark.style.opacity = prog(t, 0.8, 1.3);
+  mark.style.transform = `scale(${lerp(0.7, 1, markIn)})`;
+  const blur = lerp(18, 0, outCubic(prog(t, 0.8, 1.75)));
+  mark.style.filter = `blur(${blur}px) drop-shadow(0 26px 60px rgba(0,0,0,.5))`;
+  const vp = inOutCubic(prog(t, 1.25, 2.0));
+  const v = $("vStroke");
+  v.style.strokeDasharray = `${V_LEN} ${V_LEN + 20}`;
+  v.style.strokeDashoffset = V_LEN * (1 - vp);
+  v.style.opacity = vp > 0 ? 1 : 0;
+  const sqp = prog(t, 1.95, 2.5);
+  const sqY = lerp(-34, 0, outBack(sqp));
+  $("sq").setAttribute("transform", `translate(0, ${sqY})`);
+  $("sq").style.opacity = prog(t, 1.95, 2.08);
+  $("sqHalo").setAttribute("transform", `translate(0, ${sqY})`);
+  $("sqHalo").style.opacity = 0.25 * prog(t, 1.95, 2.1) + 0.95 * hump(t, 2.3, 3.1);
+  $("sweepBand").setAttribute("x", lerp(-40, 90, inOutCubic(prog(t, 2.05, 2.75))));
+  const ring = $("ring");
+  const rp = prog(t, 1.0, 2.3);
+  ring.style.left = markCx - 105 + "px";
+  ring.style.top = 540 - 105 + "px";
+  ring.style.transform = `scale(${lerp(0.8, 2.6, outCubic(rp))})`;
+  ring.style.opacity = hump(t, 1.0, 2.3) * 0.9;
+
+  const word = $("word");
+  const wp = outCubic(prog(t, 2.65, 3.55));
+  word.style.left = markCx + 105 + 46 + lerp(-28, 0, wp) + "px";
+  word.style.top = 540 - 52 + "px";
+  word.style.opacity = prog(t, 2.65, 2.9);
+  word.style.clipPath = `inset(-10% ${100 * (1 - wp)}% -10% 0)`;
+  const shine = $("shine");
+  const sx = lerp(60, 230, inOutCubic(prog(t, 3.3, 4.1)));
+  shine.setAttribute("x1", sx - 15); shine.setAttribute("x2", sx + 15);
+
+  // lockup placement per act: centre y and scale
+  let cy = 500, s = 1;
+  const toTop = inOutCubic(prog(t, 4.85, 5.85));
+  cy = lerp(500, 165, toTop); s = lerp(1, 0.52, toTop);
+  const toMid = inOutCubic(prog(t, 10.1, 11.2));
+  cy = lerp(cy, 420, toMid); s = lerp(s, 0.9, toMid);
+  $("lockup").style.transformOrigin = "960px 540px";
+  $("lockup").style.transform = `translate(0, ${cy - 540}px) scale(${s})`;
+
+  // tagline: words rise in one after another, leave together
+  const tagOut = inOutCubic(prog(t, 4.75, 5.25));
+  tagWords.forEach((w, i) => {
+    const p = outCubic(prog(t, 3.65 + i * 0.12, 4.25 + i * 0.12));
+    w.style.opacity = p * (1 - tagOut);
+    w.style.transform = `translateY(${lerp(30, 0, p) - 20 * tagOut}px)`;
+  });
+
+  // ---------------------------------------------------------------- act 2: two modules, one platform
+  const act2Out = inOutCubic(prog(t, 9.95, 10.6));
+  $("act2").style.opacity = 1 - act2Out;
+  $("act2").style.transform = `translateY(${30 * act2Out}px)`;
+  const cardIn = (el, a, dx) => {
+    const p = outCubic(prog(t, a, a + 0.8));
+    el.style.opacity = prog(t, a, a + 0.45);
+    el.style.transform = `translate(${lerp(dx, 0, p)}px, ${lerp(20, 0, p)}px)`;
+  };
+  cardIn($("cardL"), 5.55, -70);
+  cardIn($("cardR"), 5.8, 70);
+  const draw = (path, len, a) => {
+    const p = inOutCubic(prog(t, a, a + 1.1));
+    path.style.strokeDasharray = `${len} ${len + 20}`;
+    path.style.strokeDashoffset = len * (1 - p);
+    path.style.opacity = p > 0 ? 1 : 0;
+    return p;
+  };
+  const dl = draw(pL, L_LEN, 6.2), dr = draw(pR, R_LEN, 6.35);
+  $("rails").style.opacity = 0.55 * prog(t, 6.0, 6.6);
+  $("headL").style.opacity = prog(t, 7.15, 7.35);
+  $("headR").style.opacity = prog(t, 7.3, 7.5);
+  const hubP = outBack(prog(t, 7.25, 7.8));
+  const beat = 0.5 + 0.5 * Math.sin((2 * Math.PI * (t - 7.8)) / 1.2);
+  for (const id of ["hub", "hubSquare"]) {
+    const el = $(id);
+    el.style.opacity = prog(t, 7.25, 7.45);
+    el.style.transform = `scale(${lerp(0.4, 1, hubP)})`;
+    el.style.transformOrigin = "960px 790px";
+  }
+  $("hub").style.transformOrigin = "66px 66px";
+  $("hubSquare").style.transformOrigin = "18px 18px";
+  $("hubSquare").style.transform = `scale(${lerp(0.2, 1, hubP) * (t > 7.8 ? 1 + 0.08 * beat : 1)})`;
+  $("hubGlow").style.opacity = prog(t, 7.3, 7.8) * (0.55 + 0.45 * (t > 7.8 ? beat : 0)) + 0.8 * hump(t, 7.3, 8.0);
+  $("hubGlow").style.transform = `scale(${1 + 0.15 * (t > 7.8 ? beat : 0)})`;
+
+  // light pulses travel from each module into the hub once the paths are drawn
+  pulses.forEach((g, i) => {
+    const side = i % 2, k = Math.floor(i / 2);
+    const start = 7.4 + k * 0.4 + side * 0.2;
+    const path = side ? pR : pL, len = side ? R_LEN : L_LEN;
+    if (t < start) { g.style.opacity = 0; return; }
+    const ph = ((t - start) / 1.2) % 1;
+    const pt = path.getPointAtLength(len * inOutCubic(ph));
+    g.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+    g.style.opacity = Math.sin(Math.PI * ph) * (side ? dr : dl);
+  });
+
+  const chip = (id, a) => {
+    const p = outCubic(prog(t, a, a + 0.55));
+    $(id).style.opacity = prog(t, a, a + 0.35);
+    $(id).style.transform = `translateY(${lerp(24, 0, p)}px)`;
+  };
+  chip("c1", 8.0); chip("v1", 8.3); chip("c2", 8.45); chip("v2", 8.75); chip("c3", 8.9);
+  $("c3").style.boxShadow = `0 0 ${40 * hump(t, 9.1, 9.9)}px rgba(251,191,36,.7)`;
+
+  // ---------------------------------------------------------------- act 3: the line people remember
+  const line = (id, a) => {
+    const p = outCubic(prog(t, a, a + 0.7));
+    $(id).style.opacity = prog(t, a, a + 0.45);
+    $(id).style.transform = `translateY(${lerp(34, 0, p)}px)`;
+  };
+  line("cl1", 10.95); line("cl2", 11.3);
+  const m = outCubic(prog(t, 11.8, 12.4));
+  $("modules").style.opacity = prog(t, 11.8, 12.2);
+  $("modules").style.letterSpacing = lerp(14, 6, m) + "px";
+}
+
+window.renderAt = window.renderAt || renderAt;
+window.T = T;
+window.ready = document.fonts.ready.then(() => document.fonts.check("800 40px Manrope") && document.fonts.check("600 20px 'IBM Plex Mono'"));
+
+// preview in a browser: ?t=N freezes a moment, otherwise it plays in real time
+const q = new URLSearchParams(location.search);
+if (q.has("t")) renderAt(parseFloat(q.get("t")));
+else if (!q.has("render")) { const t0 = performance.now(); const tick = () => { renderAt((performance.now() - t0) / 1000); requestAnimationFrame(tick); }; tick(); }
+else renderAt(0);
+</script>
+</body>
+</html>
