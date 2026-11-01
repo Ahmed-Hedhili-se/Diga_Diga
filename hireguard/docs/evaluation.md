@@ -61,6 +61,8 @@ Twins test one candidate at a time. Group bias can still ride on fields the scor
 
 The verdict is **flag** when AIR < 0.8 and p < 0.05, and **watch** when AIR < 0.8 but the difference could be chance.
 
+**Code path (oracle extraction, 31 Oct; `eval/results/fairness_oracle.json`).**
+
 | Attribute | AIR [95% CI] | p | Verdict | Proxy AUC (null 95th) |
 |---|---|---|---|---|
 | Region (Grand Tunis / coast / interior) | 0.89 [0.34–0.93] | 0.98 | ok | 0.55 (0.58) |
@@ -69,9 +71,21 @@ The verdict is **flag** when AIR < 0.8 and p < 0.05, and **watch** when AIR < 0.
 | CV language | 0.73 [0.20–0.90] | 0.67 | watch | 0.53 (0.56) |
 | **Positive control: school** | **0.28 [0.05–0.55]** | **0.005** | **flag** | **0.84 (0.54)** |
 
+**Through the model (1 Nov, Qwen3-8B on a Modal L4, identity masking on; `eval/results/fairness.json`).**
+
+| Attribute | AIR [95% CI] | p | Verdict | Proxy AUC (null 95th) |
+|---|---|---|---|---|
+| Region (Grand Tunis / coast / interior) | 0.70 [0.30–0.92] | 0.57 | watch | 0.53 (0.59) |
+| School | 0.69 [0.28–0.90] | 0.55 | watch | 0.54 (0.54) |
+| Gender | 0.97 [0.53–0.99] | 1.00 | ok | 0.46 (0.58) |
+| **CV language** | **0.10 [0.00–0.35]** | **0.001** | **flag** | 0.61 (0.57) |
+| **Positive control: school** | **0.26 [0.05–0.55]** | **0.004** | **flag** | **0.80 (0.54)** |
+
+**The model-mode audit finds a real disparity.** Shortlisted by CV language: Arabic **1 of 33**, English **10 of 64**, French **30 of 103**. With p = 0.001 this is not chance, and it is not an artefact of the test: the audit caught the planted bias in the same run. The likely cause is the Arabic extraction weakness (skill F1 0.80, recall 0.67): the extractor's prompt lists skills by English label only, so Arabic skill names are often not matched, Arabic CVs lose skills, and they score lower. That is a diagnosis from a few CVs, **not a measured fix**. One of the 200 CVs hit the 2,048-token output cap and went to a person (counted as not shortlisted). Region and school are watch signals that are not significant. Gender shows no gap.
+
 How to read this:
 
-- The synthetic attributes are random by construction, so the two "watch" rows are chance in small groups (33–103 CVs). The four-fifths rule alone would have raised two false alarms; the permutation test is what keeps it honest.
+- In the code-path table, the synthetic attributes are random by construction, so the two "watch" rows are chance in small groups (33–103 CVs). The four-fifths rule alone would have raised two false alarms; the permutation test is what keeps it honest.
 - The **positive control** plants a real bias: degree follows school (SUP'COM → engineering degree, ISET → licence), and every rubric requires an engineering degree weighted 30. The audit flags it, the proxy test shows the degree reveals the school, and the gap breakdown attributes **100% of the gap to the degree component**. HR then decides whether that requirement is job-necessary.
 
 ## Shortlist stability (U1), team-aware rubric, attention guard (U3)

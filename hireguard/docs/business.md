@@ -57,7 +57,7 @@ that is 468 hours a year, about 6,650 TND at 14.2 TND an hour (our calculation).
 - **Synthetic CVs only.** Every measurement uses generated CVs and emails, with attacks written by our team. Real CVs are untested.
 - **PDF only.** `check_upload` rejects anything that does not start with `%PDF-`. A scanned PDF with no text goes to a person. Word files are refused.
 - **A GPU is a barrier for a small company.** On-premises means hardware; a managed host in Tunisia is not built.
-- **Arabic is weaker.** Skill F1 is 0.80 on Arabic CVs against about 0.97 on French and English.
+- **Arabic is weaker, and our own audit flags it.** Skill F1 is 0.80 on Arabic CVs against about 0.97 on French and English, and in the group audit through the model Arabic CVs were shortlisted 1 time in 33 against 30 in 103 for French (adverse-impact ratio 0.10, p = 0.001). In Tunisia this is a central risk, not a corner case.
 - **The product name is not trademark-cleared** (`brand/README.md`).
 - **The AI Act date** (2 Dec 2027) must be confirmed as published in the Official Journal before anyone says "final".
 - **Visible manipulation still works.** Text written in plain sight changed a result in 7 of 14 tests (the naive screener, 8 of 14). Human review stays essential.

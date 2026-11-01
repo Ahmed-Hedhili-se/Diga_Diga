@@ -28,6 +28,7 @@ Still open (for the team, not blocked on a GPU):
 - [ ] **Visible attacks**: 7/14 supplementary attacks moved a field or score (visible instructions 3/8, bidi 2/4,
       visible stuffing 2/2). The detector flags instructions but not stuffing. Decide with Ahmed how the pitch states this;
       Rayen's `listed_only` weighting (<= 0.3) should reduce the effect of stuffing.
+- [ ] **CV-language disparity (found 1 Nov by our own audit).** Through the model, Arabic CVs were shortlisted 1 of 33, English 10 of 64, French 30 of 103 (AIR 0.10, p = 0.001; `eval/results/fairness.json`). Same root cause as the item below; re-run `fairness.py --extraction llm` after the fix.
 - [ ] **Arabic extraction (diagnosed 1 Nov, fix not yet measured).** Arabic CVs lose 55 of 165 skills (recall 0.67). In the
       CVs checked, the skills written in Arabic (`إدارة شؤون الموظفين`, `التوظيف`) are never proposed by the model, while Latin-script
       ones are. Cause: `extractor._esco_list()` shows only the English label (`hr-administration: Personnel administration`) although
