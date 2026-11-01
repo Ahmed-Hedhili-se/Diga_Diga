@@ -21,7 +21,7 @@ class Ratings(BaseModel, extra="forbid"):
     technical: Rating
     problem_solving: Rating
     communication: Rating
-    team_fit: Rating
+    collaboration: Rating
 
 
 class Scorecard(BaseModel, extra="forbid"):

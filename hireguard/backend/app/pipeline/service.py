@@ -192,6 +192,7 @@ def _row(conn, r) -> dict:
         "candidate_id": r["candidate_id"], "name": r["name"], "email": r["email"], "job_id": r["job_id"],
         "status": r["status"], "score": _latest_score(conn, r["candidate_id"], r["job_id"], r["score"]),
         "flags": len(validated.get("injection_flags", [])), "hidden": len(hidden),
+        "hidden_high": sum(1 for h in hidden if h.get("severity", "high") != "low"),  # low = harmless glyph, no badge
         "extraction": r["extraction_source"],  # llm | none | ground_truth: the UI never shows offline output as a model run
         "_validated": validated, "_hidden": hidden, "_page_count": r["page_count"],
     }

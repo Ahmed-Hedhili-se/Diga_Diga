@@ -16,8 +16,9 @@ def rubric(**kw):
     return Rubric(**base)
 
 
-def skill(esco_id, years=2.0, page=0):
-    return ValidSkill(esco_id=esco_id, label=esco_id.upper(), evidence=Span(start=10, end=16), page=page, years=years)
+def skill(esco_id, years=2.0, page=0, support="dated_experience"):
+    return ValidSkill(esco_id=esco_id, label=esco_id.upper(), evidence=Span(start=10, end=16), page=page, years=years,
+                      support=support)
 
 
 def cv(**kw):
@@ -138,3 +139,20 @@ def test_rubric_files_are_valid():
         r = jobs.file_rubric(job_id)
         assert r.job_id == job_id and r.skill_weights
         assert all(w >= 0 for w in r.skill_weights.values())
+
+
+def test_a_listed_only_skill_counts_at_most_30_percent_of_a_dated_one():
+    """Twin pair: identical CVs, the skill is backed by a dated job in one and only listed in the other."""
+    r = rubric(skill_weights={"python": 5})
+    dated = score(cv(skills=[skill("python", 3)]), r).components[0]
+    listed = score(cv(skills=[skill("python", 3, support="listed_only")]), r).components[0]
+    assert 0 < listed.points <= 0.3 * dated.points + 1e-9
+    assert any("only listed" in j for j in listed.justifications)
+    assert not any("only listed" in j for j in dated.justifications)
+
+
+def test_keyword_stuffing_no_longer_beats_real_experience():
+    r = rubric(skill_weights={"python": 5, "sql": 5, "etl": 2})
+    real = score(cv(skills=[skill("python", 2), skill("sql", 2)]), r)
+    stuffed = score(cv(skills=[skill(s, 0, support="listed_only") for s in ("python", "sql", "etl")]), r)
+    assert stuffed.total < real.total

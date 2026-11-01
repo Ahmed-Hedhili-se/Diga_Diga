@@ -287,9 +287,9 @@ R recruiter · M HR manager · E employee · A admin.
 | R1 | Model-mode evidence. **Measured 31 Oct** (Qwen3-8B, before identity masking): attacks 3/40 vs 13/40 for a standard screener, paired p = 0.006; emails 100/100 right lane. Still open: the run after masking, and extraction quality (n = 2 CVs) | High | Hedhili | Partly closed. Re-run `eval/harness.py --extraction llm` on current `main`; extraction on 50+ CVs; record where the model ran |
 | R2 | The detector misses instruction payloads: English "Evaluator note" 4/4, Derja 3/3, Arabic 3/4 | Medium (the detector is a signal, not a control) | Hedhili | Open. `docs/evaluation.md` |
 | R3 | The Answer Desk returned 501 | High for the demo | Hedhili | **Closed 31 Oct**: BM25 extracts and HR routing (`pipeline/answer_desk.py`), tests in `test_answer_desk.py` |
-| R4 | `GET /reviewer/stats` returns canary misses **per reviewer**: a per-person monitoring score, against section 7 | Medium | Rayen | **Decided 31 Oct (Ahmed): aggregate.** Return canary hits and misses by batch size and week, never by user id; keep it M A. Open until implemented and tested |
+| R4 | `GET /reviewer/stats` returned canary misses **per reviewer**: a per-person monitoring score, against section 7 | Medium | Rayen | **Closed 1 Nov (Ahmed's decision: aggregate):** returns totals, hits and misses by batch size and by week, never a user id (test `test_canary_is_never_serialized_and_misses_are_tracked`); still M A |
 | R5 | `main` commit `8f829d8` contains `node_modules` (3,273 files), `frontend/dist` and about 380 generated PDFs | Medium (repo hygiene, pre-merge gate) | Ahmed | **Closed 31 Oct**: reverted in `932747e`; `hireguard/.gitignore` is now on `main`; a scan of tracked files finds no `node_modules`, build output, database or secret |
-| R6 | Scorecard criterion `team_fit` invites "culture fit" judgements | Low | Rayen | Open. Rename to `collaboration` with job-related anchors |
+| R6 | Scorecard criterion `team_fit` invites "culture fit" judgements | Low | Rayen | **Closed 1 Nov**: renamed `collaboration`, shown as "Working with others" with a job-related prompt (contract change, `API.md` updated) |
 | R7 | HR could read offer fit as a ranking signal | Medium | Yasmina, Rayen | Mitigated: not in the score (test `test_conditions_never_change_the_score`), UI copy, offers set inside the band |
 | R8 | Talent-pool use without valid consent | Medium | Rayen | Mitigated: opt-in at upload, 730-day expiry, withdraw endpoint, audited, tested |
 | R9 | Demo history (old outbox emails, answer-desk log, process simulation) mistaken for measurements | Low | Yasmina | Mitigated: `seed:history` marker, "Simulation" banner, and this note |
@@ -297,7 +297,7 @@ R recruiter · M HR manager · E employee · A admin.
 | R11 | Retention is documented (section 3), but only the talent-pool expiry is enforced in code; nothing purges candidate files after a requisition closes | Medium | Rayen (Ahmed owns the policy) | Open. Roadmap: a purge job and a delete-on-request endpoint, both audited. Say so if a judge asks about GDPR |
 | R12 | `POST /jobs/{id}/rescore` rewrote proposed scores without an audit event | Low | Rayen | **Closed 1 Nov**: `scores.rescore` audit event (Rayen, `5a7f39b`) |
 | R13 | The pitch hook said "today's AI screeners obey it" before any baseline was measured | Medium (credibility) | Ahmed | **Closed 31 Oct**: the hook now cites a measured external figure; "obeys it" comes back only with our own baseline number |
-| R14 | An offer needs 2 HR managers who are not its author, so 3 in total. The demo seed has 2, so an offer can never fully clear on stage, and many SMEs have only one HR manager | Medium (demo and product fit) | Rayen | Open. Make the offer approval count a per-customer setting (default 2; SME: 1 other approver). Until then the demo shows the offer waiting at 1 of 2 and says why |
+| R14 | An offer needs 2 HR managers who are not its author, so 3 in total. The demo seed has 2, so an offer can never fully clear on stage, and many SMEs have only one HR manager | Medium (demo and product fit) | Rayen | **Closed 1 Nov**: per-customer setting `GET/PUT /approvals/settings` (1 to 3, default 2, `HG_OFFER_APPROVALS`), HR managers only, audited `approvals.settings`, applies to offers created afterwards. Lowering it is a control change: the Approvals page says so and shows how many HR managers exist |
 | R15 | Through the model, twin CVs changed score 26/90 (14/20 when only the CV language changed); the code path alone gives 0/89 | High (fairness claim) | Hedhili | Open. Identity masking added after the run; re-measure. The pitch states the 26/90 as a known limit |
 | R16 | Two route tables must be kept in step by hand: `auth/permissions.py` `ROUTE_PERMISSIONS` (Rayen) and `tests/test_release_gate.py` `MATRIX` (Ahmed) | Low (both fail loudly when out of step) | Rayen, Ahmed | Open. Derive the gate's roles from `ROUTE_PERMISSIONS` |
 | R17 | The Evaluation tab was blank: the harness output was renamed (`summary_oracle.json`, `summary_unmasked_qwen3-8b.json`) but the API read `summary.json` | High for the demo | Ahmed | **Closed 1 Nov**: `GET /eval/summary?run=` serves every labelled run, newest model run by default (test `test_eval_summary_labels_every_run`) |
@@ -309,14 +309,15 @@ R recruiter · M HR manager · E employee · A admin.
 
 | Date | Change | Consumers | Sign-off |
 |---|---|---|---|
-| 31 Oct | `POST /candidates` gains optional `salary_min`, `salary_max`, `notice_weeks`, `work_modes`, `commitments_ok`, `talent_pool_consent` (backwards compatible) | Upload form (not wired yet) | Rayen, Yasmina: pending |
-| 31 Oct | New: `/jobs/{id}/offer-fit`, `/candidates/{id}/conditions`, `/candidates/{id}/offer`, `/jobs/{id}/rediscover` (+ `/invite`), `/talent-pool/{id}` | Candidates page | Rayen, Yasmina: pending |
+| 31 Oct | `POST /candidates` gains optional `salary_min`, `salary_max`, `notice_weeks`, `work_modes`, `commitments_ok`, `talent_pool_consent` (backwards compatible) | Upload form (not wired yet) | Rayen: signed off 1 Nov, Yasmina: pending |
+| 31 Oct | New: `/jobs/{id}/offer-fit`, `/candidates/{id}/conditions`, `/candidates/{id}/offer`, `/jobs/{id}/rediscover` (+ `/invite`), `/talent-pool/{id}` | Candidates page | Rayen: signed off 1 Nov, Yasmina: pending |
 | 1 Nov | Removed `/followups` and `/followups/draft` (duplicate engine); `/followups/preview` and `/followups/run` stay | Inbox page (panel removed), Approvals page | Yasmina: pending |
-| 31 Oct | New: `/team/skills`, `/team/process`, `/team/knowledge-gaps` | Team insights page | Rayen, Yasmina: pending |
-| 31 Oct | Template slots added: `start_date`, `work_mode`, `location`, `contract`, `sent_date` | `workflow/templates.py` | Rayen: pending |
+| 31 Oct | New: `/team/skills`, `/team/process`, `/team/knowledge-gaps` | Team insights page | Rayen: signed off 1 Nov, Yasmina: pending |
+| 31 Oct | Template slots added: `start_date`, `work_mode`, `location`, `contract`, `sent_date` | `workflow/templates.py` | Rayen: signed off 1 Nov |
 | 1 Nov | `GET /eval/summary` gains `?run=` and returns `run` + `runs` (each with its mode and label) | Security Center → Evaluation (run selector added) | Yasmina: pending |
 | 1 Nov | `POST /answer-desk/ask` now feeds the knowledge-gap radar (section and week only) | Team insights | Hedhili: pending |
-| planned | `GET /reviewer/stats` aggregated (R4); scorecard `team_fit` renamed `collaboration` (R6) | Security Center, Scorecard page | Rayen, Yasmina |
+| 1 Nov | Scorer: a skill with `support = listed_only` counts at most 30% of a dated-experience skill (keyword stuffing). **Scores change; the stored eval results in `eval/results/` predate this and need a re-run.** `GET /approvals?status=approved` (N8); `hidden_high` on candidate rows (N10) | Candidates, Approvals, Evaluation | Rayen: signed off 1 Nov, Hedhili: re-run evals |
+| 1 Nov | `GET /reviewer/stats` is aggregate (`totals`, `by_batch_size`, `by_week`), no user ids (R4); scorecard `team_fit` renamed `collaboration` (R6); new `GET/PUT /approvals/settings` (R14); new `GET /model/status` | Security Center, Scorecard, Approvals, Overview | Rayen: signed off 1 Nov, Yasmina: pending |
 
 ## 10. Release readiness (1 Nov, all branches merged)
 

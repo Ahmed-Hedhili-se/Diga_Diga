@@ -71,6 +71,8 @@ MATRIX = {
     ("POST", "/api/approvals/batches/{batch_id}/decision"): "M R",
     ("POST", "/api/executor/run/{item_id}"): "M R",
     ("GET", "/api/reviewer/stats"): "A M",
+    ("GET", "/api/approvals/settings"): "M",
+    ("PUT", "/api/approvals/settings"): "M",
     ("GET", "/api/approvals/attention"): "A M R",
     ("GET", "/api/calendar/slots"): "M R",
     ("GET", "/api/audit"): "A M",

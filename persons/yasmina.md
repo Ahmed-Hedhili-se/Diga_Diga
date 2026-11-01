@@ -17,10 +17,10 @@ Evaluation tab, and the demo script with a backup path.
       a live upload through the model takes about 40 seconds.
 - [ ] **P0** After today's fixes: check the Evaluation tab (code-path and model runs, each
       labelled) and the single follow-up screen.
-- [ ] **P0** The offer beat stops at "1 of 2 approvals" with two HR accounts (risk R14):
-      present it as the control working.
+- [x] **P0** The offer beat stops at "1 of 2 approvals" with two HR accounts (risk R14):
+      present it as the control working. Done: the Approvals page explains the wait, and an HR manager can set the rule to 1.
 - [ ] **P1** Phone-width pass and screen-reader pass on the review and approval flows.
-- [ ] **P1** Production: `HG_API_DOCS=0` so `/api/docs` and its relaxed CSP are off.
+- [x] **P1** Production: `HG_API_DOCS=0` so `/api/docs` and its relaxed CSP are off. The backend now logs a warning when secure cookies are on and docs are still on.
 - [ ] **P1** Y5 wording on the skills map once Ahmed decides.
 
 ## Work to execute

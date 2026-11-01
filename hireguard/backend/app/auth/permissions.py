@@ -33,6 +33,7 @@ class Permission(str, Enum):
     approvals_decide = "approvals.decide"            # routine items
     approvals_decide_high_risk = "approvals.decide_high_risk"  # offers, documents, leave, held mail, 2nd approver
     approvals_execute = "approvals.execute"
+    approvals_configure = "approvals.configure"      # how many HR managers must approve an offer
     # inbox and candidate follow-ups (P3)
     inbox_read = "inbox.read"
     inbox_release_request = "inbox.release_request"
@@ -77,7 +78,7 @@ _RECRUITER = {
 ROLE_PERMISSIONS: dict[Role, frozenset[Permission]] = {
     Role.recruiter: frozenset(_RECRUITER),
     Role.hr_manager: frozenset(_RECRUITER | {
-        P.rubric_edit, P.approvals_decide_high_risk, P.inbox_release_request, P.interviews_reminders,
+        P.rubric_edit, P.approvals_configure, P.approvals_decide_high_risk, P.inbox_release_request, P.interviews_reminders,
         P.documents_read, P.documents_release, P.questions_read, P.questions_reply, P.answer_desk_ask,
         P.security_center_read, P.audit_read, P.money_read, P.money_edit, P.offer_propose, P.team_read,
     }),
@@ -137,6 +138,8 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("DELETE", "/api/talent-pool/{candidate_id}"): P.talent_pool_manage,
     ("GET", "/api/eval/fairness"): P.security_center_read,
     ("GET", "/api/approvals/attention"): P.approvals_attention_read,
+    ("GET", "/api/approvals/settings"): P.approvals_configure,
+    ("PUT", "/api/approvals/settings"): P.approvals_configure,
     # fast-track follow-ups and HR Nexus Team module (main)
     ("GET", "/api/team/skills"): P.team_read,
     ("GET", "/api/team/process"): P.team_read,

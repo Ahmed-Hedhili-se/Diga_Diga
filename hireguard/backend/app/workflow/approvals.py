@@ -7,6 +7,7 @@
 """
 import copy
 import json
+import os
 import re
 import sqlite3
 from typing import Any
@@ -32,7 +33,41 @@ BASE_RISK = {
     ApprovalKind.offer: 70,
 }
 
-REQUIRED_APPROVALS = {ApprovalKind.offer: 2}
+DEFAULT_OFFER_APPROVALS = int(os.getenv("HG_OFFER_APPROVALS", "2"))
+OFFER_APPROVALS_RANGE = (1, 3)
+REQUIRED_APPROVALS: dict = {}  # kinds that need more than one approver are set per customer, see required_for()
+
+
+def required_for(kind: ApprovalKind, conn: sqlite3.Connection) -> int:
+    """Approvals an item needs. Offers use the customer's setting (default 2 distinct HR managers, an SME may use 1)."""
+    if kind == ApprovalKind.offer:
+        return get_offer_approvals(conn)
+    return REQUIRED_APPROVALS.get(kind, 1)
+
+
+def get_offer_approvals(conn: sqlite3.Connection | None = None) -> int:
+    own = conn is None
+    conn = conn or connect()
+    try:
+        row = conn.execute("SELECT value FROM approval_settings WHERE key = 'offer_approvals'").fetchone()
+    finally:
+        if own:
+            conn.close()
+    lo, hi = OFFER_APPROVALS_RANGE
+    return min(hi, max(lo, int(row["value"]))) if row else min(hi, max(lo, DEFAULT_OFFER_APPROVALS))
+
+
+def set_offer_approvals(value: int, actor: str):
+    """Applies to offers created afterwards; offers already waiting keep the count they were created with."""
+    lo, hi = OFFER_APPROVALS_RANGE
+    if not lo <= value <= hi:
+        raise ValueError(f"offer approvals must be between {lo} and {hi}")
+    with tx() as conn:
+        before = get_offer_approvals(conn)
+        conn.execute("INSERT INTO approval_settings (key, value) VALUES ('offer_approvals', ?) "
+                     "ON CONFLICT(key) DO UPDATE SET value = excluded.value", (value,))
+        audit.append(actor, "approvals.settings", "settings", "offer_approvals",
+                     {"before": before, "after": value}, conn=conn)
 
 # who may see and decide each kind (recruiters never touch offers, HR documents or leave)
 DECIDERS = {
@@ -74,6 +109,7 @@ def _schema(conn: sqlite3.Connection):
             at TEXT NOT NULL,
             UNIQUE (item_id, user_id)
         );
+        CREATE TABLE IF NOT EXISTS approval_settings (key TEXT PRIMARY KEY, value INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS approval_canary_results (
             item_id TEXT NOT NULL,
             user_id TEXT NOT NULL,
@@ -152,7 +188,7 @@ def _insert(conn, kind: ApprovalKind, title: str, payload: dict, created_by: str
         "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (item_id, seq, kind.value, risk, level, _batch_id(kind) if level == "routine" else None, title,
          canonical_json(payload), canonical_json(diff) if diff is not None else None,
-         REQUIRED_APPROVALS.get(kind, 1), ApprovalStatus.pending.value, now_iso(), created_by,
+         required_for(kind, conn), ApprovalStatus.pending.value, now_iso(), created_by,
          int(is_canary), canary_defect),
     )
     return item_id
@@ -278,12 +314,15 @@ def decide_batch(batch_id: str, item_ids: list[str], user: UserOut, decision: st
         return out
 
 
-def queue(user: UserOut) -> dict:
-    """Pending items the user may decide: routine ones grouped into batches, high-risk ones listed alone."""
+def queue(user: UserOut, status: str = "pending") -> dict:
+    """Items in `status` the user may decide: routine ones grouped into batches, high-risk ones listed alone.
+    `approved` lists approved-not-executed items, so an approved routine item survives a new browser (N8)."""
+    if status not in ("pending", "approved"):
+        raise ValueError(status)
     conn = connect()
     try:
         rows = conn.execute(
-            "SELECT * FROM approval_items WHERE status = 'pending' ORDER BY risk DESC, seq"
+            "SELECT * FROM approval_items WHERE status = ? ORDER BY risk DESC, seq", (status,)
         ).fetchall()
         batches: dict[str, dict] = {}
         high = []
@@ -313,23 +352,24 @@ def is_canary(item_id: str, conn: sqlite3.Connection) -> bool:
     return bool(r and r["is_canary"])
 
 
-def reviewer_stats() -> list[dict]:
+def reviewer_stats() -> dict:
+    """Canary hits and misses by batch size and by week. Never by user: a per-person miss count is a monitoring
+    score (risk R4); what matters is whether big batches and busy weeks lose attention."""
     conn = connect()
     try:
-        rows = conn.execute(
-            """SELECT user_id,
-                      SUM(outcome = 'hit') AS caught,
-                      SUM(outcome = 'miss') AS missed
-               FROM approval_canary_results GROUP BY user_id"""
+        weeks = conn.execute(
+            """SELECT strftime('%Y-W%W', at) AS week, COUNT(*) AS canaries, SUM(outcome = 'miss') AS missed
+               FROM approval_canary_results GROUP BY week ORDER BY week"""
         ).fetchall()
-        totals = conn.execute(
-            "SELECT user_id, COUNT(*) AS decisions FROM approval_decisions GROUP BY user_id"
-        ).fetchall()
+        decisions = conn.execute("SELECT COUNT(*) FROM approval_decisions").fetchone()[0]
     finally:
         conn.close()
-    dec = {t["user_id"]: t["decisions"] for t in totals}
-    out = {uid: {"user_id": uid, "decisions": n, "canaries_caught": 0, "canaries_missed": 0} for uid, n in dec.items()}
-    for r in rows:
-        out.setdefault(r["user_id"], {"user_id": r["user_id"], "decisions": 0})
-        out[r["user_id"]].update(canaries_caught=r["caught"] or 0, canaries_missed=r["missed"] or 0)
-    return list(out.values())
+    by_week = [{"week": w["week"], "canaries": w["canaries"], "missed": w["missed"] or 0,
+                "miss_rate": round((w["missed"] or 0) / w["canaries"], 3)} for w in weeks]
+    total = sum(w["canaries"] for w in by_week)
+    missed = sum(w["missed"] for w in by_week)
+    return {
+        "totals": {"decisions": decisions, "canaries": total, "caught": total - missed, "missed": missed},
+        "by_batch_size": attention.stats()["by_batch_size"],
+        "by_week": by_week,
+    }

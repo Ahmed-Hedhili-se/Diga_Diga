@@ -21,6 +21,9 @@ COMPONENTS = ("skills", "experience", "degree", "languages")
 # A matched skill earns SKILL_BASE of its weight for being evidenced, the rest grows
 # linearly with years used, capped at SKILL_FULL_YEARS.
 SKILL_BASE = 0.6
+# A skill that only appears in a list, with no dated job using it, is what keyword stuffing looks like:
+# it earns at most this share of what a dated-experience skill earns (persons/rayen.md, request R3).
+LISTED_ONLY_FACTOR = 0.3
 SKILL_FULL_YEARS = 4.0
 
 LANG_NAMES = {"fr": "French", "en": "English", "ar": "Arabic", "de": "German", "es": "Spanish", "it": "Italian"}
@@ -57,8 +60,10 @@ def _skills(cv: ValidatedCV, rubric: Rubric, max_pts: float) -> ScoreComponent:
             continue
         yrs = max(0.0, s.years)
         frac = SKILL_BASE + (1 - SKILL_BASE) * min(yrs, SKILL_FULL_YEARS) / SKILL_FULL_YEARS
-        earned += w * frac
-        just.append(f"{s.label}: {yrs:.1f} yrs, see p.{s.page + 1}")
+        listed = s.support == "listed_only"
+        earned += w * frac * (LISTED_ONLY_FACTOR if listed else 1.0)
+        just.append(f"{s.label}: {yrs:.1f} yrs, see p.{s.page + 1}"
+                    + (f", only listed, no dated job uses it (counts {round(100 * LISTED_ONLY_FACTOR)}%)" if listed else ""))
         ev.append(s.evidence)
     return ScoreComponent(name="skills", points=max_pts * earned / wsum, max_points=max_pts,
                           justifications=just + missing, evidence=ev)
