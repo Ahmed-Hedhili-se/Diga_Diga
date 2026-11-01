@@ -9,6 +9,7 @@ const HINTS: Record<string, Hint[]> = {
     ["Needs a human check", "The system was unsure (for example the AI could not read the CV), so a person must look before the score counts."],
     ["Attack stripped", "The CV contained hidden text meant to fool the screening. It was removed before scoring."],
     ["Connected systems", "The AI model reads CVs and emails; Odoo is your HR system. Green means HireGuard can reach it right now."],
+    ["Cloud model", "If the AI model runs on Google Gemini, the text of each CV is sent to Google. Use it for test or consented CVs only."],
   ],
   "/candidates/upload": [
     ["Screening", "The CV is checked for hidden text, read by the AI, checked against the visible text, then scored by fixed rules."],

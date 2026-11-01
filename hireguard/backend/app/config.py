@@ -28,6 +28,12 @@ GROQ_FALLBACK = os.getenv("HG_GROQ_FALLBACK", "0") == "1"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("HG_GROQ_MODEL", "qwen/qwen3-32b")
 
+# Which model reads CVs and emails: "ollama" (local or Modal GPU, default) or "gemini" (Google API, cloud).
+# With gemini the CV text, after identity masking, is sent to Google: use it for fictional or consented data only.
+LLM_PROVIDER = os.getenv("HG_LLM_PROVIDER", "ollama").strip().lower()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.getenv("HG_GEMINI_MODEL", "gemini-3.6-flash")
+
 PROMPT_GUARD = os.getenv("HG_PROMPT_GUARD", "0") == "1"
 # Mask towns, schools, gendered titles and emails in the text the model reads (pipeline/mask.py); 0 = off for comparisons
 MASK_IDENTITY = os.getenv("HG_MASK_IDENTITY", "1") != "0"

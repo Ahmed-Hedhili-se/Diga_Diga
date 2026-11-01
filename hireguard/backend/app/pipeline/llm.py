@@ -8,6 +8,8 @@ from __future__ import annotations
 import itertools
 import json
 import logging
+import ssl
+import sys
 import threading
 import time
 
@@ -27,6 +29,28 @@ class LLMUnavailable(Exception):
     pass
 
 
+def _tls_context() -> ssl.SSLContext:
+    """Verified TLS that also trusts the operating system's certificate store on Windows. Antivirus and company
+    proxies re-sign HTTPS with a root certificate that Windows trusts but Python's bundled list does not, which
+    makes every call to a cloud API fail with CERTIFICATE_VERIFY_FAILED. Verification stays ON."""
+    ctx = ssl.create_default_context()
+    if sys.platform == "win32":
+        for store in ("ROOT", "CA"):
+            try:
+                for cert, encoding, _trust in ssl.enum_certificates(store):
+                    if encoding == "x509_asn":
+                        try:
+                            ctx.load_verify_locations(cadata=ssl.DER_cert_to_PEM_cert(cert))
+                        except ssl.SSLError:
+                            pass  # an expired or malformed system certificate is skipped, not fatal
+            except OSError:
+                pass
+    return ctx
+
+
+TLS = _tls_context()
+
+
 def _next_url() -> str:
     with _rr_lock:
         return config.OLLAMA_URLS[next(_rr)]
@@ -40,7 +64,7 @@ def _auth_headers() -> dict:
 
 
 def _scrub(msg: str) -> str:
-    for secret in (config.OLLAMA_MODAL_KEY, config.OLLAMA_MODAL_SECRET, config.GROQ_API_KEY):
+    for secret in (config.OLLAMA_MODAL_KEY, config.OLLAMA_MODAL_SECRET, config.GROQ_API_KEY, config.GEMINI_API_KEY):
         if secret:
             msg = msg.replace(secret, "***")
     return msg
@@ -90,8 +114,43 @@ def _groq(system: str, user: str, schema: dict) -> str:
     return r.json()["choices"][0]["message"]["content"]
 
 
+GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
+
+
+def _gemini(system: str, user: str, schema: dict) -> str:
+    """Google Gemini. The key goes in a header, never in the URL, so it cannot end up in a log line.
+    The schema is given in the prompt (the same JSON the validator checks afterwards): the model's output is
+    never trusted, whichever provider produced it."""
+    if not config.GEMINI_API_KEY:
+        raise LLMUnavailable("HG_LLM_PROVIDER=gemini but GEMINI_API_KEY is missing")
+    body = {
+        "systemInstruction": {"parts": [{"text": system + "\nReturn only JSON matching this schema:\n" + json.dumps(schema)}]},
+        "contents": [{"role": "user", "parts": [{"text": user}]}],
+        "generationConfig": {"temperature": 0, "responseMimeType": "application/json"},
+    }
+    url = f"{GEMINI_BASE}/models/{config.GEMINI_MODEL}:generateContent"
+    for attempt in (1, 2):
+        try:
+            r = httpx.post(url, json=body, timeout=TIMEOUT, verify=TLS, headers={"x-goog-api-key": config.GEMINI_API_KEY})
+            r.raise_for_status()
+            parts = r.json()["candidates"][0]["content"]["parts"]
+            return "".join(p.get("text", "") for p in parts)
+        except (httpx.TimeoutException, httpx.HTTPStatusError) as e:
+            retryable = isinstance(e, httpx.TimeoutException) or e.response.status_code in (429, 500, 502, 503, 504)
+            if attempt == 1 and retryable:
+                log.warning("gemini: %s, retrying once", type(e).__name__)
+                continue
+            code = getattr(getattr(e, "response", None), "status_code", None)
+            raise LLMUnavailable(_scrub(f"gemini: {type(e).__name__}{f' {code}' if code else ''}")) from None
+        except (httpx.HTTPError, KeyError, IndexError, ValueError) as e:
+            raise LLMUnavailable(_scrub(f"gemini: {type(e).__name__}")) from None
+    raise LLMUnavailable("gemini: no answer")
+
+
 def complete_json(system: str, user: str, schema: dict) -> dict:
     """Returns parsed JSON (not yet validated). Raises LLMUnavailable or ValueError."""
+    if config.LLM_PROVIDER == "gemini":
+        return json.loads(_gemini(system, user, schema))
     try:
         raw = _ollama(system, user, schema)
     except LLMUnavailable as e:
@@ -128,6 +187,8 @@ def status(force: bool = False) -> dict:
     now = time.monotonic()
     if _status_cache and now - _status_cache[0] < (STATUS_FLOOR_S if force else STATUS_TTL_S):
         return _status_cache[1] | {"cached": True}
+    if config.LLM_PROVIDER == "gemini":
+        return _gemini_status(now)
     url = config.OLLAMA_URLS[0]
     kind = _host_kind(url)
     out = {"model": config.OLLAMA_MODEL, "host": kind, "hosts": len(config.OLLAMA_URLS),
@@ -151,5 +212,35 @@ def status(force: bool = False) -> dict:
                         if kind == "modal" else "no answer within 8 s")
     except (httpx.HTTPError, ValueError) as e:
         out["error"] = _scrub(f"{type(e).__name__}: model host unreachable")
+    _status_cache = (now, out)
+    return out
+
+
+def _gemini_status(now: float) -> dict:
+    """Reachability for the Gemini provider: lists the model (no tokens used)."""
+    global _status_cache
+    out = {"model": config.GEMINI_MODEL, "host": "gemini", "hosts": 1, "credentials": bool(config.GEMINI_API_KEY),
+           "groq_fallback": False, "reachable": False, "model_loaded": False, "latency_ms": None, "error": None,
+           "cached": False}
+    if not config.GEMINI_API_KEY:
+        out["error"] = "GEMINI_API_KEY is not set on the backend"
+    else:
+        t0 = time.monotonic()
+        try:
+            r = httpx.get(f"{GEMINI_BASE}/models/{config.GEMINI_MODEL}", timeout=httpx.Timeout(8.0, connect=4.0), verify=TLS,
+                          headers={"x-goog-api-key": config.GEMINI_API_KEY})
+            out["latency_ms"] = round(1000 * (time.monotonic() - t0))
+            if r.status_code in (400, 401, 403):
+                out["error"] = "Google refused the API key: check GEMINI_API_KEY"
+            elif r.status_code == 404:
+                out["reachable"] = True
+                out["error"] = f"Google does not know the model {config.GEMINI_MODEL}: check HG_GEMINI_MODEL"
+            else:
+                r.raise_for_status()
+                out["reachable"] = out["model_loaded"] = True
+        except httpx.TimeoutException:
+            out["error"] = "Google did not answer within 8 s"
+        except httpx.HTTPError as e:
+            out["error"] = _scrub(f"{type(e).__name__}: Google API unreachable")
     _status_cache = (now, out)
     return out

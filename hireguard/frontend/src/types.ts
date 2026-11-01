@@ -544,7 +544,7 @@ export interface KnowledgeGaps {
 
 export interface ModelStatus {
   model: string;
-  host: "local" | "modal" | "remote";
+  host: "local" | "modal" | "remote" | "gemini";
   hosts: number;
   credentials: boolean;
   groq_fallback: boolean;

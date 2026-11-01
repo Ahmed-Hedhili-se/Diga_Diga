@@ -271,7 +271,7 @@ function ModelCard() {
   const s = m.data;
   const state = !s ? "checking" : s.reachable && s.model_loaded ? "ready" : s.reachable || /cold start/.test(s.error ?? "") ? "warming" : "down";
   const label = { checking: "Checking…", ready: "Ready", warming: "Not ready yet", down: "Unreachable" }[state];
-  const host = s ? { modal: "Modal GPU (cloud)", local: "this machine", remote: "remote host" }[s.host] : "";
+  const host = s ? { modal: "Modal GPU (cloud)", local: "this machine", remote: "remote host", gemini: "Google Gemini (cloud)" }[s.host] : "";
   return (
     <section className={`card model-card is-${state}`} aria-labelledby="ov-model" aria-busy={m.loading}>
       <div className="model-main">
@@ -304,7 +304,9 @@ function ModelCard() {
       </div>
       <div className="model-side">
         <div className="badges">
-          {s && <Badge tone={s.credentials || s.host !== "modal" ? "ok" : "danger"}>{s.host === "modal" ? (s.credentials ? "Modal key set on backend" : "Modal key missing") : "no key needed"}</Badge>}
+          {s && s.host === "gemini" && <Badge tone={s.credentials ? "warn" : "danger"}>{s.credentials ? "Cloud: CV text goes to Google" : "Google key missing"}</Badge>}
+          {s && s.host === "modal" && <Badge tone={s.credentials ? "ok" : "danger"}>{s.credentials ? "Modal key set on backend" : "Modal key missing"}</Badge>}
+          {s && s.host !== "modal" && s.host !== "gemini" && <Badge tone="ok">no key needed</Badge>}
         </div>
         <button className="btn small" disabled={m.loading} onClick={() => setRefresh((n) => n + 1)}>
           {m.loading ? "Checking…" : "Check now"}
@@ -324,7 +326,13 @@ function ConnectSteps({ s }: { s: ModelStatus }) {
   return (
     <details className="model-howto">
       <summary>How to connect the AI model</summary>
-      {s.host === "modal" && !s.credentials ? (
+      {s.host === "gemini" ? (
+        <ol>
+          <li>The Gemini key is missing or refused. Put <code>GEMINI_API_KEY=...</code> in <code>hireguard/.env</code> on the backend computer (create the key in Google AI Studio).</li>
+          <li>Check that <code>HG_GEMINI_MODEL</code> is a model your key can use, then restart with <code>.\\run.ps1</code> and press Check now.</li>
+          <li>Gemini is a cloud model: CV text is sent to Google. Use it for fictional or consented CVs, and switch back to the local or Modal model for real applicants (<code>HG_LLM_PROVIDER=ollama</code>).</li>
+        </ol>
+      ) : s.host === "modal" && !s.credentials ? (
         <ol>
           <li>Get the team's Modal key and secret (Modal dashboard, Settings, Proxy Auth Tokens).</li>
           <li>On the computer that runs the backend, copy <code>hireguard/.env.modal.example</code> to <code>hireguard/.env.modal</code> and paste both values.</li>

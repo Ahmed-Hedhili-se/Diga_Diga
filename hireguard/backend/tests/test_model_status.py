@@ -89,3 +89,57 @@ def test_has_model_tag_matching():
     assert llm.has_model({"qwen3:latest"}, "qwen3")
     assert not llm.has_model({"qwen3:14b"}, "qwen3:8b")
     assert not llm.has_model({"qwen2.5:8b"}, "qwen3:8b")
+
+
+# ---------------------------------------------------------------- Gemini provider
+
+GKEY = "AIza-test-key-not-real-123"
+
+
+@pytest.fixture
+def gemini(monkeypatch):
+    monkeypatch.setattr(config, "LLM_PROVIDER", "gemini")
+    monkeypatch.setattr(config, "GEMINI_API_KEY", GKEY)
+    monkeypatch.setattr(config, "GEMINI_MODEL", "gemini-test")
+    monkeypatch.setattr(llm, "_status_cache", None)
+    seen = {}
+
+    def use(resp):
+        def fake(url, **kw):
+            seen.update(url=url, headers=kw.get("headers"), json=kw.get("json"), verify=kw.get("verify"))
+            if isinstance(resp, Exception):
+                raise resp
+            return resp
+        monkeypatch.setattr(llm.httpx, "post", fake)
+        monkeypatch.setattr(llm.httpx, "get", fake)
+        return seen
+    return use
+
+
+def test_gemini_returns_parsed_json_and_keeps_the_key_out_of_the_url(gemini):
+    seen = gemini(_Resp(200, {"candidates": [{"content": {"parts": [{"text": '{"skills": []}'}]}}]}))
+    assert llm.complete_json("sys", "user", {"type": "object"}) == {"skills": []}
+    assert GKEY not in seen["url"] and seen["headers"] == {"x-goog-api-key": GKEY}
+    assert seen["verify"] is llm.TLS  # certificate verification stays on
+    assert "JSON" in seen["json"]["systemInstruction"]["parts"][0]["text"]
+
+
+def test_gemini_failure_is_unavailable_and_never_leaks_the_key(gemini):
+    gemini(httpx.ConnectError(f"boom {GKEY}"))
+    with pytest.raises(llm.LLMUnavailable) as e:
+        llm.complete_json("s", "u", {})
+    assert GKEY not in str(e.value)
+
+
+def test_gemini_status_reports_provider_without_secrets(db, gemini):
+    gemini(_Resp(200))
+    r = client(Role.recruiter).get("/api/model/status")
+    s = r.json()
+    assert s["host"] == "gemini" and s["reachable"] and s["model_loaded"] and s["credentials"]
+    assert GKEY not in r.text and "googleapis" not in r.text
+
+
+def test_gemini_status_explains_a_refused_key(db, gemini):
+    gemini(_Resp(403))
+    s = client(Role.recruiter).get("/api/model/status").json()
+    assert not s["reachable"] and "GEMINI_API_KEY" in s["error"]
