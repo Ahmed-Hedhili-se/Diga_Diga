@@ -28,26 +28,43 @@ The code still uses the old name in places that other people depend on (the `hir
 
 ![Venidis](venidis-logo.svg)
 
-A **V** that narrows what arrives to a single point, with a **highlighter-yellow dot** above it: the evidence a human reviews. It
-also reads as a head above shoulders, the person in the loop. The colours are the product's own (`docs/design_system.md`): indigo `#4338CA`
-(primary), amber `#FBBF24` (the dot) and ink `#0F172A` (the wordmark). The wordmark is Figtree SemiBold (SIL Open Font License), converted to outlines.
+A **V** drawn as one stroke that catches a small **yellow square** in its mouth: what arrives (a CV, an email) is held and looked at
+before it is trusted, and the square is the evidence a person reviews before deciding. Ink badge, paper stroke, one yellow. The
+wordmark is Figtree SemiBold (SIL Open Font License), converted to outlines. (The first logo, a V under a yellow dot, is in git history.)
 
 | File | Use |
 |---|---|
 | `venidis-logo.svg` | Default: light backgrounds |
-| `venidis-logo-on-dark.svg` | Navy or dark backgrounds |
+| `venidis-logo-on-dark.svg` | Dark backgrounds |
 | `venidis-mark.svg` | Avatar, favicon, app icon |
-| `venidis-mark-on-dark.svg` | Mark on navy |
+| `venidis-mark-on-dark.svg` | Mark on a dark background |
 | `venidis-mark-mono.svg` | One colour (`currentColor`): stamps, fax, embossing |
 
-Rebuild with `python brand/build_logo.py`. Rules: clear space of half the mark's height on every side; never recolour the dot,
+Rebuild with `python brand/build_logo.py`. Rules: clear space of half the mark's height on every side; never recolour the square,
 stretch, rotate, outline or add effects; the minimum size for the mark is 16 px; do not put the full logo on a busy photo.
+
+## Platform and modules
+
+Venidis is the platform. Its two modules are named in the app's sidebar and in the demo video:
+
+| Module | For | What it does |
+|---|---|---|
+| **HireGuard** | HR and candidates | CV ranking with evidence, hidden-text defence, inbox triage, offers inside the pay band, approvals |
+| **HR Nexus** | HR and staff | Team skills map, HR process times, Answer Desk and its knowledge-gap radar. Team level only, never people |
+
+HR Nexus is also an existing HRMS vendor's name (see the table above). It is used as a module name for the hackathon; rename it
+before any commercial use.
 
 ## Colour and type
 
-Use the product's tokens, documented in `docs/design_system.md` and implemented in `frontend/src/styles.css`: neutral surfaces, indigo
-`#4338CA` for actions, amber only for evidence and highlights, green/amber/red only for state. The interface and its headings use **Figtree**;
-long document text (CV extracts, employee questions) uses **Literata**. For Arabic: Noto Sans Arabic.
+| Token | Hex | Use |
+|---|---|---|
+| Ink | `#111417` | Badge, text, dark video slides |
+| Paper | `#EEF0EC` | The V, text on ink |
+| Venidis yellow | `#F5C842` | The square; on slides, the one accent (Venidis's own numbers, highlights) |
+
+The app keeps its interface tokens (`docs/design_system.md`): indigo for actions, amber for evidence, green, amber and red for state only.
+The interface and its headings use **Figtree**; long document text (CV extracts, employee questions) uses **Literata**. For Arabic: Noto Sans Arabic.
 
 ## Voice
 

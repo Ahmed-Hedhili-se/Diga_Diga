@@ -4,8 +4,9 @@ The wordmark is set in Figtree SemiBold (SIL Open Font License 1.1, the product'
 outlined paths, so the SVGs need no font and print the same everywhere. Figtree is downloaded once into
 brand/.cache (git-ignored). Needs: pip install fonttools brotli
 
-Mark: a V (a funnel that narrows what arrives to one point) with a highlighter-yellow dot above it (the evidence a
-human reviews; also a head over shoulders: the person in the loop). Colours are the product's own tokens (docs/design_system.md): indigo, amber, ink.
+Mark: a V drawn as one stroke that catches a small yellow square in its mouth. Venidis echoes venire (to come) and
+videre (to see): what arrives is held and looked at before it is trusted. The square is the CV or email that just
+arrived, and the evidence a person reviews before deciding. Colours: ink, paper and one yellow (brand/README.md).
 """
 from __future__ import annotations
 
@@ -23,19 +24,19 @@ FONT_URL = "https://github.com/google/fonts/raw/main/ofl/figtree/Figtree%5Bwght%
 FONT = HERE / ".cache" / "Figtree.ttf"
 NAME = "venidis"
 
-NAVY, BLUE, YELLOW, WHITE = "#4338CA", "#6366F1", "#FBBF24", "#FFFFFF"  # NAVY = indigo primary; names kept for the code below
+INK, PAPER, YELLOW = "#111417", "#EEF0EC", "#F5C842"
 
 # 64 x 64 mark
-V_PATH = "M16 26 L32 50 L48 26"
-DOT = (32, 15, 5.6)  # cx, cy, r
-STROKE = 6.6
+V_PATH = "M13 16 L32 47 L51 16"
+STROKE = 7.0
+SQUARE = (28, 21.6, 8)  # x, y, side: resting in the mouth of the V, clear of both arms
 
 
 def font() -> TTFont:
     if not FONT.exists():
         FONT.parent.mkdir(exist_ok=True)
         urllib.request.urlretrieve(FONT_URL, FONT)
-    return instancer.instantiateVariableFont(TTFont(FONT), {"wght": 650})
+    return instancer.instantiateVariableFont(TTFont(FONT), {"wght": 640})
 
 
 def wordmark_path(size: float, x0: float, baseline: float) -> tuple[str, float]:
@@ -47,47 +48,50 @@ def wordmark_path(size: float, x0: float, baseline: float) -> tuple[str, float]:
         pen = SVGPathPen(gs, ntos=lambda v: f"{v:.2f}".rstrip("0").rstrip("."))
         gs[g].draw(TransformPen(pen, (scale, 0, 0, -scale, x, baseline)))
         parts.append(pen.getCommands())
-        x += f["hmtx"][g][0] * scale
+        x += (f["hmtx"][g][0] * scale) - size * 0.01  # a touch tighter than the font's default spacing
     return " ".join(parts), x - x0
 
 
-def mark_body(badge: str, v: str, dot: str) -> str:
-    cx, cy, r = DOT
-    return (f'<rect width="64" height="64" rx="15" fill="{badge}"/>'
-            f'<path d="{V_PATH}" fill="none" stroke="{v}" stroke-width="{STROKE}" stroke-linecap="round" stroke-linejoin="round"/>'
-            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{dot}"/>')
+def glyph(v: str, square: str) -> str:
+    x, y, s = SQUARE
+    return (f'<path d="{V_PATH}" fill="none" stroke="{v}" stroke-width="{STROKE}" stroke-linecap="round" stroke-linejoin="round"/>'
+            f'<rect x="{x:g}" y="{y:g}" width="{s:g}" height="{s:g}" rx="1.4" fill="{square}"/>')
 
 
-def svg(w: float, h: float, body: str, title: str) -> str:
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w:g} {h:g}" role="img" aria-label="{title}">'
-            f'<title>{title}</title>{body}</svg>\n')
+def mark_body(badge: str, v: str, square: str) -> str:
+    return f'<rect width="64" height="64" rx="14" fill="{badge}"/>' + glyph(v, square)
 
 
-def logo(badge: str, v: str, dot: str, text: str) -> str:
+def svg(w: float, h: float, body: str) -> str:
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w:g} {h:g}" role="img" aria-label="Venidis">'
+            f'<title>Venidis</title>{body}</svg>\n')
+
+
+def logo(badge: str, v: str, square: str, text: str) -> str:
     f = font()
     size = 40
     xh = f["OS/2"].sxHeight * size / f["head"].unitsPerEm
     baseline = 32 + xh / 2
-    path, width = wordmark_path(size, 64 + 16, baseline)
-    return svg(round(64 + 16 + width + 2), 64, mark_body(badge, v, dot) + f'<path d="{path}" fill="{text}"/>', "Venidis")
+    path, width = wordmark_path(size, 64 + 15, baseline)
+    return svg(round(64 + 15 + width + 2), 64, mark_body(badge, v, square) + f'<path d="{path}" fill="{text}"/>')
 
 
 def mono_mark() -> str:
-    cx, cy, r = DOT
+    x, y, s = SQUARE
     return svg(64, 64,
                '<mask id="m"><rect width="64" height="64" fill="#fff"/>'
                f'<path d="{V_PATH}" fill="none" stroke="#000" stroke-width="{STROKE}" stroke-linecap="round" stroke-linejoin="round"/>'
-               f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="#000"/></mask>'
-               '<rect width="64" height="64" rx="15" fill="currentColor" mask="url(#m)"/>', "Venidis")
+               f'<rect x="{x:g}" y="{y:g}" width="{s:g}" height="{s:g}" rx="1.4" fill="#000"/></mask>'
+               '<rect width="64" height="64" rx="14" fill="currentColor" mask="url(#m)"/>')
 
 
 def main() -> None:
     files = {
-        "venidis-mark.svg": svg(64, 64, mark_body(NAVY, WHITE, YELLOW), "Venidis"),
-        "venidis-mark-on-dark.svg": svg(64, 64, mark_body(BLUE, WHITE, YELLOW), "Venidis"),
+        "venidis-mark.svg": svg(64, 64, mark_body(INK, PAPER, YELLOW)),
+        "venidis-mark-on-dark.svg": svg(64, 64, mark_body(PAPER, INK, YELLOW)),
         "venidis-mark-mono.svg": mono_mark(),
-        "venidis-logo.svg": logo(NAVY, WHITE, YELLOW, "#0F172A"),
-        "venidis-logo-on-dark.svg": logo(BLUE, WHITE, YELLOW, WHITE),
+        "venidis-logo.svg": logo(INK, PAPER, YELLOW, INK),
+        "venidis-logo-on-dark.svg": logo(PAPER, INK, YELLOW, PAPER),
     }
     for name, content in files.items():
         (HERE / name).write_text(content, encoding="utf-8")

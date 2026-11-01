@@ -426,7 +426,9 @@ button:not(:disabled), summary, select, [role="button"], .clickable, label.file-
 .align-end { align-self: flex-end; }
 .split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; gap: 20px; }
 /* Sheets stacked directly in the page flow get breathing room; grids and stacks keep their own gap. */
-:where(.content, .content > div, .content > section) > .card + .card { margin-top: 14px; }
+.content > .card + .card { margin-top: 14px; }
+/* Cards in a row of a grid or a stack share one top edge: the grid gap is their only spacing. */
+.tiles > *, .grid2 > *, .split > *, .lanes > *, .overview-grid > *, .sc-summary > *, .stack > * { margin-top: 0; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 20px; }
 .lanes { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: 16px; }
 .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
@@ -1049,8 +1051,15 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 .model-howto code { font-size: var(--fs-xs); }
 @media (max-width: 520px) { .systems-grid { grid-template-columns: 1fr; } }
 
-/* Venidis mark: navy badge on light, brighter blue on dark so it never sinks into the background */
-.brand-mark .badge { fill: var(--primary); }
+/* Venidis mark: ink badge on light, paper badge on dark, so it never sinks into the background */
+.brand-mark .badge { fill: #111417; }
+.brand-mark .stroke { stroke: #EEF0EC; }
+:root[data-theme="dark"] .brand-mark .badge { fill: #EEF0EC; }
+:root[data-theme="dark"] .brand-mark .stroke { stroke: #111417; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .brand-mark .badge { fill: #EEF0EC; }
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .brand-mark .stroke { stroke: #111417; }
+}
 
 /* ROI card (Money page) */
 .roi-card { margin-top: 16px; }

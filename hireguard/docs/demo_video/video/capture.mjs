@@ -157,7 +157,10 @@ const STEPS = [
     const p = await karim();
     await p.goto("/overview");
     await p.waitFor(`!!__hg.q(".model-card.is-ready, .model-card.is-down, .model-card.is-warming")`, 60000);
-    await p.shot("overview", { tiles: `__hg.q(".overview-tiles")`, model: `__hg.q(".model-card")` });
+    await p.shot("overview", {
+      tiles: `__hg.q(".overview-tiles")`, model: `__hg.q(".model-card")`,
+      sidebar: `__hg.union(__hg.q("section.nav-group[aria-label='HireGuard']"), __hg.q("section.nav-group[aria-label='HR Nexus']"))`,
+    });
   }],
   ["cand_top,cand_justif,cand_evidence", async ({ nour }) => {
     const p = await nour();
