@@ -220,12 +220,29 @@ def test_import_goes_through_untrusted_pipeline(odoo):
     assert service.get_candidate(sync.candidate_id_for(poisoned))["hidden_findings"]
     assert not _writes(odoo), "importing must never write to Odoo"
 
+    # these CVs were read without a model (extraction "none"): they are screened again, see the test below.
+    # Once a model has read them, an unchanged CV is skipped.
+    conn = app_db.connect()
+    conn.execute("UPDATE pipeline_docs SET extraction_source = 'llm'")
+    conn.close()
     again = erp_client(rec).post(f"/api/erp/jobs/{JOB}/import").json()
     assert again["imported"] == []
     assert {x["reason"] for x in again["skipped"]} == {"already imported"}
 
     listed = erp_client(rec).get(f"/api/erp/jobs/{JOB}/applicants").json()
     assert all(a["imported"] for a in listed) and len(listed) == 2
+
+
+def test_cvs_the_model_could_not_read_are_screened_again(odoo):
+    """Imported while no model was connected (extraction "none"): the next import re-screens them, so connecting a
+    model later fixes the earlier imports instead of leaving them at 0 forever."""
+    rec = make_user(Role.recruiter, "rec1")
+    aid = odoo.add_applicant("Amel Jaziri", "amel.jaziri@example.tn", PDFS / "clean.pdf", odoo.job_id)
+    first = erp_client(rec).post(f"/api/erp/jobs/{JOB}/import").json()
+    assert [x["applicant_id"] for x in first["imported"]] == [aid]
+    assert service.get_candidate(sync.candidate_id_for(aid))["extraction"] == "none"
+    second = erp_client(rec).post(f"/api/erp/jobs/{JOB}/import").json()
+    assert [x["applicant_id"] for x in second["imported"]] == [aid] and second["skipped"] == []
 
 
 def test_write_only_after_approval(odoo):

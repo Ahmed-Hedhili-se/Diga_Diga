@@ -143,3 +143,39 @@ def test_gemini_status_explains_a_refused_key(db, gemini):
     gemini(_Resp(403))
     s = client(Role.recruiter).get("/api/model/status").json()
     assert not s["reachable"] and "GEMINI_API_KEY" in s["error"]
+
+
+def test_gemini_rate_limit_waits_then_retries_once(gemini, monkeypatch):
+    waits, n = [], {"i": 0}
+    monkeypatch.setattr(llm.time, "sleep", lambda s: waits.append(s))
+    ok = _Resp(200, {"candidates": [{"content": {"parts": [{"text": "{}"}]}}]})
+
+    class Limited(_Resp):
+        headers = {"retry-after": "3"}
+
+        def raise_for_status(self):
+            raise httpx.HTTPStatusError("429", request=httpx.Request("POST", "https://x"),
+                                        response=httpx.Response(429, headers={"retry-after": "3"}))
+
+    def fake(url, **kw):
+        n["i"] += 1
+        return Limited(429) if n["i"] == 1 else ok
+    monkeypatch.setattr(llm.httpx, "post", fake)
+    assert llm.complete_json("s", "u", {}) == {}
+    assert n["i"] == 2 and waits == [3.0]
+
+
+def test_gemini_falls_through_to_the_next_model_when_the_daily_quota_is_used_up(gemini, monkeypatch):
+    monkeypatch.setattr(config, "GEMINI_MODELS", ["m-one", "m-two"])
+    tried = []
+    ok = _Resp(200, {"candidates": [{"content": {"parts": [{"text": "{}"}]}}]})
+
+    def fake(url, **kw):
+        tried.append(url.rsplit("/", 1)[1].split(":")[0])
+        if tried[-1] == "m-one":
+            raise httpx.HTTPStatusError("429", request=httpx.Request("POST", url),
+                                        response=httpx.Response(429, text="Generate content requests per day limit exceeded"))
+        return ok
+    monkeypatch.setattr(llm.httpx, "post", fake)
+    assert llm.complete_json("s", "u", {}) == {}
+    assert tried == ["m-one", "m-two"]

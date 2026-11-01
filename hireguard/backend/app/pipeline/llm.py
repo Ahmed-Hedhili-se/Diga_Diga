@@ -115,6 +115,8 @@ def _groq(system: str, user: str, schema: dict) -> str:
 
 
 GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
+GEMINI_RATE_WAIT_S = 8.0       # pause after a 429 when Google gives no Retry-After
+GEMINI_RATE_WAIT_MAX_S = 30.0  # never block a request longer than this
 
 
 def _gemini(system: str, user: str, schema: dict) -> str:
@@ -128,7 +130,22 @@ def _gemini(system: str, user: str, schema: dict) -> str:
         "contents": [{"role": "user", "parts": [{"text": user}]}],
         "generationConfig": {"temperature": 0, "responseMimeType": "application/json"},
     }
-    url = f"{GEMINI_BASE}/models/{config.GEMINI_MODEL}:generateContent"
+    last: LLMUnavailable | None = None
+    for model in config.GEMINI_MODELS or [config.GEMINI_MODEL]:
+        try:
+            return _gemini_one(model, body)
+        except _QuotaExhausted as e:
+            last = LLMUnavailable(str(e))
+            log.warning("gemini: quota used up for %s, trying the next model", model)
+    raise last or LLMUnavailable("gemini: no model configured")
+
+
+class _QuotaExhausted(LLMUnavailable):
+    pass
+
+
+def _gemini_one(model: str, body: dict) -> str:
+    url = f"{GEMINI_BASE}/models/{model}:generateContent"
     for attempt in (1, 2):
         try:
             r = httpx.post(url, json=body, timeout=TIMEOUT, verify=TLS, headers={"x-goog-api-key": config.GEMINI_API_KEY})
@@ -136,11 +153,21 @@ def _gemini(system: str, user: str, schema: dict) -> str:
             parts = r.json()["candidates"][0]["content"]["parts"]
             return "".join(p.get("text", "") for p in parts)
         except (httpx.TimeoutException, httpx.HTTPStatusError) as e:
-            retryable = isinstance(e, httpx.TimeoutException) or e.response.status_code in (429, 500, 502, 503, 504)
-            if attempt == 1 and retryable:
-                log.warning("gemini: %s, retrying once", type(e).__name__)
-                continue
             code = getattr(getattr(e, "response", None), "status_code", None)
+            if code == 429 and "per day" in (e.response.text or ""):
+                raise _QuotaExhausted(f"gemini: daily quota used up for {model}") from None
+            retryable = isinstance(e, httpx.TimeoutException) or code in (429, 500, 502, 503, 504)
+            if attempt == 1 and retryable:
+                # a rate limit (429) needs a pause, not an immediate second try
+                wait = 0.0
+                if code == 429:
+                    try:
+                        wait = float(e.response.headers.get("retry-after", GEMINI_RATE_WAIT_S))
+                    except (TypeError, ValueError):
+                        wait = GEMINI_RATE_WAIT_S
+                log.warning("gemini: %s, retrying once%s", type(e).__name__, f" after {wait:.0f}s" if wait else "")
+                time.sleep(min(wait, GEMINI_RATE_WAIT_MAX_S))
+                continue
             raise LLMUnavailable(_scrub(f"gemini: {type(e).__name__}{f' {code}' if code else ''}")) from None
         except (httpx.HTTPError, KeyError, IndexError, ValueError) as e:
             raise LLMUnavailable(_scrub(f"gemini: {type(e).__name__}")) from None

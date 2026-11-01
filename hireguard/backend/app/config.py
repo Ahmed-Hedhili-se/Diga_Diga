@@ -32,7 +32,10 @@ GROQ_MODEL = os.getenv("HG_GROQ_MODEL", "qwen/qwen3-32b")
 # With gemini the CV text, after identity masking, is sent to Google: use it for fictional or consented data only.
 LLM_PROVIDER = os.getenv("HG_LLM_PROVIDER", "ollama").strip().lower()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.getenv("HG_GEMINI_MODEL", "gemini-3.6-flash")
+# One model, or several separated by commas: the next one is tried when the first one's quota is used up
+# (the free tier gives each model its own small daily quota).
+GEMINI_MODELS = [m.strip() for m in os.getenv("HG_GEMINI_MODEL", "gemini-3.6-flash").split(",") if m.strip()]
+GEMINI_MODEL = GEMINI_MODELS[0] if GEMINI_MODELS else "gemini-3.6-flash"
 
 PROMPT_GUARD = os.getenv("HG_PROMPT_GUARD", "0") == "1"
 # Mask towns, schools, gendered titles and emails in the text the model reads (pipeline/mask.py); 0 = off for comparisons
