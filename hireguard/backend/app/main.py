@@ -19,7 +19,7 @@ if API_DOCS and COOKIE_SECURE:  # HG_COOKIE_SECURE=1 means HTTPS, i.e. a real de
         "HG_API_DOCS=1 on a deployment with secure cookies: /api/docs and its relaxed CSP are exposed. Set HG_API_DOCS=0.")
 
 # Swagger UI needs a relaxed CSP (pentest O1): HG_API_DOCS=0 turns it off in production.
-app = FastAPI(title="HireGuard", docs_url="/api/docs" if API_DOCS else None, redoc_url=None,
+app = FastAPI(title="Venidis", docs_url="/api/docs" if API_DOCS else None, redoc_url=None,
               openapi_url="/api/openapi.json" if API_DOCS else None)
 
 app.add_middleware(

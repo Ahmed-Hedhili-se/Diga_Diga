@@ -1014,3 +1014,8 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 .model-howto ol { margin: 8px 0 4px; padding-left: 20px; line-height: 1.5; }
 .model-howto code { font-size: var(--fs-xs); }
 @media (max-width: 520px) { .systems-grid { grid-template-columns: 1fr; } }
+
+/* Venidis mark: navy badge on light, brighter blue on dark so it never sinks into the background */
+.brand-mark .badge { fill: #16324F; }
+:root[data-theme="dark"] .brand-mark .badge { fill: #1F4F8F; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) .brand-mark .badge { fill: #1F4F8F; } }

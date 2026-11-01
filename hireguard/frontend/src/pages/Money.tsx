@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
+import { BRAND } from "../brand";
 import { api, errMsg } from "../api";
 import { usePermission } from "../auth";
 import { ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
@@ -31,7 +32,7 @@ export default function Money() {
 
   return (
     <>
-      <PageHeader title="Money dashboard" subtitle="What open roles cost, and what HireGuard gives back. Amounts in TND." />
+      <PageHeader title="Money dashboard" subtitle={`What open roles cost, and what ${BRAND.name} gives back. Amounts in TND.`} />
       <ErrorBox error={m.error || err} />
       <Loading show={m.loading} />
       {d && hs && (

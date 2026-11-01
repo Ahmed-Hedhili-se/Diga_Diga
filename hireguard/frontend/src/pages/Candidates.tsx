@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BRAND } from "../brand";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { api, ApiError, errMsg } from "../api";
 import { usePermission } from "../auth";
@@ -535,7 +536,7 @@ function ErpPreview({ jobId }: { jobId: string }) {
             <tr>
               <th>Applicant</th>
               <th>Odoo stage</th>
-              <th>HireGuard</th>
+              <th>{BRAND.name}</th>
             </tr>
           </thead>
           <tbody>

@@ -1,4 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
+import { BRAND } from "../brand";
+import BrandMark from "../components/BrandMark";
 import { ApiError, errMsg } from "../api";
 import { useAuth } from "../auth";
 
@@ -43,8 +45,8 @@ export default function Login() {
     <div className="login-page">
       <div className="login-side">
       <div className="brand big">
-        <img src="/favicon.svg" alt="" width={32} height={32} />
-        <span>HireGuard</span>
+        <BrandMark size={34} />
+        <span>{BRAND.name}</span>
       </div>
       <form className="login-card" onSubmit={submit} aria-describedby="login-help">
         <div>
@@ -92,7 +94,7 @@ export default function Login() {
       </div>
       <section className="login-desk" aria-labelledby="desk-title">
         <h2 id="desk-title">Read every CV the way a careful recruiter would.</h2>
-        <figure className="cv-sheet" aria-label="Example: a CV with a hidden instruction caught by HireGuard">
+        <figure className="cv-sheet" aria-label={`Example: a CV with a hidden instruction caught by ${BRAND.name}`}>
           <p className="cv-name">Amira Ben Salah</p>
           <p className="cv-role">Data analyst, Tunis</p>
           <p className="cv-line">

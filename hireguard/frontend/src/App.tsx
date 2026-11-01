@@ -1,4 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
+import { BRAND } from "./brand";
+import BrandMark from "./components/BrandMark";
 import { Navigate, NavLink, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { IdleWatcher, ROLE_LABEL, useAuth } from "./auth";
 import { Badge, ConfirmButton, Modal } from "./components/ui";
@@ -137,8 +139,8 @@ export default function App() {
       </a>
       <aside className="sidebar">
         <div className="brand">
-          <img src="/favicon.svg" alt="" width={28} height={28} />
-          <span>HireGuard</span>
+          <BrandMark size={30} />
+          <span>{BRAND.name}</span>
           <button
             type="button"
             className="sidebar-toggle"
