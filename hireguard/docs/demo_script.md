@@ -18,7 +18,7 @@ cd hireguard
    - HR manager Karim (`hrm@hireguard.demo`)
    - second HR manager Leila (`hrm2@hireguard.demo`)
 2. With Ollama up, the seeded CVs go through qwen3:8b; send one warm-up request first.
-3. Check the Candidates list: if it shows an **"offline extraction"** badge, the model did not read these CVs. Use the
+3. Check the Candidates page: if a yellow **"Offline extraction"** banner sits above the ranking, the model did not read these CVs. Use the
    backup path below and say so.
 4. **Never upload a CV live through the model:** it takes 30 to 40 seconds per CV on the 6 GB laptop GPU we measured (about 10 seconds on a cloud L4).
 5. Zoom 125%, notifications off, the backup video open in a tab.
@@ -41,7 +41,7 @@ hours saved counted from real actions (Money); silent candidates get one templat
 
 1. Seed offline: stop Ollama, run `.\run.ps1 -Seed` (the CVs fall back to ground-truth extraction) and set
    `HG_EXTRACT_MODE=ground_truth` so emails get their labelled fields.
-2. The UI then shows **"offline extraction"** on every candidate. Say it: *"This run uses labelled demo data, not
+2. The Candidates page then shows an **"Offline extraction"** banner above the ranking. Say it: *"This run uses labelled demo data, not
    the model. The model's measured results are on the Evaluation tab."*
 3. Steps 1, 2, 4, 5 and 6 work the same: the sanitizer, validator, approvals, executor and audit log need no model.
 4. If the laptop fails, play the backup video, recorded with the model running, from the same step.
@@ -55,3 +55,5 @@ hours saved counted from real actions (Money); silent candidates get one templat
 - "0/40" or "0/89" without "code path": those runs use no model.
 - "Data never leaves the machine": the model runs locally **by default**; for the hackathon it also ran on a
   rented cloud GPU, with fictional data only.
+
+> **Where the explanations went (1 Nov).** The words-used glossary, the "Examples to try" list and the Overview's safety wording ("proposed", "needs a human check") are behind the **?** button in each page header. Security Center sections keep a closed "What this shows and how to read it" line. Say "proposed" out loud on stage: it is no longer repeated on every row.

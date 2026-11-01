@@ -1097,3 +1097,19 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 
 /* ids (CAND-, EML-, APR-) are for support and audit: small, monospace, secondary */
 .mono-id { font-family: var(--font-code); font-size: var(--fs-xs); color: var(--muted); }
+
+/* "?" help popover in the page header; the words, the safety wording and the examples are one click away, not under every page */
+.help-wrap { position: relative; display: inline-flex; }
+.help-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--surface); color: var(--primary); font: 650 var(--fs-md)/1 var(--font-ui); cursor: pointer; }
+.help-btn:hover, .help-btn[aria-expanded="true"] { border-color: var(--primary); background: var(--primary-soft); }
+.help-pop { position: absolute; right: 0; top: calc(100% + 8px); z-index: var(--z-overlay); width: min(440px, 88vw); max-height: 70vh; overflow: auto; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-md); text-align: left; }
+.help-pop:focus { outline: none; }
+.help-pop h2 { margin: 0 0 8px; font-size: var(--fs-md); }
+.help-pop dl { display: grid; gap: 8px; margin: 0; }
+.help-pop dt { font-weight: 600; font-size: var(--fs-sm); }
+.help-pop dd { margin: 2px 0 0; color: var(--muted); font-size: var(--fs-sm); line-height: 1.45; }
+.try-these { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+.try-these ul { margin: 6px 0 0; padding-left: 18px; }
+.try-these li { margin: 0 0 6px; font-size: var(--fs-sm); }
+details.sc-intro > summary { cursor: pointer; color: var(--primary); font-weight: 600; font-size: var(--fs-sm); }
+details.sc-intro[open] > summary { margin-bottom: 8px; }

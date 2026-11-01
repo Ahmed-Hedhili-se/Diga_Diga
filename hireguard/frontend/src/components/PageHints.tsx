@@ -82,24 +82,11 @@ const HINTS: Record<string, Hint[]> = {
   ],
 };
 
-export default function PageHints({ path }: { path: string }) {
-  // longest matching prefix, so /candidates/upload gets its own hints rather than the Candidates ones
+/** The words for a page (longest matching route), or null: nothing on /403, /404 or an unknown path. */
+export function hintsFor(path: string): Hint[] | null {
+  if (path === "/403") return null;
   const key = Object.keys(HINTS)
     .filter((k) => path === k || path.startsWith(k + "/"))
-    .sort((a, b) => b.length - a.length)[0];
-  const hints = key ? HINTS[key] : null;
-  if (!hints) return null;
-  return (
-    <details className="page-hints">
-      <summary>Words used on this page</summary>
-      <dl>
-        {hints.map(([term, meaning]) => (
-          <div key={term}>
-            <dt>{term}</dt>
-            <dd>{meaning}</dd>
-          </div>
-        ))}
-      </dl>
-    </details>
-  );
+    .sort((x, y) => y.length - x.length)[0];
+  return key ? HINTS[key] : null;
 }

@@ -22,7 +22,6 @@ import { Forbidden, NotFound } from "./pages/Errors";
 import StyleGuide from "./pages/StyleGuide";
 import Team from "./pages/Team";
 import Overview from "./pages/Overview";
-import PageHints from "./components/PageHints";
 
 interface Page {
   path: string;
@@ -117,13 +116,6 @@ export default function App() {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
-  const examples = [
-    { path: "/candidates", title: "Inspect a candidate", detail: "Open a CV, review score evidence, then check its security findings." },
-    { path: "/approvals", title: "Review an approval", detail: "Compare the proposed change and its risk before deciding." },
-    { path: "/security", title: "Explore a security finding", detail: "See what hidden text was detected and how it was handled." },
-    { path: "/answer-desk", title: "Try a handbook question", detail: "Start with a suggested question; answers include source citations." },
-    { path: "/documents", title: "Request a document", detail: "Choose a certificate type and follow its review status." },
-  ].filter((example) => mine.some((page) => page.path === example.path));
 
   function openPage(path: string) {
     navigate(path);
@@ -265,33 +257,6 @@ export default function App() {
             <Route path="/403" element={<Forbidden home={home} />} />
             <Route path="*" element={<NotFound home={home} />} />
           </Routes>
-          <PageHints path={location.pathname} />
-          {examples.length > 0 && (
-            <details className="quick-start">
-              <summary>
-                <span>New here? Try one of these</span>
-                <span className="muted small">Only pages your account can open are listed.</span>
-              </summary>
-              <div className="quick-start-grid">
-                {examples.map((example) => (
-                  <button
-                    type="button"
-                    className="quick-start-item"
-                    key={example.path}
-                    onClick={() => openPage(example.path)}
-                  >
-                    <strong>{example.title}</strong>
-                    <span>{example.detail}</span>
-                    <span className="quick-start-link">Open this page</span>
-                  </button>
-                ))}
-              </div>
-              <p className="quick-start-note">
-                Demo examples appear when the local demo data has been seeded. Opening a page does not approve,
-                send, or release anything.
-              </p>
-            </details>
-          )}
         </main>
       </div>
       {mobileNavOpen && <button className="nav-scrim" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />}

@@ -75,7 +75,8 @@ export default function SecurityCenter() {
 /** "What is this?" box at the top of every section. */
 function Intro({ what, read, act }: { what: string; read?: string; act?: string }) {
   return (
-    <div className="sc-intro">
+    <details className="sc-intro">
+      <summary>What this shows and how to read it</summary>
       <p>
         <strong>What this shows.</strong> {what}
       </p>
@@ -89,7 +90,7 @@ function Intro({ what, read, act }: { what: string; read?: string; act?: string 
           <strong>What you should do.</strong> {act}
         </p>
       )}
-    </div>
+    </details>
   );
 }
 
