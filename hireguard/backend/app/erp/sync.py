@@ -99,9 +99,24 @@ def _cv_attachments(applicant_ids: list[int]) -> dict[int, dict]:
     return newest
 
 
+def _attachment_b64(value) -> str | None:
+    """Odoo <= 18 returns `datas` as base64 text. Odoo 19+ dropped `datas`; `raw` reads as
+    {"filename", "content": base64 text, "size"}."""
+    if isinstance(value, dict):
+        value = value.get("content")
+    return value or None
+
+
 def _download(attachment_id: int) -> bytes:
-    rows = odoo_client.call("ir.attachment", "read", [attachment_id], fields=["datas"])
-    data = rows[0].get("datas") if rows else None
+    try:
+        rows = odoo_client.call("ir.attachment", "read", [attachment_id], fields=["datas"])
+        data = rows[0].get("datas") if rows else None
+    except OdooError as e:
+        if "Invalid field" not in str(e):
+            raise
+        rows = odoo_client.call("ir.attachment", "read", [attachment_id], fields=["raw"])
+        data = rows[0].get("raw") if rows else None
+    data = _attachment_b64(data)
     if not data:
         raise OdooError(f"attachment {attachment_id} has no content")
     try:

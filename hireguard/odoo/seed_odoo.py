@@ -59,6 +59,13 @@ class Odoo:
     def __call__(self, model: str, method: str, *args, **kwargs):
         return self.obj.execute_kw(self.db, self.uid, self.password, model, method, list(args), kwargs)
 
+    def has_field(self, model: str, field: str) -> bool:
+        """Field names moved between Odoo versions (e.g. res.users.groups_id -> group_ids in 19+)."""
+        cache = self.__dict__.setdefault("_fields", {})
+        if model not in cache:
+            cache[model] = set(self(model, "fields_get", attributes=["type"]))
+        return field in cache[model]
+
     def find(self, model: str, domain: list) -> int | None:
         ids = self(model, "search", domain, limit=1)
         return ids[0] if ids else None
@@ -76,8 +83,9 @@ class Odoo:
 def seed_bot(odoo: Odoo) -> tuple[int, str]:
     groups = [odoo.xmlid("base", "group_user"), odoo.xmlid("hr_recruitment", "group_hr_recruitment_user")]
     password = secrets.token_urlsafe(18)
+    groups_field = "groups_id" if odoo.has_field("res.users", "groups_id") else "group_ids"
     vals = {"name": "HireGuard bot", "login": BOT_LOGIN, "email": BOT_LOGIN, "password": password,
-            "groups_id": [(6, 0, groups)]}
+            groups_field: [(6, 0, groups)]}
     uid = odoo.find("res.users", [("login", "=", BOT_LOGIN)])
     if uid:
         odoo("res.users", "write", [uid], vals)
@@ -87,15 +95,28 @@ def seed_bot(odoo: Odoo) -> tuple[int, str]:
 
 
 def add_applicant(odoo: Odoo, job_id: int, job_title: str, name: str, email: str, pdf: Path) -> bool:
-    if odoo.find("hr.applicant", [("email_from", "=", email), ("job_id", "=", job_id)]):
-        return False
-    partner = odoo.ensure("res.partner", [("email", "=", email)], {"name": name, "email": email})
-    applicant = odoo("hr.applicant", "create", {"name": f"{job_title} - {name}", "partner_id": partner,
-                                                "partner_name": name, "email_from": email, "job_id": job_id})
+    on_applicant = [("res_model", "=", "hr.applicant"), ("mimetype", "=", "application/pdf")]
+    applicant = odoo.find("hr.applicant", [("email_from", "=", email), ("job_id", "=", job_id)])
+    if applicant:
+        if odoo.find("ir.attachment", on_applicant + [("res_id", "=", applicant), ("file_size", ">", 0)]):
+            return False
+        # An earlier run on Odoo 19+ wrote `datas`, which no longer exists: the CV was stored empty. Replace it.
+        empty = odoo("ir.attachment", "search", on_applicant + [("res_id", "=", applicant)])
+        if empty:
+            odoo("ir.attachment", "unlink", empty)
+        created = False
+    else:
+        partner = odoo.ensure("res.partner", [("email", "=", email)], {"name": name, "email": email})
+        vals = {"partner_id": partner, "partner_name": name, "email_from": email, "job_id": job_id}
+        if odoo.has_field("hr.applicant", "name"):  # the subject field was dropped in recent Odoo versions
+            vals["name"] = f"{job_title} - {name}"
+        applicant = odoo("hr.applicant", "create", vals)
+        created = True
+    content = "datas" if odoo.has_field("ir.attachment", "datas") else "raw"  # both take base64 text over RPC
     odoo("ir.attachment", "create", {"name": pdf.name, "res_model": "hr.applicant", "res_id": applicant,
                                      "mimetype": "application/pdf",
-                                     "datas": base64.b64encode(pdf.read_bytes()).decode()})
-    return True
+                                     content: base64.b64encode(pdf.read_bytes()).decode()})
+    return created
 
 
 def seed_applicants(odoo: Odoo, jobs: dict[str, dict], job_ids: dict[str, int], max_cvs: int) -> int:

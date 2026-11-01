@@ -292,3 +292,28 @@ def test_status_and_disabled_connector(odoo, monkeypatch):
     assert erp_client(rec).post("/api/erp/jobs/JOB-NOPE-99/import").status_code == 404
     emp = make_user(Role.employee, "emp1")
     assert erp_client(emp).get("/api/erp/status").status_code == 403
+
+
+def test_download_falls_back_to_raw_on_odoo_19_plus(monkeypatch):
+    """Odoo 19+ removed ir.attachment.datas; `raw` reads as {"filename", "content": base64, "size"}."""
+    pdf = (PDFS / "clean.pdf").read_bytes()
+    asked = []
+
+    def fake_call(model, method, ids, fields):
+        asked.append(fields)
+        if fields == ["datas"]:
+            raise odoo_client.OdooError("ValueError: Invalid field 'datas' on 'ir.attachment'")
+        return [{"id": ids[0], "raw": {"filename": "cv.pdf", "content": base64.b64encode(pdf).decode(), "size": len(pdf)}}]
+
+    monkeypatch.setattr(sync.odoo_client, "call", fake_call)
+    assert sync._download(7) == pdf
+    assert asked == [["datas"], ["raw"]]
+
+
+def test_download_does_not_hide_other_odoo_errors(monkeypatch):
+    def fake_call(model, method, ids, fields):
+        raise odoo_client.OdooError("AccessError: not allowed")
+
+    monkeypatch.setattr(sync.odoo_client, "call", fake_call)
+    with pytest.raises(odoo_client.OdooError, match="AccessError"):
+        sync._download(7)
