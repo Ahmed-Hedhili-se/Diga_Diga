@@ -310,6 +310,7 @@ R recruiter · M HR manager · E employee · A admin.
 | R24 | The model and Ollama runtime are installed by tag, not pinned by digest | Medium (supply chain; invalidates the measured evidence if it changes) | Hedhili | Open (S4 in `docs/security_hardening.md`) |
 | R25 | No multi-factor authentication; no self-service password change | High before a pilot | Rayen | Open (S1, S2) |
 | R26 | The email classifier's intent and urgency labels have not been tested against injected text | Medium | Hedhili | Open (S5) |
+| R27 | A model call had no output limit: one request generated 39,000+ tokens and held the GPU (found 1 Nov; also behind the 258 s worst case and failed extraction calls). A hostile CV could trigger it on purpose | High (availability, cost) | Hedhili | **Mitigated 1 Nov**: `HG_LLM_MAX_TOKENS` (default 2048; longest valid output is about 650 tokens) on Ollama, Gemini and Groq calls |
 
 ## 9. Interface change log
 
