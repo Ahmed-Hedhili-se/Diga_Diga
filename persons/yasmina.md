@@ -6,24 +6,22 @@ Own the user-facing workflows for HireGuard and the HR Nexus research/demo
 surfaces. Make the interface clear about what is proposed, what is approved,
 what is measured, and what is only a team-level signal.
 
-## Start here (31 Oct hand-off)
+## Left to do (1 Nov)
 
-New UI to review against the backend contract (`hireguard/contracts/API.md`):
+Done since 31 Oct: the frontend security review (6 findings, retested), honest error and empty
+states, the UI-to-API contract test, offer-fit and talent-pool screens, mode labels on the
+Evaluation tab, and the demo script with a backup path.
 
-- Candidates: offer-fit badge per row, band-coverage card, "Offer fit" panel with
-  the HR-manager "Draft offer letter" form, talent-pool table with invitations.
-- Inbox: "Awaiting reply" follow-ups panel.
-- Team insights (new page, HR manager and admin): Skills map, HR process (live vs.
-  **labelled simulation**), Knowledge gaps (cells under 5 hidden).
-- Navigation grouped into Recruit / Team / Oversight / Admin.
-
-- [ ] Check empty, loading, error and 403 states on each new panel.
-- [ ] Rehearse the 5 demo beats with the runbook in `hireguard/docs/pitch.md` (accounts,
-      clicks, what must be visible, fallbacks) inside 5:00; say out loud which data is
-      fictional or simulated. Record the backup video of the same path.
-- [ ] The offer beat stops at "1 of 2 approvals" with two HR accounts (risk R14): keep
-      it, and show it as the control working.
-- [ ] Wire the Answer Desk page once Rayen's endpoint lands (R3).
+- [ ] **P0** Rehearse the demo twice with the single script (`hireguard/docs/demo_script.md`)
+      inside 5:00, and record the backup video of the same path. Use seeded candidates only:
+      a live upload through the model takes about 40 seconds.
+- [ ] **P0** After today's fixes: check the Evaluation tab (code-path and model runs, each
+      labelled) and the single follow-up screen.
+- [ ] **P0** The offer beat stops at "1 of 2 approvals" with two HR accounts (risk R14):
+      present it as the control working.
+- [ ] **P1** Phone-width pass and screen-reader pass on the review and approval flows.
+- [ ] **P1** Production: `HG_API_DOCS=0` so `/api/docs` and its relaxed CSP are off.
+- [ ] **P1** Y5 wording on the skills map once Ahmed decides.
 
 ## Work to execute
 

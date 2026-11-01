@@ -1,4 +1,4 @@
-"""Fast-track: offer-fit check, offer letters, candidate follow-ups, talent-pool rediscovery."""
+"""Fast-track: offer-fit check, offer letters, talent-pool rediscovery. Follow-ups: tests/test_followups.py."""
 from datetime import date, datetime, timedelta, timezone
 
 import pytest
@@ -14,9 +14,8 @@ from app.pipeline import demo
 from app.pipeline import routes as pipeline_routes
 from app.scoring import offer_fit, rediscover
 from app.scoring import routes as scoring_routes
-from app.workflow import approvals, executor, followups
+from app.workflow import approvals, executor
 from app.workflow import routes as workflow_routes
-from app.workflow.common import new_id
 
 from test_workflow import make_user
 
@@ -118,52 +117,6 @@ def test_offer_inside_band_two_approvers_then_sent(seeded):
     assert approvals.decide(item["id"], m3, "approve").status == "approved"
     out = executor.run(item["id"], m2)
     assert out["executed"] and out["result"]["to"] == item["payload"]["to"]
-
-
-def _outbox(conn, to: str, days_ago: int):
-    sent = (datetime.now(timezone.utc) - timedelta(days=days_ago)).isoformat()
-    conn.execute("INSERT INTO email_outbox VALUES (?,?,?,?,?,?,?)", (new_id("OUT"), "seed:history", to, "s", "b", "fr", sent))
-    return sent
-
-
-def _reply(conn, cid: str, email: str, at: str):
-    conn.execute("INSERT INTO inbox_items (id, message_id, received_at, from_addr, from_name, subject, body, spf, dkim, "
-                 "dmarc, lane, reasons, candidate_id, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                 (new_id("INB"), new_id("MSG"), at, email, "x", "s", "b", "pass", "pass", "pass", "routine", "[]", cid,
-                  "new"))
-
-
-def test_business_days():
-    assert followups.business_days(date(2026, 10, 30), date(2026, 11, 2)) == 1  # Fri -> Mon
-    assert followups.business_days(date(2026, 10, 26), date(2026, 11, 2)) == 5
-
-
-def test_followups_only_for_silent_candidates_and_capped(seeded):
-    rec = make_user(Role.recruiter, "rec1")
-    conn = app_db.connect()
-    emails = {r["candidate_id"]: r["email"] for r in conn.execute("SELECT candidate_id, email FROM candidates")}
-    _outbox(conn, emails["CAND-003"], 8)
-    sent = _outbox(conn, emails["CAND-004"], 8)
-    _reply(conn, "CAND-004", emails["CAND-004"], (datetime.fromisoformat(sent) + timedelta(days=1)).isoformat())
-    _outbox(conn, emails["CAND-005"], 0)
-    conn.close()
-
-    due = client_for(rec).get("/api/followups").json()["candidates"]
-    assert [x["candidate_id"] for x in due] == ["CAND-003"]  # 004 replied, 005 was written to today
-
-    first = client_for(rec).post("/api/followups/draft", json={"candidate_ids": ["CAND-003", "CAND-004"]}).json()
-    assert len(first) == 1 and first[0]["payload"]["followup"] and first[0]["payload"]["reminder_no"] == 1
-    assert client_for(rec).post("/api/followups/draft", json={"candidate_ids": ["CAND-003"]}).json() == []  # pending
-
-    conn = app_db.connect()
-    conn.execute("UPDATE approval_items SET status = 'executed' WHERE id = ?", (first[0]["id"],))
-    conn.close()
-    second = followups.draft(["CAND-003"], "rec1")
-    assert len(second) == 1 and second[0].payload["reminder_no"] == 2
-    conn = app_db.connect()
-    conn.execute("UPDATE approval_items SET status = 'executed' WHERE id = ?", (second[0].id,))
-    conn.close()
-    assert followups.draft(["CAND-003"], "rec1") == []  # MAX_REMINDERS reached
 
 
 def test_rediscovery_needs_valid_consent(seeded):

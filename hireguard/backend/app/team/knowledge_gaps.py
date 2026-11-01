@@ -8,6 +8,7 @@ are never stored here. radar() counts per section and per ISO week and hides eve
 from __future__ import annotations
 
 import json
+import logging
 import random
 import sqlite3
 from datetime import date, datetime, timedelta, timezone
@@ -18,6 +19,7 @@ from ..db import connect, register_schema, tx
 
 K = 5
 LANGS = ("fr", "en", "ar")
+log = logging.getLogger("hireguard.knowledge_gaps")
 
 
 @register_schema
@@ -53,6 +55,31 @@ def record(section: str | None, lang: str, when: date | None = None, conn: sqlit
         with tx() as c:
             return record(section, lang, when, conn=c)
     conn.execute("INSERT INTO answer_desk_log (week, section, lang) VALUES (?,?,?)", (_week(when), section, lang))
+
+
+_FR_HINTS = (" le ", " la ", " les ", " je ", " mon ", " ma ", " mes ", " est-ce", "congé", " des ", " une ")
+
+
+def _lang_of(question: str) -> str:
+    """Rough script/stop-word guess, so the log never needs the text itself."""
+    if any("؀" <= ch <= "ۿ" for ch in question):
+        return "ar"
+    q = f" {question.lower()} "
+    return "fr" if any(h in q for h in _FR_HINTS) else "en"
+
+
+def record_answer(result: dict, question: str):
+    """Hook for POST /answer-desk/ask. A handbook answer logs its top section, "ask HR" logs a gap.
+    Personal questions routed to HR are not handbook gaps and are not logged. Never raises: the radar is
+    analytics and must not break the Answer Desk."""
+    kind = result.get("kind")
+    if kind not in ("extract", "ask_hr"):
+        return
+    section = result["extracts"][0]["section"] if kind == "extract" and result.get("extracts") else None
+    try:
+        record(section if section in sections() else None, _lang_of(question))
+    except Exception:  # noqa: BLE001
+        log.warning("knowledge-gap radar: could not record an Answer Desk result")
 
 
 def _cell(n: int, k: int) -> int | None:

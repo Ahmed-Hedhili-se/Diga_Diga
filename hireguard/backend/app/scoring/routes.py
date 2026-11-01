@@ -27,8 +27,9 @@ RM = require_roles(Role.recruiter, Role.hr_manager)
 M = require_roles(Role.hr_manager)
 MA = require_roles(Role.hr_manager, Role.admin)
 
-EVAL_SUMMARY = ROOT / "eval" / "results" / "summary.json"
-EVAL_FAIRNESS = ROOT / "eval" / "results" / "fairness.json"
+EVAL_DIR = ROOT / "eval" / "results"
+EVAL_SUMMARY = EVAL_DIR / "summary.json"  # the harness default output: run "latest"
+EVAL_FAIRNESS = EVAL_DIR / "fairness.json"
 
 
 def _validated(job_id: str):
@@ -374,16 +375,55 @@ def eval_report(summary: dict) -> dict:
             "sections": sections, "limitations": limitations}
 
 
+def _eval_runs() -> dict[str, dict]:
+    """Every harness output: summary.json (the harness default, run "latest") and summary_<name>.json (kept runs).
+
+    Each run is labelled with the mode that produced it, so a code-path (oracle) number can never be shown
+    as a model result. Older files without a per-section mode take the run's mode. An unreadable file is an
+    error (500), never an empty success.
+    """
+    folder = EVAL_SUMMARY.parent
+    paths = ([EVAL_SUMMARY] if EVAL_SUMMARY.exists() else []) + sorted(folder.glob("summary_*.json"))
+    runs = {}
+    for path in paths:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as e:
+            raise HTTPException(500, f"eval/results/{path.name} is unreadable: {e}")
+        run_id = "latest" if path == EVAL_SUMMARY else path.stem.removeprefix("summary_")
+        modes = {s.get("extraction_mode") for s in data.get("sections", {}).values()
+                 if isinstance(s, dict) and s.get("extraction_mode")}
+        mode = data.get("extraction_mode") or (modes.pop() if len(modes) == 1 else None)             or ("llm" if data.get("model") else "unknown")
+        label = "code path only, no model" if mode == "oracle" else f"model {data.get('model') or '?'}"
+        if "unmasked" in run_id:
+            label += ", before identity masking"
+        runs[run_id] = {"id": run_id, "mode": mode, "model": data.get("model"), "label": label,
+                        "generated_at": data.get("generated_at"), "data": data}
+    return runs
+
+
 @router.get("/eval/summary")
-def eval_summary(user: UserOut = Depends(MA)):
-    """The harness output as written, plus `report`: an explicit statement of mode, sample size and limits."""
-    if not EVAL_SUMMARY.exists():
-        return {"status": "not_run"}
-    try:
-        summary = json.loads(EVAL_SUMMARY.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as e:  # a broken results file is an error, not an empty success
-        raise HTTPException(500, f"eval/results/summary.json is unreadable: {e}")
-    return summary | {"report": eval_report(summary)}
+def eval_summary(run: str | None = Query(None, max_length=80), user: UserOut = Depends(MA)):
+    """One labelled evaluation run (default: the newest model run, else the newest run), the list of runs, and
+    `report`: an explicit statement of mode, sample size and limits for the chosen run."""
+    runs = _eval_runs()
+    if not runs:
+        return {"status": "not_run", "runs": []}
+    if run is None:
+        model_runs = [r for r in runs.values() if r["mode"] == "llm"]
+        run = max(model_runs or runs.values(), key=lambda r: r["generated_at"] or "")["id"]
+    if run not in runs:
+        raise HTTPException(404, "unknown evaluation run")
+    chosen = runs[run]
+    data = dict(chosen["data"])
+    report = eval_report(data)
+    data["sections"] = {k: ({"extraction_mode": chosen["mode"]} | v) if isinstance(v, dict) else v
+                        for k, v in data.get("sections", {}).items()}
+    baseline = EVAL_SUMMARY.parent / "baseline.json"
+    if chosen["mode"] == "llm" and "baseline" not in data and baseline.exists():
+        data["baseline"] = json.loads(baseline.read_text(encoding="utf-8"))
+    meta = lambda r: {k: r[k] for k in ("id", "mode", "model", "label", "generated_at")}
+    return data | {"run": meta(chosen), "runs": [meta(r) for r in runs.values()], "report": report}
 
 
 @router.get("/eval/fairness")

@@ -1,29 +1,41 @@
-# Demo script (about 4 minutes)
+# Demo script (2 minutes inside the 5-minute pitch)
+
+Owner: Yasmina. The only demo script: it merges Yasmina's script with the pitch runbook (1 Nov); the older
+per-person scripts are in `archive/`. The spoken lines and timing are in [`pitch.md`](pitch.md).
 
 All people, CVs and emails are fictional. Numbers are never quoted from memory: read them from **Security Center >
-Evaluation**, which shows the mode (model or oracle) of every number.
+Evaluation**, which shows which run (model or code path) produced every number.
 
-## Before the demo
+## Before the demo (one hour before)
 
 ```powershell
 cd hireguard
-.\run.ps1 -Seed          # prints the demo passwords once; with Ollama up the CVs go through qwen3:8b
+.\run.ps1 -Setup -Seed   # first time; later .\run.ps1 -Seed. About 2 minutes. Prints the demo passwords ONCE.
 ```
 
-Check: the Candidates list shows **no "offline extraction" badge** if you want to say "the model read these CVs".
-If the badge is there, use the backup path below and say so.
+1. Store the passwords. Open three logged-in browser profiles:
+   - recruiter Amira (`recruiter@hireguard.demo`)
+   - HR manager Karim (`hrm@hireguard.demo`)
+   - second HR manager Leila (`hrm2@hireguard.demo`)
+2. With Ollama up, the seeded CVs go through qwen3:8b; send one warm-up request first.
+3. Check the Candidates list: if it shows an **"offline extraction"** badge, the model did not read these CVs. Use the
+   backup path below and say so.
+4. **Never upload a CV live through the model:** it takes about 40 seconds per CV on the hardware we measured.
+5. Zoom 125%, notifications off, the backup video open in a tab.
 
-## Click path
+## Click path (about 2 minutes)
 
-| # | Who | Do | Say |
-|---|---|---|---|
-| 1 | Recruiter | Candidates > JOB-DATA-01. Click a score justification | "Code ranks from validated fields only. Each line points to the evidence in the CV. The score is *proposed*." |
-| 2 | Recruiter | Open CAND-006 | "Hidden white and tiny text was removed before the model read the CV, and flagged for HR. Flags never change a score." |
-| 3 | Recruiter | Open CAND-002, then CAND-008 (same CV, other town) | "Same qualifications, same score: towns, schools and gendered titles are masked before the model reads the CV." |
-| 4 | HR manager | Security Center > Blocked attacks, then Evaluation | Read the attack, twin and email numbers **with their k/n and mode**. Name one limit (for example the CV-language twins). |
-| 5 | Employee | My documents > request a work certificate | "The document exists only after an HR manager releases it." |
-| 6 | Recruiter | Approvals > "Execute without approval" | "403: the executor refuses anything not approved, and the refusal is in the audit log." |
-| 7 | HR manager | Approve the certificate, then Money | "Hours saved come from real counted actions; minutes per task are estimates until the HR interviews." |
+| # | Who | Do | Say (short) | Must be visible |
+|---|---|---|---|---|
+| 1 | Recruiter | Candidates > JOB-DATA-01, click a score justification | "Code ranks from validated fields only; each line points to the evidence. The score is *proposed*." | The highlighted evidence in the CV |
+| 2 | Recruiter | Open CAND-006 | "Hidden white and tiny text was removed before the model read the CV, and flagged for HR. Flags never change a score." | The findings, with the hidden text revealed |
+| 3 | Recruiter | Shortlist size 2: CAND-002 and CAND-008 (same CV, other town) | "Tied. Any ranker picks one by sort order; we flag it as borderline and leave it to a human." If the two scores differ, say so: twin results are being re-measured after masking. | "borderline · 51% / 49% top 2" |
+| 4 | HR manager (Karim), then Leila | Offer-fit card, CAND-002's badge, then CAND-008 > "Draft offer letter", 3,300 TND > Send to approval. Leila: Approvals > approve | "We found the deal-breaker before the interview. We don't predict who accepts: we ask, and we check against the published band." | "band covers 1/2"; CAND-002 "offer mismatch"; the offer **pending, 1 of 2 approvals**: the control working (a third manager signs, risk R14) |
+| 5 | Recruiter | Approvals > any pending item > "Execute without approval" | "403: the executor refuses anything not approved, and the refusal is in the audit log." | Red "403 Forbidden" |
+| 6 | HR manager | Team insights > Skills map, then Knowledge gaps | "We measure the process and the handbook, never the people." Say "fictional demo log". | Apache Spark "gap"; Remote work on top; cells under 5 hidden |
+
+If time allows, one line each: employee certificate released only after an HR manager approves (My documents);
+hours saved counted from real actions (Money); silent candidates get one templated reminder (Approvals).
 
 ## Backup path (GPU or model unavailable)
 
@@ -31,11 +43,15 @@ If the badge is there, use the backup path below and say so.
    `HG_EXTRACT_MODE=ground_truth` so emails get their labelled fields.
 2. The UI then shows **"offline extraction"** on every candidate. Say it: *"This run uses labelled demo data, not
    the model. The model's measured results are on the Evaluation tab."*
-3. Steps 2, 5, 6 and 7 work the same: the sanitizer, validator, approvals, executor and audit log need no model.
-4. If the laptop fails, play the backup video, recorded with the model running.
+3. Steps 1, 2, 4, 5 and 6 work the same: the sanitizer, validator, approvals, executor and audit log need no model.
+4. If the laptop fails, play the backup video, recorded with the model running, from the same step.
+
+**Between rehearsals:** delete `backend/hireguard.db` and `backend/uploads/`, then reseed.
 
 ## Do not say
 
 - "The AI decided" or "the AI hired": code proposes, a person approves.
-- "Attacks never work": quote the measured k/n.
-- "0/40" from an oracle run: oracle numbers test the code path, not the model.
+- "Attacks never work": quote the measured k/n (3/40 vs 13/40 for a standard screener).
+- "0/40" or "0/89" without "code path": those runs use no model.
+- "Data never leaves the machine": the model runs locally **by default**; for the hackathon it also ran on a
+  rented cloud GPU, with fictional data only.

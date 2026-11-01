@@ -295,3 +295,21 @@ def test_out_of_scope_questions_stay_below_the_threshold():
     for q in ["recipe for tunisian couscous with lamb", "who is the ceo", "How do I reset the wifi password?", "hello"]:
         hits = ad.search(q, k=1)
         assert not hits or hits[0]["score"] < ad.MIN_SCORE, q
+
+
+def test_answers_feed_the_knowledge_gap_radar_without_the_text(db):
+    """HR Nexus: a handbook answer logs its section, "ask HR" logs a gap, a personal question logs nothing."""
+    from app import db as app_db
+    from app.team import knowledge_gaps
+    emp = make_user(Role.employee, "emp1")
+    ask(client(emp), "Combien de jours de congé annuel ?")
+    ask(client(emp), "recipe for tunisian couscous with lamb")
+    ask(client(emp), "Quel est mon solde de congés ?")
+    radar = knowledge_gaps.radar(k=1)
+    assert radar["questions"] == 2
+    assert {s["section"]: s["count"] for s in radar["sections"]}["2. Annual leave"] == 1
+    assert radar["no_match"]["count"] == 1
+    conn = app_db.connect()
+    rows = [tuple(r) for r in conn.execute("SELECT week, section, lang FROM answer_desk_log")]
+    conn.close()
+    assert sorted(r[1] or "" for r in rows) == ["", "2. Annual leave"] and {r[2] for r in rows} == {"fr", "en"}

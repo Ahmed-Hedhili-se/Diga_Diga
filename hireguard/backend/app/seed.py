@@ -27,9 +27,10 @@ LAYER_SEEDS = [
     ("app.scoring.jobs", "seed_jobs", "P2 jobs/rubrics"),
     ("app.pipeline.demo", "seed_candidates", "P1 candidates"),  # before inbox: gate matches senders to candidates
     ("app.workflow.demo", "seed_inbox", "P3 inbox/approvals"),
+    ("app.workflow.demo", "seed_followup_demo", "P3 follow-up demo: one candidate silent for 5 days (backdated, audited)"),
     ("app.scoring.offer_fit", "seed_conditions", "Fast-track declared conditions (fictional)"),
     ("app.scoring.rediscover", "seed_pool", "Fast-track talent pool: 20 fictional past applicants"),
-    ("app.workflow.followups", "seed_history", "Fast-track: applicants for the other roles, some never answered"),
+    ("app.scoring.rediscover", "seed_other_roles", "Applicants for the two other open roles (fictional)"),
     ("app.team.knowledge_gaps", "seed_log", "HR Nexus: fictional answer-desk log (no question text)"),
 ]
 

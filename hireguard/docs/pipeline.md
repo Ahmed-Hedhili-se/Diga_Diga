@@ -99,11 +99,11 @@ The question is capped at 1,000 characters, control and bidi characters are stri
 
 | Check | Result | How to reproduce |
 |---|---|---|
-| Attacks with a high finding | **38/40** | `python scripts/check_detection.py` (the 2 misses come from the test generator: its cover image is 20x20 pt instead of full width; the sanitizer flags both once the cover is full width, see `person1.md` R1) |
+| Attacks with a high finding | **38/40** | `python scripts/check_detection.py` (the 2 misses come from the test generator: its cover image is 20x20 pt instead of full width; the sanitizer flags both once the cover is full width, see `persons/archive/person1.md` R1) |
 | Clean twins with a high finding | **0/40** | same |
 | Personal questions routed to HR | **8/8** | `pytest tests/test_answer_desk.py` (`data/handbook/questions.json`) |
 | Policy questions, top-1 section correct | **12/12** | same |
-| Backend tests | 287 passed, 1 expected failure (a P4 finding) | `python -m pytest -q` in `hireguard/backend` |
+| Backend tests | all pass (449 on 1 Nov) | `python -m pytest -q` in `hireguard/backend` |
 
 Extraction quality against the real model is measured by P2's harness; the Modal run is described in `hireguard/infra/README.md`.
 

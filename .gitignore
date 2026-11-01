@@ -2,9 +2,9 @@
 __pycache__/
 *.pyc
 
-# downloaded datasets and caches are reproducible via scripts/download_data.py
-data/raw/*
-!data/raw/MANIFEST.json
-data/cache/
+# HR Nexus research: downloaded datasets and caches are reproducible via research/scripts/download_data.py
+research/data/raw/*
+!research/data/raw/MANIFEST.json
+research/data/cache/
 
-results/*_log.txt
+research/results/*_log.txt

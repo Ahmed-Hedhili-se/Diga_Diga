@@ -25,34 +25,42 @@ holder counts become a *proposed* rubric, and per-stage hiring durations feed th
 HR process panel. HR Nexus must not expose individual employee stress, productivity,
 or risk scores. Its output is team-level and suppresses small groups (k >= 5).
 
-## Status at hand-off (31 Oct, branch `mnasri`)
+## Status (1 Nov, `main` has every branch merged)
 
-Built and tested (107 backend tests including the release gate, frontend build green): the trust core, the
-Recruit module with the fast-track (offer fit, offer letters, follow-ups, talent
-pool), and the Team module (skills map, HR process metrics, knowledge-gap radar).
-Architecture, data boundaries, permissions matrix and the **risk register (R1-R9)**
-are in [hireguard/docs/architecture.md](../hireguard/docs/architecture.md). Every
-open risk has an owner below. The pitch script, demo runbook and Q&A sheet are in
-[hireguard/docs/pitch.md](../hireguard/docs/pitch.md).
+`main` now contains all the work from `mnasri`, `yasmina`, `hedhili` and `Rayen`. Work on a short
+branch off `main` (`git checkout -b <you>-<task> origin/main`) and merge back the same day; the
+old personal branches are history.
+
+- **Health:** 449 backend tests, 11 frontend tests, the frontend build and the release gate
+  (all 67 routes) pass; a full demo seed works and the audit chain verifies. After pulling, run
+  `npm ci` in `hireguard/frontend` (new dev dependencies), or the build fails.
+- **Headline evidence (real Qwen3-8B, same 40 attacks):** a naive screener's score moved on
+  13/40, HireGuard's on 3/40. Paired, 11 attacks beat only the naive screener and 1 only
+  HireGuard: exact McNemar p = 0.006.
+- **Known weakness:** through the model, 26/90 twin CVs changed score (14/20 when only the CV
+  language changed). Masking was added afterwards and is **not measured yet**.
+- **CV extraction is slow on the measured setup:** about 40 seconds per CV. The demo uses seeded
+  candidates; don't upload a CV live through the model.
+- Risk register: [hireguard/docs/architecture.md](../hireguard/docs/architecture.md) §8.
 
 Code comments still say P1-P4 (the first plan). Map them to owners:
 
 | Label in code | Area | Owner now |
 |---|---|---|
-| P1 | `backend/app/pipeline/` (sanitizer, detector, extractor, validator, Answer Desk) | Rayen (code), Hedhili (model and detector quality) |
+| P1 | `backend/app/pipeline/` (sanitizer, detector, extractor, validator, Answer Desk) | Hedhili (model, detector, Answer Desk), Rayen (API) |
 | P2 | `backend/app/scoring/`, `eval/` | Rayen (code), Hedhili (model-mode evaluation) |
-| P3 | `backend/app/workflow/` (approvals, executor, audit, email gate) | Rayen |
+| P3 | `backend/app/workflow/` (approvals, executor, audit, email gate, follow-ups) | Rayen, Hedhili (follow-ups, pentest) |
 | P4 | `frontend/`, `backend/app/auth/`, `security.py` | Yasmina (frontend), Rayen (auth backend) |
-| — | `backend/app/team/` (HR Nexus) | Rayen (code), Yasmina (Team insights page) |
+| — | `backend/app/team/` (HR Nexus), `odoo/`, `infra/` | Rayen (code), Yasmina (pages), Hedhili (Modal) |
 
-### Priorities before the pitch (P0 first)
+### Left to do (P0 = before the pitch)
 
 | Person | P0 | P1 |
 |---|---|---|
-| Hedhili | R1: implement the baseline stub (`eval/baselines.py`, TODO 2), then model-mode numbers on the GPU laptop (harness, fairness, load test with `--extraction llm`) and the paired McNemar | R2: detector gaps (English "Evaluator note", Derja, Arabic) |
-| Rayen | R3: Answer Desk (retrieval-only, cited passages, "no match" goes to HR, calls `knowledge_gaps.record()`) | R10 audit sign-in and account creation; R4 aggregate `/reviewer/stats`; R14 offer approval count; R12; R6 |
-| Yasmina | Review and polish the new pages; rehearse the 5 demo beats with the runbook in `docs/pitch.md`; record the backup video | Error, empty and permission states on the new pages; accessibility |
-| Ahmed | HR interview calls (`docs/hr_interview_guide.md`) to fill the business TBDs; choose the ask | Risk register and sign-offs; merge gate below |
+| Hedhili | Re-run the model evaluation with masking on (twins, attacks, extraction on 50+ CVs); record where the model ran | Fix the attack generator (`render.py`, R1 in `archive/person1.md`) and re-count detection; re-measure the detector |
+| Rayen | Down-weight `listed_only` skills in the scorer; keep approved routine items visible until executed (N8); document the 4 missing routes | R4 aggregate reviewer stats; R12 rescore audit; R14 offer approver count; N10 `hidden_high` |
+| Yasmina | Rehearse the single demo script and record the backup video; check the Evaluation tab and the follow-up screen after today's fixes | Phone and screen-reader pass; `/api/docs` off in production; Y5 copy once Ahmed decides |
+| Ahmed | HR interview calls for the business numbers; choose the ask; final pitch numbers after Hedhili's run | Decide Y5 and R4; collect sign-offs; keep the risk register current |
 
 ## Ownership at a glance
 

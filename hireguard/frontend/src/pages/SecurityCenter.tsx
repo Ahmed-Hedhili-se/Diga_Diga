@@ -344,9 +344,11 @@ function Attacks() {
 const pct = (x: number | null | undefined) => (x === null || x === undefined ? "Not available" : `${fmtNum(100 * x, 1)}%`);
 
 function Evaluation() {
-  const ev = useLoad(() => api<EvalSummary>("/eval/summary"));
+  const [run, setRun] = useState<string | null>(null);
+  const ev = useLoad(() => api<EvalSummary>(run ? `/eval/summary?run=${encodeURIComponent(run)}` : "/eval/summary"), [run]);
   const s = ev.data?.sections;
   const b = ev.data?.baseline;
+  const runs = ev.data?.runs ?? [];
   return (
     <>
       <Intro
@@ -361,11 +363,28 @@ function Evaluation() {
           The tests have not been run yet. An engineer runs them with: python eval/harness.py
         </Empty>
       )}
+      {runs.length > 1 && (
+        <div className="row">
+          <span className="muted small">Which test run:</span>
+          <div className="seg">
+            {runs.map((r) => (
+              <button key={r.id} className={ev.data?.run?.id === r.id ? "on" : ""} onClick={() => setRun(r.id)}>
+                {r.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       {s && (
         <div className="stack">
           <p className="muted small">
-            Last run {fmtDate(ev.data?.generated_at)} on the model {ev.data?.model ?? "(unknown)"}. All CVs and emails in the tests are made up. Real documents are messier, so real results will be somewhat worse.
+            Test run "{ev.data?.run?.label ?? "latest"}", {fmtDate(ev.data?.generated_at)}, on the model {ev.data?.model ?? "(unknown)"}. All CVs and emails in the tests are made up. Real documents are messier, so real results will be somewhat worse.
           </p>
+          {ev.data?.run?.id.includes("unmasked") && (
+            <div className="alert warn">
+              This run was measured before towns, schools, gendered job titles and emails were hidden from the AI model. The current code hides them, so newer numbers will differ. They come with the next run.
+            </div>
+          )}
           <EvalCard title="Can it spot hidden text?" aim="Higher is better for attacks found, lower is better for false alarms." sec={s.hidden}>
             <div className="tiles">
               <Metric label="CVs with hidden text that we caught" stat={s.hidden?.strict?.recall} />

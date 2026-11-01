@@ -164,3 +164,13 @@ def seed_pool():
             add(cid, CLOSED_JOB, "system:seed", consent_at=datetime(2025, 9, 15, tzinfo=timezone.utc))
         elif i <= 17:
             add(cid, CLOSED_JOB, "system:seed", consent_at=datetime(2024, 6, 1, tzinfo=timezone.utc))
+
+
+OTHER_ROLES = {"JOB-FS-02": ("CAND-F", 6), "JOB-HR-03": ("CAND-H", 5)}
+
+
+def seed_other_roles():
+    """A few fictional applicants for the two other open roles, so their ranking pages are not empty."""
+    for job_id, (prefix, n) in OTHER_ROLES.items():
+        for i, gt in enumerate(fictional_cvs(job_id, n), start=1):
+            seed_cv(gt, f"{prefix}{i:03d}", job_id)

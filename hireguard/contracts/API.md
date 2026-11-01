@@ -95,8 +95,6 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/approvals/{id}/decision` | R M (offer: M, 2 distinct approvers) | `{decision:"approve"\|"reject"}` → `ApprovalItem` |
 | POST | `/approvals/batches/{batch_id}/decision` | R M | `{decision, item_ids}` → `ApprovalItem[]` |
 | POST | `/executor/run/{item_id}` | R M | → `{executed}`; **403 if the item is not approved** |
-| GET | `/followups?days=3` | R M | → `{days, max_reminders, candidates:[{candidate_id, last_sent_at, business_days_waiting, reminders_sent, reminder_pending, can_remind}]}` |
-| POST | `/followups/draft` | R M | `{candidate_ids, days?}` → `ApprovalItem[]` (template reminders; at most 2 per candidate; not-due candidates skipped) |
 | GET | `/calendar/slots?recruiter_id=` | R M | → 3 free slots; unknown `recruiter_id` → 404 (default `recruiter`, or a recruiter / HR manager account id) |
 | GET | `/audit?limit=` | M A | → `AuditEntry[]` |
 | GET | `/audit/verify` | M A | → `{ok, length, broken_at, last_anchor}` |
@@ -114,7 +112,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET | `/employee-questions/{id}` | E (own) M (all) | one question; another employee's id → 404 |
 | POST | `/employee-questions/{id}/reply` | M | `{template: received\|contact_hr\|use_documents, lang}` → `ApprovalItem` (`email_send` to the employee's own account) |
 | GET | `/followups/preview?days=3` | R M | → `[{candidate_id, job_id, lang, last_sent_at, days_silent}]`, creates nothing |
-| POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends |
+| POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends. The only follow-up engine: executed emails only, closed candidates skipped, at most 2 per candidate |
 
 ### HR Nexus: Team module (aggregates only)
 | Method | Path | Roles | Body → Response |
