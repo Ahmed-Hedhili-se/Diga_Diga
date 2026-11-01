@@ -1,6 +1,8 @@
 // "Words on this page": a short plain-language glossary at the bottom of each page, for the terms that
 // read as jargon to someone who is not a recruiter, statistician or security engineer. One sentence each.
 
+import { BRAND } from "../brand";
+
 type Hint = [term: string, meaning: string];
 
 const HINTS: Record<string, Hint[]> = {
@@ -8,7 +10,7 @@ const HINTS: Record<string, Hint[]> = {
     ["Proposed / committed", "A proposed score is a suggestion from the system. It becomes committed only after a person approves the shortlist."],
     ["Needs a human check", "The system was unsure (for example the AI could not read the CV), so a person must look before the score counts."],
     ["Attack stripped", "The CV contained hidden text meant to fool the screening. It was removed before scoring."],
-    ["Connected systems", "The AI model reads CVs and emails; Odoo is your HR system. Green means HireGuard can reach it right now."],
+    ["Connected systems", `The AI model reads CVs and emails; Odoo is your HR system. Green means ${BRAND.name} can reach it right now.`],
     ["Cloud model", "If the AI model runs on Google Gemini, the text of each CV is sent to Google. Use it for test or consented CVs only."],
   ],
   "/candidates/upload": [
@@ -72,7 +74,7 @@ const HINTS: Record<string, Hint[]> = {
   "/money": [
     ["Cost of vacancy", "An estimate of what an unfilled job costs per day, added up since it opened."],
     ["Hours saved", "Time HR would otherwise spend screening, answering emails and preparing documents by hand."],
-    ["ROI (TND)", "Here: the hours saved multiplied by the hourly staff cost you set. It does not subtract what HireGuard costs."],
+    ["ROI (TND)", `Here: the hours saved multiplied by the hourly staff cost you set. It does not subtract what ${BRAND.name} costs.`],
   ],
   "/users": [
     ["Role", "What a person can do. Admins manage accounts but cannot read candidate files or approve HR actions."],

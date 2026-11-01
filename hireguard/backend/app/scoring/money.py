@@ -95,3 +95,59 @@ def dashboard(today: date | None = None) -> dict:
         "hourly_cost_tnd": hourly,
         "roi_tnd": round(hours["total"] * hourly, 0),
     }
+
+
+# ---------------------------------------------------------------- ROI calculator (what would it be worth to you?)
+#
+# Pure and deterministic: no model, no database. Every input has a default that is an ASSUMPTION; a value the user typed is
+# marked "entered". Sources are ids in docs/evidence.md; None means "our hypothesis, to be checked in customer calls".
+
+ROI_INPUTS = {
+    # name: (default, low, high, source_id)
+    "roles_per_year": (20, 1, 1000, None),
+    "cvs_per_role": (150, 1, 5000, None),
+    "minutes_per_cv": (4.0, 0.5, 60.0, None),
+    "recruiter_cost_tnd_per_hour": (14.2, 1.0, 500.0, "E10"),  # 2,500 TND gross a month / 176 h; E10 has under 20 respondents
+    "days_saved_per_role": (5.0, 0.0, 60.0, None),
+    "vacancy_cost_tnd_per_day": (180.0, 0.0, 10000.0, None),   # a demo value, not a measurement
+    "plan_price_tnd_per_month": (400.0, 0.0, 20000.0, None),   # pricing hypothesis, see docs/business.md
+}
+
+
+def roi(entered: dict[str, float] | None = None) -> dict:
+    """Value of the product for one customer profile. `entered` holds only what the user typed; the rest is an assumption.
+
+    payback_months is how many months of the value created are needed to cover one year of the plan price.
+    """
+    entered = entered or {}
+    values, inputs = {}, {}
+    for name, (default, low, high, source) in ROI_INPUTS.items():
+        if name in entered:
+            v = entered[name]
+            if not low <= v <= high:
+                raise ValueError(f"{name} must be between {low:g} and {high:g}")
+        else:
+            v = default
+        values[name] = v
+        inputs[name] = {"value": v, "status": "entered" if name in entered else "assumption", "source_id": source}
+    cvs = values["roles_per_year"] * values["cvs_per_role"]
+    screening = cvs * values["minutes_per_cv"] / 60 * values["recruiter_cost_tnd_per_hour"]
+    faster = values["roles_per_year"] * values["days_saved_per_role"] * values["vacancy_cost_tnd_per_day"]
+    total = screening + faster
+    price_year = values["plan_price_tnd_per_month"] * 12
+    ratio = lambda x: round(x / price_year, 1) if price_year > 0 else None
+    return {
+        "inputs": inputs,
+        "outputs": {
+            "cvs_per_year": cvs,
+            "screening_hours_per_year": round(cvs * values["minutes_per_cv"] / 60, 1),
+            "screening_value_tnd": round(screening),
+            "faster_hiring_value_tnd": round(faster),
+            "total_value_tnd": round(total),
+            "plan_price_tnd_per_year": round(price_year),
+            "total_value_over_price": ratio(total),
+            "screening_only_over_price": ratio(screening),
+            "payback_months": round(price_year / (total / 12), 1) if total > 0 else None,
+        },
+        "note": "Hypothesis: replace the assumptions with your own numbers. Nothing here is a measured result.",
+    }

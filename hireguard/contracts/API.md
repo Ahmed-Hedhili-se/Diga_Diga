@@ -69,6 +69,7 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/jobs/{job_id}/rediscover/invite` | R M | `{candidate_ids}` → `ApprovalItem[]` (email drafts; ineligible or already invited are skipped) |
 | DELETE | `/talent-pool/{id}` | R M | → `{withdrawn: true}`; audited `talent_pool.withdraw` |
 | GET | `/money` | M A | → `{roles:[{job_id, title, days_open, target_days, cost_of_vacancy_tnd}], hours_saved:{cv_screening, emails, documents, answers, total}, hourly_cost_tnd, roi_tnd}` |
+| GET | `/money/roi` | M A | optional query `roles_per_year, cvs_per_role, minutes_per_cv, recruiter_cost_tnd_per_hour, days_saved_per_role, vacancy_cost_tnd_per_day, plan_price_tnd_per_month` (out of range: 422) → `{inputs:{name:{value, status: assumption\|entered, source_id}}, outputs:{cvs_per_year, screening_hours_per_year, screening_value_tnd, faster_hiring_value_tnd, total_value_tnd, plan_price_tnd_per_year, total_value_over_price, screening_only_over_price, payback_months}, note}`. Pure arithmetic, no model |
 | PUT | `/money/settings` | M | `{hourly_cost_tnd}` |
 | GET | `/eval/summary` | M A | → latest eval numbers with Clopper-Pearson CIs |
 | GET | `/eval/fairness` | M A | → group selection rates, adverse-impact ratios, proxy AUCs, positive control |

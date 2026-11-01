@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
+import { BRAND } from "../brand";
 import { useAuth } from "../auth";
 import { Icon, type IconName } from "../components/icons";
 import { Badge, Empty, ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
@@ -377,7 +378,7 @@ function OdooCard({ erp, loading, error }: { erp: ErpStatus | null; loading: boo
           <div className="muted small">
             {state === "ready" && <>Signed in with the API key to <code>{host}</code>, database {erp!.db}, Odoo {erp!.server_version}.</>}
             {state === "down" && <>Odoo did not answer: {erp!.error ?? "unknown error"}.</>}
-            {state === "off" && <>The Odoo connector is off. HireGuard works on its own until it is switched on.</>}
+            {state === "off" && <>The Odoo connector is off. {BRAND.name} works on its own until it is switched on.</>}
             {state === "checking" && "Asking the backend whether it can reach Odoo…"}
           </div>
           {state === "ready" && (

@@ -125,6 +125,7 @@ ROUTE_PERMISSIONS: dict[tuple[str, str], Permission | str] = {
     ("POST", "/api/jobs/{job_id}/shortlist"): P.shortlist_propose,
     ("POST", "/api/jobs/{job_id}/candidates/{candidate_id}/status"): P.candidates_status_propose,
     ("GET", "/api/money"): P.money_read,
+    ("GET", "/api/money/roi"): P.money_read,
     ("PUT", "/api/money/settings"): P.money_edit,
     ("GET", "/api/eval/summary"): P.security_center_read,
     # trust analytics (mnasri)

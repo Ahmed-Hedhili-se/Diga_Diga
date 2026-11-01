@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-10-31T20:17:38.219565+00:00",
- "extraction_mode": "oracle",
- "scope": "oracle extraction (no LLM): measures sanitizer, detector, validator and scorer; does NOT measure whether the model follows injections",
+ "generated_at": "2026-11-01T04:18:39.191225+00:00",
+ "extraction_mode": "llm",
+ "scope": "end to end with the LLM",
  "n_cvs": 200,
  "k_frac": 0.2,
  "permutations": 2000,
@@ -15,50 +15,50 @@
    "groups": {
     "Grand Tunis": {
      "n": 63,
-     "selected": 12,
-     "rate": 0.19
+     "selected": 11,
+     "rate": 0.175
     },
     "coast": {
      "n": 89,
-     "selected": 19,
-     "rate": 0.213
+     "selected": 18,
+     "rate": 0.202
     },
     "interior": {
      "n": 48,
-     "selected": 10,
-     "rate": 0.208
+     "selected": 12,
+     "rate": 0.25
     }
    },
-   "air": 0.892,
+   "air": 0.698,
    "air_ci95": [
-    0.336,
-    0.925
+    0.296,
+    0.923
    ],
-   "p_value": 0.9775,
+   "p_value": 0.5722,
    "lowest": "Grand Tunis",
-   "highest": "coast",
-   "verdict": "ok",
+   "highest": "interior",
+   "verdict": "watch",
    "gap_by_component": {
     "skills": {
-     "points": -1.74,
-     "share": 0.46
+     "points": -0.29,
+     "share": 0.21
     },
     "experience": {
-     "points": -1.07,
-     "share": 0.28
+     "points": 0.24,
+     "share": -0.17
     },
     "degree": {
-     "points": -0.52,
-     "share": 0.14
+     "points": -0.17,
+     "share": 0.12
     },
     "languages": {
-     "points": -0.43,
-     "share": 0.11
+     "points": -1.2,
+     "share": 0.84
     }
    },
    "proxy": {
-    "auc": 0.546,
-    "null_auc_95th": 0.575,
+    "auc": 0.528,
+    "null_auc_95th": 0.594,
     "proxy": false
    }
   },
@@ -66,50 +66,50 @@
    "groups": {
     "iset": {
      "n": 56,
-     "selected": 14,
-     "rate": 0.25
+     "selected": 13,
+     "rate": 0.232
     },
     "private": {
      "n": 82,
-     "selected": 19,
-     "rate": 0.232
+     "selected": 18,
+     "rate": 0.22
     },
     "supcom": {
      "n": 62,
-     "selected": 8,
-     "rate": 0.129
+     "selected": 10,
+     "rate": 0.161
     }
    },
-   "air": 0.516,
+   "air": 0.695,
    "air_ci95": [
-    0.183,
-    0.836
+    0.28,
+    0.903
    ],
-   "p_value": 0.1649,
+   "p_value": 0.5487,
    "lowest": "supcom",
    "highest": "iset",
    "verdict": "watch",
    "gap_by_component": {
     "skills": {
-     "points": 0.97,
-     "share": -31.85
+     "points": -0.75,
+     "share": 0.32
     },
     "experience": {
      "points": -1.5,
-     "share": 49.42
+     "share": 0.64
     },
     "degree": {
-     "points": -0.31,
-     "share": 10.04
+     "points": -0.91,
+     "share": 0.39
     },
     "languages": {
      "points": 0.81,
-     "share": -26.62
+     "share": -0.34
     }
    },
    "proxy": {
-    "auc": 0.476,
-    "null_auc_95th": 0.539,
+    "auc": 0.535,
+    "null_auc_95th": 0.543,
     "proxy": false
    }
   },
@@ -128,7 +128,7 @@
    },
    "air": 0.972,
    "air_ci95": [
-    0.517,
+    0.53,
     0.991
    ],
    "p_value": 1.0,
@@ -137,25 +137,25 @@
    "verdict": "ok",
    "gap_by_component": {
     "skills": {
-     "points": 1.16,
-     "share": 0.61
+     "points": 1.11,
+     "share": 0.69
     },
     "experience": {
-     "points": 0.07,
-     "share": 0.04
+     "points": -0.14,
+     "share": -0.09
     },
     "degree": {
-     "points": 0.32,
-     "share": 0.17
+     "points": 0.43,
+     "share": 0.27
     },
     "languages": {
-     "points": 0.35,
-     "share": 0.18
+     "points": 0.2,
+     "share": 0.13
     }
    },
    "proxy": {
-    "auc": 0.576,
-    "null_auc_95th": 0.584,
+    "auc": 0.459,
+    "null_auc_95th": 0.58,
     "proxy": false
    }
   },
@@ -163,51 +163,51 @@
    "groups": {
     "ar": {
      "n": 33,
-     "selected": 6,
-     "rate": 0.182
+     "selected": 1,
+     "rate": 0.03
     },
     "en": {
      "n": 64,
-     "selected": 16,
-     "rate": 0.25
+     "selected": 10,
+     "rate": 0.156
     },
     "fr": {
      "n": 103,
-     "selected": 19,
-     "rate": 0.184
+     "selected": 30,
+     "rate": 0.291
     }
    },
-   "air": 0.727,
+   "air": 0.104,
    "air_ci95": [
-    0.205,
-    0.899
+    0.0,
+    0.347
    ],
-   "p_value": 0.6722,
+   "p_value": 0.001,
    "lowest": "ar",
-   "highest": "en",
-   "verdict": "watch",
+   "highest": "fr",
+   "verdict": "flag",
    "gap_by_component": {
     "skills": {
-     "points": 4.3,
-     "share": 0.98
+     "points": 11.08,
+     "share": 0.91
     },
     "experience": {
-     "points": -0.44,
-     "share": -0.1
+     "points": 0.7,
+     "share": 0.06
     },
     "degree": {
-     "points": 0.31,
-     "share": 0.07
+     "points": 0.44,
+     "share": 0.04
     },
     "languages": {
-     "points": 0.2,
-     "share": 0.05
+     "points": -0.03,
+     "share": -0.0
     }
    },
    "proxy": {
-    "auc": 0.534,
-    "null_auc_95th": 0.556,
-    "proxy": false
+    "auc": 0.609,
+    "null_auc_95th": 0.569,
+    "proxy": true
    }
   }
  },
@@ -222,48 +222,62 @@
     },
     "private": {
      "n": 82,
-     "selected": 21,
-     "rate": 0.256
+     "selected": 20,
+     "rate": 0.244
     },
     "supcom": {
      "n": 62,
-     "selected": 16,
-     "rate": 0.258
+     "selected": 17,
+     "rate": 0.274
     }
    },
-   "air": 0.277,
+   "air": 0.261,
    "air_ci95": [
     0.05,
-    0.549
+    0.554
    ],
-   "p_value": 0.005,
+   "p_value": 0.0035,
    "lowest": "iset",
    "highest": "supcom",
    "verdict": "flag",
    "gap_by_component": {
     "skills": {
-     "points": -0.81,
-     "share": -0.08
+     "points": 0.14,
+     "share": 0.01
     },
     "experience": {
      "points": 1.25,
-     "share": 0.13
+     "share": 0.1
     },
     "degree": {
-     "points": 10.0,
-     "share": 1.02
+     "points": 12.01,
+     "share": 0.94
     },
     "languages": {
      "points": -0.67,
-     "share": -0.07
+     "share": -0.05
     }
    },
    "proxy": {
-    "auc": 0.841,
-    "null_auc_95th": 0.539,
+    "auc": 0.798,
+    "null_auc_95th": 0.54,
     "proxy": true
    }
   },
   "detected": true
+ },
+ "runtime": {
+  "where": "Modal cloud (US), fictional data only",
+  "gpu": "NVIDIA L4 24 GB (Modal)",
+  "model": "qwen3:8b Q4_K_M",
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "settings": {
+   "temperature": 0,
+   "seed": 7,
+   "num_ctx": 8192,
+   "num_predict": 2048,
+   "think": false
+  },
+  "note": "1 of 200 CVs hit the 2,048-token output cap and went to a human (counted as not shortlisted)"
  }
 }

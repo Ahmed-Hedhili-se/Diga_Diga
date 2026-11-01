@@ -18,7 +18,7 @@ export default function Team() {
   return (
     <>
       <PageHeader
-        title="Team (HR Nexus)"
+        title="Team"
         subtitle="HR and staff: declared team skills, how long hiring steps take, and where the handbook fails. Aggregates only, never individual scores."
         actions={
           <div className="seg">

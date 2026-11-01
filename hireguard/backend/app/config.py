@@ -23,6 +23,9 @@ OLLAMA_MODEL = os.getenv("HG_OLLAMA_MODEL", "qwen3:8b")
 OLLAMA_MODAL_KEY = os.getenv("HG_OLLAMA_MODAL_KEY", "")
 OLLAMA_MODAL_SECRET = os.getenv("HG_OLLAMA_MODAL_SECRET", "")
 LLM_TIMEOUT = float(os.getenv("HG_LLM_TIMEOUT", "120"))
+# Hard cap on tokens generated per model call. A CV or email extraction is a few hundred tokens of JSON; without a cap
+# a degenerate or adversarial input can make the model generate for ever (seen: 39,000+ tokens), holding the GPU.
+LLM_MAX_TOKENS = int(os.getenv("HG_LLM_MAX_TOKENS", "2048"))
 # Groq fallback: fictional data only, OFF by default
 GROQ_FALLBACK = os.getenv("HG_GROQ_FALLBACK", "0") == "1"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")

@@ -166,3 +166,24 @@ def test_a_303_to_another_host_is_refused_and_gets_no_credentials(monkeypatch):
         llm._ollama("s", "u", {})
     assert get.calls == []                                   # nothing was sent to the other host
     assert KEY not in str(e.value) and SECRET not in str(e.value)
+
+
+# ---------------------------------------------------------------- a model call can never generate for ever
+
+def test_every_ollama_request_carries_an_output_cap(monkeypatch):
+    seen = {}
+
+    def post(url, json=None, timeout=None, headers=None):
+        seen["body"] = json
+        return httpx.Response(200, request=httpx.Request("POST", url), json=OK_BODY)
+
+    monkeypatch.setattr(config, "OLLAMA_URLS", ["http://localhost:11434"])
+    monkeypatch.setattr(llm.httpx, "post", post)
+    llm._ollama("s", "u", {})
+    cap = seen["body"]["options"]["num_predict"]
+    assert cap == config.LLM_MAX_TOKENS and 0 < cap <= 4096
+
+
+def test_the_default_cap_leaves_room_for_a_full_cv_extraction():
+    # measured on 417 valid model outputs (1 Nov): the longest is 1,615 characters, about 650 tokens; 2048 leaves >3x headroom
+    assert 512 <= config.LLM_MAX_TOKENS <= 4096

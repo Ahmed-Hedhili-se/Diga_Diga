@@ -37,6 +37,7 @@ belong only to navigation icons, active indicators, and the page header chip.
 | My documents | `#0F766E` | `#5EEAD4` |
 | Interview scorecard | `#1D4ED8` | `#93C5FD` |
 | Users | `#334155` | `#CBD5E1` |
+| Team insights | `#A21CAF` | `#F0ABFC` |
 
 ## Interaction and layout
 
@@ -59,3 +60,42 @@ The authenticated workspace includes a permission-filtered **Examples to try**
 tour. The Answer Desk also offers sample questions that populate the field
 without submitting them; the user reviews and explicitly sends each query.
 Opening a tour item does not approve, send, or release a workflow item.
+
+## Typography, language and layout conventions
+
+- **One interface font:** Figtree, for the interface and for every heading. The serif face (Literata) is only for text that reads like a
+  document: CV extracts, an employee's question, and the sample CV on the sign-in page. Never for titles, numbers or controls.
+- **Sidebar:** neutral (`--surface`, with a border). Identity colour appears only on the navigation icon and the active indicator.
+- **Language and format:** the interface is English; dates and numbers use `en-GB` so they never mix a French date with English text.
+  Greetings are plain ("Good morning"), with no playful copy.
+- **Task first:** the page's main task comes first. On Candidates the ranking sits above the offer-fit and team-context cards.
+- **Derived tokens:** `--border-strong`, `--primary-hover` and the `-soft` backgrounds are not in the table above. They are derived from it
+  (a tint of the same hue) and live in `src/styles.css`.
+
+## Conformance audit (1 Nov 2026)
+
+Checked on the running interface in light and dark with screenshots of Overview, Candidates, Approvals, Security Center and Team, and by
+computing contrast from the token values.
+
+| Criterion | Status |
+|---|---|
+| Neutral surfaces first, colour only for meaning | Met. The paper tint, navy sidebar and yellow tab were removed |
+| Tokens equal the table, light and dark | Met for every row |
+| Single indigo score ramp, red never used for a low score | Met |
+| Module colours only on navigation icons, active indicator, header chip | Met (colours come from the table, Team added) |
+| Theme: system, light, dark, saved as `hireguard-theme` | Met |
+| Same components in both themes | Met |
+| Keyboard focus visible, reduced motion respected, drawer on narrow screens | Present in the stylesheet; not re-tested here |
+
+WCAG AA contrast (4.5:1 for text), light / dark:
+
+| Pair | Light | Dark |
+|---|---|---|
+| Text on surface | 17.9 | 14.4 |
+| Muted text on surface | 5.9 | 7.1 |
+| Button text on primary | 7.9 | 6.4 |
+| Primary link on surface | 7.9 | 5.8 |
+| OK / warning / danger / info text on its soft background | 4.8 / 4.5 / 5.6 / 5.2 | 6.9 / 7.8 / 5.2 / 6.3 |
+| Primary on primary-soft (active navigation) | 7.1 | 4.6 |
+
+Not covered: a screen-reader pass, automated accessibility testing, and the Interviews, Inbox, Money and Users pages.
