@@ -18,6 +18,7 @@ from ..contracts import CVExtraction, SanitizeResult, ScoreOutput, ValidatedCV
 from ..db import connect, register_schema, tx
 from .detector import detect
 from .extractor import extract_cv
+from .isolation import IsolationError, run_isolated
 from .sanitizer import SanitizeError, sanitize
 from .validator import validate
 
@@ -69,6 +70,14 @@ def check_upload(pdf_bytes: bytes) -> int:
         raise UploadRejected(f"file larger than {MAX_UPLOAD_BYTES // (1024 * 1024)} MB")
     if not pdf_bytes.startswith(b"%PDF-"):
         raise UploadRejected("not a PDF file")
+    try:
+        return run_isolated(_inspect_pdf, pdf_bytes)  # the API process never opens an uploaded PDF in production
+    except IsolationError as e:
+        raise UploadRejected(f"PDF rejected: {e}")
+
+
+def _inspect_pdf(pdf_bytes: bytes) -> int:
+    """Open the PDF, refuse encrypted or over-long ones, return the page count. Runs in the isolated worker."""
     try:
         doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     except Exception:
@@ -130,9 +139,11 @@ def process_cv(pdf_bytes: bytes, name: str, email: str, job_id: str, candidate_i
         raise UploadRejected("invalid candidate id")
     doc_id = uuid.uuid4().hex
     try:
-        san = sanitize(pdf_bytes, doc_id=doc_id)
+        san = run_isolated(sanitize, pdf_bytes, doc_id=doc_id)
     except SanitizeError as e:
         raise UploadRejected(str(e))
+    except IsolationError as e:
+        raise UploadRejected(f"PDF rejected: {e}")
 
     flags = detect(san.visible_text, san.hidden_findings)
     if extraction_override is not None:

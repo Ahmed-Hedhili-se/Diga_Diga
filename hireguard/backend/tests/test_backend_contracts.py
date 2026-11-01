@@ -17,6 +17,7 @@ from app.main import app
 from app.pipeline import demo as pipeline_demo
 from app.workflow import approvals, audit, demo as workflow_demo, email_gate
 from test_workflow import make_user
+from route_table import api_routes
 
 API_MD = ROOT / "contracts" / "API.md"
 FRONTEND = ROOT / "frontend" / "src"
@@ -30,7 +31,7 @@ def _norm(path: str) -> str:
 
 
 def _live_routes() -> set[tuple[str, str]]:
-    return {(m, _norm(r.path)) for r in app.routes if isinstance(r, APIRoute) for m in r.methods}
+    return {(m, _norm(r.path)) for r in api_routes(app) for m in r.methods}
 
 
 @pytest.fixture

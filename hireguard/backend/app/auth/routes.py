@@ -22,6 +22,7 @@ from .core import (
     destroy_session,
     destroy_user_sessions,
     hash_password,
+    needs_rehash,
     require_permission,
     verify_password,
 )
@@ -109,12 +110,15 @@ def login(body: LoginIn, request: Request, response: Response):
 
     usable = bool(row and row["active"])
     ok = verify_password(body.password, row["pw_hash"] if usable else _DUMMY_HASH) and usable and not acct_locked
+    new_hash = hash_password(body.password) if ok and needs_rehash(row["pw_hash"]) else None  # scrypt outside the write tx
 
     with tx() as conn:
         if ok:
             lockout.clear(conn, akey)
             conn.execute("UPDATE auth_users SET last_login_at = ? WHERE id = ?", (now.isoformat(), row["id"]))
-            _audit(row["id"], "auth.login", row["id"], {"ip": ip}, conn=conn)
+            if new_hash:
+                conn.execute("UPDATE auth_users SET pw_hash = ? WHERE id = ?", (new_hash, row["id"]))
+            _audit(row["id"], "auth.login", row["id"], {"ip": ip, **({"rehashed": True} if new_hash else {})}, conn=conn)
         else:
             reason = "locked" if acct_locked else "bad_password" if usable else "unknown_or_inactive"
             _audit("anonymous", "auth.login_failed", email, {"ip": ip, "reason": reason}, conn=conn)

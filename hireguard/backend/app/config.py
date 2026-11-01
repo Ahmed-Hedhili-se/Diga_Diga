@@ -34,6 +34,17 @@ LLM_PROVIDER = os.getenv("HG_LLM_PROVIDER", "ollama").strip().lower()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL = os.getenv("HG_GEMINI_MODEL", "gemini-3.6-flash")
 
+# HG_ENV=production: the server refuses to start with an insecure configuration (hardening.py)
+PRODUCTION = os.getenv("HG_ENV", "development").strip().lower() == "production"
+# Cloud model providers (gemini, groq) send CV text to a third party: blocked in production unless acknowledged
+ALLOW_CLOUD_LLM = os.getenv("HG_ALLOW_CLOUD_LLM", "0") == "1"
+
+# Parse every uploaded PDF in a separate worker process with a deadline (pipeline/isolation.py). On by default in production.
+PARSE_ISOLATION = os.getenv("HG_PARSE_ISOLATION", "1" if PRODUCTION else "0") == "1"
+PARSE_TIMEOUT_S = float(os.getenv("HG_PARSE_TIMEOUT_S", "20"))
+PARSE_MEMORY_MB = int(os.getenv("HG_PARSE_MEMORY_MB", "1024"))   # POSIX only
+PARSE_WORKERS = int(os.getenv("HG_PARSE_WORKERS", "2"))
+
 PROMPT_GUARD = os.getenv("HG_PROMPT_GUARD", "0") == "1"
 # Mask towns, schools, gendered titles and emails in the text the model reads (pipeline/mask.py); 0 = off for comparisons
 MASK_IDENTITY = os.getenv("HG_MASK_IDENTITY", "1") != "0"

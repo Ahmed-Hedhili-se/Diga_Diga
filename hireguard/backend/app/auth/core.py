@@ -71,19 +71,51 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+# scrypt cost: OWASP's minimum is N=2^17,r=8,p=1 or an equivalent trade (N=2^16,r=8,p=2: 64 MiB, a few hundred ms).
+# The parameters are stored inside each hash, so the cost can rise later and old hashes keep working.
+SCRYPT_N, SCRYPT_R, SCRYPT_P = 2**16, 8, 2
+LEGACY_PARAMS = (2**14, 8, 1)  # hashes written before parameters were stored: "scrypt$<salt>$<dk>"
+_MAX_N = 2**20                 # never run a cost taken from the database beyond this (a tampered row cannot hang a login)
+_MAXMEM = 2**29
+
+
+def _scrypt(pw: str, salt: bytes, n: int, r: int, p: int) -> bytes:
+    return hashlib.scrypt(pw.encode(), salt=salt, n=n, r=r, p=p, maxmem=_MAXMEM, dklen=32)
+
+
+def _parse(stored: str) -> tuple[tuple[int, int, int], bytes, str] | None:
+    parts = stored.split("$")
+    try:
+        if len(parts) == 3 and parts[0] == "scrypt":
+            return LEGACY_PARAMS, bytes.fromhex(parts[1]), parts[2]
+        if len(parts) == 4 and parts[0] == "scrypt":
+            n, r, p = (int(x) for x in parts[1].split(","))
+            if n < 2 or n > _MAX_N or n & (n - 1) or not 1 <= r <= 16 or not 1 <= p <= 16:
+                return None
+            return (n, r, p), bytes.fromhex(parts[2]), parts[3]
+    except ValueError:
+        pass
+    return None
+
+
 def hash_password(pw: str) -> str:
     salt = secrets.token_bytes(16)
-    dk = hashlib.scrypt(pw.encode(), salt=salt, n=2**14, r=8, p=1, dklen=32)
-    return f"scrypt${salt.hex()}${dk.hex()}"
+    dk = _scrypt(pw, salt, SCRYPT_N, SCRYPT_R, SCRYPT_P)
+    return f"scrypt${SCRYPT_N},{SCRYPT_R},{SCRYPT_P}${salt.hex()}${dk.hex()}"
 
 
 def verify_password(pw: str, stored: str) -> bool:
-    try:
-        _, salt_hex, dk_hex = stored.split("$")
-    except ValueError:
+    parsed = _parse(stored)
+    if parsed is None:
         return False
-    dk = hashlib.scrypt(pw.encode(), salt=bytes.fromhex(salt_hex), n=2**14, r=8, p=1, dklen=32)
-    return hmac.compare_digest(dk.hex(), dk_hex)
+    (n, r, p), salt, dk_hex = parsed
+    return hmac.compare_digest(_scrypt(pw, salt, n, r, p).hex(), dk_hex)
+
+
+def needs_rehash(stored: str) -> bool:
+    """True for a legacy hash or one made with weaker parameters than today's: rewritten at the next good login."""
+    parsed = _parse(stored)
+    return parsed is None or parsed[0] != (SCRYPT_N, SCRYPT_R, SCRYPT_P)
 
 
 def _token_hash(token: str) -> str:

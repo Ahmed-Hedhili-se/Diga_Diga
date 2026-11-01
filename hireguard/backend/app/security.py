@@ -11,7 +11,7 @@ from pathlib import Path
 
 from starlette.responses import FileResponse
 
-from .config import LOGIN_RATE_PER_MIN, MAX_UPLOAD_BYTES, ROOT, TRUSTED_PROXIES
+from .config import COOKIE_SECURE, LOGIN_RATE_PER_MIN, MAX_UPLOAD_BYTES, ROOT, TRUSTED_PROXIES
 
 DIST = (ROOT / "frontend" / "dist").resolve()
 
@@ -36,6 +36,14 @@ HEADERS = [
     (b"permissions-policy", b"camera=(), microphone=(), geolocation=(), payment=()"),
     (b"cache-control", b"no-store"),
 ]
+
+
+def headers_for(secure: bool) -> list[tuple[bytes, bytes]]:
+    """HTTPS deployments also send HSTS: browsers must never fall back to http for this origin."""
+    return HEADERS + ([(b"strict-transport-security", b"max-age=31536000; includeSubDomains")] if secure else [])
+
+
+RESPONSE_HEADERS = headers_for(COOKIE_SECURE)
 
 # (bucket, max requests, window seconds)
 LIMITS = {
@@ -121,7 +129,7 @@ def _bucket(method: str, path: str) -> str:
 async def _send_json(send, status: int, body: dict, extra: list | None = None):
     data = json.dumps(body).encode()
     headers = [(b"content-type", b"application/json"), (b"content-length", str(len(data)).encode())]
-    headers += HEADERS + [(b"content-security-policy", CSP.encode())] + (extra or [])
+    headers += RESPONSE_HEADERS + [(b"content-security-policy", CSP.encode())] + (extra or [])
     await send({"type": "http.response.start", "status": status, "headers": headers})
     await send({"type": "http.response.body", "body": data})
 
@@ -177,7 +185,7 @@ class SecurityMiddleware:
             if msg["type"] == "http.response.start":
                 started = True
                 names = {k.lower() for k, _ in msg.get("headers", [])}
-                extra = [(k, v) for k, v in HEADERS if k not in names]
+                extra = [(k, v) for k, v in RESPONSE_HEADERS if k not in names]
                 extra.append((b"content-security-policy", csp.encode()))
                 msg = {**msg, "headers": list(msg.get("headers", [])) + extra}
             await send(msg)

@@ -7,6 +7,7 @@ import re
 
 from app.config import ROOT
 from app.main import app
+from route_table import api_routes
 
 CALL = re.compile(r"\b(?:api(?:<[^>()]*>)?|apiBlob|downloadFile)\(\s*([`\"'])(/[^`\"']*)\1")
 
@@ -24,7 +25,7 @@ def _frontend_paths() -> dict[str, list[str]]:
 
 def _route_patterns() -> list[re.Pattern]:
     return [re.compile("^" + re.sub(r"\\\{[^/]+?\\\}", r"[^/]+", re.escape(r.path)) + "$")
-            for r in app.routes if getattr(r, "path", "").startswith("/api/")]
+            for r in api_routes(app) if r.path.startswith("/api/")]
 
 
 def test_frontend_calls_are_found():

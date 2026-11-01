@@ -347,3 +347,56 @@ def test_relative_paths_resolve_against_the_project_root(monkeypatch):
     assert config._path("HG_X_PATH", config.ROOT / "d") == config.ROOT / "backend" / "hireguard.db"
     monkeypatch.setenv("HG_X_PATH", str(config.ROOT / "abs.db"))
     assert config._path("HG_X_PATH", config.ROOT / "d") == config.ROOT / "abs.db"
+
+
+# ---------------------------------------------------------------- password hashing cost (OWASP scrypt guidance)
+
+def _legacy_hash(pw: str) -> str:
+    """The format written before parameters were stored: scrypt$<salt>$<dk>, N=2^14 r=8 p=1."""
+    import hashlib
+    salt = b"\x01" * 16
+    return f"scrypt${salt.hex()}${hashlib.scrypt(pw.encode(), salt=salt, n=2**14, r=8, p=1, dklen=32).hex()}"
+
+
+def test_new_hashes_carry_their_parameters_and_verify():
+    from app.auth.core import hash_password, needs_rehash, verify_password
+    h = hash_password(PW)
+    assert h.split("$")[1] == "1024,8,1"          # the cheap test cost set in conftest; production is 65536,8,2
+    assert verify_password(PW, h) and not verify_password(PW + "x", h)
+    assert not needs_rehash(h)
+
+
+def test_production_cost_meets_the_owasp_floor():
+    """Reads the module's default constants from source (conftest lowers the live values for speed)."""
+    import ast
+    from pathlib import Path
+    from app.auth import core
+    tree = ast.parse(Path(core.__file__).read_text(encoding="utf-8"))
+    n, r, p = next(eval(compile(ast.Expression(node.value), "<const>", "eval"))  # a constant tuple such as (2**16, 8, 2)
+                   for node in tree.body if isinstance(node, ast.Assign) and getattr(node.targets[0], "elts", None)
+                   and [t.id for t in node.targets[0].elts] == ["SCRYPT_N", "SCRYPT_R", "SCRYPT_P"])
+    memory_mib = 128 * n * r / 2**20
+    assert (n, r, p) in {(2**17, 8, 1), (2**16, 8, 2), (2**15, 8, 3)}   # OWASP's equivalent minimums
+    assert memory_mib >= 32
+
+
+def test_a_legacy_hash_still_logs_in_and_is_upgraded(client):
+    from app.auth.core import needs_rehash
+    conn = connect()
+    conn.execute("UPDATE auth_users SET pw_hash = ? WHERE email = 'rec@t.demo'", (_legacy_hash(PW),))
+    conn.close()
+    assert needs_rehash(_legacy_hash(PW))
+    login(client, "rec@t.demo")
+    conn = connect()
+    stored = conn.execute("SELECT pw_hash FROM auth_users WHERE email = 'rec@t.demo'").fetchone()["pw_hash"]
+    conn.close()
+    assert not needs_rehash(stored) and len(stored.split("$")) == 4
+    login(new_client(), "rec@t.demo")               # the upgraded hash still works
+
+
+def test_a_tampered_cost_in_the_database_cannot_hang_a_login():
+    from app.auth.core import verify_password
+    for bad in ("scrypt$1073741824,8,1$" + "00" * 16 + "$" + "00" * 32,   # N far above the cap
+                "scrypt$1000,8,1$" + "00" * 16 + "$" + "00" * 32,         # not a power of two
+                "scrypt$1024,8,1$zz$00", "scrypt$1024$00$00", "bcrypt$x$y", ""):
+        assert verify_password("x", bad) is False

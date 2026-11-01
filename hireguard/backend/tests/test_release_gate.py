@@ -18,6 +18,7 @@ from app.contracts import Role
 from app.main import app
 
 from test_workflow import make_user
+from route_table import api_routes
 
 PUBLIC = {("POST", "/api/auth/login"), ("GET", "/api/health")}
 ANY = "any signed-in user"
@@ -95,10 +96,9 @@ LETTER = {Role.recruiter: "R", Role.hr_manager: "M", Role.employee: "E", Role.ad
 
 
 def _routes():
-    for r in app.routes:
-        if isinstance(r, APIRoute):
-            for m in sorted(r.methods - {"HEAD", "OPTIONS"}):
-                yield m, r.path, r
+    for r in api_routes(app):
+        for m in sorted(r.methods - {"HEAD", "OPTIONS"}):
+            yield m, r.path, r
 
 
 def _roles(route: APIRoute) -> str:

@@ -21,6 +21,7 @@ from ..contracts import (
     Lang,
 )
 from .. import config
+from .delimiters import neutralise
 from .esco import esco_ids, label_patterns, load_esco
 from .llm import LLMUnavailable, complete_json
 from .mask import mask_line
@@ -83,7 +84,7 @@ def number_lines(text: str) -> list[tuple[int, int]]:
 def render_document(text: str, lines: list[tuple[int, int]]) -> str:
     """The exact data block the model reads. Identity masking is per line, so line numbers stay those of `text`."""
     view = mask_line if config.MASK_IDENTITY else (lambda s: s)
-    body = "\n".join(f"L{i + 1}| {view(text[s:e])}".replace("</document>", "</ document>").replace("<document>", "< document>")
+    body = "\n".join(neutralise(f"L{i + 1}| {view(text[s:e])}")
                      for i, (s, e) in enumerate(lines))
     return f"<document>\n{body}\n</document>"
 

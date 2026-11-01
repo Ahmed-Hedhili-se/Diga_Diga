@@ -14,6 +14,7 @@ from pydantic import ValidationError
 
 from ..config import DATA_DIR
 from ..contracts import EmailExtraction, EmailIntent, Lang, Urgency
+from .delimiters import neutralise
 from .llm import LLMUnavailable, complete_json
 
 log = logging.getLogger("hireguard.email_extract")
@@ -91,7 +92,7 @@ def extract_email(body_text: str, attempts: int = 2) -> EmailExtraction | None:
     if extract_mode() == "ground_truth":
         log.warning("HG_EXTRACT_MODE=ground_truth: email fields come from data/emails/labels.json, NOT from a model")
         return _ground_truth_index().get(_key(body_text or ""))  # unknown text stays None = needs human
-    text = (body_text or "")[:MAX_EMAIL_CHARS].replace("</email>", "</ email>")
+    text = neutralise((body_text or "")[:MAX_EMAIL_CHARS])
     user = f"<email>\n{text}\n</email>"
     for attempt in range(attempts):
         try:

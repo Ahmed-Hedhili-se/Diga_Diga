@@ -119,3 +119,50 @@ def test_hosts_env_preferred_over_urls(monkeypatch):
     finally:
         monkeypatch.undo()
         importlib.reload(config)
+
+
+# ---------------------------------------------------------------- Modal 303 "resume" for requests over 150 s
+
+class FakeGet:
+    def __init__(self, *script):
+        self.script, self.calls = list(script), []
+
+    def __call__(self, url, timeout=None, headers=None):
+        self.calls.append({"url": url, "headers": dict(headers or {})})
+        out = self.script.pop(0)
+        req = httpx.Request("GET", url)
+        if out == "resume":
+            return httpx.Response(303, request=req, headers={"location": f"{url}?__modal_attempt_token=t2"})
+        return httpx.Response(200, request=req, json=out)
+
+
+def _resume_redirect(location: str):
+    return httpx.Response(303, request=httpx.Request("POST", "https://gpu.example/api/chat"),
+                          headers={"location": location})
+
+
+def test_modal_303_resume_is_followed_on_the_same_host(monkeypatch):
+    monkeypatch.setattr(config, "OLLAMA_URLS", ["https://gpu.example"])
+    monkeypatch.setattr(config, "OLLAMA_MODAL_KEY", KEY)
+    monkeypatch.setattr(config, "OLLAMA_MODAL_SECRET", SECRET)
+    monkeypatch.setattr(llm.httpx, "post", lambda url, json=None, timeout=None, headers=None:
+                        _resume_redirect("https://gpu.example/api/chat?__modal_attempt_token=t1"))
+    get = FakeGet("resume", OK_BODY)
+    monkeypatch.setattr(llm.httpx, "get", get)
+    out = llm._ollama("s", "u", {})
+    assert '"intent": "other"' in out
+    assert len(get.calls) == 2 and all(c["headers"].get("Modal-Key") == KEY for c in get.calls)
+
+
+def test_a_303_to_another_host_is_refused_and_gets_no_credentials(monkeypatch):
+    monkeypatch.setattr(config, "OLLAMA_URLS", ["https://gpu.example"])
+    monkeypatch.setattr(config, "OLLAMA_MODAL_KEY", KEY)
+    monkeypatch.setattr(config, "OLLAMA_MODAL_SECRET", SECRET)
+    monkeypatch.setattr(llm.httpx, "post", lambda url, json=None, timeout=None, headers=None:
+                        _resume_redirect("https://evil.example/collect"))
+    get = FakeGet(OK_BODY)
+    monkeypatch.setattr(llm.httpx, "get", get)
+    with pytest.raises(llm.LLMUnavailable) as e:
+        llm._ollama("s", "u", {})
+    assert get.calls == []                                   # nothing was sent to the other host
+    assert KEY not in str(e.value) and SECRET not in str(e.value)

@@ -17,13 +17,14 @@ from app.contracts import Role
 from app.main import app
 from app.workflow import approvals, documents, employee_questions
 from test_workflow import make_user
+from route_table import api_routes
 
 ROLES = list(Role)
 STATE_CHANGING = {"POST", "PUT", "PATCH", "DELETE"}
 
 
 def _routes() -> list[tuple[str, str, APIRoute]]:
-    return [(m, r.path, r) for r in app.routes if isinstance(r, APIRoute) for m in sorted(r.methods)]
+    return [(m, r.path, r) for r in api_routes(app) for m in sorted(r.methods)]
 
 
 def _concrete(path: str) -> str:

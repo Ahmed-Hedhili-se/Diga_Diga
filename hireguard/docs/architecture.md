@@ -304,6 +304,12 @@ R recruiter · M HR manager · E employee · A admin.
 | R18 | Two follow-up engines after the merge: double reminders (up to 4 per candidate) and reminders to rejected candidates; two screens disagreed | High | Ahmed | **Closed 1 Nov**: one engine (P3's), the duplicate routes, panel and templates removed; the P3 demo seed runs in `run.ps1 -Seed` |
 | R19 | The pitch and this document said candidate data "never leaves the machine" while the measured setup could use a cloud GPU | Medium (credibility) | Ahmed | **Closed 1 Nov**: "local by default; cloud GPU for the hackathon, fictional data only" |
 | R20 | Y5 (`docs/frontend_security.md`): skill holder counts for teams under 5 people can point to a colleague | Medium (privacy) | Ahmed | Open, decision pending |
+| R21 | Uploaded PDFs were parsed by a C library (MuPDF) inside the API process, with no deadline | High (availability, memory safety) | Hedhili | **Mitigated 1 Nov**: `pipeline/isolation.py` (worker process, 20 s deadline, crash containment); on by default in production. Details: `docs/security_hardening.md` |
+| R22 | Fail-open defaults: insecure cookies and Swagger UI on unless env flags were set; no HSTS | High (deployment) | Hedhili | **Mitigated 1 Nov**: `HG_ENV=production` refuses to start with an insecure configuration (`hardening.py`); HSTS on HTTPS deployments |
+| R23 | Known-vulnerable dependencies (starlette 14 advisories, python-multipart 12, react-router 3 high) | High | Hedhili | **Closed 1 Nov**: pins updated, `pip-audit` clean, 536 backend tests pass on the pinned stack; 2 moderate `react-router` advisories remain in `npm audit` |
+| R24 | The model and Ollama runtime are installed by tag, not pinned by digest | Medium (supply chain; invalidates the measured evidence if it changes) | Hedhili | Open (S4 in `docs/security_hardening.md`) |
+| R25 | No multi-factor authentication; no self-service password change | High before a pilot | Rayen | Open (S1, S2) |
+| R26 | The email classifier's intent and urgency labels have not been tested against injected text | Medium | Hedhili | Open (S5) |
 
 ## 9. Interface change log
 

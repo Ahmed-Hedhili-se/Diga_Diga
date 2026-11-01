@@ -12,6 +12,7 @@ import ssl
 import sys
 import threading
 import time
+from urllib.parse import urljoin, urlsplit
 
 import httpx
 
@@ -70,6 +71,30 @@ def _scrub(msg: str) -> str:
     return msg
 
 
+MAX_RESUMES = 10  # each hop waits up to about 150 s on Modal, so this covers a very long cold start
+
+
+def _origin(url: str) -> tuple[str, str]:
+    p = urlsplit(url)
+    return p.scheme, p.netloc
+
+
+def _post_following_resume(url: str, body: dict) -> httpx.Response:
+    """POST, and follow Modal's 303 "resume" redirects for requests that outlast its 150 s web-endpoint limit
+    (a cold start). Only redirects to the SAME origin are followed, and the proxy-auth headers go only there: a
+    redirect to another host is refused, so a hostile or compromised endpoint cannot collect the credentials."""
+    headers = _auth_headers()
+    r = httpx.post(url, json=body, timeout=TIMEOUT, headers=headers)
+    for _ in range(MAX_RESUMES):
+        if r.status_code != 303:
+            break
+        nxt = urljoin(url, r.headers.get("location", ""))
+        if _origin(nxt) != _origin(url):
+            raise LLMUnavailable(_scrub(f"redirect from {url} to another host refused"))
+        r = httpx.get(nxt, timeout=TIMEOUT, headers=headers)
+    return r
+
+
 def _ollama(system: str, user: str, schema: dict) -> str:
     url = _next_url()
     body = {
@@ -82,7 +107,7 @@ def _ollama(system: str, user: str, schema: dict) -> str:
     }
     for attempt in (1, 2):
         try:
-            r = httpx.post(f"{url}/api/chat", json=body, timeout=TIMEOUT, headers=_auth_headers())
+            r = _post_following_resume(f"{url}/api/chat", body)
             r.raise_for_status()
             return r.json()["message"]["content"]
         except (httpx.TimeoutException, httpx.HTTPStatusError) as e:

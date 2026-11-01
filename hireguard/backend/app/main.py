@@ -12,7 +12,7 @@ from .scoring import routes as scoring_routes      # P2
 from .workflow import routes as workflow_routes    # P3
 from .erp import routes as erp_routes              # Odoo connector (off unless HG_ODOO_ENABLED=1)
 from .team import routes as team_routes            # HR Nexus (Team module)
-from . import security                             # P4: headers, CSP, rate limits
+from . import hardening, security                  # P4: headers, CSP, rate limits; production-mode checks
 
 if API_DOCS and COOKIE_SECURE:  # HG_COOKIE_SECURE=1 means HTTPS, i.e. a real deployment
     logging.getLogger("hireguard").warning(
@@ -41,6 +41,7 @@ app.include_router(team_routes.router, prefix="/api", tags=["team"])
 
 @app.on_event("startup")
 def _startup():
+    hardening.enforce()  # production mode: refuse to start with an insecure configuration
     init_db()
 
 
