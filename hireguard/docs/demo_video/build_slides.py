@@ -539,7 +539,7 @@ SLIDES = [("01_title", s01_title), ("02_hook", s02_hook), ("03_name", s03_name),
           ("09_business", s09_business), ("10_compliance", s10_compliance), ("11_refuse", s11_refuse),
           ("12_close_ask", s12_close), ("13_end_card", s13_end), ("14_close", s14_close), ("15_problem", s15_problem)]
 
-# Lower thirds for a hand-edited cut of the dashboard clips: (file, module, title, detail). Clip ids match persons/rayen.md.
+# Lower thirds for a hand-edited cut of the dashboard clips: (file, module, title, detail).
 OVERLAYS = [
     ("lt_C1_C2_hidden_text", "HireGuard", "Hidden text removed before the model read the CV", "Flagged for HR. Flags never change a score."),
     ("lt_C3_evidence", "HireGuard", "Every point links to evidence in the CV", "Code scores validated fields only. The score is a proposal."),

@@ -22,7 +22,7 @@ COMPONENTS = ("skills", "experience", "degree", "languages")
 # linearly with years used, capped at SKILL_FULL_YEARS.
 SKILL_BASE = 0.6
 # A skill that only appears in a list, with no dated job using it, is what keyword stuffing looks like:
-# it earns at most this share of what a dated-experience skill earns (persons/rayen.md, request R3).
+# it earns at most this share of what a dated-experience skill earns.
 LISTED_ONLY_FACTOR = 0.3
 SKILL_FULL_YEARS = 4.0
 

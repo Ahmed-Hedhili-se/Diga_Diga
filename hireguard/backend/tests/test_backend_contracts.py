@@ -1,4 +1,4 @@
-"""Backend contract tests (persons/rayen.md): docs, frontend consumers and schemas agree with the code, the response
+"""Backend contract tests: docs, frontend consumers and schemas agree with the code, the response
 shapes the UI relies on hold, and scoring inputs are validated and audited server-side."""
 import json
 import re

@@ -371,7 +371,7 @@ def _rates(obj) -> list[dict]:
 
 
 def eval_report(summary: dict) -> dict:
-    """What was measured, how, on how many samples, and what it does not prove (persons/rayen.md)."""
+    """What was measured, how, on how many samples, and what it does not prove."""
     sections = {}
     for name, sec in (summary.get("sections") or {}).items():
         if not isinstance(sec, dict) or "skipped" in sec:

@@ -1,4 +1,4 @@
-"""HireGuard and HR Nexus stay separate (persons/README.md): neither module imports the other or reads its data.
+"""HireGuard and HR Nexus stay separate: neither module imports the other or reads its data.
 
 HireGuard holds identifiable candidate and employee records; HR Nexus works on team-level aggregates (k >= 5).
 Joining them would need an approved purpose and a documented boundary, so any coupling must fail this test first.
