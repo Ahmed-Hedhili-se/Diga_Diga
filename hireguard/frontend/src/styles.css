@@ -1094,3 +1094,6 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 .plan-list li { display: grid; gap: 2px; }
 .plan-title { font-weight: 600; }
 .plan-meta { gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* ids (CAND-, EML-, APR-) are for support and audit: small, monospace, secondary */
+.mono-id { font-family: var(--font-code); font-size: var(--fs-xs); color: var(--muted); }

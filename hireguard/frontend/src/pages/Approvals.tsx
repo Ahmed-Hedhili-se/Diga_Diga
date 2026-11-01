@@ -2,6 +2,7 @@ import { Fragment, KeyboardEvent, useCallback, useEffect, useState } from "react
 import { Link } from "react-router-dom";
 import { api, ApiError, errMsg } from "../api";
 import { useAuth, usePermission } from "../auth";
+import { approvalStatus, humanTitle, titleCase } from "../lib/labels";
 import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, Loading, PageHeader, plain, useLoad } from "../components/ui";
 import type {
   ApprovalItem, ApprovalSettings, ApprovalsView, AttentionStats, EmployeeQuestion, InterviewReminder, SilentCandidate,
@@ -129,9 +130,9 @@ export default function Approvals() {
                 {ready.items.map((it) => (
                   <tr key={it.id}>
                     <td>
-                      <div>{it.title}</div>
+                      <div>{humanTitle(it.title)}</div>
                       <div className="muted small">
-                        {KIND_LABEL[it.kind] ?? it.kind} · {it.id}
+                        {KIND_LABEL[it.kind] ?? titleCase(it.kind)} · <span className="mono-id">{it.id}</span>
                       </div>
                     </td>
                     <td className="num">
@@ -386,7 +387,7 @@ function BatchCard({ batchId, kind, items, report, track }: {
     <div className="card">
       <div className="row between">
         <div>
-          <h3>{KIND_LABEL[kind] ?? kind}</h3>
+          <h3>{KIND_LABEL[kind] ?? titleCase(kind)}</h3>
           <div className="muted small">
             Batch {batchId} · {items.length} item(s)
           </div>
@@ -421,7 +422,7 @@ function BatchCard({ batchId, kind, items, report, track }: {
                   />
                 </td>
                 <td>
-                  <div>{it.title}</div>
+                  <div>{humanTitle(it.title)}</div>
                   <div className="muted small">
                     {it.id} · risk {it.risk} · {fmtDate(it.created_at)}
                   </div>
@@ -506,9 +507,9 @@ function HighRiskReviewer({ items, report, track, onGone }: {
             Item {Math.min(idx, items.length - 1) + 1} of {items.length}: reviewed one at a time · <kbd>←</kbd>{" "}
             <kbd>→</kbd> to move
           </div>
-          <h3>{item.title}</h3>
+          <h3>{humanTitle(item.title)}</h3>
           <div className="muted small">
-            {KIND_LABEL[item.kind] ?? item.kind} · {item.id} · created by {item.created_by} · {fmtDate(item.created_at)}
+            {KIND_LABEL[item.kind] ?? titleCase(item.kind)} · <span className="mono-id">{item.id}</span> · created by {item.created_by} · {fmtDate(item.created_at)}
           </div>
         </div>
         <div className="badges">
@@ -585,7 +586,7 @@ function ExecuteButton({ item, report, onGone }: {
 
 function StatusBadge({ item }: { item: ApprovalItem }) {
   const tone = item.status === "approved" || item.status === "executed" ? "ok" : item.status === "rejected" ? "danger" : "neutral";
-  return <Badge tone={tone}>{item.status}</Badge>;
+  return <Badge tone={tone}>{approvalStatus(item.status)}</Badge>;
 }
 
 function DiffView({ item }: { item: ApprovalItem }) {

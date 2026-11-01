@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { api, errMsg } from "../api";
 import { ROLE_LABEL, useAuth, usePermission } from "../auth";
+import { inboxStatus, laneLabel, permissionLabel } from "../lib/labels";
 import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, Loading, Modal, PageHeader, useLoad } from "../components/ui";
 import type { InboxItem, PermissionMatrix, Role, UserAdmin } from "../types";
 
@@ -277,7 +278,7 @@ function PermissionTable() {
               {m.data.permissions.map((p) => (
                 <tr key={p}>
                   <td>
-                    <code>{p}</code>
+                    <span title={p}>{permissionLabel(p)}</span>
                   </td>
                   {ROLES.map((r) => {
                     const yes = m.data!.roles[r]?.includes(p);
@@ -335,7 +336,7 @@ function IngestEml() {
       <ErrorBox error={error} />
       {result && (
         <div className="alert ok">
-          Ingested as <strong>{result.id}</strong>: lane <strong>{result.lane}</strong>, status {result.status}.
+          Ingested as <strong>{result.id}</strong>: lane <strong>{laneLabel(result.lane)}</strong>, status {inboxStatus(result.status)}.
         </div>
       )}
     </section>

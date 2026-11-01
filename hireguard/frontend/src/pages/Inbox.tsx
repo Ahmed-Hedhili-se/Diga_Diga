@@ -2,7 +2,9 @@ import { ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, errMsg } from "../api";
 import { usePermission } from "../auth";
+import ChipList, { type Chip } from "../components/ChipList";
 import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, Loading, PageHeader, useLoad } from "../components/ui";
+import { emailIntent, emailReason, inboxStatus, reasonTone, urgencyLabel } from "../lib/labels";
 import type { ApprovalItem, InboxItem, InboxView } from "../types";
 
 const LANES: { key: keyof InboxView["lanes"]; title: string; hint: string; tone: "neutral" | "warn" | "danger" }[] = [
@@ -58,8 +60,8 @@ export default function Inbox() {
                 {groups.map((g) => (
                   <div key={`${g.intent}-${g.urgency}`} className="intent-group">
                     <div className="intent-title">
-                      {(g.intent ?? "unclassified").replace(/_/g, " ")}
-                      {g.urgency && g.urgency !== "normal" ? ` · ${g.urgency}` : ""}
+                      {emailIntent(g.intent)}
+                      {urgencyLabel(g.urgency) ? ` · ${urgencyLabel(g.urgency)}` : ""}
                     </div>
                     {g.items.map((m) => (
                       <MailRow
@@ -90,6 +92,20 @@ export default function Inbox() {
   );
 }
 
+/** One "Verified sender" check when every sender check passed; red chips only for the checks that failed. */
+function mailChips(m: InboxItem, fail: (v?: string) => boolean): Chip[] {
+  const checks = (["spf", "dkim", "dmarc"] as const).filter((k) => m.auth?.[k]);
+  const failed = checks.filter((k) => fail(m.auth![k]));
+  const chips: Chip[] = failed.map((k) => ({ key: k, label: `${k.toUpperCase()} ${m.auth![k]}`, tone: "danger" as const }));
+  if (checks.length === 3 && !failed.length) chips.push({ key: "verified", label: "Verified sender", tone: "ok" });
+  for (const r of m.reasons) {
+    if (/^dmarc_/.test(r) && failed.includes("dmarc")) continue; // the failed DMARC chip already says it
+    chips.push({ key: r, label: emailReason(r), tone: reasonTone(r) });
+  }
+  if (m.draft_item_ids.length) chips.push({ key: "drafts", label: `${m.draft_item_ids.length} draft(s) in approvals`, tone: "info" });
+  return chips;
+}
+
 function MailRow({ m, action }: { m: InboxItem; action: ReactNode }) {
   const fail = (v?: string) => !!v && v.toLowerCase() !== "pass";
   return (
@@ -103,23 +119,11 @@ function MailRow({ m, action }: { m: InboxItem; action: ReactNode }) {
       <div className="ellipsis">{m.subject}</div>
       {m.body_preview && <div className="muted small preview">{m.body_preview}</div>}
       <div className="muted small">
-        {m.id} · {fmtDate(m.received_at)}
-        {m.candidate_id ? ` · ${m.candidate_id}` : ""} · {m.status}
+        {fmtDate(m.received_at)} · {inboxStatus(m.status)}
+        {m.candidate_id ? <> · <span className="mono-id">{m.candidate_id}</span></> : null} · <span className="mono-id">{m.id}</span>
       </div>
       <div className="badges">
-        {(["spf", "dkim", "dmarc"] as const).map((k) =>
-          m.auth?.[k] ? (
-            <Badge key={k} tone={fail(m.auth[k]) ? "danger" : "ok"}>
-              {k.toUpperCase()} {m.auth[k]}
-            </Badge>
-          ) : null,
-        )}
-        {m.reasons.map((r) => (
-          <Badge key={r} tone="warn">
-            {r}
-          </Badge>
-        ))}
-        {m.draft_item_ids.length > 0 && <Badge tone="info">{m.draft_item_ids.length} draft(s) in approvals</Badge>}
+        <ChipList chips={mailChips(m, fail)} />
       </div>
       {action}
     </div>
