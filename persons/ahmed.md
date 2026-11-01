@@ -23,7 +23,9 @@ Yours:
       [hireguard/docs/hr_interview_guide.md](../hireguard/docs/hr_interview_guide.md), then fill
       the business slide and `MINUTES_PER_UNIT` in `backend/app/scoring/money.py`.
 - [ ] **P0** Choose the ask (pilots, GPU credits or incubation).
-- [ ] **P0** After Hedhili's masked run: put the final model numbers on the metrics slide.
+- [x] **P0** After Hedhili's masked run: put the final model numbers on the metrics slide (also the
+      Q&A answers, the root README and the demo script).
+- [ ] **P0** Agree with Hedhili how the pitch says the visible-attack limit (7/14).
 - [ ] **P1** Decide Y5 (`docs/frontend_security.md`): team skill counts for teams under 5 people.
 - [ ] **P1** Decide R4 is implemented as agreed (reviewer stats by batch size, not by person).
 - [ ] **P1** Collect sign-offs on the interface change log (architecture §9); keep §8 current.

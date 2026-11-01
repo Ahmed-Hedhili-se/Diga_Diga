@@ -99,7 +99,8 @@ flowchart TB
 | Same 40 attacks, paired | 11 moved only the standard screener, 1 only HireGuard: exact McNemar **p = 0.006** | |
 | Email routing (100 emails, 15 spoofed) | right lane 100/100, spoofed emails given no candidate data 15/15 | |
 | Code path only (no model): attacks / twin CVs | 0/40 / 0/89 | |
-| **Known limit:** twin CVs whose score changed through the model | **26/90**, before identity masking (re-run pending) | |
+| Skill extraction (200 CVs, Qwen3-8B) | F1 **0.944** (precision 0.999, recall 0.894); Arabic 0.80 | |
+| **Known limit:** twin CVs whose score changed through the model | **17/89** with identity masking (26/90 before): town, school, gender 0; CV language 13/20, gap 4/9 | |
 
 Details, every run and its mode: [hireguard/docs/evaluation.md](hireguard/docs/evaluation.md) and Security Center → Evaluation.
 

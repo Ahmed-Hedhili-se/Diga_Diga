@@ -47,7 +47,7 @@ Footnote on the slide: "Clopper-Pearson 95% intervals; n shown for every rate. F
 Two claims to say out loud:
 
 - "We don't say 'attacks never work'. On the same 40 attacks and the same model, the standard screener moved 13 times and HireGuard 3, and the paired test says that's no accident (p = 0.006)."
-- "We also show where we fail: the model's reading still changed scores between twin CVs. That's why we mask identity fields now, and why our fairness audit exists: we planted a biased criterion and it found it, down to the rubric component."
+- "We also show where we fail: the model's reading changed scores between twin CVs. Masking identity fields took town, school and gender to zero; changing only the CV's language still moves 13 of 20. That's why our fairness audit exists: we planted a biased criterion and it found it, down to the rubric component."
 
 ## Q&A preparation
 
@@ -56,7 +56,7 @@ Two claims to say out loud:
 | Where is the AI? Isn't this an old keyword ATS? | The model reads CVs and emails in French, English and Arabic: it routed 100 of 100 test emails (51 French, 35 English, 14 Arabic) to the right lane. We deliberately don't let it decide about people. Code decides, so every point is explainable, which the EU AI Act requires for hiring tools. |
 | Does your model obey injections? | Sometimes, and we measured it: 3 of 40 attacks moved HireGuard's output, and only one in the attacker's favour, by 1.4 points. A standard screener on the same model moved on 13. Even a fully hijacked model only proposes typed fields, which code checks against the visible text. |
 | What if the model invents a skill? | The validator keeps a skill only if its evidence falls in the visible text and contains the skill's label. Invented skills are dropped and listed. |
-| How do you know the ranking is fair? | Not yet well enough, and we say so: through the model, 26 of 90 twin CVs changed score, mostly when the CV language changed. We now mask identity fields before the model reads a CV and re-measure. The group audit catches a planted biased criterion (AIR 0.28, p = 0.005). |
+| How do you know the ranking is fair? | Not yet well enough, and we say so: through the model, 26 of 90 twin CVs changed score. We now mask identity fields before the model reads a CV, and re-measured: 17 of 89, with town, school and gender at zero. What's left is the CV language (13 of 20), because the model reads Arabic CVs less well. The group audit catches a planted biased criterion (AIR 0.28, p = 0.005). |
 | Why not predict who accepts the offer? | Its best predictors are pay history (the EU forbids asking for it), commute (a proxy for region) and family situation (a proxy for gender). We ask for the candidate's conditions and check them against the published band instead. |
 | Isn't HR Nexus employee monitoring? | No individual scores. Declared skills as counts, process times per stage, handbook questions without text or names, groups under 5 hidden. Emotion AI at work is banned in the EU, and our own research showed stress prediction from work data is weak (AUC 0.64). |
 | Doesn't human approval slow things down? | Routine items are batched; risky ones go one by one. If reviewers start missing planted test items, the batches shrink automatically. |
