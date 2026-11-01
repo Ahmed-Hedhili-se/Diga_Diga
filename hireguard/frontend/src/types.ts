@@ -279,6 +279,16 @@ export interface MoneyView {
   roi_tnd: number;
 }
 
+export interface RoiView {
+  inputs: Record<string, { value: number; status: "assumption" | "entered"; source_id: string | null }>;
+  outputs: {
+    cvs_per_year: number; screening_hours_per_year: number; screening_value_tnd: number; faster_hiring_value_tnd: number;
+    total_value_tnd: number; plan_price_tnd_per_year: number; total_value_over_price: number | null;
+    screening_only_over_price: number | null; payback_months: number | null;
+  };
+  note: string;
+}
+
 export interface EmployeeDocument {
   id: string;
   type: string;

@@ -1051,3 +1051,13 @@ abbr.term { text-decoration: underline dotted; text-underline-offset: 3px; curso
 
 /* Venidis mark: navy badge on light, brighter blue on dark so it never sinks into the background */
 .brand-mark .badge { fill: var(--primary); }
+
+/* ROI card (Money page) */
+.roi-card { margin-top: 16px; }
+.roi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 16px; margin: 12px 0 16px; }
+.roi-field { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); }
+.roi-meta { display: flex; align-items: center; gap: 8px; min-height: 22px; }
+.roi-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px 16px; margin: 0; padding-top: 12px; border-top: 1px solid var(--border); }
+.roi-out div { background: var(--surface-2); border-radius: var(--radius-ctl); padding: 8px 12px; }
+.roi-out dt { color: var(--muted); font-size: var(--fs-sm); }
+.roi-out dd { margin: 2px 0 0; font-size: var(--fs-xl); font-weight: 650; font-variant-numeric: tabular-nums; }

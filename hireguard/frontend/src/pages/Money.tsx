@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { BRAND } from "../brand";
 import { api, errMsg } from "../api";
 import { usePermission } from "../auth";
+import RoiCard from "../components/RoiCard";
 import { ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type { MoneyView } from "../types";
 
@@ -106,8 +107,12 @@ export default function Money() {
               )}
             </section>
           </div>
+          <p className="muted small">
+            "ROI to date" uses assumptions: the minutes per task are our estimates and the hourly cost is the figure you set. They are not measurements.
+          </p>
         </>
       )}
+      <RoiCard />
     </>
   );
 }

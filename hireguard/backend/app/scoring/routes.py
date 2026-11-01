@@ -328,6 +328,22 @@ class MoneySettingsIn(BaseModel):
     hourly_cost_tnd: float = Field(gt=0, le=1000)
 
 
+@router.get("/money/roi")
+def get_money_roi(
+    roles_per_year: int | None = Query(None, ge=1, le=1000),
+    cvs_per_role: int | None = Query(None, ge=1, le=5000),
+    minutes_per_cv: float | None = Query(None, ge=0.5, le=60),
+    recruiter_cost_tnd_per_hour: float | None = Query(None, ge=1, le=500),
+    days_saved_per_role: float | None = Query(None, ge=0, le=60),
+    vacancy_cost_tnd_per_day: float | None = Query(None, ge=0, le=10000),
+    plan_price_tnd_per_month: float | None = Query(None, ge=0, le=20000),
+    user: UserOut = Depends(MA),
+):
+    """What would it be worth to you? Pure arithmetic over the inputs; a default is an assumption, a typed value is `entered`."""
+    typed = {k: v for k, v in locals().items() if k in money.ROI_INPUTS and v is not None}
+    return money.roi(typed)
+
+
 @router.put("/money/settings")
 def put_money_settings(body: MoneySettingsIn, user: UserOut = Depends(M)):
     money.set_hourly_cost(body.hourly_cost_tnd)
