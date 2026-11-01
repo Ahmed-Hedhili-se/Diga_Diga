@@ -104,7 +104,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 
 ### 4.3 How a CV becomes a score
 
-1. **Upload checks:** PDF only, at most 5 MB and 6 pages. PDF parsing runs in an isolated process so a broken file cannot crash the server.
+1. **Upload checks:** PDF only, at most 5 MB and 6 pages. In production mode, PDF parsing runs in an isolated process with a time limit, so a broken file cannot crash the server (it is off by default in the development setup).
 2. **Sanitizer:** checks every character for 8 hidden-text tricks (white text, tiny text, invisible rendering, text off the page, text hidden under an image, zero-width characters, lookalike letters from other alphabets, hidden metadata). Hidden text is removed before the AI sees anything and shown to HR (escaped, so it cannot run).
 3. **Detector:** looks for instruction-like sentences in French, English, Arabic, Tunisian Arabic and Arabizi. It only raises a flag for HR. **A flag never changes a score.**
 4. **Reader AI:** fills the fixed form.
@@ -179,7 +179,7 @@ Security is layered so that one failure does not become a disaster:
 
 ### 5.3 Proof, not promises
 
-- **535 automated tests** pass in our check (6 more need Python 3.11 or newer and failed only because the sandbox used 3.10).
+- **593 backend and 20 frontend automated tests** pass in our check (1 Nov 2026).
 - An **internal pentest** (written in `docs/pentest_report.md`) found issues that were fixed or handed over, and the report is part of the repo.
 - Every number is reported with a confidence interval, and results from code-only runs are labelled so they are never confused with model results.
 
@@ -290,11 +290,12 @@ Say this proudly: HR is losing importance partly because tools have felt like su
 | Instruction flags | 28/28 on the 40-attack set; 11/11 on 14 extra | "A warning for HR, never a score input." |
 | Reading quality (200 CVs, model) | Skill F1 **0.944** (precision 0.999, recall 0.894); French 0.97, English 0.97, **Arabic 0.80**; years error 0.23; degree right 92.5% | "Arabic is our weakest language and we say so." |
 | **Known limit:** fairness twins, through the model | **17/89** twin CVs changed score (19.1%); town 0/30, school 0/20, gender 0/10, gap 4/9, **CV language 13/20** | "We mask identity before the model reads, and we show where it still fails." Code path: 0/89 |
+| **Known limit:** group fairness audit, through the model (200 CVs) | CV language is **flagged**: Arabic CVs shortlisted 1 of 33, English 10 of 64, French 30 of 103 (adverse-impact ratio 0.10, p = 0.001); no significant gap for gender, region or school | "Our own audit found a real gap, tied to weaker Arabic reading. Say it before they ask." |
 | **Known limit:** visible attacks | 7/14 (standard screener 8/14) | "Visible text cannot be removed by any sanitizer." |
-| Fairness audit | Catches a planted biased criterion: ratio **0.28**, p = 0.005, gap traced to the degree component | "We planted a bias; the audit found it." |
+| Fairness audit | Catches a planted biased criterion: ratio **0.28**, p = 0.005 in the code path and **0.26**, p = 0.004 through the model; gap traced to the degree component | "We planted a bias; the audit found it." |
 | Emails (100, model, 15 spoofed) | Right lane **100/100**, spoofs contained **15/15**, unsafe misroute 0/100, intent 100/100, language 98/100, **urgency 80/100** | "Urgency is the weak field." |
 | Speed | Code path about 1,600 CVs a minute; through the model on a cloud L4 GPU: median 9.9 s per CV, 95th percentile 14.5 s, about 5 CVs a minute | "The code is not the bottleneck; the model is." |
-| Tests | 535 automated tests pass in our check | "Hundreds of tests, plus an internal pentest." |
+| Tests | 593 backend and 20 frontend automated tests pass in our check | "Hundreds of tests, plus an internal pentest." |
 
 Outside facts you may quote (with their limits):
 - About 1% of about 200,000 real resumes carry hidden instructions to AI screeners; more than 90% use no explicit instruction (USENIX Security 2026).
@@ -328,7 +329,7 @@ Outside facts you may quote (with their limits):
 
 **Is this just a keyword ATS?** No. A language model reads CVs and emails in French, English and Arabic. We deliberately do not let it decide: code decides, so every point is explainable.
 
-**Does your model obey injections?** Sometimes, and we measured it: 3 of 40 attacks moved our output, only one in the attacker's favour, by 1.4 points. A standard screener on the same model moved on 13. Even a fully hijacked model only proposes fixed fields that code checks.
+**Does your model obey injections?** Sometimes, and we measured it: 3 of 40 attacks moved our output: two raised the score (by 10.0 and 1.4 points) and one lowered it. A standard screener on the same model moved on 13. Even a fully hijacked model only proposes fixed fields that code checks.
 
 **What if the model invents a skill?** The validator keeps a skill only if its proof is in the visible text and contains the skill's name. Invented skills are dropped and listed.
 
@@ -336,9 +337,9 @@ Outside facts you may quote (with their limits):
 
 **Why not just use a big cloud model?** Candidate data is personal data; Tunisian law 2004-63 limits transfers abroad. For the hackathon we used a rented GPU with fictional data only.
 
-**Is the ranking fair?** Not proven yet, and we say so: through the model, 17 of 89 twin CVs changed score, mostly when the CV language changed (Arabic extraction is weaker). We mask identity before the model reads, we audit groups, and our audit catches a planted bias.
+**Is the ranking fair?** Not proven yet, and we say so: through the model, 17 of 89 twin CVs changed score, mostly when the CV language changed (Arabic extraction is weaker), and our group audit flags CV language (Arabic CVs shortlisted 1 in 33 against 30 in 103 for French). Town, school and gender show no gap. We mask identity before the model reads, and the audit catches a planted bias, so we trust what it reports.
 
-**Arabic is weaker. Isn't that discrimination?** It is a real measured gap (skill F1 0.80 vs 0.97). The cause is known: the model sees only English skill labels. The fix is identified; until it is measured, we flag it and keep a human in the loop.
+**Arabic is weaker. Isn't that discrimination?** It is a real measured gap (skill F1 0.80 vs 0.97), and our own group audit through the model flags it: Arabic CVs were shortlisted 1 time in 33, French 30 in 103 (adverse-impact ratio 0.10, p = 0.001). The likely cause is that the model sees only English skill labels. We have not yet measured a fix; until we do, we flag it and keep a human in the loop.
 
 **What if reviewers just click approve on everything?** Routine items are batched, risky ones come one by one. We plant test items; if a reviewer approves one, batches shrink and bulk approval is capped.
 
@@ -378,6 +379,7 @@ Outside facts you may quote (with their limits):
 - Any US/UK statistic as if it were Tunisian.
 - "We are AI Act compliant" or "final" dates. Use "ready for" and "scheduled".
 - "Customers want this." Until a letter is signed, the word is *hypothesis*.
+- "The ranking is fair" or "the audit is clean." Our own audit flags CV language.
 - Any number you cannot point to in the Evaluation tab or the evidence list.
 
 ---
