@@ -7,6 +7,8 @@ Secure AI HR system: SUP'COM hackathon. One platform, two modules on one trust c
 
 Architecture, data boundaries, permissions, risk register and references: [docs/architecture.md](docs/architecture.md). Team assignments: [../persons/README.md](../persons/README.md).
 
+Business side: the case and its evidence level are in [docs/business.md](docs/business.md) (every external figure in [docs/evidence.md](docs/evidence.md); `python scripts/check_claims.py` fails on an unsourced percentage). Customer discovery kit: [docs/discovery](docs/discovery/call_script.md) (call script, French outreach message, pilot letter template, call log; `python scripts/discovery_summary.py` prints what the pitch may quote).
+
 > **The AI reads, code decides, humans approve.**
 > Whatever reads stranger text cannot act; whatever can act never reads stranger text.
 
