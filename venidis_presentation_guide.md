@@ -1,4 +1,4 @@
-# HireGuard: the whole project, explained simply
+# Venidis: the whole project, explained simply
 
 Team Diga_Diga · SUP'COM hackathon "Reinventing HR through AI" · all data in the demo is fictional.
 
@@ -10,7 +10,9 @@ Where a number comes from a model run, a code-only run, an assumption or an outs
 
 ## 1. The 30-second version
 
-**One sentence:** HireGuard is an AI assistant for HR teams that does the paperwork (reading CVs, sorting emails, drafting replies, booking interviews, answering staff questions), where the AI can *read* but never *act*, and a human approves everything that leaves the building.
+**The product:** **Venidis** is the product. It has two main features: **HireGuard** (safe recruiting: CVs, inbox, replies, interviews, offers) and **HR Nexus** (team skills, process times and handbook gaps, aggregates only). Everything below that says "HireGuard" describes the recruiting feature unless it says Venidis.
+
+**One sentence:** Venidis is an AI assistant for HR teams that does the paperwork (reading CVs, sorting emails, drafting replies, booking interviews, answering staff questions), where the AI can *read* but never *act*, and a human approves everything that leaves the building.
 
 **The golden rule:** *The AI reads, code decides, humans approve.*
 
@@ -41,7 +43,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 3. Defences against reviewers who stop paying attention (planted test items, shrinking batches).
 4. A fairness audit that finds a planted bias, and twin CVs that differ in only one detail.
 5. A fast-track to the offer (check salary and conditions *before* interviews).
-6. A second module for staff, HR Nexus (team skills, process times, handbook gaps), with aggregates only.
+6. A second main feature for staff, HR Nexus (team skills, process times, handbook gaps), with aggregates only.
 7. An Odoo connector.
 8. A published "what we refuse to build" list.
 
@@ -127,7 +129,7 @@ The book asked for six things, plus security and "nothing is sent or recorded wi
 | **Talent pool** | Past applicants who opted in are re-scored for new jobs. Consent expires after 2 years and can be withdrawn | No scraping of outside profiles |
 | **Odoo connector** (off by default) | Import applicants from Odoo; mirror *approved* actions back | Nothing is written back without approval |
 
-### 4.5 The second module: HR Nexus (Team)
+### 4.5 The second main feature: HR Nexus (Team)
 
 For HR managers, never for judging individuals:
 - **Team skills map:** counts of people per needed skill (gap, single holder, covered). It can *propose* a rubric change that HR applies through the normal audited edit.
@@ -248,7 +250,7 @@ Cost to us: about $0.003 per CV in GPU time, only if the GPU is kept busy (hardw
 | Scraping outside profiles | Real personal data without consent |
 | Reading employees' email or chat | Disproportionate monitoring |
 
-Say this proudly: HR is losing importance partly because tools have felt like surveillance. Our line is "HireGuard does the paperwork; people decide about people."
+Say this proudly: HR is losing importance partly because tools have felt like surveillance. Our line is "Venidis does the paperwork; people decide about people."
 
 ### 6.7 Competition
 

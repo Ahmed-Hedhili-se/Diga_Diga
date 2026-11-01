@@ -16,7 +16,7 @@ import { launch, newTab, sleep } from "./cdp.mjs";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(HERE, "build", "shots");
 const MANIFEST = path.join(HERE, "build", "shots.json");
-const W = 1536, H = 864, DPR = 2.5; // a 125% zoom on a 1920x1080 screen, with 2.5x pixels so zooms stay sharp
+const W = 1536, H = 864, DPR = 2; // a 125% zoom on a 1920x1080 screen, with 2x pixels: sharp up to the stage's 1.6x zoom, and light on memory
 const arg = (name, fallback) => {
   const i = process.argv.indexOf(`--${name}`);
   return i > 0 ? process.argv[i + 1] : fallback;
@@ -73,18 +73,27 @@ class Page {
   }
   async waitFor(expression, ms = 25000) {
     const t0 = Date.now();
-    let last;
+    let last, reloaded = false;
     while (Date.now() - t0 < ms) {
       try { if (await this.eval(expression)) return; } catch (e) { last = e; }
+      // A page that has not shown what we wait for halfway through gets one fresh load of the same route.
+      if (!reloaded && this.route && Date.now() - t0 > ms / 2) {
+        reloaded = true;
+        await this.send("Page.navigate", { url: BASE + this.route });
+        await sleep(1200);
+      }
       await sleep(150);
     }
     throw new Error(`${this.who}: timed out waiting for ${expression}${last ? ` (${last.message})` : ""}`);
   }
   async settle(ms = 700) { await this.waitFor("window.__hg && __hg.idle()"); await sleep(ms); }
   async goto(route) {
+    await this.send("Page.bringToFront"); // a background tab can neither be screenshotted nor render reliably
+    this.route = null;
     await this.send("Page.navigate", { url: BASE + route });
     await sleep(400);
     await this.settle();
+    this.route = route;
     await this.eval("window.scrollTo(0, 0); true");
   }
   // targets: name -> JS expression giving an element or an [x, y, w, h] rectangle in CSS pixels.
@@ -108,6 +117,7 @@ async function signIn(cdp, email) {
   if (!password) throw new Error(`no password for ${email} in the accounts file`);
   const { sessionId } = await newTab(cdp);
   const page = new Page(cdp, sessionId, email);
+  page.targetId = (await cdp.send("Target.getTargetInfo", {}, sessionId)).targetInfo.targetId;
   await page.send("Page.enable");
   await page.send("Runtime.enable");
   await page.send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: DPR, mobile: false });
@@ -193,14 +203,15 @@ const STEPS = [
   ["poison_alert", async ({ nour }) => {
     const p = await nour();
     await p.goto(`${JOB}&c=CAND-006`);
-    await p.waitFor(`!!__hg.q(".detail-pane .alert.danger")`);
+    await p.waitFor(`!!__hg.q(".detail-pane .alert.danger") && !!${row("CAND-006")} && !!__hg.q(".detail-pane .score-col")`, 45000);
+    await p.settle();
     await p.eval(`__hg.top(${RANKING}); true`);
     await p.shot("poison_alert", { row: row("CAND-006"), alert: `__hg.q(".detail-pane .alert.danger")`, score: `__hg.q(".detail-pane .score-col")` });
   }],
   ["poison_reveal", async ({ karim }) => {
     const p = await karim();
     await p.goto("/security");
-    await p.waitFor(`!!__hg.find(".card h3", "Karim Mansour")`);
+    await p.waitFor(`!!__hg.find(".card h3", "Karim Mansour")`, 60000);
     await p.eval(`__hg.top(${KARIM_CARD}); true`);
     await p.shot("poison_reveal", { card: KARIM_CARD, hidden: `__hg.union(...__hg.all(".finding", ${KARIM_CARD}).slice(0, 2))` });
   }],
@@ -265,6 +276,7 @@ const STEPS = [
     await p.settle(900);
     await p.shot("team_process", { steps: `__hg.deep(".card, section", "Median days per step")` });
     await p.eval(`__hg.find(".seg button", "Knowledge gaps").click(); true`);
+    await p.waitFor(`!!__hg.find(".card h3", "Questions per handbook section") && !!__hg.find(".hbar-row", "Remote work")`, 45000);
     await p.settle(900);
     await p.shot("team_gaps", {
       sections: `__hg.find(".card h3", "Questions per handbook section").closest(".card")`,
@@ -366,7 +378,15 @@ async function main() {
   mkdirSync(OUT, { recursive: true });
   const { cdp, close } = await launch();
   const pages = {};
-  const user = (email) => async () => (pages[email] ??= await signIn(cdp, email));
+  // One tab at a time: a tab left in the background stops rendering reliably in headless Chrome, so switching user
+  // closes the previous tab and signs in again.
+  let current = null;
+  const user = (email) => async () => {
+    if (current?.who === email) return current;
+    if (current) await cdp.send("Target.closeTarget", { targetId: current.targetId }).catch(() => {});
+    current = pages[email] = await signIn(cdp, email);
+    return current;
+  };
   const users = {
     nour: user("recruiter@hireguard.demo"), karim: user("hrm@hireguard.demo"),
     leila: user("hrm2@hireguard.demo"), employee: user("employee@hireguard.demo"),

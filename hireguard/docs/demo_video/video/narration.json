@@ -81,22 +81,16 @@
         0
        ],
        [
-        "model",
-        0.5
+        "sidebar",
+        0.35
        ]
       ],
       "box": [
        [
         "sidebar",
-        0.12,
-        0.5,
-        "Two modules"
-       ],
-       [
-        "model",
-        0.58,
+        0.4,
         1.0,
-        "AI model status"
+        "Two modules: HireGuard and HR Nexus"
        ]
       ]
      }
