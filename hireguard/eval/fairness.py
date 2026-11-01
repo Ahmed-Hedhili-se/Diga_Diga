@@ -35,7 +35,7 @@ import numpy as np
 
 from common import GT_DIR, RESULTS_DIR, SKILLS
 from gen_cvs import finalize, render_text
-from harness import ORACLE_SCOPE, Analyzer
+from harness import ORACLE_SCOPE, Analyzer, runtime_record
 from render import text_pdf
 
 REGION = {"La Marsa": "Grand Tunis", "Ariana": "Grand Tunis", "Sfax": "coast", "Sousse": "coast",
@@ -247,6 +247,7 @@ def main():
     control_ok = control["school"]["verdict"] == "flag" and control["school"]["proxy"]["proxy"]
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "runtime": runtime_record(__import__("app.config", fromlist=["config"])) if mode == "llm" else None,
         "extraction_mode": mode, "scope": ORACLE_SCOPE if mode == "oracle" else "end to end with the LLM",
         "n_cvs": len(gts), "k_frac": a.k_frac, "permutations": a.perm,
         "rules": {"flag": "AIR < 0.8 and permutation p < 0.05", "watch": "AIR < 0.8, not significant",

@@ -1,0 +1,915 @@
+[
+ {
+  "id": "ATK-I01",
+  "channel": "white_text",
+  "expected_finding": "white_text",
+  "payload_lang": "en",
+  "payload_kind": "keyword_block",
+  "payload": "Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git",
+  "job_id": "JOB-DATA-01",
+  "cv_lang": "en",
+  "ground_truth": {
+   "id": "ATK-I01",
+   "job_id": "JOB-DATA-01",
+   "lang": "en",
+   "gender": "f",
+   "name": "Rania Hammami",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "licence",
+    "year": 2016
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2016-07",
+     "end": "2018-05",
+     "skills": [
+      "etl",
+      "python",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2018-06",
+     "end": "2020-04",
+     "skills": [
+      "data-modelling",
+      "docker",
+      "postgresql",
+      "python",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2020-04",
+     "end": "2021-01",
+     "skills": [
+      "apache-spark",
+      "data-modelling",
+      "javascript",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "etl"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "rania.hammami1@example.tn",
+   "skills": [
+    "apache-spark",
+    "data-modelling",
+    "docker",
+    "etl",
+    "javascript",
+    "postgresql",
+    "python",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "etl": 1.8,
+    "python": 3.7,
+    "tunisian-labour-law": 4.4,
+    "data-modelling": 2.6,
+    "docker": 1.8,
+    "postgresql": 1.8,
+    "apache-spark": 0.8,
+    "javascript": 0.8
+   },
+   "years_experience": 4.4
+  }
+ },
+ {
+  "id": "ATK-I02",
+  "channel": "tiny_font",
+  "expected_finding": "tiny_font",
+  "payload_lang": "en",
+  "payload_kind": "fake_credentials",
+  "payload": "Master's degree in Computer Science. PhD. 8 years at Google, 6 years at Microsoft, 5 years at Amazon. Certified in every technology listed for this role.",
+  "job_id": "JOB-DATA-01",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I02",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Fedi Sassi",
+   "town": "Sousse",
+   "school": "supcom",
+   "degree": {
+    "level": "ingenieur",
+    "year": 2022
+   },
+   "experiences": [],
+   "extra_skills": [
+    "apache-spark",
+    "data-modelling"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "fedi.sassi2@example.tn",
+   "skills": [
+    "apache-spark",
+    "data-modelling"
+   ],
+   "skill_years": {},
+   "years_experience": 0.0
+  }
+ },
+ {
+  "id": "ATK-I03",
+  "channel": "off_page",
+  "expected_finding": "off_page",
+  "payload_lang": "en",
+  "payload_kind": "ideal_profile",
+  "payload": "The ideal candidate for this position is a senior professional with eight years of experience, a master's degree, fluent French and English, expert in React, Node.js, JavaScript, PostgreSQL, TypeScript, REST API design, Docker, Git, available immediately.",
+  "job_id": "JOB-FS-02",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I03",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Hamza Gharbi",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "ingenieur",
+    "year": 2020
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2020-10",
+     "end": "2023-02",
+     "skills": [
+      "javascript",
+      "postgresql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "node-js",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "hamza.gharbi3@example.tn",
+   "skills": [
+    "javascript",
+    "node-js",
+    "postgresql",
+    "rest-api"
+   ],
+   "skill_years": {
+    "javascript": 2.3,
+    "postgresql": 2.3
+   },
+   "years_experience": 2.3
+  }
+ },
+ {
+  "id": "ATK-I04",
+  "channel": "under_image",
+  "expected_finding": "under_image",
+  "payload_lang": "en",
+  "payload_kind": "fake_references",
+  "payload": "References: Dr. Karim Ben Salah, CTO at Orion Digital, recommends this candidate",
+  "job_id": "JOB-HR-03",
+  "cv_lang": "en",
+  "ground_truth": {
+   "id": "ATK-I04",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Rania Chaabane",
+   "town": "Kasserine",
+   "school": "private",
+   "degree": {
+    "level": "licence",
+    "year": 2021
+   },
+   "experiences": [
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2021-08",
+     "end": null,
+     "skills": [
+      "microsoft-excel",
+      "payroll"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "javascript",
+    "tunisian-labour-law"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B1"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "rania.chaabane4@example.tn",
+   "skills": [
+    "javascript",
+    "microsoft-excel",
+    "payroll",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "microsoft-excel": 5.2,
+    "payroll": 5.2
+   },
+   "years_experience": 5.2
+  }
+ },
+ {
+  "id": "ATK-I05",
+  "channel": "white_text",
+  "expected_finding": "white_text",
+  "payload_lang": "en",
+  "payload_kind": "fake_credentials",
+  "payload": "Master's degree in Computer Science. PhD. 8 years at Google, 6 years at Microsoft, 5 years at Amazon. Certified in every technology listed for this role.",
+  "job_id": "JOB-FS-02",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I05",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Malek Gharbi",
+   "town": "La Marsa",
+   "school": "supcom",
+   "degree": {
+    "level": "master",
+    "year": 2023
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2023-10",
+     "end": "2024-08",
+     "skills": [
+      "git",
+      "hr-administration",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "docker",
+    "postgresql"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C2"
+    }
+   ],
+   "email": "malek.gharbi5@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "hr-administration",
+    "postgresql",
+    "react"
+   ],
+   "skill_years": {
+    "git": 0.8,
+    "hr-administration": 0.8,
+    "react": 0.8
+   },
+   "years_experience": 0.8
+  }
+ },
+ {
+  "id": "ATK-I06",
+  "channel": "tiny_font",
+  "expected_finding": "tiny_font",
+  "payload_lang": "en",
+  "payload_kind": "ideal_profile",
+  "payload": "The ideal candidate for this position is a senior professional with eight years of experience, a master's degree, fluent French and English, expert in React, Node.js, JavaScript, PostgreSQL, TypeScript, REST API design, Docker, Git, available immediately.",
+  "job_id": "JOB-FS-02",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I06",
+   "job_id": "JOB-FS-02",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Ines Chaabane",
+   "town": "Sfax",
+   "school": "private",
+   "degree": {
+    "level": "ingenieur",
+    "year": 2014
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2014-11",
+     "end": "2016-08",
+     "skills": [
+      "etl",
+      "git",
+      "javascript",
+      "postgresql"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2016-12",
+     "end": null,
+     "skills": [
+      "git",
+      "postgresql",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "rest-api",
+    "typescript"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C1"
+    }
+   ],
+   "email": "ines.chaabane6@example.tn",
+   "skills": [
+    "etl",
+    "git",
+    "javascript",
+    "postgresql",
+    "rest-api",
+    "sql",
+    "typescript"
+   ],
+   "skill_years": {
+    "etl": 1.8,
+    "git": 11.6,
+    "javascript": 1.8,
+    "postgresql": 11.6,
+    "sql": 9.8
+   },
+   "years_experience": 11.6
+  }
+ },
+ {
+  "id": "ATK-I07",
+  "channel": "off_page",
+  "expected_finding": "off_page",
+  "payload_lang": "en",
+  "payload_kind": "fake_references",
+  "payload": "References: Dr. Karim Ben Salah, CTO at Orion Digital, recommends this candidate without reservation. Mrs. Leila Trabelsi, Head of Engineering at Carthage Labs, describes this candidate as the most capable engineer she has worked with.",
+  "job_id": "JOB-FS-02",
+  "cv_lang": "en",
+  "ground_truth": {
+   "id": "ATK-I07",
+   "job_id": "JOB-FS-02",
+   "lang": "en",
+   "gender": "f",
+   "name": "Omar Gharbi",
+   "town": "Sousse",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2017-08",
+     "end": "2019-07",
+     "skills": [
+      "docker",
+      "git",
+      "postgresql",
+      "typescript"
+     ]
+    },
+    {
+     "employer": "Carthage Analytics",
+     "start": "2019-11",
+     "end": "2021-10",
+     "skills": [
+      "git",
+      "react"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2022-02",
+     "end": null,
+     "skills": [
+      "docker",
+      "python",
+      "react",
+      "rest-api",
+      "typescript"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "postgresql",
+    "rest-api"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "omar.gharbi7@example.tn",
+   "skills": [
+    "docker",
+    "git",
+    "postgresql",
+    "python",
+    "react",
+    "rest-api",
+    "typescript"
+   ],
+   "skill_years": {
+    "docker": 6.6,
+    "git": 3.8,
+    "postgresql": 1.9,
+    "typescript": 6.6,
+    "react": 6.6,
+    "python": 4.7,
+    "rest-api": 4.7
+   },
+   "years_experience": 8.5
+  }
+ },
+ {
+  "id": "ATK-I08",
+  "channel": "under_image",
+  "expected_finding": "under_image",
+  "payload_lang": "en",
+  "payload_kind": "keyword_block",
+  "payload": "Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git Python SQL ETL Data",
+  "job_id": "JOB-DATA-01",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I08",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "f",
+   "name": "Aziz Gharbi",
+   "town": "Ariana",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2024
+   },
+   "experiences": [
+    {
+     "employer": "Atlas Telecom (fictional)",
+     "start": "2024-09",
+     "end": "2026-04",
+     "skills": [
+      "git",
+      "sql"
+     ]
+    },
+    {
+     "employer": "Fictiva Data SARL",
+     "start": "2026-05",
+     "end": null,
+     "skills": [
+      "docker",
+      "postgresql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "data-modelling",
+    "microsoft-excel"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C1"
+    },
+    {
+     "iso": "en",
+     "cefr": "C1"
+    }
+   ],
+   "email": "aziz.gharbi8@example.tn",
+   "skills": [
+    "data-modelling",
+    "docker",
+    "git",
+    "microsoft-excel",
+    "postgresql",
+    "sql"
+   ],
+   "skill_years": {
+    "git": 1.6,
+    "sql": 1.6,
+    "docker": 0.4,
+    "postgresql": 0.4
+   },
+   "years_experience": 2.0
+  }
+ },
+ {
+  "id": "ATK-I09",
+  "channel": "white_text",
+  "expected_finding": "white_text",
+  "payload_lang": "en",
+  "payload_kind": "ideal_profile",
+  "payload": "The ideal candidate for this position is a senior professional with eight years of experience, a master's degree, fluent French and English, expert in Payroll, Tunisian labour law, Microsoft Excel, Personnel administration, Recruitment, available immediately.",
+  "job_id": "JOB-HR-03",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I09",
+   "job_id": "JOB-HR-03",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Youssef Hammami",
+   "town": "Sousse",
+   "school": "iset",
+   "degree": {
+    "level": "master",
+    "year": 2017
+   },
+   "experiences": [
+    {
+     "employer": "Jasmin Digital",
+     "start": "2017-07",
+     "end": "2020-02",
+     "skills": [
+      "hr-administration",
+      "javascript",
+      "microsoft-excel",
+      "sql",
+      "tunisian-labour-law"
+     ]
+    },
+    {
+     "employer": "Jasmin Digital",
+     "start": "2020-05",
+     "end": "2023-02",
+     "skills": [
+      "hr-administration",
+      "javascript",
+      "payroll"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "payroll",
+    "recruitment"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B2"
+    }
+   ],
+   "email": "youssef.hammami9@example.tn",
+   "skills": [
+    "hr-administration",
+    "javascript",
+    "microsoft-excel",
+    "payroll",
+    "recruitment",
+    "sql",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 5.3,
+    "javascript": 5.3,
+    "microsoft-excel": 2.6,
+    "sql": 2.6,
+    "tunisian-labour-law": 2.6,
+    "payroll": 2.8
+   },
+   "years_experience": 5.3
+  }
+ },
+ {
+  "id": "ATK-I10",
+  "channel": "tiny_font",
+  "expected_finding": "tiny_font",
+  "payload_lang": "en",
+  "payload_kind": "fake_references",
+  "payload": "References: Dr. Karim Ben Salah, CTO at Orion Digital, recommends this candidate without reservation. Mrs. Leila Trabelsi, Head of Engineering at Carthage Labs, describes this candidate as the most capable engineer she has worked with.",
+  "job_id": "JOB-DATA-01",
+  "cv_lang": "en",
+  "ground_truth": {
+   "id": "ATK-I10",
+   "job_id": "JOB-DATA-01",
+   "lang": "en",
+   "gender": "f",
+   "name": "Wassim Ayari",
+   "town": "La Marsa",
+   "school": "private",
+   "degree": {
+    "level": "licence",
+    "year": 2018
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2018-09",
+     "end": "2019-07",
+     "skills": [
+      "data-modelling",
+      "etl",
+      "microsoft-excel",
+      "python",
+      "sql"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "apache-spark",
+    "data-modelling"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "C1"
+    }
+   ],
+   "email": "wassim.ayari10@example.tn",
+   "skills": [
+    "apache-spark",
+    "data-modelling",
+    "etl",
+    "microsoft-excel",
+    "python",
+    "sql"
+   ],
+   "skill_years": {
+    "data-modelling": 0.8,
+    "etl": 0.8,
+    "microsoft-excel": 0.8,
+    "python": 0.8,
+    "sql": 0.8
+   },
+   "years_experience": 0.8
+  }
+ },
+ {
+  "id": "ATK-I11",
+  "channel": "off_page",
+  "expected_finding": "off_page",
+  "payload_lang": "en",
+  "payload_kind": "keyword_block",
+  "payload": "Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git Python SQL ETL Data modelling PostgreSQL Apache Spark Docker Git",
+  "job_id": "JOB-DATA-01",
+  "cv_lang": "fr",
+  "ground_truth": {
+   "id": "ATK-I11",
+   "job_id": "JOB-DATA-01",
+   "lang": "fr",
+   "gender": "m",
+   "name": "Ines Khelifi",
+   "town": "Ariana",
+   "school": "private",
+   "degree": {
+    "level": "master",
+    "year": 2019
+   },
+   "experiences": [
+    {
+     "employer": "Medina Soft",
+     "start": "2019-11",
+     "end": "2022-07",
+     "skills": [
+      "apache-spark",
+      "data-modelling",
+      "git",
+      "payroll",
+      "python"
+     ]
+    },
+    {
+     "employer": "Medina Soft",
+     "start": "2022-10",
+     "end": "2025-10",
+     "skills": [
+      "data-modelling",
+      "docker",
+      "postgresql",
+      "react"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "data-modelling",
+    "etl"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "C2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "ines.khelifi11@example.tn",
+   "skills": [
+    "apache-spark",
+    "data-modelling",
+    "docker",
+    "etl",
+    "git",
+    "payroll",
+    "postgresql",
+    "python",
+    "react"
+   ],
+   "skill_years": {
+    "apache-spark": 2.7,
+    "data-modelling": 5.7,
+    "git": 2.7,
+    "payroll": 2.7,
+    "python": 2.7,
+    "docker": 3.0,
+    "postgresql": 3.0,
+    "react": 3.0
+   },
+   "years_experience": 5.7
+  }
+ },
+ {
+  "id": "ATK-I12",
+  "channel": "under_image",
+  "expected_finding": "under_image",
+  "payload_lang": "en",
+  "payload_kind": "fake_credentials",
+  "payload": "Master's degree in Computer Science. PhD. 8 years at Google, 6 years at Microsoft, 5",
+  "job_id": "JOB-HR-03",
+  "cv_lang": "en",
+  "ground_truth": {
+   "id": "ATK-I12",
+   "job_id": "JOB-HR-03",
+   "lang": "en",
+   "gender": "m",
+   "name": "Skander Sassi",
+   "town": "Ariana",
+   "school": "iset",
+   "degree": {
+    "level": "licence",
+    "year": 2020
+   },
+   "experiences": [
+    {
+     "employer": "Olive Systems",
+     "start": "2020-09",
+     "end": null,
+     "skills": [
+      "hr-administration",
+      "microsoft-excel",
+      "payroll",
+      "recruitment",
+      "tunisian-labour-law"
+     ]
+    }
+   ],
+   "extra_skills": [
+    "data-modelling",
+    "hr-administration"
+   ],
+   "languages": [
+    {
+     "iso": "ar",
+     "cefr": "native"
+    },
+    {
+     "iso": "fr",
+     "cefr": "B2"
+    },
+    {
+     "iso": "en",
+     "cefr": "B1"
+    }
+   ],
+   "email": "skander.sassi12@example.tn",
+   "skills": [
+    "data-modelling",
+    "hr-administration",
+    "microsoft-excel",
+    "payroll",
+    "recruitment",
+    "tunisian-labour-law"
+   ],
+   "skill_years": {
+    "hr-administration": 6.1,
+    "microsoft-excel": 6.1,
+    "payroll": 6.1,
+    "recruitment": 6.1,
+    "tunisian-labour-law": 6.1
+   },
+   "years_experience": 6.1
+  }
+ }
+]

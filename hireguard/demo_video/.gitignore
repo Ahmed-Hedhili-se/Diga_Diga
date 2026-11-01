@@ -1,0 +1,4 @@
+node_modules/
+work/
+out/*.webm
+out/steps/

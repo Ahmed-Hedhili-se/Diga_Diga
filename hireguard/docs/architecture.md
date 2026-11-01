@@ -252,7 +252,7 @@ R recruiter · M HR manager · E employee · A admin.
 | | | | `POST /jobs/{id}/candidates/{cid}/status` (hiring status) | R M | approval item `status_change` |
 | | | | `POST /jobs/{id}/rediscover/invite` | R M | approval items `email_send` |
 | | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
-| Oversight | `/money`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
+| Oversight | `/money`, `/money/roi`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
 | | `/approvals/attention`, `/model/status` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
 | Workflow | `/inbox`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
 | | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
@@ -298,7 +298,7 @@ R recruiter · M HR manager · E employee · A admin.
 | R12 | `POST /jobs/{id}/rescore` rewrote proposed scores without an audit event | Low | Rayen | **Closed 1 Nov**: `scores.rescore` audit event (Rayen, `5a7f39b`) |
 | R13 | The pitch hook said "today's AI screeners obey it" before any baseline was measured | Medium (credibility) | Ahmed | **Closed 31 Oct**: the hook now cites a measured external figure; "obeys it" comes back only with our own baseline number |
 | R14 | An offer needs 2 HR managers who are not its author, so 3 in total. The demo seed has 2, so an offer can never fully clear on stage, and many SMEs have only one HR manager | Medium (demo and product fit) | Rayen | **Closed 1 Nov**: per-customer setting `GET/PUT /approvals/settings` (1 to 3, default 2, `HG_OFFER_APPROVALS`), HR managers only, audited `approvals.settings`, applies to offers created afterwards. Lowering it is a control change: the Approvals page says so and shows how many HR managers exist |
-| R15 | Through the model, twin CVs changed score 17/89 with masking (26/90 before): town 0/30, school 0/20, gender 0/10 are clean; CV language 13/20 and the 12-month gap 4/9 still move it. The code path alone gives 0/89 | High (fairness claim) | Hedhili | Partly closed 1 Nov: masking removed the town, school and gender effects. Open: language swaps (Arabic extraction recall 0.67). The pitch states this as a known limit |
+| R15 | Fairness through the model. Twin CVs changed score 17/89 with masking (26/90 before): town, school and gender are clean; CV language 13/20 and the 12-month gap 4/9 still move it. **The group audit on 200 CVs (1 Nov) flags CV language**: Arabic CVs shortlisted 1 of 33, English 10 of 64, French 30 of 103 (adverse-impact ratio 0.10, p = 0.001); gender, region and school show no significant gap. The code path alone gives 0/89 | High (fairness claim, central in Tunisia) | Hedhili | Open. Likely cause: Arabic skill names are not matched (the prompt lists ESCO skills by English label only; `data/esco_subset.json` already holds Arabic and French labels). Fix not yet measured: add the labels, then re-run extraction on the 33 Arabic CVs, the 200, the twins and the group audit |
 | R16 | Two route tables must be kept in step by hand: `auth/permissions.py` `ROUTE_PERMISSIONS` (Rayen) and `tests/test_release_gate.py` `MATRIX` (Ahmed) | Low (both fail loudly when out of step) | Rayen, Ahmed | Open. Derive the gate's roles from `ROUTE_PERMISSIONS` |
 | R17 | The Evaluation tab was blank: the harness output was renamed (`summary_oracle.json`, `summary_unmasked_qwen3-8b.json`) but the API read `summary.json` | High for the demo | Ahmed | **Closed 1 Nov**: `GET /eval/summary?run=` serves every labelled run, newest model run by default (test `test_eval_summary_labels_every_run`) |
 | R18 | Two follow-up engines after the merge: double reminders (up to 4 per candidate) and reminders to rejected candidates; two screens disagreed | High | Ahmed | **Closed 1 Nov**: one engine (P3's), the duplicate routes, panel and templates removed; the P3 demo seed runs in `run.ps1 -Seed` |
@@ -310,6 +310,7 @@ R recruiter · M HR manager · E employee · A admin.
 | R24 | The model and Ollama runtime are installed by tag, not pinned by digest | Medium (supply chain; invalidates the measured evidence if it changes) | Hedhili | Open (S4 in `docs/security_hardening.md`) |
 | R25 | No multi-factor authentication; no self-service password change | High before a pilot | Rayen | Open (S1, S2) |
 | R26 | The email classifier's intent and urgency labels have not been tested against injected text | Medium | Hedhili | Open (S5) |
+| R27 | A model call had no output limit: one request generated 39,000+ tokens and held the GPU (found 1 Nov; also behind the 258 s worst case and failed extraction calls). A hostile CV could trigger it on purpose | High (availability, cost) | Hedhili | **Mitigated 1 Nov**: `HG_LLM_MAX_TOKENS` (default 2048; longest valid output is about 650 tokens) on Ollama, Gemini and Groq calls |
 
 ## 9. Interface change log
 

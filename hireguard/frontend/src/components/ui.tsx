@@ -165,7 +165,7 @@ export function fmtDate(s?: string | null) {
 
 export function fmtNum(n: number | undefined | null, digits = 0) {
   if (n === undefined || n === null || isNaN(n)) return "—";
-  return n.toLocaleString(undefined, { maximumFractionDigits: digits, minimumFractionDigits: digits });
+  return n.toLocaleString("en-GB", { maximumFractionDigits: digits, minimumFractionDigits: digits });
 }
 
 /** Render any value as plain text (never HTML). */

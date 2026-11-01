@@ -1,0 +1,13 @@
+{
+  "name": "hireguard-demo-video",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Records the backup demo video: the click path of docs/demo_script.md, driven by Playwright.",
+  "scripts": {
+    "record": "node record.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

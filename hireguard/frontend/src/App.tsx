@@ -1,4 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
+import { BRAND } from "./brand";
+import BrandMark from "./components/BrandMark";
 import { Navigate, NavLink, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { IdleWatcher, ROLE_LABEL, useAuth } from "./auth";
 import { Badge, ConfirmButton, Modal } from "./components/ui";
@@ -113,8 +115,8 @@ export default function App() {
   // Demo names carry a role suffix, e.g. "Karim Trabelsi (HR Manager)": greet by first name only.
   const firstName = user.display_name.replace(/\(.*\)/, "").trim().split(/\s+/)[0] || user.display_name;
   const hour = new Date().getHours();
-  const greeting = hour < 5 ? "Working late" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-  const today = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   const examples = [
     { path: "/candidates", title: "Inspect a candidate", detail: "Open a CV, review score evidence, then check its security findings." },
     { path: "/approvals", title: "Review an approval", detail: "Compare the proposed change and its risk before deciding." },
@@ -137,8 +139,8 @@ export default function App() {
       </a>
       <aside className="sidebar">
         <div className="brand">
-          <img src="/favicon.svg" alt="" width={28} height={28} />
-          <span>HireGuard</span>
+          <BrandMark size={30} />
+          <span>{BRAND.name}</span>
           <button
             type="button"
             className="sidebar-toggle"

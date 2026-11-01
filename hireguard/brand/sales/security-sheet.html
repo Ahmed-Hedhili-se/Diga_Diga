@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Venidis: security and data protection</title>
+<link rel="stylesheet" href="sales.css">
+</head>
+<body>
+<header>
+  <img class="logo" src="../venidis-logo.svg" alt="Venidis">
+  <div class="tag">Security and data-protection overview</div>
+</header>
+
+<h1>What we enforce, what we measured, and what is not done yet.</h1>
+<p class="lead">For your IT and security reviewer. Every row names how it was checked. Nothing here has been tested by an outside party yet: it is our own code review, internal penetration test and automated tests (about 540 backend and 17 frontend).</p>
+
+<h2>The design in one paragraph</h2>
+<p>The model that reads untrusted text is quarantined: it has no tools, no memory between documents, and returns only typed fields (skills, dates, degree, languages). Code then checks every field against the visible text, a deterministic scorer ranks the candidates, a person approves every consequential action, and the executor refuses anything not approved. A fully manipulated model output can only choose values inside that schema, and each value must survive the check and a human. <b>The model is not the security boundary; the checks and the approval step are.</b></p>
+
+<h2>Controls in place</h2>
+<table class="break">
+  <tr><th>Area</th><th>Control</th><th>How checked</th></tr>
+  <tr><td>Hostile CVs</td><td>Hidden text (white, tiny, off-page, under an image, zero-width, homoglyph, annotations, metadata) is found and shown to the reviewer; instruction-like text is flagged and never changes a score</td><td>40 of 40 found, 0 of 240 false alarms; 28 of 28 instruction payloads flagged</td></tr>
+  <tr><td>Hostile emails</td><td>The sender is verified by code from the mail headers; forged senders are held and receive no candidate data</td><td>15 of 15 spoofs contained</td></tr>
+  <tr><td>Uploads</td><td>PDF only, size and page limits, encrypted files refused; parsing runs in a separate worker with a deadline, so a hostile file cannot hang or crash the service</td><td>Automated tests, including deadline and crash cases</td></tr>
+  <tr><td>Runaway model</td><td>Every model call has a hard output limit (found and fixed during testing: one request had generated 39,000+ tokens)</td><td>Automated test; longest valid output about 650 tokens against a limit of 2,048</td></tr>
+  <tr><td>Approvals</td><td>Nobody approves an item they created; offers need distinct approvers; planted test items check reviewers are paying attention; an approved item runs once</td><td>Automated tests</td></tr>
+  <tr><td>Sessions and login</td><td>Hashed session tokens, HttpOnly SameSite=Strict cookies, idle and absolute expiry, CSRF check on every change, uniform login errors, account and network lockouts, scrypt password hashing at OWASP-equivalent cost</td><td>Automated tests; internal penetration test</td></tr>
+  <tr><td>Web hardening</td><td>Strict Content-Security-Policy without inline scripts, security headers, HSTS on HTTPS, request size caps, downloads as attachments</td><td>Automated tests</td></tr>
+  <tr><td>Production mode</td><td><code>HG_ENV=production</code> refuses to start unless cookies are secure, API docs are off, origins are HTTPS, PDF isolation is on, and no cloud model is enabled without an explicit acknowledgement</td><td>Automated tests</td></tr>
+  <tr><td>Audit</td><td>Every sign-in, denial, approval and execution is logged in an append-only, hash-chained log with external timestamp anchors</td><td>Verification endpoint; automated tests</td></tr>
+  <tr><td>Dependencies</td><td>Pinned versions; vulnerability scan of backend dependencies reports no known issues (1 Nov 2026)</td><td><code>pip-audit</code>; 2 moderate advisories remain in a front-end library</td></tr>
+</table>
+
+<div class="cols">
+<div>
+<h2>Your data</h2>
+<ul>
+  <li>The model runs on your own servers. A cloud model is off by default and is blocked in production unless you acknowledge it</li>
+  <li>Identity details (town, school, gendered titles, emails) are masked before the model reads a CV</li>
+  <li>Team views are aggregates, never per person; the question radar hides groups under 5 (the skills map shows holder counts, and small-team handling is still to be decided)</li>
+  <li>No performance, productivity or stress scoring of employees</li>
+</ul>
+</div>
+<div>
+<h2>What we measured</h2>
+<ul>
+  <li>Hidden-text attacks changed a result 3 of 40 times (naive screener 13 of 40)</li>
+  <li>Plain-sight manipulation changed a result 7 of 14 times (naive screener 8 of 14): human review is the answer</li>
+  <li>Same-CV-different-town/school/gender changed no score; changing only the CV's language changed 13 of 20</li>
+  <li>All on synthetic CVs, attacks written by our team</li>
+</ul>
+</div>
+</div>
+
+<h2>Not done yet</h2>
+<div class="callout gap break">
+<table>
+  <tr><td class="n gapmark">Planned before a pilot</td><td>Multi-factor sign-in for HR managers and administrators; self-service password change</td></tr>
+  <tr><td class="n gapmark">Your deployment</td><td>Data is not encrypted by the application: use disk encryption on the server. Automatic deletion after a role closes is not enforced yet</td></tr>
+  <tr><td class="n gapmark">Planned</td><td>Pinning the model version by digest; tests of the email classifier against injected text; red-team tests that adapt to the model; an outside penetration test</td></tr>
+  <tr><td class="n gapmark">Scope</td><td>Email sending and calendar booking are prepared for approval but delivery connectors are on the roadmap; CVs must be PDF</td></tr>
+</table>
+</div>
+
+<footer>
+  Measured 1 Nov 2026 with Qwen3-8B on one GPU. Details and open items are tracked in our security register and shared with you on request. Venidis supports your own review of GDPR, Law 2004-63 and the EU AI Act; this sheet is a description of controls, not a statement of legal compliance. [Contact: name · email]
+</footer>
+</body>
+</html>

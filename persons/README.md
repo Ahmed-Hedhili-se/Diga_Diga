@@ -31,16 +31,17 @@ or risk scores. Its output is team-level and suppresses small groups (k >= 5).
 branch off `main` (`git checkout -b <you>-<task> origin/main`) and merge back the same day; the
 old personal branches are history.
 
-- **Health:** 449 backend tests, 11 frontend tests, the frontend build and the release gate
+- **Health (re-checked 1 Nov):** 539 backend tests, 17 frontend tests, the type check, the frontend build and the release gate
   (all 67 routes) pass; a full demo seed works and the audit chain verifies. After pulling, run
   `npm ci` in `hireguard/frontend` (new dev dependencies), or the build fails.
 - **Headline evidence (real Qwen3-8B, same 40 attacks):** a naive screener's score moved on
   13/40, HireGuard's on 3/40. Paired, 11 attacks beat only the naive screener and 1 only
   HireGuard: exact McNemar p = 0.006.
-- **Known weakness:** through the model, 26/90 twin CVs changed score (14/20 when only the CV
-  language changed). Masking was added afterwards and is **not measured yet**.
-- **CV extraction is slow on the measured setup:** about 40 seconds per CV. The demo uses seeded
-  candidates; don't upload a CV live through the model.
+- **Known weakness:** through the model with identity masking, 17/89 twin CVs changed score
+  (26/90 before). Town, school and gender are at 0; CV language still moves 13/20 (Arabic
+  extraction recall 0.67), and 7/14 visible attacks still move a field or score.
+- **Extraction (200 CVs):** skill F1 0.944; load test 100 CVs, 0 errors, p50 9.9 s on the Modal
+  L4. The demo still uses seeded candidates; don't upload a CV live through the model.
 - Risk register: [hireguard/docs/architecture.md](../hireguard/docs/architecture.md) §8.
 
 Code comments still say P1-P4 (the first plan). Map them to owners:
@@ -57,10 +58,10 @@ Code comments still say P1-P4 (the first plan). Map them to owners:
 
 | Person | P0 | P1 |
 |---|---|---|
-| Hedhili | Re-run the model evaluation with masking on (twins, attacks, extraction on 50+ CVs); record where the model ran | Fix the attack generator (`render.py`, R1 in `archive/person1.md`) and re-count detection; re-measure the detector |
-| Rayen | Earlier P0 items done. Optional: real screen recordings as a live-demo backup ([rayen.md](./rayen.md)) | Done: R4, R12, R14, N10 |
-| Yasmina | Rehearse the single demo script; check the 3-minute demo video ([`hireguard/docs/demo_video/`](../hireguard/docs/demo_video/), video in `out/`, built from the dashboard); check the Evaluation tab and the follow-up screen after today's fixes | Phone and screen-reader pass; `/api/docs` off in production; Y5 copy once Ahmed decides |
-| Ahmed | HR interview calls for the business numbers; choose the ask; final pitch numbers after Hedhili's run. The business numbers and the ask go into `FILL_IN` in `hireguard/docs/demo_video/build_slides.py` | Decide Y5 and R4; collect sign-offs; keep the risk register current |
+| Hedhili | Done (masked run, 200-CV extraction, load test, detector and generator fixes) | Arabic labels in the extraction prompt (re-measure everything if changed); backend tests on a clean venv; stop the Modal app |
+| Rayen | Done (scorer `listed_only` weighting, N8, routes documented). Optional: real screen recordings as a live-demo backup ([rayen.md](./rayen.md)) | Done (R4, R12, R14, N10) |
+| Yasmina | Rehearse the single demo script; check the 3-minute demo video ([`hireguard/docs/demo_video/`](../hireguard/docs/demo_video/), video in `out/`, built from the dashboard); check the Evaluation tab and the follow-up screen | Phone and screen-reader pass; Y5 copy once Ahmed decides |
+| Ahmed | HR interview calls for the business numbers (pitch TBDs, `MINUTES_PER_UNIT`); choose the ask; agree the visible-attack wording with Hedhili. The business numbers and the ask also go into `FILL_IN` in `hireguard/docs/demo_video/build_slides.py` | Decide Y5 and R4; collect sign-offs; keep the risk register current |
 
 ## Ownership at a glance
 

@@ -103,7 +103,7 @@ def _ollama(system: str, user: str, schema: dict) -> str:
         "format": schema,
         "stream": False,
         "think": False,
-        "options": {"temperature": 0, "seed": 7, "num_ctx": 8192},
+        "options": {"temperature": 0, "seed": 7, "num_ctx": 8192, "num_predict": config.LLM_MAX_TOKENS},
     }
     for attempt in (1, 2):
         try:
@@ -128,6 +128,7 @@ def _groq(system: str, user: str, schema: dict) -> str:
         "messages": [{"role": "system", "content": system + "\nReturn JSON matching this schema:\n" + json.dumps(schema)},
                      {"role": "user", "content": user}],
         "temperature": 0,
+        "max_tokens": config.LLM_MAX_TOKENS,
         "response_format": {"type": "json_object"},
     }
     try:
@@ -153,7 +154,8 @@ def _gemini(system: str, user: str, schema: dict) -> str:
     body = {
         "systemInstruction": {"parts": [{"text": system + "\nReturn only JSON matching this schema:\n" + json.dumps(schema)}]},
         "contents": [{"role": "user", "parts": [{"text": user}]}],
-        "generationConfig": {"temperature": 0, "responseMimeType": "application/json"},
+        "generationConfig": {"temperature": 0, "responseMimeType": "application/json",
+                             "maxOutputTokens": config.LLM_MAX_TOKENS},
     }
     last: LLMUnavailable | None = None
     for model in config.GEMINI_MODELS or [config.GEMINI_MODEL]:

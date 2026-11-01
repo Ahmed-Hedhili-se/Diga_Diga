@@ -33,6 +33,7 @@ The harness calls `app.pipeline.service.analyze_pdf(pdf_bytes, candidate_id, ext
 | ResumeShield | Detection on 72 injected docs, false alarms on 32 clean docs | 104 docs | TBD |
 | Hidden-text detection | Doc-level: the sanitizer reports the expected channel on the attacked file; any finding on a twin = false positive | 40 attacks + 40 twins | **recall 40/40 (95% CI 91.2–100%), 0 false positives on 40 twins** |
 | Instruction flagged | Share of instruction payloads that raise an `injection_flag` (a signal only, never a score input) | 28 instruction payloads | **28/28 (100%, 95% CI 87.7–100%)** on the 40-attack corpus; 11/11 on the 14 supplementary attacks (`attacks_extra`). Measured on the PDFs after the sanitizer, no model involved. 18/28 before the 1 Nov detector fixes; see below |
+| Implicit hidden attacks (code path) | Hidden content with **no instruction words** (keyword blocks, fake credentials, an ideal-candidate paragraph, fake references) over white text, tiny font, off-page and under-image. Success for us = the sanitizer reports a high finding, the visible text equals the twin's, and the validated fields and score equal the twin's with a perfect extraction | 12 attacks + twins (`eval/gen_attacks_implicit.py`, `tests/test_implicit_attacks.py`) | **12/12 (100.0%, 95% CI 73.5–100.0%)**. **Code path, no model:** it says nothing about whether the model obeys such text. None of the 12 triggers the instruction detector, which is the point: the sanitizer stops them by channel. Motivated by E1 (more than 90% of real injections use no explicit instruction) |
 | Code-path skill retention | Share of ground-truth skills that survive sanitizer + validator with a perfect extraction | 200 CVs (103 FR, 64 EN, 33 AR) | **1067/1067 (100%) for every CV language**; years MAE 0.12 |
 | Extraction F1 | ESCO skill set vs ground truth; MAE of years computed from dates | 200 CVs, Qwen3-8B (1 Nov) | **skill F1 0.944** (precision 0.999, recall 0.894); French 0.966, English 0.967, **Arabic 0.800 (recall 0.667)**. Years MAE 0.23; degree correct 185/200 (92.5%); 2/200 sent to a human; 4 failed model calls |
 | Counterfactual invariance | Score changes when only town, school, a 12-month gap, CV language, or gendered title changes | 10 groups, 89 variants | Code path: **0/89 (0.0%, 95% CI 0.0–4.1%)**. **Through the model with identity masking (1 Nov): 17/89 (19.1%, CI 11.5–28.8%)**: town 0/30, school 0/20, gender 0/10, gap 4/9, **CV language 13/20**. Before masking: 26/90. A gap legitimately removes experience months; the language effect matches the weaker Arabic extraction (recall 0.67) |
@@ -61,6 +62,8 @@ Twins test one candidate at a time. Group bias can still ride on fields the scor
 
 The verdict is **flag** when AIR < 0.8 and p < 0.05, and **watch** when AIR < 0.8 but the difference could be chance.
 
+**Code path (oracle extraction, 31 Oct; `eval/results/fairness_oracle.json`).**
+
 | Attribute | AIR [95% CI] | p | Verdict | Proxy AUC (null 95th) |
 |---|---|---|---|---|
 | Region (Grand Tunis / coast / interior) | 0.89 [0.34–0.93] | 0.98 | ok | 0.55 (0.58) |
@@ -69,9 +72,21 @@ The verdict is **flag** when AIR < 0.8 and p < 0.05, and **watch** when AIR < 0.
 | CV language | 0.73 [0.20–0.90] | 0.67 | watch | 0.53 (0.56) |
 | **Positive control: school** | **0.28 [0.05–0.55]** | **0.005** | **flag** | **0.84 (0.54)** |
 
+**Through the model (1 Nov, Qwen3-8B on a Modal L4, identity masking on; `eval/results/fairness.json`).**
+
+| Attribute | AIR [95% CI] | p | Verdict | Proxy AUC (null 95th) |
+|---|---|---|---|---|
+| Region (Grand Tunis / coast / interior) | 0.70 [0.30–0.92] | 0.57 | watch | 0.53 (0.59) |
+| School | 0.69 [0.28–0.90] | 0.55 | watch | 0.54 (0.54) |
+| Gender | 0.97 [0.53–0.99] | 1.00 | ok | 0.46 (0.58) |
+| **CV language** | **0.10 [0.00–0.35]** | **0.001** | **flag** | 0.61 (0.57) |
+| **Positive control: school** | **0.26 [0.05–0.55]** | **0.004** | **flag** | **0.80 (0.54)** |
+
+**The model-mode audit finds a real disparity.** Shortlisted by CV language: Arabic **1 of 33**, English **10 of 64**, French **30 of 103**. With p = 0.001 this is not chance, and it is not an artefact of the test: the audit caught the planted bias in the same run. The likely cause is the Arabic extraction weakness (skill F1 0.80, recall 0.67): the extractor's prompt lists skills by English label only, so Arabic skill names are often not matched, Arabic CVs lose skills, and they score lower. That is a diagnosis from a few CVs, **not a measured fix**. One of the 200 CVs hit the 2,048-token output cap and went to a person (counted as not shortlisted). Region and school are watch signals that are not significant. Gender shows no gap.
+
 How to read this:
 
-- The synthetic attributes are random by construction, so the two "watch" rows are chance in small groups (33–103 CVs). The four-fifths rule alone would have raised two false alarms; the permutation test is what keeps it honest.
+- In the code-path table, the synthetic attributes are random by construction, so the two "watch" rows are chance in small groups (33–103 CVs). The four-fifths rule alone would have raised two false alarms; the permutation test is what keeps it honest.
 - The **positive control** plants a real bias: degree follows school (SUP'COM → engineering degree, ISET → licence), and every rubric requires an engineering degree weighted 30. The audit flags it, the proxy test shows the degree reveals the school, and the gap breakdown attributes **100% of the gap to the degree component**. HR then decides whether that requirement is job-necessary.
 
 ## Shortlist stability (U1), team-aware rubric, attention guard (U3)

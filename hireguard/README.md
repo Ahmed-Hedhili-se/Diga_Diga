@@ -7,6 +7,8 @@ Secure AI HR system: SUP'COM hackathon. One platform, two modules on one trust c
 
 Architecture, data boundaries, permissions, risk register and references: [docs/architecture.md](docs/architecture.md). Team assignments: [../persons/README.md](../persons/README.md).
 
+Business side: the case and its evidence level are in [docs/business.md](docs/business.md) (every external figure in [docs/evidence.md](docs/evidence.md); `python scripts/check_claims.py` fails on an unsourced percentage). Customer discovery kit: [docs/discovery](docs/discovery/call_script.md) (call script, French outreach message, pilot letter template, call log; `python scripts/discovery_summary.py` prints what the pitch may quote).
+
 > **The AI reads, code decides, humans approve.**
 > Whatever reads stranger text cannot act; whatever can act never reads stranger text.
 
@@ -88,5 +90,5 @@ Team insights page (HR manager, admin). Measures processes, declared skills and 
 - Candidate portal (magic link) is on the roadmap; the demo uses pre-verified candidate addresses.
 - The interview loop closer is built but not demoed.
 - The knowledge-gap radar mixes a fictional seed log with the live Answer Desk questions (section and week only); say so in the demo.
-- Model numbers were measured on 31 Oct **before identity masking** (attacks 3/40 vs 13/40 for a standard screener; twin CVs 26/90). The masked re-run, extraction quality on more than 2 CVs and an LLM load test are pending. Code-path (oracle) results are labelled as such everywhere.
+- Model numbers come from the 1 Nov run **with identity masking** on Modal (Qwen3-8B, NVIDIA L4): attacks 3/40 vs 13/40 for a standard screener; twin CVs 17/89 (26/90 before masking), of which CV-language swaps 13/20; skill F1 0.944 on 200 CVs (Arabic 0.80); load test 100 CVs, 0 errors, p50 9.9 s. Visible attacks (7/14) are a stated limit. Code-path (oracle) results are labelled as such everywhere.
 - The demo uses SQLite with triggers for the audit log; production uses a Postgres role restricted to INSERT/SELECT.

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BRAND } from "../brand";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { api, ApiError, errMsg } from "../api";
 import { usePermission } from "../auth";
@@ -274,69 +275,6 @@ export default function Candidates() {
           {showErp && jobId && <ErpPreview jobId={jobId} />}
         </div>
       )}
-      {fit.data && bc && (
-        <div className="card">
-          <div className="row between">
-            <div>
-              <h3>
-                Offer fit: published band {fmtNum(bc.band[0])}–{fmtNum(bc.band[1])} TND / month ·{" "}
-                {fit.data.terms.work_mode} · {fit.data.terms.contract}
-              </h3>
-              <div className="muted small">
-                Each candidate's own declared conditions (salary, notice, work mode, commitments) checked against the
-                job's published terms. Shown beside the ranking, never inside it: the scores ignore them.
-              </div>
-            </div>
-            <Badge tone={bc.share === null ? "neutral" : bc.share >= 0.5 ? "ok" : "warn"}>
-              band covers {bc.within_band}/{bc.declared} declared in top {bc.k}
-            </Badge>
-          </div>
-          {bc.share !== null && bc.share < 0.5 && (
-            <div className="alert warn">
-              Most of your shortlist expects more than the band pays. Settle the band or the expectations before the
-              interviews, not after the offer.
-            </div>
-          )}
-        </div>
-      )}
-      {gaps.data && gaps.data.diff.length > 0 && (
-        <div className="card">
-          <div className="row between">
-            <div>
-              <h3>Team-aware rubric: {gaps.data.team}</h3>
-              <div className="muted small">
-                Skills this role's team needs but nobody (gap) or only one person (single holder) holds. A proposal
-                only: nothing changes until an HR manager applies it, and the change is audited.
-              </div>
-              <div className="muted small">
-                Team-level counts only, no names · team of {gaps.data.team_size} · source: team skills roster
-                (fictional demo data), current snapshot.
-              </div>
-              {gaps.data.team_size < 5 && (
-                <div className="small text-warn" role="note">
-                  Small team (under 5 people): a count of 1 can point to a specific colleague. Treat it as a staffing
-                  signal, never as information about a person.
-                </div>
-              )}
-            </div>
-            {canEditRubric && (
-              <button className="btn primary small" onClick={applyTeamWeights}>
-                Apply suggested weights
-              </button>
-            )}
-          </div>
-          <ul className="small">
-            {gaps.data.diff.map((d) => (
-              <li key={d.esco_id}>
-                <Badge tone={d.status === "gap" ? "danger" : "warn"}>{d.status === "gap" ? "gap" : "single holder"}</Badge>{" "}
-                <strong>{d.label}</strong>: weight {d.before ?? "not in rubric"} → {d.after}{" "}
-                <span className="muted">({d.reason})</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       <div className="split">
         <section className="panel list-pane" aria-label="Ranking">
           <div className="row between">
@@ -460,6 +398,69 @@ export default function Candidates() {
         </section>
       </div>
 
+      {fit.data && bc && (
+        <div className="card">
+          <div className="row between">
+            <div>
+              <h3>
+                Offer fit: published band {fmtNum(bc.band[0])}–{fmtNum(bc.band[1])} TND / month ·{" "}
+                {fit.data.terms.work_mode} · {fit.data.terms.contract}
+              </h3>
+              <div className="muted small">
+                Each candidate's own declared conditions (salary, notice, work mode, commitments) checked against the
+                job's published terms. Shown beside the ranking, never inside it: the scores ignore them.
+              </div>
+            </div>
+            <Badge tone={bc.share === null ? "neutral" : bc.share >= 0.5 ? "ok" : "warn"}>
+              band covers {bc.within_band}/{bc.declared} declared in top {bc.k}
+            </Badge>
+          </div>
+          {bc.share !== null && bc.share < 0.5 && (
+            <div className="alert warn">
+              Most of your shortlist expects more than the band pays. Settle the band or the expectations before the
+              interviews, not after the offer.
+            </div>
+          )}
+        </div>
+      )}
+      {gaps.data && gaps.data.diff.length > 0 && (
+        <div className="card">
+          <div className="row between">
+            <div>
+              <h3>Team-aware rubric: {gaps.data.team}</h3>
+              <div className="muted small">
+                Skills this role's team needs but nobody (gap) or only one person (single holder) holds. A proposal
+                only: nothing changes until an HR manager applies it, and the change is audited.
+              </div>
+              <div className="muted small">
+                Team-level counts only, no names · team of {gaps.data.team_size} · source: team skills roster
+                (fictional demo data), current snapshot.
+              </div>
+              {gaps.data.team_size < 5 && (
+                <div className="small text-warn" role="note">
+                  Small team (under 5 people): a count of 1 can point to a specific colleague. Treat it as a staffing
+                  signal, never as information about a person.
+                </div>
+              )}
+            </div>
+            {canEditRubric && (
+              <button className="btn primary small" onClick={applyTeamWeights}>
+                Apply suggested weights
+              </button>
+            )}
+          </div>
+          <ul className="small">
+            {gaps.data.diff.map((d) => (
+              <li key={d.esco_id}>
+                <Badge tone={d.status === "gap" ? "danger" : "warn"}>{d.status === "gap" ? "gap" : "single holder"}</Badge>{" "}
+                <strong>{d.label}</strong>: weight {d.before ?? "not in rubric"} → {d.after}{" "}
+                <span className="muted">({d.reason})</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {pool.data && pool.data.candidates.length > 0 && (
         <section className="card">
           <div className="row between">
@@ -535,7 +536,7 @@ function ErpPreview({ jobId }: { jobId: string }) {
             <tr>
               <th>Applicant</th>
               <th>Odoo stage</th>
-              <th>HireGuard</th>
+              <th>{BRAND.name}</th>
             </tr>
           </thead>
           <tbody>
