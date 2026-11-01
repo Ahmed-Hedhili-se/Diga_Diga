@@ -23,23 +23,13 @@ dashboard and the plain-language Security Center.
 - [x] **P0** N8 (`hireguard/P4_NOTES.md`): `GET /approvals` lists pending items only, so an
       approved routine item vanishes before anyone executes it. Return approved-not-executed too.
 - [x] **P0** Document in `contracts/API.md`: `GET /erp/status`, `GET /erp/jobs/{id}/applicants`,
-<<<<<<< HEAD
-      `POST /erp/jobs/{id}/import`, `POST /jobs/{id}/candidates/{id}/status`.
+      `POST /erp/jobs/{id}/import`, `POST /jobs/{id}/candidates/{id}/status` (done, `5a7f39b`).
 - [x] **P1** R4: `GET /reviewer/stats` still groups by user; return hits and misses by batch
       size and week instead (decided by Ahmed).
-- [x] **P1** R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore`.
+- [x] **P1** R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore` (done, `5a7f39b`).
 - [x] **P1** R14: offer approver count as a setting (default 2 others; SME: 1 other).
 - [x] **P1** N10: `hidden_high` count in `list_candidates`, so a clean Arabic CV shows no badge.
 - [x] Keep `tests/test_release_gate.py` `MATRIX` and architecture §6 in step with every route.
-=======
-      `POST /erp/jobs/{id}/import`, `POST /jobs/{id}/candidates/{id}/status` (done, `5a7f39b`).
-- [ ] **P1** R4: `GET /reviewer/stats` still groups by user; return hits and misses by batch
-      size and week instead (decided by Ahmed).
-- [x] **P1** R12: one `scores.rescore` audit event in `POST /jobs/{id}/rescore` (done, `5a7f39b`).
-- [ ] **P1** R14: offer approver count as a setting (default 2 others; SME: 1 other).
-- [ ] **P1** N10: `hidden_high` count in `list_candidates`, so a clean Arabic CV shows no badge.
-- [ ] Keep `tests/test_release_gate.py` `MATRIX` and architecture §6 in step with every route.
->>>>>>> origin/main
 
 ## Work to execute
 
