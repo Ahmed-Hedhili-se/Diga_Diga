@@ -62,3 +62,11 @@ DEGREE_TEXT = {
                   "ar": "شهادة مهندس في الاتصالات"},
 }
 CEFR_TEXT = {"fr": "Français", "en": "English", "ar": "العربية"}
+# Language names written in the CV's own language, as real CVs do. (Writing «العربية» inside a French CV
+# with the Latin built-in font produced an undecodable glyph that the sanitizer rightly reported, so 32 of
+# the 40 "clean" attack twins carried a hidden-text finding.)
+LANG_NAMES = {
+    "fr": {"fr": "Français", "en": "Anglais", "ar": "Arabe"},
+    "en": {"fr": "French", "en": "English", "ar": "Arabic"},
+    "ar": {"fr": "الفرنسية", "en": "الإنجليزية", "ar": "العربية"},
+}

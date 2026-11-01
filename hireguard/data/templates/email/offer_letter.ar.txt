@@ -1,0 +1,16 @@
+Subject: عرض عمل: $job_title
+مرحبا $candidate_name،
+
+يسعدنا أن نعرض عليكم خطة $job_title.
+
+الشروط المقترحة:
+- العقد: $contract
+- الأجر الشهري الخام: $monthly_salary_tnd دينار
+- تاريخ المباشرة: $start_date
+- طريقة العمل: $work_mode، $location
+
+صادق على هذا العرض مسؤولان اثنان في الموارد البشرية. يرجى الرد على هذا البريد.
+
+مع أطيب التحيات،
+$recruiter_name
+$company_name

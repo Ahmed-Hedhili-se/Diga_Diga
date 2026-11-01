@@ -128,6 +128,19 @@ Every 20th approval item (`HG_CANARY_EVERY`) gets a twin with a planted defect (
 | The remote model gains authority | It is the same quarantined extractor: it reads text and returns typed JSON, with no tools, no database and no authority. Output still goes through the validator | `pipeline/extractor.py`, `pipeline/validator.py` |
 | Runaway spend (LLM10) | One container at most, scale to zero after 5 idle minutes, a hard `--max-requests` cap in the runner, and a workspace budget set in the Modal dashboard | `infra/modal_ollama.py`, `scripts/run_model_eval.py` |
 
+## Fast-track and HR Nexus (added 31 Oct)
+
+| New input or output | Threat | Control | Where |
+|---|---|---|---|
+| Declared conditions (salary, notice, work mode, commitments) | Free text smuggled into a template; HR ranks on salary ask | Typed pydantic fields with ranges and enums, never parsed from the CV or by the model; never read by the scorer (test `test_conditions_never_change_the_score`); shown beside the ranking only | `scoring/offer_fit.py`, `pipeline/routes.py` |
+| Offer letter | An offer outside policy, or a self-approved offer | Salary must be inside the published band (422); kind `offer` needs 2 HR managers who are not the author; the canary swaps the recipient | `scoring/offer_fit.py::draft_offer`, `workflow/approvals.py` |
+| Talent pool | Contacting people without consent, or after they left the pool | Opt-in checkbox at upload, 730-day expiry, `DELETE /talent-pool/{id}`, every change audited; invitations are approval items | `scoring/rediscover.py` |
+| Follow-ups | Spamming a candidate; replying to a spoofed thread | Only addresses we wrote to through the executor, only after N business days of silence, at most 2, no second draft while one is pending, template only | `workflow/followups.py` |
+| Team skills map | Exposing who holds which skill | The API returns holder counts per skill, never member ids (tested) | `team/routes.py` |
+| HR process metrics | Turning the audit log into per-person productivity | Output is per stage (count, median, p95); no actor or candidate id leaves the function | `team/process_metrics.py` |
+| Knowledge-gap radar | A rare question pointing at one employee | Only (section, ISO week, language) is stored; cells under k = 5 are returned as `null` | `team/knowledge_gaps.py` |
+| `GET /reviewer/stats` (existing) | Per-reviewer canary misses are a per-person monitoring score | **Open (R4 in `docs/architecture.md`)**: aggregate by batch size like `/approvals/attention`, or remove | `workflow/approvals.py` |
+
 ## Known limits (stated honestly)
 
 - Demo uses pre-verified candidate addresses; the magic-link candidate portal is on the roadmap.

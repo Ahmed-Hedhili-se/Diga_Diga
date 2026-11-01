@@ -20,8 +20,10 @@ from ..contracts import (
     ExtractedSkill,
     Lang,
 )
+from .. import config
 from .esco import esco_ids, label_patterns, load_esco
 from .llm import LLMUnavailable, complete_json
+from .mask import mask_line
 from .textnorm import fold_with_map
 
 log = logging.getLogger("hireguard.extractor")
@@ -79,9 +81,16 @@ def number_lines(text: str) -> list[tuple[int, int]]:
 
 
 def render_document(text: str, lines: list[tuple[int, int]]) -> str:
-    body = "\n".join(f"L{i + 1}| {text[s:e]}".replace("</document>", "</ document>").replace("<document>", "< document>")
+    """The exact data block the model reads. Identity masking is per line, so line numbers stay those of `text`."""
+    view = mask_line if config.MASK_IDENTITY else (lambda s: s)
+    body = "\n".join(f"L{i + 1}| {view(text[s:e])}".replace("</document>", "</ document>").replace("<document>", "< document>")
                      for i, (s, e) in enumerate(lines))
     return f"<document>\n{body}\n</document>"
+
+
+def model_input(visible_text: str) -> str:
+    """What one extraction call sends as the user message (eval caches key on this, not on the raw text)."""
+    return render_document(visible_text, number_lines(visible_text))
 
 
 def cv_schema() -> dict:

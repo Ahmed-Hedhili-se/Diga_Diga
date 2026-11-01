@@ -29,6 +29,8 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("HG_GROQ_MODEL", "qwen/qwen3-32b")
 
 PROMPT_GUARD = os.getenv("HG_PROMPT_GUARD", "0") == "1"
+# Mask towns, schools, gendered titles and emails in the text the model reads (pipeline/mask.py); 0 = off for comparisons
+MASK_IDENTITY = os.getenv("HG_MASK_IDENTITY", "1") != "0"
 
 SESSION_TTL_MIN = int(os.getenv("HG_SESSION_TTL_MIN", "480"))          # absolute session lifetime
 SESSION_IDLE_MIN = int(os.getenv("HG_SESSION_IDLE_MIN", "30"))         # signed out after this much inactivity

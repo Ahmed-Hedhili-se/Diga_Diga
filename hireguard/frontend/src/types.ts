@@ -94,6 +94,8 @@ export interface CandidateRow {
   score: ScoreOutput | null;
   flags: number;
   hidden: number;
+  /** llm = live model, ground_truth = offline demo seed (never present it as a model result), none = failed */
+  extraction?: "llm" | "none" | "ground_truth";
 }
 
 export interface CandidateDetail extends CandidateRow {
@@ -143,8 +145,67 @@ export interface ApprovalItem {
 }
 
 export interface ApprovalsView {
-  batches: { batch_id: string; kind: ApprovalKind; items: ApprovalItem[] }[];
+  batches: { batch_id: string; kind: ApprovalKind; items: ApprovalItem[]; chunk?: number }[];
   high_risk: ApprovalItem[];
+  max_batch_size?: number;
+}
+
+export interface AttentionStats {
+  max_batch_size: number;
+  default_max_batch_size: number;
+  recent: { canaries: number; missed: number };
+  by_batch_size: { batch_size: string; canaries: number; missed: number; miss_rate: number | null; ci95: number[] | null }[];
+  rule: string;
+}
+
+export interface StabilityRow {
+  candidate_id: string;
+  base_rank: number;
+  p_top_k: number;
+  rank_p05: number;
+  rank_p95: number;
+  label: "stable_in" | "stable_out" | "borderline";
+}
+
+export interface StabilityView {
+  job_id: string;
+  k: number;
+  jitter: number;
+  draws: number;
+  candidates: StabilityRow[];
+}
+
+export interface TeamGapsView {
+  job_id: string;
+  team: string;
+  team_size: number;
+  coverage: { esco_id: string; label: string; holders: number; verified_holders: number; status: "gap" | "single_holder" | "covered" }[];
+  diff: { esco_id: string; label: string; before: number | null; after: number; status: string; reason: string }[];
+  proposed_rubric: unknown;
+  candidates_filling_gaps: Record<string, string[]>;
+}
+
+export interface FairnessAttr {
+  groups: Record<string, { n: number; selected: number; rate: number }>;
+  air?: number;
+  air_ci95?: number[];
+  p_value?: number;
+  lowest?: string;
+  highest?: string;
+  verdict: "ok" | "watch" | "flag" | "n/a";
+  gap_by_component?: Record<string, { points: number; share: number | null }>;
+  proxy: { auc: number | null; null_auc_95th?: number; proxy?: boolean };
+}
+
+export interface FairnessReport {
+  status?: "not_run";
+  generated_at?: string;
+  extraction_mode?: string;
+  scope?: string;
+  n_cvs?: number;
+  k_frac?: number;
+  observed?: Record<string, FairnessAttr>;
+  positive_control?: { design: string; school: FairnessAttr; detected: boolean };
 }
 
 export interface AuditEntry {
@@ -277,16 +338,29 @@ export interface Prf {
   f1: number;
 }
 
+type EvalMode = { extraction_mode?: string; scope?: string; skipped?: string; llm_failed_calls_total?: number };
+export type AttackSection = EvalMode & {
+  corpus?: string; attack_success?: RateStat; score_raised?: RateStat; instruction_flagged?: RateStat;
+  by_channel?: Record<string, RateStat>; by_payload_lang?: Record<string, RateStat>; by_payload_kind?: Record<string, RateStat>;
+};
+type BaselineRun = { design?: string; attack_success?: RateStat; attack_obeyed_10pts?: RateStat; skipped?: string };
+
 export interface EvalSummary {
   status?: "not_run";
   generated_at?: string;
   model?: string;
   sections?: {
-    attacks?: { skipped?: string; attack_success?: RateStat; by_channel?: Record<string, RateStat>;
-      hidden_text_detection?: Prf & { recall_ci?: RateStat }; instruction_flagged?: RateStat };
-    twins?: { skipped?: string; score_changed?: RateStat; by_variant?: Record<string, RateStat> };
-    extraction?: { skipped?: string; n_docs?: number; skills?: Prf; years_mae?: number };
+    hidden?: EvalMode & { strict?: { recall?: RateStat; false_alarm_on_clean?: RateStat; right_channel?: RateStat };
+      all?: { false_alarm_on_clean?: RateStat } };
+    attacks?: AttackSection;
+    attacks_extra?: AttackSection;
+    twins?: EvalMode & { score_changed?: RateStat; by_variant?: Record<string, RateStat> };
+    emails?: EvalMode & { lane_correct?: RateStat; unsafe_misroute?: RateStat; spoof_contained?: RateStat;
+      clean_marked_suspicious?: RateStat; intent_accuracy?: RateStat; urgency_accuracy?: RateStat };
+    extraction?: EvalMode & { n_docs?: number; skills?: Prf; skills_by_lang?: Record<string, Prf>; years_mae?: number;
+      degree_correct?: RateStat; sent_to_human?: RateStat };
   };
+  baseline?: { vulnerable_screener?: BaselineRun; vulnerable_screener_extra?: BaselineRun; resumeshield?: { skipped?: string } };
 }
 
 // ---------------------------------------------------------------- workflow (P3)
@@ -354,4 +428,110 @@ export interface ErpApplicant {
   email: string;
   stage: string | null;
   imported: boolean;
+}
+
+// ---------------------------------------------------------------- fast-track: offer fit, follow-ups, talent pool
+
+export type FitStatus = "fit" | "negotiable" | "mismatch" | "unknown";
+
+export interface OfferTerms {
+  job_id: string;
+  pay_band_tnd_month: [number, number];
+  work_mode: "onsite" | "hybrid" | "remote";
+  location: string;
+  start_by: string;
+  contract: string;
+  commitments: string[];
+}
+
+export interface OfferFit {
+  status: FitStatus;
+  checks: { check: string; status: FitStatus; detail: string }[];
+}
+
+export interface OfferFitView {
+  job_id: string;
+  terms: OfferTerms;
+  band_coverage: { k: number; declared: number; within_band: number; share: number | null; band: [number, number] };
+  candidates: Record<string, OfferFit>;
+}
+
+export interface FollowupRow {
+  candidate_id: string;
+  name: string;
+  job_id: string;
+  last_sent_at: string;
+  last_subject: string;
+  lang: string;
+  business_days_waiting: number;
+  reminders_sent: number;
+  reminder_pending: boolean;
+  can_remind: boolean;
+}
+
+export interface FollowupsView {
+  days: number;
+  max_reminders: number;
+  candidates: FollowupRow[];
+}
+
+export interface PoolRow {
+  candidate_id: string;
+  name: string;
+  source_job_id: string;
+  total: number;
+  needs_human: boolean;
+  consent_expires_at: string;
+  matched_skills: string[];
+}
+
+export interface RediscoverView {
+  job_id: string;
+  pool_days: number;
+  candidates: PoolRow[];
+}
+
+// ---------------------------------------------------------------- HR Nexus (Team module): aggregates only
+
+export interface TeamSkills {
+  job_id: string;
+  team: string;
+  team_size: number;
+  coverage: { esco_id: string; label: string; holders: number; verified_holders: number; status: "gap" | "single_holder" | "covered" }[];
+}
+
+export interface StageSummary {
+  n: number;
+  median_days: number | null;
+  p95_days: number | null;
+}
+
+export interface ProcessView {
+  source: "live" | "simulation";
+  status?: "not_run";
+  label?: string;
+  generated_at?: string;
+  files?: number;
+  reached?: Record<string, number>;
+  closed?: number;
+  transitions?: ({ from: string; to: string } & StageSummary)[];
+  bottleneck?: ({ from: string; to: string } & StageSummary) | null;
+  time_to_offer?: StageSummary;
+  wip?: Record<string, number>;
+  littles_law?: {
+    window_days: number;
+    arrivals_per_day: number;
+    mean_days_in_pipeline: number;
+    expected_in_progress: number;
+    observed_in_progress: number;
+  } | null;
+}
+
+export interface KnowledgeGaps {
+  k: number;
+  since_week: string;
+  questions: number | null;
+  no_match: { count: number | null; share: number | null };
+  sections: { section: string; count: number | null; suppressed: boolean }[];
+  weeks: { week: string; questions: number | null; no_match: number | null; no_match_share: number | null }[];
 }

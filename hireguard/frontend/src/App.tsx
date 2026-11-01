@@ -18,31 +18,36 @@ import UploadCv from "./pages/UploadCv";
 import Rubric from "./pages/Rubric";
 import { Forbidden, NotFound } from "./pages/Errors";
 import StyleGuide from "./pages/StyleGuide";
+import Team from "./pages/Team";
 
 interface Page {
   path: string;
   label: string;
   permission: string;
-  group: string;
+  group: Group;
   module: string;
   icon: IconName;
   element: ReactElement;
 }
 
+// Two modules on one trust core: Recruit (HireGuard, HR <-> candidates) and Team (HR Nexus, HR <-> staff).
 // Nav, routes and home all derive from permissions (GET /auth/me), never from hard-coded roles.
 const PAGES: Page[] = [
-  { path: "/candidates", label: "Candidates", permission: "candidates.read", group: "Recruiting", module: "candidates", icon: "candidates", element: <Candidates /> },
-  { path: "/approvals", label: "Approvals", permission: "approvals.decide", group: "Recruiting", module: "approvals", icon: "approvals", element: <Approvals /> },
-  { path: "/inbox", label: "Inbox", permission: "inbox.read", group: "Recruiting", module: "inbox", icon: "inbox", element: <Inbox /> },
-  { path: "/interviews", label: "Interviews", permission: "interviews.scorecard", group: "Recruiting", module: "scorecard", icon: "interviews", element: <Scorecard /> },
-  { path: "/questions", label: "Employee questions", permission: "questions.reply", group: "Employee", module: "answer-desk", icon: "questions", element: <EmployeeQuestions /> },
-  { path: "/documents", label: "My documents", permission: "documents.request", group: "Employee", module: "documents", icon: "documents", element: <EmployeeDocs /> },
-  { path: "/answer-desk", label: "Answer Desk", permission: "answer_desk.ask", group: "Employee", module: "answer-desk", icon: "answers", element: <AnswerDesk /> },
-  { path: "/security", label: "Security Center", permission: "security_center.read", group: "Trust", module: "security", icon: "attacks", element: <SecurityCenter /> },
-  { path: "/money", label: "Money", permission: "money.read", group: "Business", module: "money", icon: "vacancy", element: <Money /> },
+  { path: "/candidates", label: "Candidates", permission: "candidates.read", group: "Recruit", module: "candidates", icon: "candidates", element: <Candidates /> },
+  { path: "/inbox", label: "Inbox", permission: "inbox.read", group: "Recruit", module: "inbox", icon: "inbox", element: <Inbox /> },
+  { path: "/approvals", label: "Approvals", permission: "approvals.decide", group: "Recruit", module: "approvals", icon: "approvals", element: <Approvals /> },
+  { path: "/interviews", label: "Interviews", permission: "interviews.scorecard", group: "Recruit", module: "scorecard", icon: "interviews", element: <Scorecard /> },
+  { path: "/team", label: "Team insights", permission: "team.read", group: "Team", module: "team", icon: "team", element: <Team /> },
+  { path: "/questions", label: "Employee questions", permission: "questions.reply", group: "Team", module: "answer-desk", icon: "questions", element: <EmployeeQuestions /> },
+  { path: "/answer-desk", label: "Answer Desk", permission: "answer_desk.ask", group: "Team", module: "answer-desk", icon: "answers", element: <AnswerDesk /> },
+  { path: "/documents", label: "My documents", permission: "documents.request", group: "Team", module: "documents", icon: "documents", element: <EmployeeDocs /> },
+  { path: "/security", label: "Security Center", permission: "security_center.read", group: "Oversight", module: "security", icon: "attacks", element: <SecurityCenter /> },
+  { path: "/money", label: "Money", permission: "money.read", group: "Oversight", module: "money", icon: "vacancy", element: <Money /> },
   { path: "/users", label: "Users", permission: "users.manage", group: "Admin", module: "users", icon: "users", element: <Users /> },
 ];
-const GROUPS = ["Recruiting", "Trust", "Business", "Employee", "Admin"];
+// Recruit = HireGuard (HR <-> candidates); Team = HR Nexus (HR <-> staff); Oversight spans both on the trust core.
+const GROUPS = ["Recruit", "Team", "Oversight", "Admin"] as const;
+type Group = (typeof GROUPS)[number];
 type Theme = "system" | "light" | "dark";
 
 // Where each kind of user lands: HR manager -> approvals, recruiter -> candidates, employee -> documents,

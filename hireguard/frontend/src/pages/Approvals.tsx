@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { api, ApiError, errMsg } from "../api";
 import { useAuth, usePermission } from "../auth";
 import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, Loading, PageHeader, plain, useLoad } from "../components/ui";
-import type { ApprovalItem, ApprovalsView, EmployeeQuestion, InterviewReminder, SilentCandidate } from "../types";
+import type {
+  ApprovalItem, ApprovalsView, AttentionStats, EmployeeQuestion, InterviewReminder, SilentCandidate,
+} from "../types";
 
 const KIND_LABEL: Record<string, string> = {
   email_send: "Emails to send",
@@ -69,6 +71,7 @@ function decisionError(e: unknown, kind: string): string {
 export default function Approvals() {
   const { user } = useAuth();
   const view = useLoad(() => api<ApprovalsView>("/approvals"));
+  const attention = useLoad(() => api<AttentionStats>("/approvals/attention"));
   const [msg, setMsg] = useState<{ tone: "ok" | "danger"; text: string } | null>(null);
   const canFollowups = usePermission("followups.manage");
   const canExecute = usePermission("approvals.execute");
@@ -77,7 +80,9 @@ export default function Approvals() {
   const report = (tone: "ok" | "danger", text: string) => {
     setMsg({ tone, text });
     view.reload();
+    attention.reload();
   };
+  const att = attention.data;
 
   const batches = view.data?.batches.filter((b) => b.items.length) ?? [];
   const high = view.data?.high_risk ?? [];
@@ -97,6 +102,15 @@ export default function Approvals() {
       )}
       <Counters high={high.length} routine={batches.reduce((n, b) => n + b.items.length, 0)} loading={view.loading} />
       <Loading show={view.loading} />
+      {att && (
+        <div className={`alert ${att.max_batch_size < att.default_max_batch_size ? "warn" : "info"}`}>
+          {att.max_batch_size < att.default_max_batch_size
+            ? `Attention guard: ${att.recent.missed} of the last ${att.recent.canaries} planted test items were approved. `
+              + `Routine batches are capped at ${att.max_batch_size} item(s) until reviews are careful again.`
+            : `Attention guard: routine batches hold at most ${att.max_batch_size} items. Planted test items `
+              + `check that each batch is really read (${att.recent.missed}/${att.recent.canaries} recent misses).`}
+        </div>
+      )}
 
       {canExecute && ready.items.length > 0 && (
         <>
@@ -145,7 +159,8 @@ export default function Approvals() {
       {!batches.length && <Empty>No routine items waiting.</Empty>}
       <div className="stack">
         {batches.map((b) => (
-          <BatchCard key={b.batch_id} batchId={b.batch_id} kind={b.kind} items={b.items} report={report} track={ready.track} />
+          <BatchCard key={`${b.batch_id}-${b.chunk ?? 0}`} batchId={b.batch_id} kind={b.kind} items={b.items}
+            report={report} track={ready.track} />
         ))}
       </div>
 

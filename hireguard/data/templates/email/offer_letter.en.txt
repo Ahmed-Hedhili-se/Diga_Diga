@@ -1,0 +1,16 @@
+Subject: Job offer: $job_title
+Hello $candidate_name,
+
+We are pleased to offer you the $job_title position.
+
+Proposed terms:
+- Contract: $contract
+- Gross monthly salary: $monthly_salary_tnd TND
+- Start date: $start_date
+- Work mode: $work_mode, $location
+
+This offer was approved by two HR managers. Please reply to this email.
+
+Best regards,
+$recruiter_name
+$company_name

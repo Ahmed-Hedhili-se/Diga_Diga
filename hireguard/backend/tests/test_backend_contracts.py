@@ -116,7 +116,7 @@ def test_inbox_and_approvals_shapes(db, monkeypatch):
     approvals.create_item(ApprovalKind.email_send, "m", {"to": "a@b.example", "recipient_verified": True},
                           created_by="system")
     q = hrm.get("/api/approvals").json()
-    assert set(q) == {"batches", "high_risk"}
+    assert set(q) == {"batches", "high_risk", "max_batch_size"}
     item = q["batches"][0]["items"][0]
     assert {"id", "kind", "risk", "risk_level", "status", "decisions", "required_approvals", "payload", "diff"} <= set(item)
 

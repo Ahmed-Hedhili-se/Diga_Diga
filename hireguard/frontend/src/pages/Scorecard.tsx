@@ -110,7 +110,7 @@ function Reminders({ onPick }: { onPick: (interviewId: string) => void }) {
       </div>
       <ErrorBox error={r.error} />
       <Loading show={r.loading} rows={2} />
-      {!r.loading && !r.data?.length && <Empty>Every finished interview has a scorecard.</Empty>}
+      {!r.loading && !r.error && !r.data?.length && <Empty>Every finished interview has a scorecard.</Empty>}
       {!!r.data?.length && (
         <table className="table">
           <tbody>

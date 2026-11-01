@@ -61,7 +61,7 @@ export default function Users() {
       <section className="card">
         <h2>Accounts</h2>
         <Loading show={users.loading} />
-        {!users.loading && !users.data?.length && <Empty>No accounts yet. Create the first one below.</Empty>}
+        {!users.loading && !users.error && !users.data?.length && <Empty>No accounts yet. Create the first one below.</Empty>}
         <div className="table-wrap">
           <table className="table">
             <thead>

@@ -897,6 +897,7 @@ button, select, input[type="checkbox"], input[type="range"] { accent-color: var(
 .module-documents { --module-color: #0F766E; }
 .module-scorecard { --module-color: #1D4ED8; }
 .module-users { --module-color: #334155; }
+.module-team { --module-color: #A21CAF; }
 :root[data-theme="dark"] .module-candidates, [data-theme="dark"] .module-candidates { --module-color: #A5B4FC; }
 :root[data-theme="dark"] .module-approvals, [data-theme="dark"] .module-approvals { --module-color: #FCD34D; }
 :root[data-theme="dark"] .module-inbox, [data-theme="dark"] .module-inbox { --module-color: #7DD3FC; }
@@ -906,6 +907,7 @@ button, select, input[type="checkbox"], input[type="range"] { accent-color: var(
 :root[data-theme="dark"] .module-documents, [data-theme="dark"] .module-documents { --module-color: #5EEAD4; }
 :root[data-theme="dark"] .module-scorecard, [data-theme="dark"] .module-scorecard { --module-color: #93C5FD; }
 :root[data-theme="dark"] .module-users, [data-theme="dark"] .module-users { --module-color: #CBD5E1; }
+:root[data-theme="dark"] .module-team, [data-theme="dark"] .module-team { --module-color: #F0ABFC; }
 
 @media (max-width: 1100px) {
   .topbar { padding-right: 20px; padding-left: 20px; }

@@ -12,7 +12,7 @@ import copy
 import json
 import random
 
-from common import (CEFR_TEXT, DEGREE_TEXT, EMPLOYERS, FIRST_NAMES, GT_DIR, JOB_SKILLS, LAST_NAMES,
+from common import (DEGREE_TEXT, LANG_NAMES, EMPLOYERS, FIRST_NAMES, GT_DIR, JOB_SKILLS, LAST_NAMES,
                     SCHOOLS, SKILLS, TOWNS)
 
 LANG_MIX = ["fr"] * 5 + ["en"] * 3 + ["ar"] * 2
@@ -131,7 +131,7 @@ def render_text(gt: dict) -> str:
               "", h["skills"], ", ".join(lab(s) for s in gt["skills"]), "", h["lang"]]
     for l in gt["languages"]:
         lvl = LEVEL_TEXT.get(l["cefr"], {}).get(L, l["cefr"])
-        lines.append(f"{CEFR_TEXT[l['iso']]} : {lvl}")
+        lines.append(f"{LANG_NAMES[L][l['iso']]} : {lvl}")
     return "\n".join(lines)
 
 

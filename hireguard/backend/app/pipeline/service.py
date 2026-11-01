@@ -192,11 +192,12 @@ def _row(conn, r) -> dict:
         "candidate_id": r["candidate_id"], "name": r["name"], "email": r["email"], "job_id": r["job_id"],
         "status": r["status"], "score": _latest_score(conn, r["candidate_id"], r["job_id"], r["score"]),
         "flags": len(validated.get("injection_flags", [])), "hidden": len(hidden),
+        "extraction": r["extraction_source"],  # llm | none | ground_truth: the UI never shows offline output as a model run
         "_validated": validated, "_hidden": hidden, "_page_count": r["page_count"],
     }
 
 
-_SELECT = """SELECT c.*, d.validated, d.hidden_findings, d.score, d.page_count
+_SELECT = """SELECT c.*, d.validated, d.hidden_findings, d.score, d.page_count, d.extraction_source
              FROM candidates c JOIN pipeline_docs d ON d.doc_id = c.doc_id"""
 
 

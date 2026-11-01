@@ -195,7 +195,7 @@ function AskHr({ prefill, refresh }: { prefill: { text: string; n: number } | nu
         <h2>My questions</h2>
         <ErrorBox error={mine.error} />
         <Loading show={mine.loading} rows={2} />
-        {!mine.loading && !mine.data?.length && <Empty>You haven't asked HR anything yet.</Empty>}
+        {!mine.loading && !mine.error && !mine.data?.length && <Empty>You haven't asked HR anything yet.</Empty>}
         <ul className="plain-list">
           {(mine.data ?? []).map((m) => (
             <li key={m.id}>

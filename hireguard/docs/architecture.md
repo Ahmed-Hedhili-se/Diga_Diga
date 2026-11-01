@@ -1,0 +1,380 @@
+# Platform architecture: one trust core, two modules
+
+Owner: Ahmed (system design). Reviewers: Rayen (backend), Yasmina (frontend), Hedhili (model).
+
+> **The AI reads, code decides, humans approve.**
+> Whatever reads stranger text cannot act; whatever can act never reads stranger text.
+
+The brief asks for an AI agent that takes over an HR team's daily work, with one golden rule: *the agent executes, the human decides about people*. We ship one product with two modules on a shared trust core:
+
+- **HireGuard: Recruit** (HR and candidates).
+- **HR Nexus: Team** (HR and staff).
+
+## 1. System context
+
+```mermaid
+flowchart TB
+  subgraph IN["Untrusted input"]
+    direction LR
+    CV["CV PDFs"]
+    MAIL["Candidate emails"]
+    Q["Employee questions"]
+  end
+
+  subgraph READ["AI reads, cannot act"]
+    direction LR
+    SAN["Sanitizer<br/>hidden text removed and reported"]
+    DET["Detector<br/>injection flags, signal only"]
+    GATE["Email gate<br/>SPF, DKIM, DMARC"]
+    LLM["Local LLM, Qwen3-8B<br/>typed JSON, no tools"]
+    VAL["Validator<br/>claims need visible evidence"]
+  end
+
+  subgraph REC["Recruit module · HireGuard"]
+    direction LR
+    SCO["Rubric scorer<br/>proposed scores + evidence"]
+    TRU["Stability badge<br/>fairness audit"]
+    FAST["Fast-track<br/>offer fit, follow-ups,<br/>talent pool, offer letters"]
+    INB["Inbox digest<br/>template replies"]
+  end
+
+  subgraph TEAM["Team module · HR Nexus"]
+    direction LR
+    SK["Skills map<br/>holder counts only"]
+    PM["HR process metrics<br/>per stage, no people"]
+    KG["Knowledge-gap radar<br/>cells under 5 hidden"]
+    AD["Answer Desk<br/>documents"]
+  end
+
+  subgraph ACT["Humans approve, code acts"]
+    direction LR
+    APR["Approval queue<br/>risk, canaries, attention guard,<br/>2nd approver for offers"]
+    EXE["Executor<br/>403 unless approved"]
+    AUD[("Audit log<br/>hash-chained, anchored")]
+  end
+
+  HR(["Recruiter · HR manager"])
+  EMP(["Employee"])
+  OUT["Sent emails, bookings,<br/>released documents"]
+
+  CV --> SAN --> LLM
+  SAN --> DET
+  MAIL --> GATE -->|"language, intent,<br/>urgency only"| LLM
+  LLM --> VAL --> SCO
+  SCO --> TRU
+  SCO --> FAST
+  GATE --> INB
+  Q --> AD
+  EMP --> AD
+
+  SK -.->|"proposed rubric<br/>counts only"| SCO
+  AD -.->|"section + week only"| KG
+
+  FAST --> APR
+  INB --> APR
+  AD --> APR
+  HR -->|"approve or reject"| APR
+  APR --> EXE --> OUT
+  APR --> AUD
+  EXE --> AUD
+  AUD -.->|"stage timestamps"| PM
+
+  classDef ai fill:#fde68a,stroke:#b45309,color:#1f2937
+  classDef code fill:#dbeafe,stroke:#1d4ed8,color:#1f2937
+  classDef human fill:#dcfce7,stroke:#15803d,color:#1f2937
+  classDef risky fill:#fee2e2,stroke:#b91c1c,color:#1f2937
+  class LLM ai
+  class SAN,DET,GATE,VAL,SCO,TRU,FAST,INB,SK,PM,KG,AD,EXE,AUD,OUT code
+  class APR,HR,EMP human
+  class CV,MAIL,Q risky
+```
+
+Colours: red = untrusted input, yellow = the only place a model runs, blue = deterministic code, green = people. Dotted arrows are the only cross-module flows, all aggregate.
+
+**External services:**
+
+- **Ollama** (Qwen3-8B), local only: candidate data never leaves the machine.
+- **Mail:** a mock outbox in the demo. In production, SMTP behind the executor.
+- **Audit anchoring:** a file, OpenTimestamps and git.
+
+**Users:** recruiter (R), HR manager (M), employee (E), admin (A).
+
+## 2. Modules
+
+| Module | Feature | Code | Status |
+|---|---|---|---|
+| Trust core | Sanitizer, detector, extractor, validator | `backend/app/pipeline/` | built |
+| | Approvals, canaries, executor, audit, anchor | `backend/app/workflow/` | built |
+| | Fairness audit, shortlist stability, attention guard | `eval/fairness.py`, `scoring/stability.py`, `workflow/attention.py` | built |
+| Recruit | Ranking with evidence, rubric, team-aware rubric proposal | `scoring/` | built |
+| | Inbox digest, template replies, interview slots, scorecards | `workflow/` | built |
+| | **Offer fit and pay-band coverage** | `scoring/offer_fit.py` | built |
+| | **Offer letter** (salary inside the band, 2 approvers) | `scoring/offer_fit.py` | built |
+| | **Candidate follow-ups** (at most 2) | `workflow/followups.py` | built |
+| | **Talent-pool rediscovery** (opt-in, 2-year expiry) | `scoring/rediscover.py` | built |
+| Team | **Team skills map** | `team/routes.py` and `scoring/team_gaps.py` | built |
+| | **HR process metrics** (live audit log and labelled simulation) | `team/process_metrics.py`, `eval/process_sim.py` | built |
+| | **Knowledge-gap radar** (logging hook) | `team/knowledge_gaps.py` | built; the Answer Desk must call `record()` |
+| | Answer Desk | `pipeline/routes.py` | **returns 501, owner Rayen** |
+| | Self-service documents | `workflow/documents.py` | built |
+
+## 3. Data classes and boundaries
+
+| Data class | Stored in | Who can read it | Retention | Leaves its module? |
+|---|---|---|---|---|
+| Candidate PII: CV, email, name | `candidates`, `pipeline_docs`, uploads | R, M | Life of the requisition. Talent pool: consent plus 2 years | No |
+| Declared conditions (salary range, notice, work mode, commitments) | `candidate_conditions` | R, M | Same as the CV | No. Never used by the scorer (tested) |
+| Talent-pool consent | `talent_pool` | R, M | 730 days, withdrawable (`DELETE /talent-pool/{id}`) | No |
+| Hiring decisions: scores, shortlists, offers | `score_results`, `approval_items` | R, M (offers: M) | Audit retention | Stage timestamps only, aggregated per stage |
+| Employee records and HR documents | `workflow/documents.py` tables | E (own), M | Employment plus legal retention | No |
+| Team skills profiles (fictional; in production, consented and employee-editable) | `data/team/teams.json` | Code only | — | **Holder counts per skill only** |
+| Answer Desk log | `answer_desk_log`: section, ISO week, language | M, A, via `radar()` only | 52 weeks | Aggregates with k ≥ 5 |
+| Audit log | `audit_log` (append-only triggers and a hash chain) | M, A | Permanent | No |
+
+**Allowed cross-module flows. There are two, both explicit and both aggregate:**
+
+1. **Team → Recruit.** Per-skill holder counts (gap, single holder, covered) produce a *proposed* rubric. An HR manager applies it with an audited `PUT /jobs/{id}/rubric`. No member identity crosses the boundary.
+2. **Recruit → Team.** Per-file stage timestamps from the audit log become per-stage count, median and p95. No candidate id or attribute appears in the output.
+
+**Forbidden flows:**
+
+- Candidate data must never be used to infer anything about employees.
+- Employee or team data must never feed a hiring score (beyond flow 1).
+- No individual score for any employee: no performance, productivity, stress, behaviour or "risk" score.
+
+**Where k ≥ 5 is enforced:**
+
+- **In code:** `team/knowledge_gaps.py::radar` (cells under 5 return `null` and are flagged suppressed).
+- **Exception, documented:** the skills map shows exact holder counts, because finding single holders is the point. These are declared professional skills, never behaviour, and no names leave the store.
+- **Roadmap:** the anonymous pulse survey must reuse the same suppression.
+
+## 4. Where AI is used, and where it is not
+
+| Step | AI? | Why |
+|---|---|---|
+| Read a CV into typed fields (skills with evidence offsets, dates, degree, languages) | **Yes**: local Qwen3-8B, JSON schema, no tools, no memory across documents | Multilingual reading (French, English, Arabic, Derja) is the hard part |
+| Classify an email: language, intent and urgency enums | **Yes**: same model, enums only | Triage |
+| Validate, score, rank, check stability, run the fairness audit | No, code | Explainable, testable, auditable (EU AI Act Art. 13) |
+| Offer fit, follow-up selection, rediscovery, process metrics, radar | No, code | Every rule fits in a docstring |
+| Write replies, invitations, follow-ups, offer letters | No: templates with typed slots from our DB | Nothing from stranger text reaches an outgoing message |
+| Approve, send, book, release, commit | **Never AI**: human approval, then the executor | GDPR Art. 22; the brief's golden rule |
+
+## 5. Workflows
+
+**From CV to offer** (same colours; hexagons are human decisions, red boxes are where things stop):
+
+```mermaid
+flowchart TD
+  UP["Upload: CV PDF<br/>+ optional declared conditions, talent-pool opt-in"] --> CHK{"5 MB max, 6 pages max,<br/>a real PDF?"}
+  CHK -->|no| REJ["422: rejected"]
+  CHK -->|yes| SAN["Sanitizer<br/>8 hidden-text checks: white, tiny, off-page,<br/>invisible, under image, zero-width, homoglyph, metadata"]
+  SAN -->|hidden findings| SEC["Security Center<br/>hidden text revealed to HR"]
+  SAN --> DET["Detector<br/>instruction flags, never change a score"]
+  DET --> SEC
+  SAN -->|visible text only| EXT["Extractor: local LLM<br/>numbered lines in, typed JSON out"]
+  EXT -->|schema fails twice| NH["needs_human"]
+  EXT --> VAL["Validator<br/>drops claims without visible evidence"]
+  VAL --> SCO["Rubric scorer<br/>proposed score + evidence per point"]
+  SCO --> RANK["Ranking page<br/>borderline · offer fit · fills gap · hidden text badges"]
+  TEAMGAP["Team skills map"] -.->|"proposed rubric"| HRRUB{{"HR manager applies rubric?"}}
+  HRRUB -->|"yes, audited"| SCO
+  RANK --> SL{{"Recruiter proposes shortlist"}}
+  SL --> Q1["Approval queue"]
+  RANK --> INV["Interview invitation<br/>3 calendar slots, template"]
+  INV --> Q1
+  RANK --> OFF["Offer letter<br/>salary inside published band"]
+  OFF --> Q2["Approval queue<br/>offer: 2 HR managers, not the author"]
+  SILENT["Candidate silent 3+ business days"] --> FUP["Follow-up reminder<br/>template, max 2"]
+  FUP --> Q1
+  Q1 --> H1{{"Human approves or rejects"}}
+  Q2 --> H1
+  H1 -->|approved| EXE["Executor<br/>send, book, commit"]
+  H1 -->|"not approved"| X403["403: nothing runs"]
+  H1 -->|"canary approved"| CAN["Blocked + attention guard<br/>shrinks batches"]
+  EXE --> AUD[("Hash-chained audit log")]
+  X403 --> AUD
+  CAN --> AUD
+  AUD -.-> PM["HR process metrics<br/>median and p95 per stage"]
+
+  classDef ai fill:#fde68a,stroke:#b45309,color:#1f2937
+  classDef code fill:#dbeafe,stroke:#1d4ed8,color:#1f2937
+  classDef human fill:#dcfce7,stroke:#15803d,color:#1f2937
+  classDef stop fill:#fee2e2,stroke:#b91c1c,color:#1f2937
+  class EXT ai
+  class CHK,SAN,DET,VAL,SCO,RANK,INV,OFF,FUP,Q1,Q2,EXE,AUD,PM,TEAMGAP,SEC,SILENT code
+  class SL,H1,HRRUB human
+  class REJ,NH,X403,CAN stop
+```
+
+**Recruit:**
+
+1. Upload: PDF, plus optional declared conditions and talent-pool opt-in.
+2. Sanitize, then detect (a signal for HR only).
+3. Extract (LLM), then validate (code), then score (code). The result is a *proposed* score.
+4. Ranking, with the borderline badge, offer-fit badge and fills-gap badge.
+5. HR proposes a shortlist. It becomes an approval item, then the executor runs it, then it is audited.
+6. Interview invitation: 3 slots. HR approves one, then the booking and email are sent.
+7. Scorecard.
+8. Offer letter: salary inside the band, 2 HR approvers who are not the author, then the executor.
+9. Follow-ups: silent candidates get a template reminder, which goes through approval.
+
+**Team:**
+
+1. Approved source: declared skills, the audit log, or the Answer Desk's (section, week) log.
+2. Minimization: no text and no identities are stored.
+3. Aggregation: per team, per stage, or per section, with k ≥ 5 where it applies.
+4. A caveated view: sample size and window are shown, and the simulation is labelled.
+5. Human interpretation. Nothing in the Team module acts.
+
+**Every state-changing action** is authorised server-side (roles, CSRF), approved, executed and recorded in the audit log. Failures are explicit (403, 404 or 422), never empty successes.
+
+## 6. Permissions matrix and audit coverage (all routes)
+
+Enforced in code by `require_roles` and checked by `backend/tests/test_release_gate.py`. The gate is built from the live route table, so a new route fails the tests until it appears here. It also proves two things:
+
+- every route except login and health returns 401 without a session;
+- every state-changing route returns 403 without the CSRF header.
+
+R recruiter · M HR manager · E employee · A admin.
+
+| Area | Read (GET) | Roles | State change | Roles | Human approval / audit event |
+|---|---|---|---|---|---|
+| Auth | `/auth/me`, `/auth/permissions` | any | `POST /auth/logout`, `POST /auth/logout-all` | any | `auth.logout`, `auth.logout_all` (and `auth.login`, `auth.login_failed`, `auth.lockout`) |
+| | `/auth/users` | A | `POST /auth/users` (create account, set role) | A | `auth.user_create` |
+| | | | `PATCH /auth/users/{id}` (role, active), `POST /auth/users/{id}/reset-password` | A | `auth.user_update`, `auth.password_reset` |
+| Candidates | `/candidates`, `/{id}`, `/{id}/text`, `/{id}/pdf` | R M | `POST /candidates` (upload) | R M | `pipeline.process_cv`, `conditions.update`, `talent_pool.consent` |
+| | | | `PUT /candidates/{id}/conditions` | R M | `conditions.update` |
+| | | | `POST /candidates/{id}/offer` | M | approval item `offer` (2 HR managers, not the author), `approval.create` |
+| Scoring | `/jobs`, `/jobs/{id}/rubric`, `/stability`, `/team-gaps`, `/offer-fit`, `/rediscover` | R M | `PUT /jobs/{id}/rubric` | M | `rubric.update` |
+| | | | `POST /jobs/{id}/rescore` | R M | **none (R12; derived scores only)** |
+| | | | `POST /jobs/{id}/shortlist` | R M | approval item `shortlist_commit` |
+| | | | `POST /jobs/{id}/candidates/{cid}/status` (hiring status) | R M | approval item `status_change` |
+| | | | `POST /jobs/{id}/rediscover/invite` | R M | approval items `email_send` |
+| | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
+| Oversight | `/money`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
+| | `/approvals/attention` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
+| Workflow | `/inbox`, `/followups`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
+| | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
+| | | | `POST /followups/draft` | R M | approval items `email_send` |
+| | `/followups/preview` | R M | `POST /followups/run` (second follow-up implementation, to consolidate) | R M | `followups.run`, approval items `email_send` |
+| ERP (Odoo, off unless `HG_ODOO_ENABLED=1`) | `/erp/status` | R M A | `POST /erp/jobs/{id}/import` | R M | `erp.import_applicants`, then `pipeline.process_cv` per CV |
+| | `/erp/jobs/{id}/applicants` | R M | | | |
+| | | | `POST /approvals/{id}/decision`, `/batches/{id}/decision` | R M (offers, documents, leave, held mail: M only) | `approval.approve`, `approval.reject` |
+| | | | `POST /executor/run/{id}` | R M | `executor.run`, `executor.refused`, `executor.canary_blocked` |
+| | | | `POST /interviews/{id}/scorecard` | R M | `interview.scorecard` |
+| Team | `/team/skills`, `/team/process`, `/team/knowledge-gaps` | M A | none | | |
+| Employee | `/documents/mine` | E | `POST /documents/request` | E | approval item `document_release`, `document.request` |
+| | `/documents/{id}/download` | E (owner), M | | | `document.download` |
+| | | | `POST /answer-desk/ask` | E M | exact handbook extracts; personal questions -> `question.create` |
+| | `/employee-questions`, `/{id}` | E (own), M | `POST /employee-questions` | E | `question.create` |
+| | | | `POST /employee-questions/{id}/reply` | M | `question.reply_draft`, approval item `email_send` (2nd HR manager) |
+
+## 7. What we refuse to build
+
+| We do not build | Why |
+|---|---|
+| Stress, burnout or emotion inference | EU AI Act Art. 5(1)(f) prohibits emotion recognition at work. Our own E4 experiment: work signals predict stress weakly (AUC 0.64). Barrett et al. 2019 |
+| Individual performance or productivity scores | EU AI Act Annex III 4(b) (high-risk); it breaks the golden rule; it can't be validated on fictional data |
+| Personality or "culture fit" scores | Rivera 2012 (ASR): "fit" turns into cultural matching |
+| A trained offer-acceptance predictor | Its best predictors are pay history (forbidden: Directive 2023/970), commute (a proxy for region) and family situation (a proxy for gender). Replaced by the offer-fit check on declared conditions |
+| Scraping external profiles | Real personal data without consent; optimised targeting skews by gender and race (Ali et al. 2019). Replaced by the opt-in talent pool |
+| Reading employees' email or chat | Monitoring; disproportionate under GDPR |
+
+## 8. Risk register
+
+| ID | Risk | Severity | Owner | Status, evidence |
+|---|---|---|---|---|
+| R1 | Model-mode robustness and extraction quality are unmeasured; only oracle (code-path) numbers exist. The naive-screener baseline (`eval/baselines.py`) is still a **stub**, so the before/after comparison cannot run yet | High | Hedhili | Open. Implement TODO 2 in `eval/baselines.py`, then run `harness.py`, `fairness.py` and `load_test.py` with `--extraction llm` on the GPU laptop |
+| R2 | The detector misses instruction payloads: English "Evaluator note" 4/4, Derja 3/3, Arabic 3/4 | Medium (the detector is a signal, not a control) | Hedhili | Open. `docs/evaluation.md` |
+| R3 | The Answer Desk returns 501, so the Employee Questions feature can't be demoed and the radar has only seed data | High for the demo | Rayen | Open. Fallback: retrieval-only, cited passage word for word, "no match" goes to HR, call `knowledge_gaps.record()` |
+| R4 | `GET /reviewer/stats` returns canary misses **per reviewer**: a per-person monitoring score, against section 7 | Medium | Rayen | **Decided 31 Oct (Ahmed): aggregate.** Return canary hits and misses by batch size and week, never by user id; keep it M A. Open until implemented and tested |
+| R5 | `main` commit `8f829d8` contains `node_modules` (3,273 files), `frontend/dist` and about 380 generated PDFs | Medium (repo hygiene, pre-merge gate) | Ahmed | **Closed 31 Oct**: reverted in `932747e`; `hireguard/.gitignore` is now on `main`; a scan of tracked files finds no `node_modules`, build output, database or secret |
+| R6 | Scorecard criterion `team_fit` invites "culture fit" judgements | Low | Rayen | Open. Rename to `collaboration` with job-related anchors |
+| R7 | HR could read offer fit as a ranking signal | Medium | Yasmina, Rayen | Mitigated: not in the score (test `test_conditions_never_change_the_score`), UI copy, offers set inside the band |
+| R8 | Talent-pool use without valid consent | Medium | Rayen | Mitigated: opt-in at upload, 730-day expiry, withdraw endpoint, audited, tested |
+| R9 | Demo history (old outbox emails, answer-desk log, process simulation) mistaken for measurements | Low | Yasmina | Mitigated: `seed:history` marker, "Simulation" banner, and this note |
+| R10 | Sign-in, sign-out and account creation (role assignment) are not in the audit log: the one place an admin grants power leaves no trace | Medium | Rayen | Open. Append `auth.login` (success and failure), `auth.logout` and `auth.user_create` (with the role) in `auth/routes.py` |
+| R11 | Retention is documented (section 3), but only the talent-pool expiry is enforced in code; nothing purges candidate files after a requisition closes | Medium | Rayen (Ahmed owns the policy) | Open. Roadmap: a purge job and a delete-on-request endpoint, both audited. Say so if a judge asks about GDPR |
+| R12 | `POST /jobs/{id}/rescore` rewrites proposed scores without an audit event | Low: scores are derived and reproducible from the audited rubric | Rayen | Open. One `scores.rescore` event with the job and the count |
+| R13 | The pitch hook said "today's AI screeners obey it" before any baseline was measured | Medium (credibility) | Ahmed | **Closed 31 Oct**: the hook now cites a measured external figure; "obeys it" comes back only with our own baseline number |
+| R14 | An offer needs 2 HR managers who are not its author, so 3 in total. The demo seed has 2, so an offer can never fully clear on stage, and many SMEs have only one HR manager | Medium (demo and product fit) | Rayen | Open. Make the offer approval count a per-customer setting (default 2; SME: 1 other approver). Until then the demo shows the offer waiting at 1 of 2 and says why |
+
+## 9. Interface change log
+
+| Date | Change | Consumers | Sign-off |
+|---|---|---|---|
+| 31 Oct | `POST /candidates` gains optional `salary_min`, `salary_max`, `notice_weeks`, `work_modes`, `commitments_ok`, `talent_pool_consent` (backwards compatible) | Upload form (not wired yet) | Rayen, Yasmina: pending |
+| 31 Oct | New: `/jobs/{id}/offer-fit`, `/candidates/{id}/conditions`, `/candidates/{id}/offer`, `/jobs/{id}/rediscover` (+ `/invite`), `/talent-pool/{id}` | Candidates page | Rayen, Yasmina: pending |
+| 31 Oct | New: `/followups`, `/followups/draft` | Inbox page | Rayen, Yasmina: pending |
+| 31 Oct | New: `/team/skills`, `/team/process`, `/team/knowledge-gaps` | Team insights page | Rayen, Yasmina: pending |
+| 31 Oct | Template slots added: `start_date`, `work_mode`, `location`, `contract`, `sent_date` | `workflow/templates.py` | Rayen: pending |
+| planned | `GET /reviewer/stats` aggregated (R4); scorecard `team_fit` renamed `collaboration` (R6) | Security Center, Scorecard page | Rayen, Yasmina |
+
+## 10. Release readiness (31 Oct)
+
+| Gate | Status | Evidence |
+|---|---|---|
+| Backend tests | ✅ 107 pass | `pytest -q`, including the release gate |
+| Frontend build | ✅ | `npm run build` (type check and bundle) |
+| Auth, CSRF and roles on every route | ✅ | `test_release_gate.py`; mutation-checked: an unprotected route is caught |
+| No secrets, databases, `node_modules`, build output or generated PDFs tracked | ✅ | Scan of tracked files; only fixture PDFs (`data/test_pdfs`, the handbook) |
+| Audit chain verifies after a full demo seed | ✅ | `GET /audit/verify` returns ok over 78 entries |
+| Pitch numbers match the result files | ✅ | 0/40, 40/40 with 0 false alarms, 18/28, 0/89, AIR 0.28 (p = 0.005), load test 0 errors and p95 45 ms: all equal to `eval/results/*.json` |
+| Model-mode evidence | ❌ blocks the headline | R1 |
+| Employee Questions demo | ❌ | R3 |
+| Every state change audited | ⚠️ | R10, R12 |
+| Demo path rehearsed end to end | ⚠️ | Runbook in `docs/pitch.md`; offers stop at 1 of 2 approvals (R14) |
+
+**Decision:** `main` is the integration branch. Go for the demo once R1 and R3 are closed or explicitly cut from the pitch. R10 and R12 take under an hour together and must be closed before any pilot.
+
+## 11. References
+
+**Security:**
+
+- OWASP Top 10 for LLM Applications 2025 (LLM01 prompt injection).
+- Greshake et al. 2023, "Not what you've signed up for", indirect prompt injection (arXiv 2302.12173).
+- S. Willison 2023, "The Dual LLM pattern".
+- Debenedetti et al. 2025, "Defeating Prompt Injections by Design" (CaMeL, arXiv 2503.18813).
+- Zhang et al., USENIX Security 2026, "Measuring Real-World Prompt Injection Attacks in LLM-based Resume Screening" (arXiv 2605.28999): about 1% of about 197k real CVs carried hidden injections.
+- Boston Globe, 7 Oct 2025: Greenhouse found white text in about 1% of 300M CVs.
+- Schneier & Kelsey 1999, "Secure audit logs to support computer forensics".
+
+**Fairness and law:**
+
+- EEOC Uniform Guidelines, 29 CFR 1607.4(D) (four-fifths rule).
+- NYC Local Law 144 (bias audits of automated employment decision tools).
+- Dastin, Reuters 2018 (Amazon's recruiting tool).
+- Mobley v. Workday (N.D. Cal.; ADEA collective certified May 2025).
+- Ali et al. 2019, "Discrimination through optimization" (CSCW).
+- EU AI Act, Regulation (EU) 2024/1689: Art. 5(1)(f), 10, 12, 13, 14(4)(b), 15(5); Annex III 4(a)/(b).
+- GDPR Art. 22.
+- EU Pay Transparency Directive 2023/970, Art. 5 (pay range before the interview; no pay-history questions; transposition 7 Jun 2026).
+- Tunisia: Organic Law 2004-63 and the INPDP.
+- CNIL recruitment guidance (keep applicant data at most 2 years after the last contact).
+
+**Human oversight and selection:**
+
+- Parasuraman & Manzey 2010, "Complacency and bias in human use of automation" (Human Factors).
+- Goddard et al. 2012, automation bias review (JAMIA).
+- Sackett, Zhang, Berry & Lievens 2022, revisited validity of selection procedures (J. Applied Psychology): structured interviews rank highest.
+- Rivera 2012, "Hiring as cultural matching" (ASR).
+
+**Process and employee questions:**
+
+- Little 1961, L = λW (Operations Research).
+- SHRM benchmarking: median time-to-fill 39 days in 2026, 44 in 2025 (non-executive).
+- CareerBuilder 2016 (357 HR managers): pay below expectations accounts for 37% of declined offers, and another offer for 37%.
+- Cronofy 2019: 3 or more emails to schedule one interview.
+- Sweeney 2002, k-anonymity.
+- Moffatt v. Air Canada, 2024 BCCRT 149 (a company is liable for its chatbot's answers).
+- Lewis et al. 2020, retrieval-augmented generation.
+
+**Skills:**
+
+- ESCO (European Commission) skills taxonomy.
+- Avelino et al. 2016, truck factor (ICPC).
+
+**What we refuse to build:**
+
+- Barrett et al. 2019, "Emotional expressions reconsidered" (PSPI).
+- Kristensen et al. 2005, COPSOQ (Scand. J. Work Environ. Health).

@@ -26,7 +26,17 @@ from ..contracts import (
 )
 from .esco import label_patterns, load_esco
 from .sanitizer import page_of
-from .textnorm import fold
+from .textnorm import fold, label_regex
+
+# How a CV names each language (FR, EN, AR, Tunisian spellings). The CEFR level itself is still the model's reading.
+_LANGUAGE_NAMES = {iso: [label_regex(n) for n in names] for iso, names in {
+    "fr": ["français", "francais", "french", "langue française", "الفرنسية", "فرنسية", "فرنسي", "francès"],
+    "en": ["anglais", "english", "الإنجليزية", "الانجليزية", "الإنكليزية", "الانقليزية", "انجليزية", "انقليزي"],
+    "ar": ["arabe", "arabic", "العربية", "عربية", "عربي", "اللغة العربية"],
+    "de": ["allemand", "german", "deutsch", "الألمانية", "الالمانية"],
+    "es": ["espagnol", "spanish", "español", "espanol", "الإسبانية", "الاسبانية"],
+    "it": ["italien", "italian", "italiano", "الإيطالية", "الايطالية"],
+}.items()}
 
 DATE_CONTEXT_CHARS = 200
 EXP_BLOCK_CHARS = 600
@@ -176,9 +186,13 @@ def validate(
         if DEGREE_ORDER.index(d.level.value) > DEGREE_ORDER.index(best.value):
             best, best_ev = d.level, d.evidence
 
-    # languages: keep the highest level per ISO code
+    # languages: the language must be named in the visible text (a model must not add one); highest level per code
     langs: dict[str, ExtractedLanguage] = {}
-    for l in extraction.languages:
+    folded = fold(text)
+    for i, l in enumerate(extraction.languages):
+        if not any(rx.search(folded) for rx in _LANGUAGE_NAMES[l.iso.value]):
+            dropped.append(DroppedField(field=f"languages[{i}]", reason="language_not_in_text"))
+            continue
         cur = langs.get(l.iso.value)
         if cur is None or CEFR_ORDER.index(l.cefr.value) > CEFR_ORDER.index(cur.cefr.value):
             langs[l.iso.value] = l

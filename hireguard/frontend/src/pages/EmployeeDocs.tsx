@@ -106,7 +106,7 @@ export default function EmployeeDocs() {
       <div className="card">
         <h2>My requests</h2>
         <Loading show={docs.loading} />
-        {!docs.loading && !docs.data?.length && <Empty>No requests yet. Use the form above to ask for a certificate.</Empty>}
+        {!docs.loading && !docs.error && !docs.data?.length && <Empty>No requests yet. Use the form above to ask for a certificate.</Empty>}
         <table className="table">
           <tbody>
             {(docs.data ?? []).map((d) => (

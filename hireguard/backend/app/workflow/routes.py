@@ -2,11 +2,11 @@
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, conlist
 
 from ..contracts import ApprovalItem, ApprovalKind, AuditEntry, Role, UserOut
 from ..auth.core import require_roles
-from . import (anchor, approvals, audit, documents, email_gate, employee_questions, executor, followups,
+from . import (anchor, approvals, attention, audit, documents, email_gate, employee_questions, executor, followups,
                interviews, mock_calendar)
 
 router = APIRouter()
@@ -47,6 +47,25 @@ def inbox_release_request(inbox_id: str, user: UserOut = Depends(require_roles(M
     return approvals.create_item(ApprovalKind.held_email_release, f"Release held email {inbox_id}",
                                  {"inbox_id": inbox_id, "suspicious": True, "reasons": item["reasons"]},
                                  created_by=user.id, diff={"before": {"status": "held"}, "after": {"status": "released"}})
+
+# ---------------------------------------------------------------- candidate follow-ups
+
+
+class FollowupDraftIn(BaseModel):
+    candidate_ids: conlist(str, min_length=1, max_length=50)
+    days: int = Field(followups.DEFAULT_DAYS, ge=1, le=30)
+
+
+@router.get("/followups")
+def followups_list(days: int = Query(followups.DEFAULT_DAYS, ge=1, le=30), user: UserOut = Depends(require_roles(R, M))):
+    """Candidates we wrote to who have not answered for `days` business days."""
+    return {"days": days, "max_reminders": followups.MAX_REMINDERS, "candidates": followups.awaiting_reply(days)}
+
+
+@router.post("/followups/draft", response_model=list[ApprovalItem])
+def followups_draft(body: FollowupDraftIn, user: UserOut = Depends(require_roles(R, M))):
+    """Templated reminders into the approval queue; candidates that are not due are skipped."""
+    return followups.draft(body.candidate_ids, user.id, body.days)
 
 # ---------------------------------------------------------------- approvals + executor
 
@@ -108,6 +127,14 @@ def question_get(question_id: str, user: UserOut = Depends(require_roles(E, M)))
 @router.post("/employee-questions/{question_id}/reply", response_model=ApprovalItem)
 def question_reply(question_id: str, body: employee_questions.ReplyIn, user: UserOut = Depends(require_roles(M))):
     return employee_questions.draft_reply(user, question_id, body.template, body.lang)
+
+# ---------------------------------------------------------------- reviewer attention (canary miss rate)
+
+
+@router.get("/approvals/attention")
+def approval_attention(user: UserOut = Depends(require_roles(R, M, A))):
+    """Canary miss rate by batch size and the current batch cap (process-level, not per reviewer)."""
+    return attention.stats()
 
 # ---------------------------------------------------------------- calendar
 
