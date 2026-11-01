@@ -90,8 +90,8 @@ export default function PageHints({ path }: { path: string }) {
   const hints = key ? HINTS[key] : null;
   if (!hints) return null;
   return (
-    <aside className="page-hints" aria-label="Words on this page">
-      <h2>Words on this page</h2>
+    <details className="page-hints">
+      <summary>Words used on this page</summary>
       <dl>
         {hints.map(([term, meaning]) => (
           <div key={term}>
@@ -100,6 +100,6 @@ export default function PageHints({ path }: { path: string }) {
           </div>
         ))}
       </dl>
-    </aside>
+    </details>
   );
 }

@@ -50,8 +50,7 @@ export default function Login() {
       </div>
       <form className="login-card" onSubmit={submit} aria-describedby="login-help">
         <div>
-          <h1>Sign in to your HR desk</h1>
-          <p className="login-intro">Candidates, approvals and employee requests, all in one place.</p>
+          <h1>Sign in</h1>
         </div>
         {notice && (
           <div className="alert info" role="status">
@@ -86,11 +85,10 @@ export default function Login() {
           {busy ? "Signing in…" : "Sign in"}
         </button>
         <p id="login-help" className="login-help">
-          After 5 wrong passwords, sign-in to that account pauses for 15 minutes. There are no default accounts: your
-          administrator gives you access.
+          No account yet? Your administrator creates it. Five wrong passwords pause that account for 15 minutes.
         </p>
       </form>
-      <p className="login-foot">Demo data only. Every person and company shown here is fictional.</p>
+      <p className="login-foot">Demo data: every person and company shown is fictional.</p>
       </div>
       <section className="login-desk" aria-labelledby="desk-title">
         <h2 id="desk-title">Read every CV the way a careful recruiter would.</h2>
@@ -111,8 +109,7 @@ export default function Login() {
           <span className="cv-stamp" aria-hidden="true">Held for review</span>
         </figure>
         <p className="login-desk-caption">
-          Each score shows the lines of the CV it came from. Hidden instructions are flagged before anyone acts on
-          them, and no email, offer or Odoo update goes out until a person approves it.
+          Every score shows the CV lines behind it. Nothing is sent until a person approves it.
         </p>
       </section>
     </div>

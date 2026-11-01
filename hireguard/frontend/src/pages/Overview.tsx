@@ -6,8 +6,8 @@ import { useAuth } from "../auth";
 import { Icon, type IconName } from "../components/icons";
 import { Badge, Empty, ErrorBox, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type {
-  ApprovalsView, CandidateRow, EmployeeDocument, ErpApplicant, ErpStatus, InboxView, Job, KnowledgeGaps, ModelStatus, MoneyView,
-  SecurityFinding, TeamSkills,
+  ApprovalsView, CandidateRow, EmployeeDocument, ErpApplicant, ErpStatus, InboxView, Job, KnowledgeGaps, ModelStatus,
+  SecurityFinding,
 } from "../types";
 
 // One page that answers "what needs me now?" across Recruit (HireGuard) and Team (HR Nexus).
@@ -40,8 +40,6 @@ export default function Overview() {
     [jobs.data],
   );
   const findings = useLoad(() => (can("security_center.read") ? api<SecurityFinding[]>("/security/findings") : skip<SecurityFinding[]>()), [tick]);
-  const money = useLoad(() => (can("money.read") ? api<MoneyView>("/money") : skip<MoneyView>()), [tick]);
-  const skills = useLoad(() => (can("team.read") ? api<TeamSkills[]>("/team/skills") : skip<TeamSkills[]>()), [tick]);
   const gaps = useLoad(() => (can("team.read") ? api<KnowledgeGaps>("/team/knowledge-gaps?weeks=8") : skip<KnowledgeGaps>()), [tick]);
   const erp = useLoad(() => (can("erp.status") ? api<ErpStatus>("/erp/status") : skip<ErpStatus>()), [tick]);
   // Applicants waiting in Odoo that HireGuard has not screened yet, per job. A job Odoo does not know is skipped.
@@ -75,8 +73,6 @@ export default function Overview() {
   const rows = useMemo(() => (pipeline.data ?? []).flat(), [pipeline.data]);
   const needsHuman = rows.filter((r) => r.score?.needs_human).length;
   const contained = (findings.data ?? []).filter((f) => f.hidden_findings.length || f.injection_flags.length);
-  const vacancyCost = (money.data?.roles ?? []).reduce((n, r) => n + r.cost_of_vacancy_tnd, 0);
-  const skillRisks = (skills.data ?? []).flatMap((t) => t.coverage.filter((c) => c.status !== "covered"));
   const readyDocs = (docs.data ?? []).filter((d) => d.status === "released").length;
 
   const attention = useMemo<Attention[]>(() => {
@@ -105,14 +101,15 @@ export default function Overview() {
     return out;
   }, [approvals.data, lanes, rows, odooNew.data]);
 
+  const jobQ = jobs.data?.[0]?.job_id ? `?job=${encodeURIComponent(jobs.data[0].job_id)}` : "";
   const anyRecruit = can("erp.import") || can("candidates.read") || can("approvals.decide") || can("inbox.read");
-  const error = approvals.error || inbox.error || jobs.error || pipeline.error || findings.error || money.error || skills.error || gaps.error || docs.error;
+  const error = approvals.error || inbox.error || jobs.error || pipeline.error || findings.error || gaps.error || docs.error;
 
   return (
     <>
       <PageHeader
         title="Overview"
-        subtitle="What needs you across Recruit and Team. Nothing on this page approves or sends anything."
+        subtitle="What needs you now. Nothing on this page approves or sends anything."
         actions={
           <div className="row">
             <Updated at={updated} />
@@ -123,19 +120,32 @@ export default function Overview() {
             <button className="btn" onClick={refresh}>
               Refresh
             </button>
+            {can("candidates.upload") ? (
+              <Link className="btn primary" to={`/candidates/upload${jobQ}`}>
+                Upload a CV
+              </Link>
+            ) : can("approvals.decide") ? (
+              <Link className="btn primary" to="/approvals">
+                Review approvals
+              </Link>
+            ) : null}
           </div>
         }
       />
       <ErrorBox error={error} />
 
       {(can("model.status") || can("erp.status")) && (
-        <section className="systems" aria-labelledby="ov-systems">
-          <h2 id="ov-systems" className="section-title">Connected systems</h2>
+        <section className="systems" aria-label="Connected systems">
           <div className="systems-grid">
             {can("model.status") && <ModelCard />}
             {can("erp.status") && <OdooCard erp={erp.data} loading={erp.loading} error={erp.error} />}
           </div>
         </section>
+      )}
+
+      {anyRecruit && (
+        <AttentionList items={attention} loading={approvals.loading || inbox.loading || pipeline.loading}
+          failed={!!(approvals.error || inbox.error || pipeline.error)} />
       )}
 
       <div className="tiles overview-tiles">
@@ -155,21 +165,11 @@ export default function Overview() {
           <Tile to="/security" icon="attacks" module="security" label="CV attacks contained" value={findings.data ? contained.length : null}
             sub={findings.data ? `${findings.data.filter((f) => f.blocked).length} blocked outright; none reached a score` : undefined} />
         )}
-        {can("money.read") && (
-          <Tile to="/money" icon="vacancy" module="money" label="Cost of open roles (TND)" value={money.data ? vacancyCost : null}
-            sub={money.data ? `${fmtNum(money.data.hours_saved.total)} hours saved, ROI ${fmtNum(money.data.roi_tnd)} TND` : undefined} />
-        )}
-        {can("team.read") && (
-          <Tile to="/team" icon="team" module="team" label="Team skill risks" value={skills.data ? skillRisks.length : null}
-            sub={skills.data ? `${skillRisks.filter((s) => s.status === "gap").length} gaps and ${skillRisks.filter((s) => s.status === "single_holder").length} single holders` : undefined} />
-        )}
         {can("documents.request") && (
           <Tile to="/documents" icon="documents" module="documents" label="My documents" value={docs.data ? docs.data.length : null}
             sub={docs.data ? `${readyDocs} ready to download` : undefined} />
         )}
       </div>
-
-      <QuickActions jobId={jobs.data?.[0]?.job_id} />
 
       <div className="overview-grid">
         {can("candidates.read") && (
@@ -184,10 +184,6 @@ export default function Overview() {
               <PipelineRow key={j.job_id} job={j} rows={pipeline.data?.[i]} />
             ))}
           </section>
-        )}
-        {anyRecruit && (
-          <AttentionList items={attention} loading={approvals.loading || inbox.loading || pipeline.loading}
-            failed={!!(approvals.error || inbox.error || pipeline.error)} />
         )}
         {can("team.read") && gaps.data && <KnowledgeCard gaps={gaps.data} />}
         {can("answer_desk.ask") && !can("candidates.read") && (
@@ -279,49 +275,49 @@ function ModelCard() {
   const label = { checking: "Checking…", ready: "Ready", warming: "Not ready yet", down: "Unreachable" }[state];
   const host = s ? { modal: "Modal GPU (cloud)", local: "this machine", remote: "remote host", gemini: "Google Gemini (cloud)" }[s.host] : "";
   return (
-    <section className={`card model-card is-${state}`} aria-labelledby="ov-model" aria-busy={m.loading}>
-      <div className="model-main">
+    <section className={`card model-card status-card is-${state}`} aria-labelledby="ov-model" aria-busy={m.loading}>
+      <div className="status-line">
         <span className="model-dot" aria-hidden="true" />
-        <div>
-          <h2 id="ov-model">
-            AI model: <span className="model-state">{label}</span>
-          </h2>
-          <div className="muted small">
-            {s ? (
-              <>
-                <code>{s.model}</code> on {host}
-                {s.hosts > 1 ? ` (+${s.hosts - 1} more)` : ""}
-                {s.latency_ms !== null ? `, answered in ${fmtNum(s.latency_ms)} ms` : ""}
-                {s.cached ? " (checked within the last minute)" : ""}
-              </>
-            ) : (
-              "Asking the backend whether it can reach the model…"
-            )}
-          </div>
-          {s?.error && <div className="small model-error">{s.error}</div>}
-          {s && !s.reachable && (
-            <div className="muted small">
-              Uploads still work: hidden text is still removed and CVs are still scored by rules, but CVs the AI cannot
-              read are marked for a person to check{s.groq_fallback ? " (Groq fallback is on for fictional data)" : ""}.
-            </div>
+        <h2 id="ov-model">
+          AI model: <span className="model-state">{label}</span>
+        </h2>
+        <span className="muted small status-sub">
+          {s ? (
+            <>
+              <code>{s.model}</code> on {host}
+              {s.hosts > 1 ? ` (+${s.hosts - 1} more)` : ""}
+              {s.latency_ms !== null ? `, ${fmtNum(s.latency_ms)} ms` : ""}
+            </>
+          ) : (
+            "Checking the connection…"
           )}
-          {s && !(s.reachable && s.model_loaded) && <ConnectSteps s={s} />}
-        </div>
-      </div>
-      <div className="model-side">
-        <div className="badges">
-          {s && s.host === "gemini" && <Badge tone={s.credentials ? "warn" : "danger"}>{s.credentials ? "Cloud: CV text goes to Google" : "Google key missing"}</Badge>}
-          {s && s.host === "modal" && <Badge tone={s.credentials ? "ok" : "danger"}>{s.credentials ? "Modal key set on backend" : "Modal key missing"}</Badge>}
-          {s && s.host !== "modal" && s.host !== "gemini" && <Badge tone="ok">no key needed</Badge>}
-        </div>
-        <button className="btn small" disabled={m.loading} onClick={() => setRefresh((n) => n + 1)}>
+        </span>
+        <button className="btn small status-action" disabled={m.loading} onClick={() => setRefresh((n) => n + 1)}>
           {m.loading ? "Checking…" : "Check now"}
         </button>
       </div>
-      <p className="muted small model-note">
-        The backend makes this check with its own credentials; your browser never contacts the GPU. Results are cached
-        for a minute so this page does not keep a sleeping GPU awake.
-      </p>
+      {s?.error && <div className="small model-error">{s.error}</div>}
+      {s && !s.reachable && (
+        <div className="muted small">
+          Uploads still work: hidden text is removed and CVs are scored by rules, but CVs the AI cannot read go to a
+          person{s.groq_fallback ? " (Groq fallback is on for fictional data)" : ""}.
+        </div>
+      )}
+      {s && !(s.reachable && s.model_loaded) && <ConnectSteps s={s} />}
+      {s && (
+        <details className="status-more">
+          <summary>Details</summary>
+          <div className="badges">
+            {s.host === "gemini" && <Badge tone={s.credentials ? "warn" : "danger"}>{s.credentials ? "Cloud: CV text goes to Google" : "Google key missing"}</Badge>}
+            {s.host === "modal" && <Badge tone={s.credentials ? "ok" : "danger"}>{s.credentials ? "Modal key set on backend" : "Modal key missing"}</Badge>}
+            {s.host !== "modal" && s.host !== "gemini" && <Badge tone="ok">no key needed</Badge>}
+          </div>
+          <p className="muted small">
+            The backend makes this check with its own credentials; your browser never contacts the GPU. The result is
+            cached for a minute so this page does not keep a sleeping GPU awake.
+          </p>
+        </details>
+      )}
       <ErrorBox error={m.error} />
     </section>
   );
@@ -368,36 +364,37 @@ function OdooCard({ erp, loading, error }: { erp: ErpStatus | null; loading: boo
   const label = { checking: "Checking…", off: "Not switched on", ready: "Connected", down: "Unreachable" }[state];
   const host = erp?.url ? erp.url.replace(/^https?:\/\//, "") : "";
   return (
-    <section className={`card model-card is-${state === "off" ? "warming" : state}`} aria-labelledby="ov-odoo" aria-busy={loading}>
-      <div className="model-main">
+    <section className={`card model-card status-card is-${state === "off" ? "warming" : state}`} aria-labelledby="ov-odoo" aria-busy={loading}>
+      <div className="status-line">
         <span className="model-dot" aria-hidden="true" />
-        <div>
-          <h2 id="ov-odoo">
-            Odoo HR: <span className="model-state">{label}</span>
-          </h2>
-          <div className="muted small">
-            {state === "ready" && <>Signed in with the API key to <code>{host}</code>, database {erp!.db}, Odoo {erp!.server_version}.</>}
-            {state === "down" && <>Odoo did not answer: {erp!.error ?? "unknown error"}.</>}
-            {state === "off" && <>The Odoo connector is off. {BRAND.name} works on its own until it is switched on.</>}
-            {state === "checking" && "Asking the backend whether it can reach Odoo…"}
-          </div>
-          {state === "ready" && (
-            <div className="muted small">
-              Applicants are imported and screened like an upload. Approved shortlists, emails, interviews and offers are copied back to Odoo.
-            </div>
-          )}
-          {(state === "down" || state === "off") && (
-            <details className="model-howto">
-              <summary>How to connect Odoo</summary>
-              <ol>
-                <li>In Odoo, open your user's Preferences, then Account Security, and create an API key.</li>
-                <li>In <code>hireguard/.env</code> set <code>HG_ODOO_ENABLED=1</code>, <code>HG_ODOO_URL</code>, <code>HG_ODOO_DB</code>, <code>HG_ODOO_USER</code> and <code>HG_ODOO_API_KEY</code>.</li>
-                <li>Restart with <code>.\run.ps1</code>. The key stays on the backend computer.</li>
-              </ol>
-            </details>
-          )}
-        </div>
+        <h2 id="ov-odoo">
+          Odoo HR: <span className="model-state">{label}</span>
+        </h2>
+        <span className="muted small status-sub">
+          {state === "ready" && <><code>{host}</code>, database {erp!.db}, Odoo {erp!.server_version}</>}
+          {state === "down" && <>Did not answer: {erp!.error ?? "unknown error"}</>}
+          {state === "off" && <>{BRAND.name} works on its own until Odoo is switched on.</>}
+          {state === "checking" && "Checking the connection…"}
+        </span>
       </div>
+      {state === "ready" && (
+        <details className="status-more">
+          <summary>Details</summary>
+          <p className="muted small">
+            Applicants are imported and screened like an upload. Approved shortlists, emails, interviews and offers are copied back to Odoo.
+          </p>
+        </details>
+      )}
+      {(state === "down" || state === "off") && (
+        <details className="model-howto">
+          <summary>How to connect Odoo</summary>
+          <ol>
+            <li>In Odoo, open your user's Preferences, then Account Security, and create an API key.</li>
+            <li>In <code>hireguard/.env</code> set <code>HG_ODOO_ENABLED=1</code>, <code>HG_ODOO_URL</code>, <code>HG_ODOO_DB</code>, <code>HG_ODOO_USER</code> and <code>HG_ODOO_API_KEY</code>.</li>
+            <li>Restart with <code>.\run.ps1</code>. The key stays on the backend computer.</li>
+          </ol>
+        </details>
+      )}
       <ErrorBox error={error} />
     </section>
   );
@@ -565,33 +562,6 @@ function Chips({ label, items }: { label: string; items: ReactNode[] }) {
         <span key={i} className="badge">
           {x}
         </span>
-      ))}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------- quick actions
-
-function QuickActions({ jobId }: { jobId?: string }) {
-  const { can } = useAuth();
-  const q = jobId ? `?job=${encodeURIComponent(jobId)}` : "";
-  const actions = ([
-    { to: `/candidates/upload${q}`, icon: "upload", label: "Screen a CV", hint: "Drop a PDF: hidden text is stripped, then scored", show: can("candidates.upload") },
-    { to: `/rubrics${q}`, icon: "evaluation", label: "Tune a rubric", hint: "See how weights change the ranking", show: can("candidates.read") },
-    { to: "/approvals", icon: "approvals", label: "Review approvals", hint: "Nothing is sent without a person", show: can("approvals.decide") },
-    { to: "/answer-desk", icon: "answers", label: "Ask the handbook", hint: "Quotes the source, never invents", show: can("answer_desk.ask") },
-  ] as const).filter((a) => a.show);
-  if (!actions.length) return null;
-  return (
-    <div className="quick-actions" role="group" aria-label="Quick actions">
-      {actions.map((a) => (
-        <Link key={a.to} to={a.to} className="quick-action">
-          <Icon name={a.icon} size={18} />
-          <span>
-            <strong>{a.label}</strong>
-            <span className="muted small">{a.hint}</span>
-          </span>
-        </Link>
       ))}
     </div>
   );
