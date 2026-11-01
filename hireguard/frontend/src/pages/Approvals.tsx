@@ -155,14 +155,14 @@ export default function Approvals() {
       </h2>
       {high.length ? (
         <HighRiskReviewer items={high} report={report} track={ready.track} onGone={ready.drop} />
-      ) : (
+      ) : view.data ? (
         <Empty>No high-risk items waiting.</Empty>
-      )}
+      ) : null}
 
       <h2 className="section-title">
         Routine batches <Badge>{batches.reduce((n, b) => n + b.items.length, 0)}</Badge>
       </h2>
-      {!batches.length && <Empty>No routine items waiting.</Empty>}
+      {view.data && !batches.length && <Empty>No routine items waiting.</Empty>}
       <div className="stack">
         {batches.map((b) => (
           <BatchCard key={`${b.batch_id}-${b.chunk ?? 0}`} batchId={b.batch_id} kind={b.kind} items={b.items}
@@ -324,8 +324,9 @@ function Followups({ report }: { report: Report }) {
       </div>
       <ErrorBox error={preview.error} />
       <Loading show={preview.loading} rows={2} />
-      {!preview.loading && !n && <Empty>No silent candidates for this period.</Empty>}
+      {!preview.loading && !preview.error && !n && <Empty>No silent candidates for this period.</Empty>}
       {!!n && (
+        <div className="table-wrap">
         <table className="table">
           <tbody>
             {preview.data!.map((c) => (
@@ -339,6 +340,7 @@ function Followups({ report }: { report: Report }) {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </section>
   );
