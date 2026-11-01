@@ -535,3 +535,18 @@ export interface KnowledgeGaps {
   sections: { section: string; count: number | null; suppressed: boolean }[];
   weeks: { week: string; questions: number | null; no_match: number | null; no_match_share: number | null }[];
 }
+
+// ---------------------------------------------------------------- platform: GET /model/status (never the URL or secrets)
+
+export interface ModelStatus {
+  model: string;
+  host: "local" | "modal" | "remote";
+  hosts: number;
+  credentials: boolean;
+  groq_fallback: boolean;
+  reachable: boolean;
+  model_loaded: boolean;
+  latency_ms: number | null;
+  error: string | null;
+  cached: boolean;
+}
