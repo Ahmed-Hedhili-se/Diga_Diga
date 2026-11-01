@@ -15,6 +15,7 @@ eval/results/raw/
 data/cv_ground_truth/pdf/
 eval/corpus/attacks/*.pdf
 eval/corpus/attacks_extra/*.pdf
+eval/corpus/attacks_implicit/*.pdf
 eval/corpus/twins/*.pdf
 
 # brand tooling: downloaded font cache

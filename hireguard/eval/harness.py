@@ -366,6 +366,7 @@ def eval_extraction(an: Analyzer, limit=None) -> dict:
 
 SECTIONS = {"hidden": eval_hidden, "attacks": eval_attacks,
             "attacks_extra": lambda an, limit=None: eval_attacks(an, limit, "attacks_extra"),
+            "attacks_implicit": lambda an, limit=None: eval_attacks(an, limit, "attacks_implicit"),  # run on request (--only attacks_implicit)
             "twins": eval_twins, "emails": eval_emails, "extraction": eval_extraction}
 
 
@@ -388,7 +389,7 @@ def runtime_record(config) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", default=",".join(SECTIONS))
+    ap.add_argument("--only", default=",".join(k for k in SECTIONS if k != "attacks_implicit"))  # the implicit corpus is opt-in
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--extraction", choices=("auto", "llm", "oracle"), default="auto")
     ap.add_argument("--summary", type=Path, default=SUMMARY, help="output file (e.g. one per model compared)")

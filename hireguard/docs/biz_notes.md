@@ -22,3 +22,17 @@ Working notes from the business pass of 1 Nov 2026. Nothing here is a claim for 
 ## Blocked
 
 (nothing yet)
+
+## Run the 12 implicit attacks through the real model (to do by hand)
+
+The code-path result (12 of 12) is in `docs/evaluation.md`. Whether the model obeys such text is not measured yet. With the Modal endpoint warm and `.env.modal` loaded:
+
+```powershell
+cd hireguard
+$py = "backend\.venv\Scripts\python.exe"
+& $py eval\gen_attacks_implicit.py
+& $py eval\harness.py --extraction llm --only attacks_implicit --summary evalesults\summary_implicit.json
+```
+
+Read `attack_success` and `by_channel` in the new file, quote it only as "through the model, 12 synthetic implicit attacks", and add the row to `docs/evaluation.md`.
+A note on the generator: a payload longer than the cover image leaves a visible fragment in the page margin. That is a flaw in a test file, not a sanitizer miss, and `under_image` payloads are now cut to fit.
