@@ -10,6 +10,7 @@ import {
 } from "./lib/labels";
 import Approvals from "./pages/Approvals";
 import Inbox from "./pages/Inbox";
+import Overview from "./pages/Overview";
 
 const MACHINE = /\b[a-z]+_[a-z]+\b/;
 
@@ -45,11 +46,11 @@ const APPROVAL = {
   payload: {}, diff: null, required_approvals: 1, decisions: [], status: "pending", created_at: "2026-11-01T09:00:00Z", created_by: "U-rec",
 };
 
-function mock(extra: [string, unknown][] = []) {
+function mock(extra: [string, unknown][] = [], permissions: string[] = PERMS) {
   vi.stubGlobal("fetch", vi.fn(async (url: string) => {
     if (url.endsWith("/auth/me")) {
       return Response.json({ user: { id: "U1", email: "h@x", display_name: "HRM", role: "hr_manager" }, role: "hr_manager",
-        permissions: PERMS, csrf: "c", idle_timeout_s: 1800 });
+        permissions, csrf: "c", idle_timeout_s: 1800 });
     }
     const hit = extra.find(([prefix]) => url.startsWith(prefix));
     return Response.json(hit ? hit[1] : []);
@@ -106,6 +107,13 @@ describe("pages show words, not codes", () => {
     expect(screen.queryByText("SPF pass")).toBeNull();
     expect(screen.getByText("DMARC fail")).toBeTruthy();                                // the failed check stays visible
     expect(screen.queryByText("Sender failed the DMARC check")).toBeNull();             // and is not repeated as a second chip
+    expect(MACHINE.exec(document.body.textContent ?? "")).toBeNull();
+  });
+
+  it("Overview: a held email says why in words, not as `dmarc_fail`", async () => {
+    mock([["/api/inbox", INBOX]], ["inbox.read"]);
+    mount(<Overview />);
+    expect(await screen.findByText(/Held: Sender failed the DMARC check/)).toBeTruthy();
     expect(MACHINE.exec(document.body.textContent ?? "")).toBeNull();
   });
 
