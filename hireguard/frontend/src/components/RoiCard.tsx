@@ -25,7 +25,7 @@ export default function RoiCard() {
     for (const [k, v] of Object.entries(typed)) if (v.trim() !== "") qs.set(k, v.trim());
     let live = true;
     const timer = setTimeout(() => {
-      api<RoiView>(`/money/roi${qs.toString() ? `?${qs}` : ""}`)
+      api<RoiView>(`/money/roi?${qs}`)  // an empty query is fine: every input then falls back to its labelled assumption
         .then((r) => { if (live) { setRoi(r); setErr(null); } })
         .catch((x) => { if (live) setErr(errMsg(x)); });
     }, 250);
