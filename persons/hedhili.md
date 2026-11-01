@@ -7,27 +7,37 @@ training or tuning only when justified, inference testing, and reproducible
 evaluation. No model result is a release claim until it has been measured on the
 actual configured model and reviewed with the team.
 
-## Left to do (1 Nov)
+## Status (1 Nov, evening)
 
-Done since 31 Oct: Answer Desk (BM25 extracts, HR routing), P3 follow-ups and hardening, the
-pentest, the Modal app, masking of identity fields, the naive-screener baseline and the first
-real model run. The baseline result is the headline of the pitch: 13/40 vs 3/40, p = 0.006.
+Done: Answer Desk, P3 follow-ups and hardening, the pentest, the Modal app, identity masking, the naive-screener
+baseline, the masked model run, the detector and attack-generator fixes. Setup record and hand-off to Rayen:
+[hireguard/docs/model_config.md](../hireguard/docs/model_config.md).
 
-- [ ] **P0** Re-run the model evaluation **with masking on**, on the current `main`:
-      ```powershell
-      cd hireguard
-      $py = "backend\.venv\Scripts\python.exe"
-      & $py eval\harness.py --extraction llm      # attacks, twins, extraction
-      & $py eval\baselines.py                      # only if the model or prompt changed
-      ```
-      Twins went 26/90 before masking; the pitch needs the new number either way.
-- [ ] **P0** Extraction on **50 or more CVs** (today n = 2, which supports no claim).
-- [ ] **P0** Record where the model ran (local GPU or Modal, GPU type) in the result file; the
-      pitch must say it. If Modal still returns 401 (T7.4), run on a local GPU.
-- [ ] **P1** Attack generator fix (R1 in [archive/person1.md](archive/person1.md)): `keep_proportion=False` in
-      `eval/render.py` for `under_image`, regenerate the attacks, then report one detection
-      number (today `pipeline.md` says 38/40 and the pitch 40/40).
-- [ ] **P1** Re-measure "instructions flagged" (18/28 before the new detector rules).
+- [x] **P0** Masked model evaluation on Modal (Qwen3-8B `Q4_K_M`, L4 GPU), results in `eval/results/summary.json`:
+      attacks **3/40** vs **13/40** for the naive screener (McNemar p = 0.0063); emails 100/100; twins **17/89**
+      (26/90 before masking; town, school and gender 0, CV language 13/20, gap 4/9); supplementary attacks 7/14.
+- [x] **P0** Extraction on **200 CVs**: skill F1 0.944 (precision 0.999, recall 0.894); Arabic F1 0.80; years MAE 0.23;
+      degree correct 92.5%; 4 failed model calls.
+- [x] **P0** Where the model ran is recorded in every result file (`runtime`: Modal cloud, NVIDIA L4, digest, settings).
+- [x] **P1** Attack generator fix (`keep_proportion=False`): detection **40/40**, 0/40 on clean twins.
+- [x] **P1** Instructions flagged: **28/28** on `attacks`, 11/11 on `attacks_extra`, 0 false alarms on 200 clean CVs.
+- [x] Fixed `eval/fairness.py`, which imported a function that no longer existed in `harness.py`.
+
+Still open (for the team, not blocked on a GPU):
+
+- [ ] **Visible attacks**: 7/14 supplementary attacks moved a field or score (visible instructions 3/8, bidi 2/4,
+      visible stuffing 2/2). The detector flags instructions but not stuffing. Decide with Ahmed how the pitch states this;
+      Rayen's `listed_only` weighting (<= 0.3) should reduce the effect of stuffing.
+- [ ] **Arabic extraction (diagnosed 1 Nov, fix not yet measured).** Arabic CVs lose 55 of 165 skills (recall 0.67). In the
+      CVs checked, the skills written in Arabic (`إدارة شؤون الموظفين`, `التوظيف`) are never proposed by the model, while Latin-script
+      ones are. Cause: `extractor._esco_list()` shows only the English label (`hr-administration: Personnel administration`) although
+      `data/esco_subset.json` already holds `fr` and `ar` labels. Fix to try: list the Arabic and French labels next to each id,
+      then re-run extraction on the 33 Arabic CVs, then on all 200, and the twins (language swaps move the score 13/20).
+      This changes the prompt, so re-measure everything before quoting it.
+- [ ] Outsider attack set (30 sealed attacks written outside the team), opened once at the final run.
+- [ ] Re-run `backend` tests on a real venv: 7 route-table tests fail on the measuring machine (5 also fail on a clean `HEAD`).
+- [ ] Stop the Modal app when finished: `modal app stop hireguard-ollama`.
+
 
 ## Work to execute
 

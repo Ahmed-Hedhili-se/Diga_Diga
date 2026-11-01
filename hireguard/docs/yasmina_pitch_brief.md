@@ -87,13 +87,18 @@ validation and human control are more important here than giving it free reign.
 
 ## Limitations to understand and explain
 
-- **Model fairness is not solved.** The pitch notes report that 26 of 90 twin
-  CV variants changed score in the measured model run, before identity masking.
-  Masking was added afterward; the re-measurement is pending. Say this plainly
-  if asked about bias.
-- **Model quality evidence is incomplete.** The pitch notes say extraction
-  quality was measured on only two CVs; that is not enough to claim broad
-  accuracy.
+- **Model fairness is not solved.** With identity masking on (1 Nov run), 17 of 89 twin
+  CV variants changed score, down from 26 of 90 before masking. Changing only the town,
+  school or gender changed no score (0/30, 0/20, 0/10). Changing the CV language moved
+  13 of 20 and a 12-month gap 4 of 9 (a gap legitimately removes experience months).
+  Arabic CVs are extracted less completely (skill recall 0.67). Say this plainly if
+  asked about bias.
+- **Model quality evidence.** Extraction was measured on 200 generated CVs: skill F1 0.944
+  (precision 0.999, recall 0.894), degree correct 92.5%, years error 0.23. They are
+  synthetic CVs, so this is not a claim about real-world accuracy.
+- **Visible attacks.** Hidden-channel attacks moved 3 of 40 (the standard screener: 13 of 40).
+  Instructions or fake skills written in plain sight moved 7 of 14 (the standard screener:
+  8 of 14); a sanitizer cannot remove text everyone can see.
 - **Separate model results from code-path results.** Ground-truth/oracle runs
   test the pipeline and deterministic code, not the model. The Evaluation
   screen labels the run mode; use it when quoting a metric.

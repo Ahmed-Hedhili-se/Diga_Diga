@@ -1,0 +1,269 @@
+{
+ "generated_at": "2026-10-31T20:17:38.219565+00:00",
+ "extraction_mode": "oracle",
+ "scope": "oracle extraction (no LLM): measures sanitizer, detector, validator and scorer; does NOT measure whether the model follows injections",
+ "n_cvs": 200,
+ "k_frac": 0.2,
+ "permutations": 2000,
+ "rules": {
+  "flag": "AIR < 0.8 and permutation p < 0.05",
+  "watch": "AIR < 0.8, not significant",
+  "proxy": "CV macro AUC above the 95th percentile of shuffled labels and >= 0.6"
+ },
+ "observed": {
+  "region": {
+   "groups": {
+    "Grand Tunis": {
+     "n": 63,
+     "selected": 12,
+     "rate": 0.19
+    },
+    "coast": {
+     "n": 89,
+     "selected": 19,
+     "rate": 0.213
+    },
+    "interior": {
+     "n": 48,
+     "selected": 10,
+     "rate": 0.208
+    }
+   },
+   "air": 0.892,
+   "air_ci95": [
+    0.336,
+    0.925
+   ],
+   "p_value": 0.9775,
+   "lowest": "Grand Tunis",
+   "highest": "coast",
+   "verdict": "ok",
+   "gap_by_component": {
+    "skills": {
+     "points": -1.74,
+     "share": 0.46
+    },
+    "experience": {
+     "points": -1.07,
+     "share": 0.28
+    },
+    "degree": {
+     "points": -0.52,
+     "share": 0.14
+    },
+    "languages": {
+     "points": -0.43,
+     "share": 0.11
+    }
+   },
+   "proxy": {
+    "auc": 0.546,
+    "null_auc_95th": 0.575,
+    "proxy": false
+   }
+  },
+  "school": {
+   "groups": {
+    "iset": {
+     "n": 56,
+     "selected": 14,
+     "rate": 0.25
+    },
+    "private": {
+     "n": 82,
+     "selected": 19,
+     "rate": 0.232
+    },
+    "supcom": {
+     "n": 62,
+     "selected": 8,
+     "rate": 0.129
+    }
+   },
+   "air": 0.516,
+   "air_ci95": [
+    0.183,
+    0.836
+   ],
+   "p_value": 0.1649,
+   "lowest": "supcom",
+   "highest": "iset",
+   "verdict": "watch",
+   "gap_by_component": {
+    "skills": {
+     "points": 0.97,
+     "share": -31.85
+    },
+    "experience": {
+     "points": -1.5,
+     "share": 49.42
+    },
+    "degree": {
+     "points": -0.31,
+     "share": 10.04
+    },
+    "languages": {
+     "points": 0.81,
+     "share": -26.62
+    }
+   },
+   "proxy": {
+    "auc": 0.476,
+    "null_auc_95th": 0.539,
+    "proxy": false
+   }
+  },
+  "gender": {
+   "groups": {
+    "f": {
+     "n": 101,
+     "selected": 21,
+     "rate": 0.208
+    },
+    "m": {
+     "n": 99,
+     "selected": 20,
+     "rate": 0.202
+    }
+   },
+   "air": 0.972,
+   "air_ci95": [
+    0.517,
+    0.991
+   ],
+   "p_value": 1.0,
+   "lowest": "m",
+   "highest": "f",
+   "verdict": "ok",
+   "gap_by_component": {
+    "skills": {
+     "points": 1.16,
+     "share": 0.61
+    },
+    "experience": {
+     "points": 0.07,
+     "share": 0.04
+    },
+    "degree": {
+     "points": 0.32,
+     "share": 0.17
+    },
+    "languages": {
+     "points": 0.35,
+     "share": 0.18
+    }
+   },
+   "proxy": {
+    "auc": 0.576,
+    "null_auc_95th": 0.584,
+    "proxy": false
+   }
+  },
+  "cv_language": {
+   "groups": {
+    "ar": {
+     "n": 33,
+     "selected": 6,
+     "rate": 0.182
+    },
+    "en": {
+     "n": 64,
+     "selected": 16,
+     "rate": 0.25
+    },
+    "fr": {
+     "n": 103,
+     "selected": 19,
+     "rate": 0.184
+    }
+   },
+   "air": 0.727,
+   "air_ci95": [
+    0.205,
+    0.899
+   ],
+   "p_value": 0.6722,
+   "lowest": "ar",
+   "highest": "en",
+   "verdict": "watch",
+   "gap_by_component": {
+    "skills": {
+     "points": 4.3,
+     "share": 0.98
+    },
+    "experience": {
+     "points": -0.44,
+     "share": -0.1
+    },
+    "degree": {
+     "points": 0.31,
+     "share": 0.07
+    },
+    "languages": {
+     "points": 0.2,
+     "share": 0.05
+    }
+   },
+   "proxy": {
+    "auc": 0.534,
+    "null_auc_95th": 0.556,
+    "proxy": false
+   }
+  }
+ },
+ "positive_control": {
+  "design": "degree follows school; planted criterion: engineering degree required, degree component weight 30",
+  "school": {
+   "groups": {
+    "iset": {
+     "n": 56,
+     "selected": 4,
+     "rate": 0.071
+    },
+    "private": {
+     "n": 82,
+     "selected": 21,
+     "rate": 0.256
+    },
+    "supcom": {
+     "n": 62,
+     "selected": 16,
+     "rate": 0.258
+    }
+   },
+   "air": 0.277,
+   "air_ci95": [
+    0.05,
+    0.549
+   ],
+   "p_value": 0.005,
+   "lowest": "iset",
+   "highest": "supcom",
+   "verdict": "flag",
+   "gap_by_component": {
+    "skills": {
+     "points": -0.81,
+     "share": -0.08
+    },
+    "experience": {
+     "points": 1.25,
+     "share": 0.13
+    },
+    "degree": {
+     "points": 10.0,
+     "share": 1.02
+    },
+    "languages": {
+     "points": -0.67,
+     "share": -0.07
+    }
+   },
+   "proxy": {
+    "auc": 0.841,
+    "null_auc_95th": 0.539,
+    "proxy": true
+   }
+  },
+  "detected": true
+ }
+}
