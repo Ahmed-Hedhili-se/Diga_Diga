@@ -1,7 +1,11 @@
 .env
+.env.*
+!.env.example
+!.env.modal.example
 backend/.venv/
 backend/*.db*
 backend/uploads/
+backend/backend/
 data/anchors/
 __pycache__/
 node_modules/

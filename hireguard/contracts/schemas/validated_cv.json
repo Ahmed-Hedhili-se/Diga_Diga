@@ -179,6 +179,15 @@
           "default": 0.0,
           "title": "Years",
           "type": "number"
+        },
+        "support": {
+          "default": "listed_only",
+          "enum": [
+            "dated_experience",
+            "listed_only"
+          ],
+          "title": "Support",
+          "type": "string"
         }
       },
       "required": [
@@ -215,6 +224,11 @@
       },
       "title": "Skills",
       "type": "array"
+    },
+    "skills_listed_only_ratio": {
+      "default": 0.0,
+      "title": "Skills Listed Only Ratio",
+      "type": "number"
     },
     "years_experience": {
       "default": 0.0,

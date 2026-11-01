@@ -87,7 +87,7 @@ def test_eval_summary_labels_every_run(client, tmp_path, monkeypatch):
     """The tab must never show a code-path (oracle) number as a model result, nor go blank when the
     harness output is kept under a per-run name."""
     import json
-    monkeypatch.setattr(routes, "EVAL_DIR", tmp_path)
+    monkeypatch.setattr(routes, "EVAL_SUMMARY", tmp_path / "summary.json")  # no "latest" run yet
     login(client, "u-hrm")
     assert client.get("/api/eval/summary").json() == {"status": "not_run", "runs": []}
 
@@ -106,6 +106,7 @@ def test_eval_summary_labels_every_run(client, tmp_path, monkeypatch):
     assert default["sections"]["attacks"]["extraction_mode"] == "llm"          # older file, labelled by its run
     assert default["baseline"]["vulnerable_screener"]["attack_success"]["k"] == 13
     assert {r["id"] for r in default["runs"]} == {"oracle", "unmasked_qwen3-8b"}
+    assert default["report"]["model"] == "qwen3:8b" and default["report"]["limitations"]   # Rayen's report
 
     oracle = client.get("/api/eval/summary?run=oracle").json()
     assert oracle["sections"]["attacks"]["extraction_mode"] == "oracle" and "baseline" not in oracle

@@ -49,6 +49,7 @@ Security Center, which the Admin shares with HR, shows only the attack fragments
 ## Sections
 
 - Architecture and data boundaries: [docs/architecture.md](docs/architecture.md) (Ahmed)
+- Design system (colour tokens, components, light and dark themes): [docs/design_system.md](docs/design_system.md) (Rayen)
 - Document pipeline: [docs/pipeline.md](docs/pipeline.md) (P1)
 - Threat model (OWASP LLM Top 10 2025 + web): [docs/threat_model.md](docs/threat_model.md) (P3)
 - Evaluation: [docs/evaluation.md](docs/evaluation.md) (P2)

@@ -56,6 +56,15 @@
           ],
           "default": null,
           "title": "Bbox"
+        },
+        "severity": {
+          "default": "high",
+          "enum": [
+            "high",
+            "low"
+          ],
+          "title": "Severity",
+          "type": "string"
         }
       },
       "required": [

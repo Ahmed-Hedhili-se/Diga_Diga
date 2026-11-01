@@ -1,15 +1,12 @@
-import { DragEvent, FormEvent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import * as pdfjs from "pdfjs-dist";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { api, ApiError, errMsg } from "../api";
 import { usePermission } from "../auth";
 import EvidenceText, { pageOfOffset } from "../components/EvidenceText";
 import PdfViewer from "../components/PdfViewer";
-import {
-  Badge, ConfirmButton, Empty, ErrorBox, fmtDate, fmtNum, Loading, Modal, PageHeader, useLoad,
-} from "../components/ui";
+import { Badge, ConfirmButton, Empty, ErrorBox, fmtDate, fmtNum, Loading, PageHeader, useLoad } from "../components/ui";
 import type {
-  ApprovalItem, CandidateDetail, CandidateRow, Cefr, DegreeLevel, ErpApplicant, ErpStatus, Job, Rubric, ScoreOutput,
+  ApprovalItem, CandidateDetail, CandidateRow, ErpApplicant, ErpStatus, Job, ScoreOutput,
   FitStatus, OfferFit, OfferFitView, OfferTerms, RediscoverView, Slot, Span, StabilityView, TeamGapsView,
 } from "../types";
 
@@ -24,9 +21,6 @@ interface ErpImport {
   skipped: { applicant_id: number; reason: string }[];
 }
 
-// Server limits (backend config: HG_MAX_UPLOAD_BYTES, HG_MAX_PDF_PAGES), checked here first for a fast answer.
-const MAX_BYTES = 5 * 1024 * 1024;
-const MAX_PAGES = 6;
 const SHORTLIST_FRAC = 0.2; // same default as the fairness audit (eval/fairness.py --k-frac)
 
 const FIT_TONE: Record<FitStatus, "ok" | "warn" | "danger" | "neutral"> = {
@@ -68,19 +62,16 @@ export default function Candidates() {
   const canOffer = usePermission("offers.propose");
 
   const jobs = useLoad(() => api<Job[]>("/jobs"));
-  const [jobId, setJobId] = useState<string>("");
+  const [params, setParams] = useSearchParams();
+  const location = useLocation();
+  const jobId = params.get("job") ?? jobs.data?.[0]?.job_id ?? "";
+  const selected = params.get("c");
   const [k, setK] = useState<number | null>(null);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [shortlist, setShortlist] = useState<Set<string>>(new Set());
-  const [notice, setNotice] = useState<string | null>(null);
-  const [actionErr, setActionErr] = useState<string | null>(null);
-  const [panel, setPanel] = useState<"upload" | "rubric" | null>(null);
   const [showErp, setShowErp] = useState(false);
   const erp = useLoad(() => (canErp ? api<ErpStatus>("/erp/status") : Promise.resolve(null)), [canErp]);
-
-  useEffect(() => {
-    if (!jobId && jobs.data?.length) setJobId(jobs.data[0].job_id);
-  }, [jobs.data, jobId]);
+  const [shortlist, setShortlist] = useState<Set<string>>(new Set());
+  const [notice, setNotice] = useState<string | null>((location.state as { notice?: string } | null)?.notice ?? null);
+  const [actionErr, setActionErr] = useState<string | null>(null);
 
   const rows = useLoad(
     () => (jobId ? api<CandidateRow[]>(`/candidates?job_id=${encodeURIComponent(jobId)}`) : Promise.resolve([])),
@@ -144,6 +135,16 @@ export default function Candidates() {
     }
   }
 
+  useEffect(() => {
+    if (location.state) window.history.replaceState({}, ""); // show the upload notice once
+  }, [location.state]);
+
+  const setSel = (c: string | null, j = jobId) => {
+    const next = new URLSearchParams();
+    if (j) next.set("job", j);
+    if (c) next.set("c", c);
+    setParams(next, { replace: true });
+  };
   const say = (text: string) => {
     setActionErr(null);
     setNotice(text);
@@ -164,18 +165,8 @@ export default function Candidates() {
       const item = await api<ApprovalItem>(`/jobs/${encodeURIComponent(jobId)}/shortlist`, {
         body: { candidate_ids: [...shortlist] },
       });
-      say(`Shortlist sent for approval as item ${item.id}. Scores stay "proposed" until it is approved.`);
+      say(`Shortlist sent for approval as item ${item.id}. Scores stay proposals until it is approved.`);
       setShortlist(new Set());
-    } catch (e) {
-      fail(e);
-    }
-  }
-
-  async function rescore() {
-    try {
-      const out = await api<ScoreOutput[]>(`/jobs/${encodeURIComponent(jobId)}/rescore`, { method: "POST" });
-      say(`${out.length} candidate(s) rescored with the current rubric. Scores stay proposals.`);
-      rows.reload();
     } catch (e) {
       fail(e);
     }
@@ -191,34 +182,41 @@ export default function Candidates() {
     }
   }
 
-  const job = jobs.data?.find((j) => j.job_id === jobId);
+  async function rescore() {
+    try {
+      const out = await api<ScoreOutput[]>(`/jobs/${encodeURIComponent(jobId)}/rescore`, { method: "POST" });
+      say(`${out.length} candidate(s) rescored with the current rubric. Scores stay proposals.`);
+      rows.reload();
+    } catch (e) {
+      fail(e);
+    }
+  }
 
   return (
     <>
       <PageHeader
         title="Candidates"
-        subtitle="Ranked by code from validated fields only. Scores are proposals until HR commits the shortlist."
+        subtitle="Ranked by code from validated fields only. Scores are proposals until a shortlist is approved."
         actions={
           <div className="row">
             <select
               aria-label="Job"
               value={jobId}
               onChange={(e) => {
-                setJobId(e.target.value);
-                setSelected(null);
                 setShortlist(new Set());
                 setK(null);
+                setSel(null, e.target.value);
               }}
             >
               {(jobs.data ?? []).map((j) => (
                 <option key={j.job_id} value={j.job_id}>
-                  {j.job_id} · {j.title}
+                  {j.title}
                 </option>
               ))}
             </select>
-            <button className="btn" disabled={!jobId} onClick={() => setPanel("rubric")}>
-              Rubric
-            </button>
+            <Link className="btn" to={`/rubrics?job=${encodeURIComponent(jobId)}`}>
+              Edit rubric
+            </Link>
             {canRescore && (
               <ConfirmButton
                 label="Rescore"
@@ -230,9 +228,9 @@ export default function Candidates() {
               />
             )}
             {canUpload && (
-              <button className="btn primary" disabled={!jobId} onClick={() => setPanel("upload")}>
+              <Link className="btn primary" to={`/candidates/upload?job=${encodeURIComponent(jobId)}`}>
                 Upload CV
-              </button>
+              </Link>
             )}
           </div>
         }
@@ -340,7 +338,7 @@ export default function Candidates() {
       )}
 
       <div className="split">
-        <section className="card list-pane" aria-label="Ranking">
+        <section className="panel list-pane" aria-label="Ranking">
           <div className="row between">
             <h2>Ranking</h2>
             <label className="small muted" title="Candidates you plan to shortlist; borderline badges are computed for this cut-off">
@@ -387,8 +385,8 @@ export default function Candidates() {
                     <tr
                       key={r.candidate_id}
                       className={selected === r.candidate_id ? "selected clickable" : "clickable"}
-                      onClick={() => setSelected(r.candidate_id)}
-                      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), setSelected(r.candidate_id))}
+                      onClick={() => setSel(r.candidate_id)}
+                      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), setSel(r.candidate_id))}
                       tabIndex={0}
                       aria-selected={selected === r.candidate_id}
                     >
@@ -518,300 +516,7 @@ export default function Candidates() {
         </section>
       )}
 
-      {panel === "upload" && job && (
-        <UploadCv
-          jobs={jobs.data ?? []}
-          jobId={job.job_id}
-          onClose={() => setPanel(null)}
-          onUploaded={(c) => {
-            setPanel(null);
-            setJobId(c.job_id);
-            setSelected(c.candidate_id);
-            rows.reload();
-            say(
-              c.hidden + c.flags
-                ? `${c.name} was screened: ${c.hidden} hidden item(s) and ${c.flags} injection flag(s) were stripped before scoring.`
-                : `${c.name} was screened and scored.`,
-            );
-          }}
-        />
-      )}
-      {panel === "rubric" && job && (
-        <RubricEditor
-          jobId={job.job_id}
-          onClose={() => setPanel(null)}
-          onSaved={() => say(`Rubric for ${job.job_id} saved.${canRescore ? " Use Rescore to apply it to existing candidates." : ""}`)}
-        />
-      )}
     </>
-  );
-}
-
-// ---------------------------------------------------------------- CV upload (POST /candidates, multipart)
-
-async function checkPdf(file: File): Promise<string | null> {
-  if (file.size > MAX_BYTES) return `This file is ${fmtNum(file.size / 1024 / 1024, 1)} MB; the limit is 5 MB.`;
-  const head = new Uint8Array(await file.slice(0, 5).arrayBuffer());
-  if (String.fromCharCode(...head) !== "%PDF-") return "This is not a PDF file.";
-  try {
-    const doc = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
-    const pages = doc.numPages;
-    await doc.destroy();
-    if (pages > MAX_PAGES) return `This PDF has ${pages} pages; the limit is ${MAX_PAGES}.`;
-  } catch {
-    return "This PDF can't be read (damaged or password-protected).";
-  }
-  return null;
-}
-
-function UploadCv({ jobs, jobId, onClose, onUploaded }: {
-  jobs: Job[]; jobId: string; onClose: () => void; onUploaded: (c: CandidateDetail) => void;
-}) {
-  const [file, setFile] = useState<File | null>(null);
-  const [job, setJob] = useState(jobId);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [over, setOver] = useState(false);
-  const [busy, setBusy] = useState(false);
-
-  async function pick(f: File | undefined) {
-    setError(null);
-    setFile(null);
-    if (!f) return;
-    const problem = await checkPdf(f);
-    if (problem) setError(problem);
-    else setFile(f);
-  }
-
-  function drop(e: DragEvent) {
-    e.preventDefault();
-    setOver(false);
-    void pick(e.dataTransfer.files?.[0]);
-  }
-
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    if (!file) return;
-    setBusy(true);
-    setError(null);
-    const form = new FormData();
-    form.append("file", file);
-    form.append("job_id", job);
-    form.append("name", name.trim());
-    form.append("email", email.trim());
-    try {
-      onUploaded(await api<CandidateDetail>("/candidates", { form }));
-    } catch (x) {
-      setError(errMsg(x));
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  return (
-    <Modal open title="Upload a CV" onClose={onClose}>
-      <form className="stack" onSubmit={submit}>
-        <div
-          className={`dropzone ${over ? "over" : ""} ${file ? "has-file" : ""}`}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setOver(true);
-          }}
-          onDragLeave={() => setOver(false)}
-          onDrop={drop}
-        >
-          <p>{file ? <strong>{file.name}</strong> : "Drop a PDF here"}</p>
-          <p className="muted small">PDF only · up to 5 MB · up to {MAX_PAGES} pages</p>
-          <label className="btn small file-btn">
-            Choose file
-            <input type="file" accept="application/pdf,.pdf" className="visually-hidden" onChange={(e) => pick(e.target.files?.[0])} />
-          </label>
-        </div>
-        <label>
-          Job
-          <select value={job} onChange={(e) => setJob(e.target.value)}>
-            {jobs.map((j) => (
-              <option key={j.job_id} value={j.job_id}>
-                {j.job_id} · {j.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className="grid2">
-          <label>
-            Candidate name
-            <input value={name} maxLength={120} onChange={(e) => setName(e.target.value)} required />
-          </label>
-          <label>
-            Candidate email
-            <input type="email" value={email} maxLength={254} onChange={(e) => setEmail(e.target.value)} required />
-          </label>
-        </div>
-        <p className="muted small">
-          The PDF is treated as hostile: hidden text is stripped and reported, and only validated fields are scored.
-        </p>
-        <ErrorBox error={error} />
-        <div className="row end">
-          <button type="button" className="btn ghost" onClick={onClose} disabled={busy}>
-            Cancel
-          </button>
-          <button className="btn primary" disabled={!file || busy}>
-            {busy ? "Screening…" : "Upload and screen"}
-          </button>
-        </div>
-      </form>
-    </Modal>
-  );
-}
-
-// ---------------------------------------------------------------- rubric (GET / PUT /jobs/{id}/rubric)
-
-const COMPONENTS = ["skills", "experience", "degree", "languages"] as const;
-const DEGREES: DegreeLevel[] = ["none", "bac", "bts", "licence", "master", "ingenieur", "phd"];
-const CEFRS: Cefr[] = ["A1", "A2", "B1", "B2", "C1", "C2", "native"];
-const LANGS = ["fr", "en", "ar"] as const;
-
-function RubricEditor({ jobId, onClose, onSaved }: { jobId: string; onClose: () => void; onSaved: () => void }) {
-  const canEdit = usePermission("rubric.edit");
-  const loaded = useLoad(() => api<Rubric>(`/jobs/${encodeURIComponent(jobId)}/rubric`), [jobId]);
-  const [r, setR] = useState<Rubric | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => setR(loaded.data), [loaded.data]);
-
-  const compTotal = r ? COMPONENTS.reduce((s, c) => s + (r.component_weights[c] ?? 0), 0) : 0;
-  const skillTotal = r ? Object.values(r.skill_weights).reduce((s, w) => s + w, 0) : 0;
-  const valid = !!r && Math.round(compTotal) === 100 && skillTotal > 0;
-
-  async function save() {
-    if (!r) return;
-    setError(null);
-    try {
-      await api<Rubric>(`/jobs/${encodeURIComponent(jobId)}/rubric`, { method: "PUT", body: r });
-      onSaved();
-      onClose();
-    } catch (x) {
-      setError(errMsg(x));
-    }
-  }
-
-  return (
-    <Modal
-      open
-      title={`Rubric · ${jobId}`}
-      onClose={onClose}
-      actions={
-        <>
-          <button className="btn ghost" onClick={onClose}>
-            {canEdit ? "Cancel" : "Close"}
-          </button>
-          {canEdit && (
-            <ConfirmButton
-              className="btn primary"
-              label="Save rubric"
-              disabled={!valid}
-              title="Save this rubric?"
-              message="The change is recorded in the audit log. Existing scores change only when someone rescores."
-              confirmLabel="Save"
-              onConfirm={save}
-            />
-          )}
-        </>
-      }
-    >
-      <ErrorBox error={loaded.error || error} />
-      <Loading show={loaded.loading} rows={5} />
-      {r && (
-        <fieldset disabled={!canEdit} className="stack rubric">
-          {!canEdit && <div className="alert info">Read-only: only HR managers edit rubrics.</div>}
-          <h3>Score components</h3>
-          <p className={`small ${Math.round(compTotal) === 100 ? "muted" : "text-danger"}`}>
-            Total {fmtNum(compTotal)} / 100{Math.round(compTotal) === 100 ? "" : " (must equal 100)"}
-          </p>
-          {COMPONENTS.map((c) => (
-            <label key={c} className="slider-row">
-              <span className="cap">{c}</span>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                step={5}
-                value={r.component_weights[c] ?? 0}
-                onChange={(e) => setR({ ...r, component_weights: { ...r.component_weights, [c]: Number(e.target.value) } })}
-              />
-              <span className="num">{r.component_weights[c] ?? 0}</span>
-            </label>
-          ))}
-
-          <h3>Skill weights</h3>
-          <p className="muted small">Relative weights; the share shows how much each skill counts inside the skills component.</p>
-          {Object.entries(r.skill_weights).map(([skill, w]) => (
-            <label key={skill} className="slider-row">
-              <code>{skill}</code>
-              <input
-                type="range"
-                min={0}
-                max={10}
-                step={1}
-                value={w}
-                onChange={(e) => setR({ ...r, skill_weights: { ...r.skill_weights, [skill]: Number(e.target.value) } })}
-              />
-              <span className="num">{skillTotal ? `${fmtNum((100 * w) / skillTotal)}%` : "—"}</span>
-            </label>
-          ))}
-
-          <div className="grid2">
-            <label>
-              Minimum years of experience
-              <input type="number" min={0} max={40} step={0.5} value={r.min_years}
-                onChange={(e) => setR({ ...r, min_years: Number(e.target.value) })} />
-            </label>
-            <label>
-              Required degree
-              <select value={r.required_degree} onChange={(e) => setR({ ...r, required_degree: e.target.value as DegreeLevel })}>
-                {DEGREES.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-
-          <h3>Languages</h3>
-          {r.languages.map((l, i) => (
-            <div key={i} className="row">
-              <select aria-label="Language" value={l.iso}
-                onChange={(e) => setR({ ...r, languages: r.languages.map((x, j) => (j === i ? { ...x, iso: e.target.value as typeof l.iso } : x)) })}>
-                {LANGS.map((x) => (
-                  <option key={x} value={x}>
-                    {x}
-                  </option>
-                ))}
-              </select>
-              <select aria-label="Minimum level" value={l.min_cefr}
-                onChange={(e) => setR({ ...r, languages: r.languages.map((x, j) => (j === i ? { ...x, min_cefr: e.target.value as Cefr } : x)) })}>
-                {CEFRS.map((x) => (
-                  <option key={x} value={x}>
-                    {x}
-                  </option>
-                ))}
-              </select>
-              <button type="button" className="btn small ghost" onClick={() => setR({ ...r, languages: r.languages.filter((_, j) => j !== i) })}>
-                Remove
-              </button>
-            </div>
-          ))}
-          <div>
-            <button type="button" className="btn small" disabled={r.languages.length >= LANGS.length}
-              onClick={() => setR({ ...r, languages: [...r.languages, { iso: LANGS.find((x) => !r.languages.some((l) => l.iso === x)) ?? "fr", min_cefr: "B2" }] })}>
-              Add language
-            </button>
-          </div>
-        </fieldset>
-      )}
-    </Modal>
   );
 }
 

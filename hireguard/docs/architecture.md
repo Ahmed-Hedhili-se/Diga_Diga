@@ -247,13 +247,13 @@ R recruiter · M HR manager · E employee · A admin.
 | | | | `PUT /candidates/{id}/conditions` | R M | `conditions.update` |
 | | | | `POST /candidates/{id}/offer` | M | approval item `offer` (2 HR managers, not the author), `approval.create` |
 | Scoring | `/jobs`, `/jobs/{id}/rubric`, `/stability`, `/team-gaps`, `/offer-fit`, `/rediscover` | R M | `PUT /jobs/{id}/rubric` | M | `rubric.update` |
-| | | | `POST /jobs/{id}/rescore` | R M | **none (R12; derived scores only)** |
+| | | | `POST /jobs/{id}/rescore` | R M | `scores.rescore` (R12, done) |
 | | | | `POST /jobs/{id}/shortlist` | R M | approval item `shortlist_commit` |
 | | | | `POST /jobs/{id}/candidates/{cid}/status` (hiring status) | R M | approval item `status_change` |
 | | | | `POST /jobs/{id}/rediscover/invite` | R M | approval items `email_send` |
 | | | | `DELETE /talent-pool/{id}` | R M | `talent_pool.withdraw` |
 | Oversight | `/money`, `/eval/summary`, `/eval/fairness`, `/security/findings`, `/audit`, `/audit/verify`, `/reviewer/stats` | M A | `PUT /money/settings` | M | `money.settings` |
-| | `/approvals/attention` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
+| | `/approvals/attention`, `/model/status` | R M A | `POST /audit/anchor` | A | `audit.anchor` |
 | Workflow | `/inbox`, `/approvals`, `/calendar/slots` | R M | `POST /inbox/ingest` | A | `inbox.ingest` |
 | | `/interviews/reminders` | M | `POST /inbox/{id}/release-request` | M | approval item `held_email_release` |
 | | `/followups/preview` | R M | `POST /followups/run` | R M | `followups.run`, approval items `email_send` |
@@ -295,7 +295,7 @@ R recruiter · M HR manager · E employee · A admin.
 | R9 | Demo history (old outbox emails, answer-desk log, process simulation) mistaken for measurements | Low | Yasmina | Mitigated: `seed:history` marker, "Simulation" banner, and this note |
 | R10 | Sign-in, sign-out and account changes were not audited | Medium | Rayen | **Closed 31 Oct**: `auth.login`, `auth.login_failed`, `auth.lockout`, `auth.logout`, `auth.user_create`, `auth.user_update` and more |
 | R11 | Retention is documented (section 3), but only the talent-pool expiry is enforced in code; nothing purges candidate files after a requisition closes | Medium | Rayen (Ahmed owns the policy) | Open. Roadmap: a purge job and a delete-on-request endpoint, both audited. Say so if a judge asks about GDPR |
-| R12 | `POST /jobs/{id}/rescore` rewrites proposed scores without an audit event | Low: scores are derived and reproducible from the audited rubric | Rayen | Open. One `scores.rescore` event with the job and the count |
+| R12 | `POST /jobs/{id}/rescore` rewrote proposed scores without an audit event | Low | Rayen | **Closed 1 Nov**: `scores.rescore` audit event (Rayen, `5a7f39b`) |
 | R13 | The pitch hook said "today's AI screeners obey it" before any baseline was measured | Medium (credibility) | Ahmed | **Closed 31 Oct**: the hook now cites a measured external figure; "obeys it" comes back only with our own baseline number |
 | R14 | An offer needs 2 HR managers who are not its author, so 3 in total. The demo seed has 2, so an offer can never fully clear on stage, and many SMEs have only one HR manager | Medium (demo and product fit) | Rayen | Open. Make the offer approval count a per-customer setting (default 2; SME: 1 other approver). Until then the demo shows the offer waiting at 1 of 2 and says why |
 | R15 | Through the model, twin CVs changed score 26/90 (14/20 when only the CV language changed); the code path alone gives 0/89 | High (fairness claim) | Hedhili | Open. Identity masking added after the run; re-measure. The pitch states the 26/90 as a known limit |
@@ -331,10 +331,10 @@ R recruiter · M HR manager · E employee · A admin.
 | Pitch numbers match the result files | ✅ | 0/40, 40/40 with 0 false alarms, 18/28, 0/89, AIR 0.28 (p = 0.005), load test 0 errors and p95 45 ms: all equal to `eval/results/*.json` |
 | Model-mode evidence | ✅ headline measured, ⚠️ masked re-run pending | R1, R15 |
 | Employee Questions demo | ✅ | R3 closed |
-| Every state change audited | ⚠️ | R12 (rescore) only |
+| Every state change audited | ✅ | R10 and R12 closed |
 | Demo path rehearsed end to end | ⚠️ | Single script `docs/demo_script.md`; offers stop at 1 of 2 approvals (R14) |
 
-**Decision (1 Nov):** `main` is the only working branch. Go for the demo with the measured model numbers and the twin limit stated plainly. Before any pilot: R12, R14, R15 and R20.
+**Decision (1 Nov):** `main` is the only working branch. Go for the demo with the measured model numbers and the twin limit stated plainly. Before any pilot: R14, R15 and R20.
 
 ## 11. References
 

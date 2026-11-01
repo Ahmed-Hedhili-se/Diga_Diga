@@ -56,9 +56,10 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|
 | GET | `/jobs` | R M | → `[{job_id, title, open_since, target_days, daily_vacancy_cost_tnd}]` |
-| GET/PUT | `/jobs/{job_id}/rubric` | R M (PUT: M) | `Rubric` |
-| POST | `/jobs/{job_id}/rescore` | R M | → `ScoreOutput[]` |
+| GET/PUT | `/jobs/{job_id}/rubric` | R M (PUT: M) | `Rubric`. PUT → 400 unless weights are finite and 0–1000, components ⊆ {skills, experience, degree, languages} and not all 0, 1–60 skills all in the ESCO subset, `min_years` ≤ 60, each language once; audited `rubric.update` |
+| POST | `/jobs/{job_id}/rescore` | R M | → `ScoreOutput[]` (all `proposed`); audited `scores.rescore` |
 | POST | `/jobs/{job_id}/shortlist` | R M | `{candidate_ids}` → `ApprovalItem` (kind `shortlist_commit`) |
+| POST | `/jobs/{job_id}/candidates/{candidate_id}/status` | R M | `{status_to: shortlisted\|interview\|offer\|hired\|rejected\|withdrawn}` → `ApprovalItem` (kind `status_change`); 404 for a candidate of another job, 409 if unchanged |
 | GET | `/jobs/{job_id}/stability?k=5&jitter=0.15` | R M | → `{k, jitter, draws, candidates: [{candidate_id, base_rank, p_top_k, rank_p05, rank_p95, label}]}`; label `stable_in` / `stable_out` / `borderline` |
 | GET | `/jobs/{job_id}/team-gaps` | R M | → `{team, coverage[], diff[], proposed_rubric, candidates_filling_gaps}`; a proposal only, applied by HR through PUT `/rubric` |
 | GET | `/jobs/{job_id}/offer-fit?k=5` | R M | → `{terms, band_coverage:{k, declared, within_band, share, band}, candidates:{id: {status, checks[]}}}`; status `fit` / `negotiable` / `mismatch` / `unknown`. Never part of the score |
@@ -72,12 +73,25 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | GET | `/eval/summary` | M A | → latest eval numbers with Clopper-Pearson CIs |
 | GET | `/eval/fairness` | M A | → group selection rates, adverse-impact ratios, proxy AUCs, positive control |
 
+### Platform
+| Method | Path | Roles | Body → Response |
+|---|---|---|---|
+| GET | `/health` | public | → `{ok: true}` |
+| GET | `/model/status?refresh=0` | R M A | → `{model, host: local\|modal\|remote, hosts, credentials, groq_fallback, reachable, model_loaded, latency_ms, error, cached}`; checks the Ollama host with backend-held credentials, cached 60 s (refresh: 10 s floor) so page views do not keep a Modal GPU awake; never returns the host URL or secrets |
+
+### Odoo connector (optional, `HG_ODOO_ENABLED=1`; see docs/erp_odoo.md)
+| Method | Path | Roles | Body → Response |
+|---|---|---|---|
+| GET | `/erp/status` | R M A | → `{enabled, connected, url, db, uid?, server_version?, error?}`; never fails |
+| GET | `/erp/jobs/{job_id}/applicants` | R M | → `[{applicant_id, candidate_id, name, email, stage, imported}]`; 404 unknown job, 409 disabled, 502 Odoo down |
+| POST | `/erp/jobs/{job_id}/import` | R M | screens new/changed CVs through the CV pipeline → `{job_id, imported[], skipped[]}`; writes nothing to Odoo |
+
 ### Workflow and security (P3)
 | Method | Path | Roles | Body → Response |
 |---|---|---|---|
 | POST | `/inbox/ingest` | A (demo seeding) | raw `.eml` text → `InboxItem` |
 | GET | `/inbox` | R M | → `{lanes:{routine:[...], needs_human:[...], suspicious:[...]}}`, grouped by intent and urgency |
-| GET | `/approvals` | R M | → `{batches:[{batch_id, kind, items: ApprovalItem[]}], high_risk: ApprovalItem[]}` |
+| GET | `/approvals` | R M | → `{batches:[{batch_id, kind, items: ApprovalItem[]}], high_risk: ApprovalItem[], max_batch_size}`; batches shrink when reviewers miss canaries |
 | POST | `/approvals/{id}/decision` | R M (offer: M, 2 distinct approvers) | `{decision:"approve"\|"reject"}` → `ApprovalItem` |
 | POST | `/approvals/batches/{batch_id}/decision` | R M | `{decision, item_ids}` → `ApprovalItem[]` |
 | POST | `/executor/run/{item_id}` | R M | → `{executed}`; **403 if the item is not approved** |
@@ -94,7 +108,8 @@ CandidateDetail = CandidateRow + {validated: ValidatedCV, page_count, hidden_fin
 | POST | `/inbox/{id}/release-request` | M | creates a `held_email_release` approval item |
 | POST | `/audit/anchor` | A | anchor the chain head now |
 | POST | `/employee-questions` | E | `{topic: leave\|salary\|certificate\|contract\|other, text ≤2000}` → ticket `{id, topic, risk, status}` (no text echoed) |
-| GET | `/employee-questions`, `/employee-questions/{id}` | E (own) M (all) | question rows; another employee's id → 404 |
+| GET | `/employee-questions` | E (own) M (all) | question rows |
+| GET | `/employee-questions/{id}` | E (own) M (all) | one question; another employee's id → 404 |
 | POST | `/employee-questions/{id}/reply` | M | `{template: received\|contact_hr\|use_documents, lang}` → `ApprovalItem` (`email_send` to the employee's own account) |
 | GET | `/followups/preview?days=3` | R M | → `[{candidate_id, job_id, lang, last_sent_at, days_silent}]`, creates nothing |
 | POST | `/followups/run?days=3` | R M | drafts one `email_send` reminder per silent candidate → `{item_ids}`; never sends. The only follow-up engine: executed emails only, closed candidates skipped, at most 2 per candidate |

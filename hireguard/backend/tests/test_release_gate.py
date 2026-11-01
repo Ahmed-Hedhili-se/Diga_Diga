@@ -54,6 +54,7 @@ MATRIX = {
     ("POST", "/api/jobs/{job_id}/shortlist"): "M R",
     ("POST", "/api/jobs/{job_id}/candidates/{candidate_id}/status"): "M R",
     ("GET", "/api/erp/status"): "A M R",
+    ("GET", "/api/model/status"): "A M R",
     ("GET", "/api/erp/jobs/{job_id}/applicants"): "M R",
     ("POST", "/api/erp/jobs/{job_id}/import"): "M R",
     ("GET", "/api/money"): "A M",

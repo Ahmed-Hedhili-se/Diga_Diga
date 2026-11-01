@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import sqlite3
 from datetime import date
@@ -14,6 +15,7 @@ from ..config import ROOT
 from ..contracts import ApprovalItem, ApprovalKind, Role, Rubric, ScoreOutput, UserOut
 from ..auth.core import require_roles
 from ..db import connect, register_schema
+from ..workflow.audit import append as audit_append
 from . import jobs, money, offer_fit, rediscover
 from .scorer import score
 from .stability import DEFAULT_DRAWS, stability
@@ -26,6 +28,7 @@ M = require_roles(Role.hr_manager)
 MA = require_roles(Role.hr_manager, Role.admin)
 
 EVAL_DIR = ROOT / "eval" / "results"
+EVAL_SUMMARY = EVAL_DIR / "summary.json"  # the harness default output: run "latest"
 EVAL_FAIRNESS = EVAL_DIR / "fairness.json"
 
 
@@ -82,13 +85,43 @@ def get_rubric(job_id: str, user: UserOut = Depends(RM)):
     return jobs.get_rubric(job_id)
 
 
+COMPONENTS = {"skills", "experience", "degree", "languages"}
+MAX_SKILLS = 60
+MAX_WEIGHT = 1000.0
+
+
+def _rubric_problem(rubric: Rubric) -> str | None:
+    """Server-side rubric rules. JSON accepts NaN/Infinity, and NaN < 0 is False, so finiteness is checked
+    explicitly: a NaN weight would otherwise reach the scorer and fail every later rescore."""
+    weights = [*rubric.skill_weights.values(), *rubric.component_weights.values(), rubric.min_years]
+    if not all(math.isfinite(w) for w in weights):
+        return "weights and min_years must be finite numbers"
+    if any(w < 0 or w > MAX_WEIGHT for w in weights):
+        return f"weights must be between 0 and {MAX_WEIGHT:g}"
+    if set(rubric.component_weights) - COMPONENTS:
+        return f"unknown score components: {sorted(set(rubric.component_weights) - COMPONENTS)}"
+    if sum(rubric.component_weights.get(c, 0) for c in COMPONENTS) <= 0:
+        return "component weights must not all be zero"
+    if not rubric.skill_weights or len(rubric.skill_weights) > MAX_SKILLS:
+        return f"a rubric needs 1 to {MAX_SKILLS} skills"
+    from ..pipeline.esco import esco_ids  # the validator only ever produces ESCO ids
+    unknown = sorted(set(rubric.skill_weights) - set(esco_ids()))
+    if unknown:
+        return f"unknown skills (not in the ESCO subset): {unknown[:5]}"
+    if rubric.min_years > 60:
+        return "min_years must be at most 60"
+    if len({l.iso for l in rubric.languages}) != len(rubric.languages):
+        return "each language may appear once"
+    return None
+
+
 @router.put("/jobs/{job_id}/rubric", response_model=Rubric)
 def put_rubric(job_id: str, rubric: Rubric, user: UserOut = Depends(M)):
     _job_or_404(job_id)
     if rubric.job_id != job_id:
         raise HTTPException(400, "job_id mismatch")
-    if any(w < 0 for w in rubric.skill_weights.values()) or any(w < 0 for w in rubric.component_weights.values()):
-        raise HTTPException(400, "weights must be >= 0")
+    if problem := _rubric_problem(rubric):
+        raise HTTPException(400, problem)  # 400 for every rubric rule (frozen contract)
     jobs.put_rubric(rubric, user.id)
     _audit(user.id, "rubric.update", "job", job_id, {"rubric": json.loads(rubric.model_dump_json())})
     return rubric
@@ -102,6 +135,7 @@ def rescore(job_id: str, user: UserOut = Depends(RM)):
     out = [score(v, rubric) for v in validated]
     for s in out:
         save_score(s)
+    _audit(user.id, "scores.rescore", "job", job_id, {"candidates": len(out)})
     return sorted(out, key=lambda s: -s.total)
 
 
@@ -301,23 +335,65 @@ def put_money_settings(body: MoneySettingsIn, user: UserOut = Depends(M)):
     return {"hourly_cost_tnd": body.hourly_cost_tnd}
 
 
+EVAL_LIMITATIONS = [
+    "All CVs, emails and attacks are synthetic and fictional; results describe this corpus, not real applicants.",
+    "Intervals are exact 95% Clopper-Pearson bounds; with small samples they are wide, so read the interval, not the point.",
+    "A section run without model calls (mode code_path) tests deterministic code (sanitizer, validator, scorer), "
+    "not the language model.",
+    "A section run with --limit measured a subset of the corpus.",
+]
+
+
+def _rates(obj) -> list[dict]:
+    """Every rate block ({k, n, ci95, ...}) inside a section, at any depth."""
+    if isinstance(obj, dict):
+        found = [obj] if {"k", "n", "ci95"} <= set(obj) else []
+        return found + [r for v in obj.values() for r in _rates(v)]
+    if isinstance(obj, list):
+        return [r for v in obj for r in _rates(v)]
+    return []
+
+
+def eval_report(summary: dict) -> dict:
+    """What was measured, how, on how many samples, and what it does not prove (persons/rayen.md)."""
+    sections = {}
+    for name, sec in (summary.get("sections") or {}).items():
+        if not isinstance(sec, dict) or "skipped" in sec:
+            sections[name] = {"measured": False, "reason": (sec or {}).get("skipped", "no result")}
+            continue
+        calls = sec.get("llm_calls_total")
+        sizes = [r["n"] for r in _rates(sec) if isinstance(r.get("n"), int)]
+        sizes += [v for k, v in sec.items() if k.startswith("n_") and isinstance(v, int)]
+        sections[name] = {"measured": True,
+                          "mode": "model" if calls else "code_path" if calls == 0 else "unknown",
+                          "samples": max(sizes) if sizes else None, "limit": sec.get("limit"),
+                          "llm_calls": calls, "seconds": sec.get("seconds")}
+    limitations = list(EVAL_LIMITATIONS)
+    if summary.get("groq_fallback"):
+        limitations.append("Groq fallback was on: some answers may come from a hosted model, not the local one.")
+    return {"model": summary.get("model"), "generated_at": summary.get("generated_at"),
+            "sections": sections, "limitations": limitations}
+
+
 def _eval_runs() -> dict[str, dict]:
-    """Every harness output in eval/results: summary.json (the last run) and summary_<name>.json (kept runs).
+    """Every harness output: summary.json (the harness default, run "latest") and summary_<name>.json (kept runs).
 
     Each run is labelled with the mode that produced it, so a code-path (oracle) number can never be shown
-    as a model result. Older files without a per-section mode take the run's mode.
+    as a model result. Older files without a per-section mode take the run's mode. An unreadable file is an
+    error (500), never an empty success.
     """
+    folder = EVAL_SUMMARY.parent
+    paths = ([EVAL_SUMMARY] if EVAL_SUMMARY.exists() else []) + sorted(folder.glob("summary_*.json"))
     runs = {}
-    for path in sorted(EVAL_DIR.glob("summary*.json")):
+    for path in paths:
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            continue
-        run_id = "latest" if path.stem == "summary" else path.stem.removeprefix("summary_")
+        except (OSError, ValueError) as e:
+            raise HTTPException(500, f"eval/results/{path.name} is unreadable: {e}")
+        run_id = "latest" if path == EVAL_SUMMARY else path.stem.removeprefix("summary_")
         modes = {s.get("extraction_mode") for s in data.get("sections", {}).values()
                  if isinstance(s, dict) and s.get("extraction_mode")}
-        mode = data.get("extraction_mode") or (modes.pop() if len(modes) == 1 else None) \
-            or ("llm" if data.get("model") else "unknown")
+        mode = data.get("extraction_mode") or (modes.pop() if len(modes) == 1 else None)             or ("llm" if data.get("model") else "unknown")
         label = "code path only, no model" if mode == "oracle" else f"model {data.get('model') or '?'}"
         if "unmasked" in run_id:
             label += ", before identity masking"
@@ -328,7 +404,8 @@ def _eval_runs() -> dict[str, dict]:
 
 @router.get("/eval/summary")
 def eval_summary(run: str | None = Query(None, max_length=80), user: UserOut = Depends(MA)):
-    """One labelled evaluation run (default: the newest model run, else the newest run) plus the list of runs."""
+    """One labelled evaluation run (default: the newest model run, else the newest run), the list of runs, and
+    `report`: an explicit statement of mode, sample size and limits for the chosen run."""
     runs = _eval_runs()
     if not runs:
         return {"status": "not_run", "runs": []}
@@ -339,12 +416,14 @@ def eval_summary(run: str | None = Query(None, max_length=80), user: UserOut = D
         raise HTTPException(404, "unknown evaluation run")
     chosen = runs[run]
     data = dict(chosen["data"])
+    report = eval_report(data)
     data["sections"] = {k: ({"extraction_mode": chosen["mode"]} | v) if isinstance(v, dict) else v
                         for k, v in data.get("sections", {}).items()}
-    if chosen["mode"] == "llm" and "baseline" not in data and (EVAL_DIR / "baseline.json").exists():
-        data["baseline"] = json.loads((EVAL_DIR / "baseline.json").read_text(encoding="utf-8"))
+    baseline = EVAL_SUMMARY.parent / "baseline.json"
+    if chosen["mode"] == "llm" and "baseline" not in data and baseline.exists():
+        data["baseline"] = json.loads(baseline.read_text(encoding="utf-8"))
     meta = lambda r: {k: r[k] for k in ("id", "mode", "model", "label", "generated_at")}
-    return data | {"run": meta(chosen), "runs": [meta(r) for r in runs.values()]}
+    return data | {"run": meta(chosen), "runs": [meta(r) for r in runs.values()], "report": report}
 
 
 @router.get("/eval/fairness")
@@ -355,8 +434,4 @@ def eval_fairness(user: UserOut = Depends(MA)):
 
 
 def _audit(actor, action, object_type, object_id, details):
-    try:
-        from ..workflow.audit import append  # P3
-    except ImportError:
-        return
-    append(actor, action, object_type, object_id, details)
+    audit_append(actor, action, object_type, object_id, details)  # never skipped: a failure fails the request

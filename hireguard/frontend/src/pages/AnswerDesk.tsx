@@ -13,6 +13,11 @@ const TOPICS: [QuestionTopic, string][] = [
 ];
 
 const STATUS_LABEL = { open: "waiting for HR", reply_drafted: "reply being checked", answered: "answered" } as const;
+const EXAMPLE_QUESTIONS = [
+  "What is the annual leave policy?",
+  "How can I request a work certificate?",
+  "What is my salary?",
+];
 
 export default function AnswerDesk() {
   const canAskHr = usePermission("questions.ask");
@@ -50,6 +55,23 @@ export default function AnswerDesk() {
         subtitle="Answers are exact extracts from the employee handbook, with citations. Nothing is generated."
       />
       <form className="card stack" onSubmit={ask}>
+        <div className="example-prompts">
+          <span className="muted small">Try an example</span>
+          <div className="row">
+            {EXAMPLE_QUESTIONS.map((example) => (
+              <button
+                type="button"
+                className="prompt-chip"
+                key={example}
+                onClick={() => setQ(example)}
+                disabled={busy}
+              >
+                {example}
+              </button>
+            ))}
+          </div>
+          <span className="muted small">Personal questions, such as salary, are routed to HR instead of answered automatically.</span>
+        </div>
         <label>
           Your question about company policy
           <textarea
