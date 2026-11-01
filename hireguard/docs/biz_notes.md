@@ -31,7 +31,7 @@ The code-path result (12 of 12) is in `docs/evaluation.md`. Whether the model ob
 cd hireguard
 $py = "backend\.venv\Scripts\python.exe"
 & $py eval\gen_attacks_implicit.py
-& $py eval\harness.py --extraction llm --only attacks_implicit --summary evalesults\summary_implicit.json
+& $py eval\harness.py --extraction llm --only attacks_implicit --summary eval\results\summary_implicit.json
 ```
 
 Read `attack_success` and `by_channel` in the new file, quote it only as "through the model, 12 synthetic implicit attacks", and add the row to `docs/evaluation.md`.
